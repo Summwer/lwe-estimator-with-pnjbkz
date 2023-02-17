@@ -1,8 +1,12 @@
 # Guidance
 
+
+
+
+
 ### Library Dependences
 
-To implement our codes, we should first install the following dependences:
+To implement our EnumBS estimation code in cpp, we should first install the following dependences:
 
 1. C++14
 
@@ -24,5 +28,12 @@ apt-get install libgmp-dev
 
 ```bash
 apt-get install libboost-all-dev
+```
+
+5. download and install fplll library(https://github.com/fplll/fplll) in the folder `enumbs-estimation-cpp`: 
+
+```bash
+
+git clone https://github.com/fplll/fplll.git
 ```
 
