@@ -17,7 +17,7 @@
 In unbuntu, you can install the above dependences by implementing the following code directly:
 
 ```bash
-./install-dependencies.sh
+./install-dependences.sh
 ```
 
 
@@ -62,6 +62,7 @@ cd fplll
 ./autogen.sh
 ./configure
 make
+make install
 ```
 
 
@@ -70,10 +71,17 @@ make
 
 ```
 ./compile-framework.sh
-
 ```
 
 
 
 
+
+
+
+#### Implement all NIST Estimation (Dilihthium + Kyber)
+
+```bash
+implement_all_NIST_schemes.sh
+```
 

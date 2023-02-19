@@ -1,4 +1,6 @@
-export LD_LIBRARY_PATH="/home/cryptothesis/summer/debug/our-lwe-estimation-cpp"
+export LD_LIBRARY_PATH="enumbs-estimation-cpp"
+
+mkdir enumbs_result
 
 g++ -O3 -funroll-loops -o dilithium1-enumbs-parallel-est-gate ./NIST-round3/dilithium1-enumbs-parallel-est-gate.cpp -pthread -lfplll -lgmp -lmpfr -lest
 ./dilithium1-enumbs-parallel-est-gate | tee enumbs_result/dilithium1-enumbs-parallel-est-gate.log
