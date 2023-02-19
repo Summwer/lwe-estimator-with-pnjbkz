@@ -4,7 +4,7 @@
 
 
 
-### Dependences
+### Dependencies
 
 #### Required
 
