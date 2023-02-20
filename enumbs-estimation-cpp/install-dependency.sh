@@ -11,6 +11,7 @@ cd fplll
 ./configure
 make
 make install
+make check
 cd ..
 
 
