@@ -82,6 +82,6 @@ make install
 #### Implement all NIST Estimation (Dilihthium + Kyber)
 
 ```bash
-implement_all_NIST_schemes.sh
+implement_all_NIST_schemes.sh #estimate NIST scheme in 50(default) threads. 
 ```
 

@@ -28,7 +28,8 @@ pair<double,double> COST::theo_bkz_cost(int n, int beta,int J){
     else if(beta_prime > 1024)
         return make_pair(MAX_NUM,MAX_NUM);
     else{
-        double gates = log2((((double)n-beta)/J)*COST::C*COST::C) + agps20_gates(beta_prime).get_d();
+        //double gates = log2((((double)n-beta)/J)*COST::C*COST::C) + agps20_gates(beta_prime).get_d();
+        double gates = log2((((double)n-beta)/J)*COST::C) + agps20_gates(beta_prime).get_d();
         double bits = log2(8*beta_prime); //+ agps20_vectors(beta_prime)
         return make_pair(gates, bits);
     }
@@ -44,7 +45,8 @@ pair<double,double> COST::theo_pump_cost(int beta){
     else if(beta_prime > 1024)
         return make_pair(MAX_NUM,MAX_NUM);
     else{
-        double gates = log2(COST::C*COST::C) + agps20_gates(beta_prime).get_d();
+        //double gates = log2(COST::C*COST::C) + agps20_gates(beta_prime).get_d();
+        double gates = log2(COST::C) + agps20_gates(beta_prime).get_d();
         // double bits = log2(8.*beta_prime); // + agps20_vectors(beta_prime)
         double bits = 0.;
         return make_pair(gates, bits);
