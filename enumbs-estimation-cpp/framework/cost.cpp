@@ -17,6 +17,36 @@ FP_NR<FT> COST::agps20_gates(int beta_prime){
 
 
 
+// Function C from AGPS20 source code
+FP_NR<FT> caps_vol(int d, FP_NR<FT> theta, bool integrate=false){
+    /*
+    The probability that some v from the sphere has angle at most theta with some fixed u.
+
+    :param d: We consider spheres of dimension `d-1`
+    :param theta: angle in radians
+    :param: compute via explicit integration
+    :param: precision to use
+
+    EXAMPLE::
+
+        sage: C(80, pi/3)
+        mpf('1.0042233739846629e-6')
+
+    */
+    
+    r = mp.betainc((d - 1) / 2, 1 / 2.0, x2=mp.sin(theta) ** 2, regularized=True) / 2
+        return r
+}
+
+
+
+// Return log2 of the number of vectors for sieving according to AGPS20
+double agps20_vectors(int beta_prime){
+    N = 1./caps_vol(beta_prime, M_PI/3.);
+    return log2(N);
+}
+
+
 //cost of bkz with progressive sieve
 pair<double,double> COST::theo_bkz_cost(int n, int beta,int J){
     /*Return cost of bkz-beta in theoretical Gate: T/G -- time cost, B -- memory cost*/

@@ -142,7 +142,7 @@ def pro_theo_pump_cost(beta):
     elif(beta_prime > 1024):
         return (float("inf"),float("inf"))
     else:
-        gates = log2(C*C) + agps20_gates(beta_prime)
+        gates = log2(C) + agps20_gates(beta_prime)
         bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
         return (gates, bits)
 
@@ -156,16 +156,16 @@ def theo_pump_cost(beta):
     elif(beta_prime > 1024):
         return (float("inf"),float("inf"))
     else:
-        gates = log2(C) + agps20_gates(beta_prime)
+        gates = agps20_gates(beta_prime)
         bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
         return (gates, bits)
 
     
 def pump_cost(d,beta,cost_model = 1):
     if(cost_model == 1):
-        return theo_pump_cost(beta)
+        return pro_theo_pump_cost(beta)
     elif(cost_model == 2):
-        return log2(get_pump_time(beta,d)),theo_pump_cost(beta)[1]
+        return log2(get_pump_time(beta,d)),pro_theo_pump_cost(beta)[1]
 
 def pro_bkz_cost(d, beta,J=1,cost_model=1):
     if(cost_model == 1):
