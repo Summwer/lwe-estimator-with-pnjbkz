@@ -915,24 +915,25 @@ void EnumBS::enumbs_est(vector<double> l){
     //print_BS(BS);
 
     //Find the optimal strategy
-    double Gmin = MAX_NUM, G1, G2, G;
+    double Gmin = MAX_NUM, G1, G2, G, Bmin, B;
     EnumBS::blocksize_strategy bsmin;
     for(int i = 0; i<int(BS.size()); i++){
         G1 = BS[i].GB_BKZ.first;
         G2 = get<2>(BS[i].dsvp_t);
         G = log2(pow(2,G1)+pow(2,G2));
-        
+        B = max(get<3>(BS[i].dsvp_t),BS[i].GB_BKZ.second);
         if(G<Gmin){
             bsmin = BS[i];
             Gmin = G;
+            Bmin = B;
         }
     }
     printf("Find the optimal Strategy through EumBS!!\n");
     print_bs(bsmin);
     if(params->cost_model == 1)
-        printf("Min Cost = %3.2f log2(gate)\n", Gmin);
+        printf("Min Cost = %3.2f log2(gate), Memory Cost = %3.2f log(bit)\n", Gmin, Bmin);
     if(params->cost_model == 2)
-        printf("Min Cost = %3.2f log2(sec)\n", Gmin);
+        printf("Min Cost = %3.2f log2(sec), Memory Cost = %3.2f log(bit)\n", Gmin, Bmin);
 }
 
 //return value: to determine whether the current bs0 will be changed or not.
@@ -1060,13 +1061,9 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
 
         
         int t_id = 0, len = (((j-1)/params->J_gap)+1)+(min(params->max_dim,d)-1-beta_start)/params->gap*(((params->J-1)/params->J_gap)+1);
-<<<<<<< HEAD
-        if(len > 0){
-=======
 
         if(len > 0){
 
->>>>>>> parent of ed680ed... Revert "udpate cost.cpp"
             int threads = min(len, params->threads);
             int block = len/threads;
             vector<vector<pair<int,int>>> beta_j;
@@ -1081,7 +1078,6 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
                 }
                 else{
                     departs[t_id] = block;
-<<<<<<< HEAD
                 }
                 
                 beta_j_t_id_begins[t_id] = beta_j_t_id_begins[t_id-1]+departs[t_id-1];
@@ -1096,22 +1092,6 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
                     }
                     beta_j[t_id].insert(beta_j[t_id].end(),make_pair(beta,j));
                 }
-=======
-                }
-                
-                beta_j_t_id_begins[t_id] = beta_j_t_id_begins[t_id-1]+departs[t_id-1];
-            } 
-        
-        
-            
-            for(beta = beta_start; beta < min(params->max_dim,d); beta +=params->gap){
-                for(; j>0; j-= params->J_gap){
-                    if(int(beta_j[t_id].size()) ==  departs[t_id] and t_id < threads-1){
-                        t_id++;
-                    }
-                    beta_j[t_id].insert(beta_j[t_id].end(),make_pair(beta,j));
-                }
->>>>>>> parent of ed680ed... Revert "udpate cost.cpp"
                 j = params->J;
             }
         
