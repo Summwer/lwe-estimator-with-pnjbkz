@@ -1061,86 +1061,89 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
         
         int t_id = 0, len = (((j-1)/params->J_gap)+1)+(min(params->max_dim,d)-1-beta_start)/params->gap*(((params->J-1)/params->J_gap)+1);
 
-        int threads = min(len, params->threads);
-        int block = len/threads;
-        vector<vector<pair<int,int>>> beta_j;
-        beta_j.resize(threads);
-        tmpBS.resize(len);
-        vector<int> beta_j_t_id_begins(threads,0), departs(threads,0);
-        
-    
-        for(int t_id = 0; t_id < threads; t_id++){
-            if(len%(threads)!=0 and ((t_id/(len%threads)) ? 0 : 1)){
-                departs[t_id] = block + 1;
-            }
-            else{
-                departs[t_id] = block;
-            }
+        if(len > 0){
+
+            int threads = min(len, params->threads);
+            int block = len/threads;
+            vector<vector<pair<int,int>>> beta_j;
+            beta_j.resize(threads);
+            tmpBS.resize(len);
+            vector<int> beta_j_t_id_begins(threads,0), departs(threads,0);
             
-            beta_j_t_id_begins[t_id] = beta_j_t_id_begins[t_id-1]+departs[t_id-1];
-        } 
-    
-    
         
-        for(beta = beta_start; beta < min(params->max_dim,d); beta +=params->gap){
-            for(; j>0; j-= params->J_gap){
-                if(int(beta_j[t_id].size()) ==  departs[t_id] and t_id < threads-1){
-                    t_id++;
+            for(int t_id = 0; t_id < threads; t_id++){
+                if(len%(threads)!=0 and ((t_id/(len%threads)) ? 0 : 1)){
+                    departs[t_id] = block + 1;
                 }
-                beta_j[t_id].insert(beta_j[t_id].end(),make_pair(beta,j));
-            }
-            j = params->J;
-        }
-    
-        if(params->debug){
-            int Sum = 0;
-            for(int t_id = 0; t_id  < int(beta_j.size()); t_id ++){
-                Sum += beta_j[t_id ].size();
-                cerr<<"t_id = "<<t_id<<", beta_j[i].size() = "<<beta_j[t_id].size()<<endl;
-            }
-            cerr<<len<<","<<Sum<<endl;
-            assert(len == Sum);
-        }
-    
+                else{
+                    departs[t_id] = block;
+                }
+                
+                beta_j_t_id_begins[t_id] = beta_j_t_id_begins[t_id-1]+departs[t_id-1];
+            } 
         
-        auto start= system_clock::now();
-        for (t_id = 0; t_id < threads; t_id++){
-            threadpool.push([this, t_id, beta_j_t_id_begins, beta_j, k](){
-                max_tour_for_pnjbkz_beta_in_parallel(  beta_j_t_id_begins[t_id], beta_j[t_id], k); 
-                // cerr<<"---"<<t_id<<"--"<<endl;
-            });
-            // if(!flag[t_id]){
-            //     bool flags = true;
-            //     for(int i = 0; i<=t_id; i++){
-            //         if(flag[i])
-            //     }
-            //     break;
-            // }
+        
             
-        }
-        threadpool.wait_work(); 
-        // printf("==============");
-        
-        if(params->verbose){
-            auto finish = system_clock::now();
-            duration<double> diff = finish - start;
-            printf("\r index: %4d, (beta,j): (%4d,%4d) --> (%4d,%4d), goal index: %4d, cost =" ,k+1,beta_j[0][0].first,beta_j[0][0].second,beta_j[threads-1][beta_j[threads-1].size()-1].first,beta_j[threads-1][beta_j[threads-1].size()-1].second,int(BS.size()));
-            cerr<<setprecision(2)<<diff.count()<<'s';
-        }
-        //BS_add method.
-        // if(params->verbose)
-        //     start = clock();
-        // start = system_clock::now();
-        for(int i = 0; i< len; i++){
-            // printf("In BS_add: %3.2f s, i = %d, tmpBS_size = %d \n ", (double)((finish-start)/CLOCKS_PER_SEC), i,int(tmpBS[i].size()));
-            for(int ii = 0; ii < int(tmpBS[i].size()); ii++){
-                EnumBS::BS_add_cdsvp(tmpBS[i][ii], k);
+            for(beta = beta_start; beta < min(params->max_dim,d); beta +=params->gap){
+                for(; j>0; j-= params->J_gap){
+                    if(int(beta_j[t_id].size()) ==  departs[t_id] and t_id < threads-1){
+                        t_id++;
+                    }
+                    beta_j[t_id].insert(beta_j[t_id].end(),make_pair(beta,j));
+                }
+                j = params->J;
             }
-           
-        }
         
-        tmpBS.clear();
-        beta_j.clear();
+            if(params->debug){
+                int Sum = 0;
+                for(int t_id = 0; t_id  < int(beta_j.size()); t_id ++){
+                    Sum += beta_j[t_id ].size();
+                    cerr<<"t_id = "<<t_id<<", beta_j[i].size() = "<<beta_j[t_id].size()<<endl;
+                }
+                cerr<<len<<","<<Sum<<endl;
+                assert(len == Sum);
+            }
+        
+            
+            auto start= system_clock::now();
+            for (t_id = 0; t_id < threads; t_id++){
+                threadpool.push([this, t_id, beta_j_t_id_begins, beta_j, k](){
+                    max_tour_for_pnjbkz_beta_in_parallel(  beta_j_t_id_begins[t_id], beta_j[t_id], k); 
+                    // cerr<<"---"<<t_id<<"--"<<endl;
+                });
+                // if(!flag[t_id]){
+                //     bool flags = true;
+                //     for(int i = 0; i<=t_id; i++){
+                //         if(flag[i])
+                //     }
+                //     break;
+                // }
+                
+            }
+            threadpool.wait_work(); 
+            // printf("==============");
+            
+            if(params->verbose){
+                auto finish = system_clock::now();
+                duration<double> diff = finish - start;
+                printf("\r index: %4d, (beta,j): (%4d,%4d) --> (%4d,%4d), goal index: %4d, cost =" ,k+1,beta_j[0][0].first,beta_j[0][0].second,beta_j[threads-1][beta_j[threads-1].size()-1].first,beta_j[threads-1][beta_j[threads-1].size()-1].second,int(BS.size()));
+                cerr<<setprecision(2)<<diff.count()<<'s';
+            }
+            //BS_add method.
+            // if(params->verbose)
+            //     start = clock();
+            // start = system_clock::now();
+            for(int i = 0; i< len; i++){
+                // printf("In BS_add: %3.2f s, i = %d, tmpBS_size = %d \n ", (double)((finish-start)/CLOCKS_PER_SEC), i,int(tmpBS[i].size()));
+                for(int ii = 0; ii < int(tmpBS[i].size()); ii++){
+                    EnumBS::BS_add_cdsvp(tmpBS[i][ii], k);
+                }
+            
+            }
+            
+            tmpBS.clear();
+            beta_j.clear();
+        }
         k++;
     }
     printf("\n");
