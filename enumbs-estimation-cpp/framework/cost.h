@@ -1,6 +1,4 @@
 #include "utils.h"
-#include "/usr/include/libalglib/stdafx.h"
-#include "/usr/include/libalglib/specialfunctions.h"
 
 using namespace std;
 using namespace fplll;
