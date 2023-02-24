@@ -1060,7 +1060,13 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
 
         
         int t_id = 0, len = (((j-1)/params->J_gap)+1)+(min(params->max_dim,d)-1-beta_start)/params->gap*(((params->J-1)/params->J_gap)+1);
+<<<<<<< HEAD
         if(len > 0){
+=======
+
+        if(len > 0){
+
+>>>>>>> parent of ed680ed... Revert "udpate cost.cpp"
             int threads = min(len, params->threads);
             int block = len/threads;
             vector<vector<pair<int,int>>> beta_j;
@@ -1075,6 +1081,7 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
                 }
                 else{
                     departs[t_id] = block;
+<<<<<<< HEAD
                 }
                 
                 beta_j_t_id_begins[t_id] = beta_j_t_id_begins[t_id-1]+departs[t_id-1];
@@ -1089,6 +1096,22 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
                     }
                     beta_j[t_id].insert(beta_j[t_id].end(),make_pair(beta,j));
                 }
+=======
+                }
+                
+                beta_j_t_id_begins[t_id] = beta_j_t_id_begins[t_id-1]+departs[t_id-1];
+            } 
+        
+        
+            
+            for(beta = beta_start; beta < min(params->max_dim,d); beta +=params->gap){
+                for(; j>0; j-= params->J_gap){
+                    if(int(beta_j[t_id].size()) ==  departs[t_id] and t_id < threads-1){
+                        t_id++;
+                    }
+                    beta_j[t_id].insert(beta_j[t_id].end(),make_pair(beta,j));
+                }
+>>>>>>> parent of ed680ed... Revert "udpate cost.cpp"
                 j = params->J;
             }
         

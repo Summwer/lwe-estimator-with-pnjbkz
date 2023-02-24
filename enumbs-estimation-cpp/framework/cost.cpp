@@ -18,31 +18,22 @@ FP_NR<FT> COST::agps20_gates(int beta_prime){
 
 
 // Function C from AGPS20 source code
-FP_NR<FT> caps_vol(int d, FP_NR<FT> theta, bool integrate=false){
+double caps_vol(int d, double theta, bool integrate=false){
     /*
     The probability that some v from the sphere has angle at most theta with some fixed u.
 
     :param d: We consider spheres of dimension `d-1`
     :param theta: angle in radians
     :param: compute via explicit integration
-    :param: precision to use
-
-    EXAMPLE::
-
-        sage: C(80, pi/3)
-        mpf('1.0042233739846629e-6')
 
     */
-    
-    r = mp.betainc((d - 1) / 2, 1 / 2.0, x2=mp.sin(theta) ** 2, regularized=True) / 2
-        return r
+    return alglib::incompletebeta((d-1.)/2., 1./2., pow(sin(theta),2))/2.;
+
 }
-
-
 
 // Return log2 of the number of vectors for sieving according to AGPS20
 double agps20_vectors(int beta_prime){
-    N = 1./caps_vol(beta_prime, M_PI/3.);
+    double N = 1./caps_vol(beta_prime, M_PI/3.);
     return log2(N);
 }
 
@@ -60,7 +51,7 @@ pair<double,double> COST::theo_bkz_cost(int n, int beta,int J){
     else{
         //double gates = log2((((double)n-beta)/J)*COST::C*COST::C) + agps20_gates(beta_prime).get_d();
         double gates = log2((((double)n-beta)/J)*COST::C) + agps20_gates(beta_prime).get_d();
-        double bits = log2(8*beta_prime); //+ agps20_vectors(beta_prime)
+        double bits = log2(8*beta_prime) + agps20_vectors(beta_prime);
         return make_pair(gates, bits);
     }
 }
@@ -77,8 +68,7 @@ pair<double,double> COST::theo_pump_cost(int beta){
     else{
         //double gates = log2(COST::C*COST::C) + agps20_gates(beta_prime).get_d();
         double gates = log2(COST::C) + agps20_gates(beta_prime).get_d();
-        // double bits = log2(8.*beta_prime); // + agps20_vectors(beta_prime)
-        double bits = 0.;
+        double bits = log2(8.*beta_prime) + agps20_vectors(beta_prime);
         return make_pair(gates, bits);
         
     }
@@ -193,10 +183,10 @@ pair<double,double> COST::pump_cost(int beta,int cost_model){
 
 pair<double,double> COST::bkz_cost(int d, int beta,int J,int cost_model){
     if(cost_model == 1)
-        return make_pair(theo_bkz_cost(d, beta, J).first, 0.);
+        return theo_bkz_cost(d, beta, J);
     else if(cost_model == 2){
         int f = dims4free(beta);
-        return make_pair(practical_bkz_cost(d,beta,f,J), 0.);//theo_bkz_cost(d, beta,J).second);
+        return make_pair(practical_bkz_cost(d,beta,f,J), theo_bkz_cost(d, beta,J).second);
     }
     return make_pair(MAX_NUM,MAX_NUM);
 }    
