@@ -533,25 +533,35 @@ void EnumBS::BS_add_cdsvp(EnumBS::blocksize_strategy bs, int k){
     double G_pos = BS[pos].GB_BKZ.first;
 
     // printf("\n%3.2f, %3.2f\n",cdsvp_pos, cdsvp);
+    // printf("\n%3.7f, %3.7f\n",G_pos, G);
     
-    while(cdsvp_pos + G_pos * MAX_DIM > cdsvp_pos + G * MAX_DIM){ //and compare_max_strategy(BS[pos].S, bs.S)){
+
+    while(G_pos !=0. and ((cdsvp_pos == cdsvp and G_pos > G) or (cdsvp_pos > cdsvp and G_pos >= G))){
+    // while(cdsvp_pos + G_pos *  2000 > cdsvp_pos + G * 2000 ){ //and compare_max_strategy(BS[pos].S, bs.S)){
         // cout << k <<","<<pos<<endl;
         // if(BS[pos].S.size()==0){
         //     flag = true;
         //     break;
         // }
         if( k >= pos){
-            break;
+            // break;
+            k = 0;
         }
         BS.erase(BS.begin()+pos);
-        
-        pos -= 1;
     
+        pos -= 1;
+        
+        if(pos == -1)
+            break;
         cdsvp_pos = round(get<0>(BS[pos].dsvp_t)*params->enumbs_prec)/params->enumbs_prec;
         G_pos = BS[pos].GB_BKZ.first;
     }
 
-    if((cdsvp_pos > cdsvp and G_pos <= G)){
+    // printf("pos = %d, BS_size = %d", pos, int(BS.size()));
+    // printf("\n%3.2f, %3.2f\n",cdsvp_pos, cdsvp);
+    // printf("\n%3.2f, %3.2f\n",G_pos, G);
+    // print_bs(bs);
+    if(pos == -1 or (cdsvp_pos > cdsvp and G_pos <= G)){
         BS.insert(BS.begin()+pos+1,bs);
     }
     
@@ -581,10 +591,12 @@ tuple<double,int,double,double> EnumBS::max_tour_for_pnjbkz_beta_loop( vector<do
     
 
     pair<double,double> GB = cost->bkz_cost(d,beta,jump,params->cost_model);
+    // printf("beta = %d, G = %3.7f, rem_pr = %e, pr = %e\n", beta, GB.first, rem_pr, pr);
     
     cum_GB.first = log2(pow(2,cum_GB.first)+(pow(2,GB.first)*rem_pr*pr));
     cum_GB.second = max(cum_GB.second, GB.second);
 
+    // printf("cum_G = %e\n", cum_GB.first );
     cum_pr += rem_pr * pr;
     rem_pr = 1. - cum_pr;
 
@@ -615,10 +627,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
     // G21 = get<2>(dsvp_t1);
 
     while(dsvp0 - dsvp1 >= 1 and loop < params->max_loop){
-        // if(loop > 10){
-        //     printf("\n%d, %d, %d, %3.2f, %3.2f\n", beta, jump, loop, dsvp0, dsvp1);
-        // }
-    // while(G20 - G21 >= 1){
+
         loop +=1;
         dsvp0 = dsvp1;
         // G20 = G21;
@@ -915,7 +924,7 @@ void EnumBS::enumbs_est(vector<double> l){
     //print_BS(BS);
 
     //Find the optimal strategy
-    double Gmin = MAX_NUM, G1, G2, G, Bmin, B;
+    double Gmin = MAX_NUM, Bmin  = MAX_NUM, G1, G2, G,  B;
     EnumBS::blocksize_strategy bsmin;
     for(int i = 0; i<int(BS.size()); i++){
         G1 = BS[i].GB_BKZ.first;
@@ -1099,9 +1108,9 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
                 int Sum = 0;
                 for(int t_id = 0; t_id  < int(beta_j.size()); t_id ++){
                     Sum += beta_j[t_id ].size();
-                    cerr<<"t_id = "<<t_id<<", beta_j[i].size() = "<<beta_j[t_id].size()<<endl;
+                    // cerr<<"t_id = "<<t_id<<", beta_j[i].size() = "<<beta_j[t_id].size()<<endl;
                 }
-                cerr<<len<<","<<Sum<<endl;
+                // cerr<<len<<","<<Sum<<endl;
                 assert(len == Sum);
             }
         
@@ -1150,24 +1159,25 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
     printf("\n");
 
     //Find the optimal strategy
-    double Gmin = MAX_NUM, G1, G2, G;
+    double Gmin = MAX_NUM, Bmin  = MAX_NUM, G1, G2, G,  B;
     EnumBS::blocksize_strategy bsmin;
     for(int i = 0; i<int(BS.size()); i++){
         G1 = BS[i].GB_BKZ.first;
         G2 = get<2>(BS[i].dsvp_t);
         G = log2(pow(2,G1)+pow(2,G2));
-        
+        B = max(get<3>(BS[i].dsvp_t),BS[i].GB_BKZ.second);
         if(G<Gmin){
             bsmin = BS[i];
             Gmin = G;
+            Bmin = B;
         }
     }
     printf("Find the optimal Strategy through EumBS!!\n");
     print_bs(bsmin);
     if(params->cost_model == 1)
-        printf("Min Cost = %3.2f log2(gate)\n", Gmin);
+        printf("Min Cost = %3.2f log2(gate), Memory Cost = %3.2f log(bit)\n", Gmin, Bmin);
     if(params->cost_model == 2)
-        printf("Min Cost = %3.2f log2(sec)\n", Gmin);
+        printf("Min Cost = %3.2f log2(sec), Memory Cost = %3.2f log(bit)\n", Gmin, Bmin);
 }
 
 

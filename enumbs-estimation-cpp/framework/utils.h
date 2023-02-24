@@ -32,12 +32,12 @@ using namespace std::chrono;
 
 
 #ifndef MAX_LOOP
-#define MAX_LOOP 20
+#define MAX_LOOP 1
 #endif
 
 
 #ifndef PREC
-#define PREC 10
+#define PREC 100
 #endif
 
 void print_map(map<int, rational<int>> mp);
@@ -76,7 +76,7 @@ double gaussian_heuristic_log2(vector<double> l, int index_start);
 int dims4free(int beta);
 
 struct Params{
-    int J = 20; //J -- maximal jump value;
+    int J = 1; //J -- maximal jump value;
     int gap = 1; //gap -- gap of each beta;
     int J_gap = 1; //J_gap -- gap of each jump value;
     //cost_model: 1: gate model; 2: sec model with threads=32, gpus = 2 
@@ -90,7 +90,7 @@ struct Params{
     int enumbs_prec = PREC; //set the precision of enumbs
     int method = 1; //1: enumbs estiamtion
 
-    bool debug = false; //print debug logging or not.
+    bool debug = true; //print debug logging or not.
     bool verification =false; //verify the correctness of strategy
 
 };
