@@ -9,60 +9,6 @@ void BSSA::print_strategy(vector<BSSA::strategy> S){
     cout<<"}"<<endl;
 }
 
-void BSSA::dsvp_predict(vector<double> l, int beta, double cum_pr, bool progressive_sieve){
-    if(progressive_sieve)
-        progressive_dsvp_predict(l, beta, cum_pr);
-    else
-        fixed_dsvp_predict(l, beta, cum_pr);
-}
-
-double BSSA::fixed_dsvp_predict(vector<double> l, int beta, double cum_pr){
-    int d = l.size();
-    double psvp, p, rp, gh;
-    if(cum_pr >= 1.){
-        return 0.;
-    }
-    for(int dsvp = 50; dsvp < d; dsvp++ ){
-        //2**(2 * l1[d-dsvp])==2**(2 * l1d_dsvp)==gh
-        gh = gaussian_heuristic_log2(l,d-dsvp);
-        
-        boost::math::chi_squared chisquare(dsvp);
-        psvp = boost::math::cdf(chisquare,gh); //Compute chi-squared value
-        
-        p = cum_pr + (1. - cum_pr)* psvp;
-        // cout<<dsvp<<","<<gh<<","<<p<<endl;
-        rp = 1. - p;
-        if(rp < 0.001){
-            return  dsvp + dsvp * rp;  //Avoid too small of dsvp
-        }
-    }
-    return d;
-}
-
-void BSSA::progressive_dsvp_predict(vector<double> l, int beta, double cum_pr){
-    int d = l.size();
-    double psvp, p, rp, gh;
-    if(cum_pr >= 1.){
-        return 0.;
-    }
-    for(int dsvp = 50; dsvp < d; dsvp++ ){
-        //2**(2 * l1[d-dsvp])==2**(2 * l1d_dsvp)==gh
-        gh = gaussian_heuristic_log2(l,d-dsvp);
-        
-        boost::math::chi_squared chisquare(dsvp);
-        psvp = boost::math::cdf(chisquare,gh); //Compute chi-squared value
-        
-        p = cum_pr + (1. - cum_pr)* psvp;
-        // cout<<dsvp<<","<<gh<<","<<p<<endl;
-        rp = 1. - p;
-        if(rp < 0.001){
-            return  dsvp + dsvp * rp;  //Avoid too small of dsvp
-        }
-    }
-    return d;
-}
-
-
 int BSSA::min_tour_to_each_goal_dsvp(vector<double> l0,double cumulated_proba0,int beta, int jump, double goal_dsvp){
     /*
     input: l0 -- log2(||b_i^*||) gs-lengths
@@ -171,7 +117,7 @@ void BSSA::bssa_generate(vector<double> l0, int beta_start, int beta_goal, int j
                 for(int j=1; j < J+1; j+=J_gap){
                     if(G_tmp == 0)
                         break;
-                    l_, _, loop_, G_, cumulated_proba_= min_tour_to_each_goal_dsvp(l,cum_pr,beta,jump=j,dsvp_star = dsvp_star);
+                    // l_, _, loop_, G_, cumulated_proba_= min_tour_to_each_goal_dsvp(l,cum_pr,beta,jump=j,dsvp_star = dsvp_star);
                         
                 //     if G_tmp > G_:
                 //         S_tmp, l_tmp, G_tmp, cumulated_proba_tmp,beta_tmp =[(beta_alg,j) for _ in range(loop_)], l_,  G_,cumulated_proba_, beta_alg

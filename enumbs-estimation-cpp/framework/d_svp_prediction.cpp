@@ -41,7 +41,7 @@ tuple<double,int,double,double> fixed_dsvp_predict(vector<double> l, double cum_
         }
     }
     p_cost = cost->pump_cost(d,cost_model);
-    return make_tuple(d, d, p_cost.first, p_cost.second);
+    return make_tuple(d, d, p_cost.first, p_cost.second);   
 }
 
 tuple<double,int,double,double> progressive_dsvp_predict(vector<double> l, double cum_pr, COST* cost, int cost_model){

@@ -49,7 +49,7 @@ class EnumBS{
         int binary_search_for_dsvp(double dsvp);
         int binary_search_for_G2(double G2);
 
-        int get_max_strategy(vector<EnumBS::strategy> S);
+        pair<int,int> get_max_strategy(vector<EnumBS::strategy> S);
         bool compare_max_strategy(vector<EnumBS::strategy> S0, vector<EnumBS::strategy> S1);
 
         // int max_beta_in_S(vector<EnumBS::strategy> S);

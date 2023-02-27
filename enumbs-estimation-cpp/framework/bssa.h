@@ -1,4 +1,4 @@
-#include "bkz_with_jump_simulator.h"
+#include "enumbs.h"
 
 
 class BSSA{

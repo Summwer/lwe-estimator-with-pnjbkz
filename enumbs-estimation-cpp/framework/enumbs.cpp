@@ -34,6 +34,8 @@ void EnumBS::print_BS(vector<blocksize_strategy> BS){
 
 void EnumBS::print_bs(blocksize_strategy bs){
     cout<<"bs = ";
+
+    // double G1 = strategy_verification(l,BS[i].S).first;
     
     printf("(G_BKZ = %3.2f gate, B_BKZ = %3.2f bit cum-pr = %3.2f, dsvp = %3.2f, dsvp_r = %3d, G_dsvp = %3.2f gate, B_dsvp = %3.2f bit, G = %3.2f gate, B = %3.2f bit)\n",  bs.GB_BKZ.first, bs.GB_BKZ.second, bs.cum_pr, get<0>(bs.dsvp_t), get<1>(bs.dsvp_t),get<2>(bs.dsvp_t),get<3>(bs.dsvp_t), log2(pow(2,get<2>(bs.dsvp_t)) + pow(2,bs.GB_BKZ.first)), max(bs.GB_BKZ.second,get<3>(bs.dsvp_t)) );   
 
@@ -125,13 +127,15 @@ int EnumBS::binary_search_for_G2(double G2){
     
     
     int len = int(BS.size());
-    double G2_tmp = round(get<2>(BS[len-1].dsvp_t)*params->enumbs_prec)/params->enumbs_prec; ;
+    // double G2_tmp = round(pow(2,get<2>(BS[len-1].dsvp_t))*params->enumbs_prec)/params->enumbs_prec;
+    double G2_tmp = round(get<2>(BS[len-1].dsvp_t)*params->enumbs_prec)/params->enumbs_prec;
     if(G2_tmp >= G2)
         return len;
     
     int left = 0, right = len - 1;
     int mid = floor((left+right)/2);
     while(left<right){
+        // if(round(pow(2,get<2>(BS[mid].dsvp_t))*params->enumbs_prec)/params->enumbs_prec >= G2) left = mid + 1;
         if(round(get<2>(BS[mid].dsvp_t)*params->enumbs_prec)/params->enumbs_prec >= G2) left = mid + 1;
         else right = mid;
         mid = floor((left+right)/2);
@@ -215,13 +219,13 @@ bool EnumBS::no_repeated_value_verification(vector<double> nums){
 }
 
 
-int EnumBS::get_max_strategy(vector<EnumBS::strategy> S){
+pair<int,int> EnumBS::get_max_strategy(vector<EnumBS::strategy> S){
     if(S.size()!=0){
         strategy S_pos = S[S.size()-1];
-        return S_pos.beta * 100 + (100 - S_pos.jump);
+        return make_pair(S_pos.beta, S_pos.jump);
     }
     else{
-        return  0;
+        return  make_pair(0,0);
     }
 }
 
@@ -229,110 +233,132 @@ int EnumBS::get_max_strategy(vector<EnumBS::strategy> S){
 //true: S0's insertion range is smaller than or equal to S1.
 //false: S0's insertion range is larger than S1.
 bool EnumBS::compare_max_strategy(vector<EnumBS::strategy> S0, vector<EnumBS::strategy> S1){
-    int max_strategy_bs_pos0 = get_max_strategy(S0);
-    int max_strategy_bs_pos1 = get_max_strategy(S1);
-    return max_strategy_bs_pos0 >= max_strategy_bs_pos1;
+    pair<int,int> max_strategy_bs_pos0 = get_max_strategy(S0);
+    pair<int,int> max_strategy_bs_pos1 = get_max_strategy(S1);
+    
+    if(max_strategy_bs_pos0.first > max_strategy_bs_pos1.first or (max_strategy_bs_pos0.first == max_strategy_bs_pos1.first and max_strategy_bs_pos0.second <= max_strategy_bs_pos1.second)){
+        return true;
+    }
+    else{
+        return false;
+    }
+   
 }
 
 //return value: to determine whether the current bs0 is changed or not.
 //False: bs0 is changed.
 //True: bs0 is not change.
-pair<int,bool> EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
-    //int cdsvp = ceil(get<0>(bs.dsvp_t));
-    double dsvp = get<0>(bs.dsvp_t);
-    double G = bs.GB_BKZ.first;
-    bool flag = true;
+// pair<int,bool> EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
+//     //int cdsvp = ceil(get<0>(bs.dsvp_t));
+//     double dsvp = get<0>(bs.dsvp_t);
+//     double G = bs.GB_BKZ.first;
+//     bool flag = true;
 
-    //BS.size() == 0, add bs directly
-    if(BS.size() == 0){
-        // BS.resize(1);
-        // BS[0] = bs;
-        BS.insert(BS.end(),bs);
-        return make_pair(k,flag);
-    }
+//     //BS.size() == 0, add bs directly
+//     if(BS.size() == 0){
+//         // BS.resize(1);
+//         // BS[0] = bs;
+//         BS.insert(BS.end(),bs);
+//         return make_pair(k,flag);
+//     }
 
 
 
-    // int pos = find_pos_for_dsvp(cdsvp);
-    // int pos = find_pos_for_dsvp(dsvp);
-    int pos = binary_search_for_cdsvp(dsvp);
+//     // int pos = find_pos_for_dsvp(cdsvp);
+//     // int pos = find_pos_for_dsvp(dsvp);
+//     int pos = binary_search_for_cdsvp(dsvp);
     
 
     
-    //BS.size() > 0, but all dsvps in EnumBS are smaller than dsvp_, don't add dsvp_, then pos = 0.
-    if(pos == 0){
-        return make_pair(k,flag);
-    }
+//     //BS.size() > 0, but all dsvps in EnumBS are smaller than dsvp_, don't add dsvp_, then pos = 0.
+//     if(pos == 0){
+//         return make_pair(k,flag);
+//     }
 
-    //BS.size() > 0, and it exits some dsvps in EnumBS >= dsvp_, then pos > 0.
-    //cdsvp_tmp == cdvsp
-    pos--;
-    // int cdsvp_pos = ceil(get<0>(BS[pos].dsvp_t));
-    double dsvp_pos = get<0>(BS[pos].dsvp_t);
+//     //BS.size() > 0, and it exits some dsvps in EnumBS >= dsvp_, then pos > 0.
+//     //cdsvp_tmp == cdvsp
+//     pos--;
+//     // int cdsvp_pos = ceil(get<0>(BS[pos].dsvp_t));
+//     double dsvp_pos = get<0>(BS[pos].dsvp_t);
     
-    double G_pos = BS[pos].GB_BKZ.first;
+//     double G_pos = BS[pos].GB_BKZ.first;
     
 
-    // while((cdsvp_pos == cdsvp and G_pos > G) or (cdsvp_pos > cdsvp and G_pos >= G )){
-    while((dsvp_pos == dsvp and G_pos > G) or (dsvp_pos > dsvp and G_pos >= G )){
-        // if(BS[pos].S.size()==0){
-        //     flag = true;
-        //     break;
-        // }
-        BS.erase(BS.begin()+pos);
+//     // while((cdsvp_pos == cdsvp and G_pos > G) or (cdsvp_pos > cdsvp and G_pos >= G )){
+//     while((dsvp_pos == dsvp and G_pos > G) or (dsvp_pos > dsvp and G_pos >= G )){
+//         // if(BS[pos].S.size()==0){
+//         //     flag = true;
+//         //     break;
+//         // }
+//         BS.erase(BS.begin()+pos);
         
-        if( k > pos and k >0){
-            k -= 1;
-            flag = false;
-        }
-        pos -= 1;
-        if(pos < 0)
-            break;
-        // cdsvp_pos = ceil(get<0>(BS[pos].dsvp_t));
-        dsvp_pos = get<0>(BS[pos].dsvp_t);
-        G_pos = BS[pos].GB_BKZ.first;
-    }
+//         if( k > pos and k >0){
+//             k -= 1;
+//             flag = false;
+//         }
+//         pos -= 1;
+//         if(pos < 0)
+//             break;
+//         // cdsvp_pos = ceil(get<0>(BS[pos].dsvp_t));
+//         dsvp_pos = get<0>(BS[pos].dsvp_t);
+//         G_pos = BS[pos].GB_BKZ.first;
+//     }
 
-    if(pos == -1 or (dsvp_pos > dsvp and G_pos <= G)){
-        BS.insert(BS.begin()+pos+1,bs);
-        if(k==pos+1)
-            flag = false;
-    }
+//     if(pos == -1 or (dsvp_pos > dsvp and G_pos <= G)){
+//         BS.insert(BS.begin()+pos+1,bs);
+//         if(k==pos+1)
+//             flag = false;
+//     }
 
-    if(k==pos+1)
-        flag = false;
+//     if(k==pos+1)
+//         flag = false;
 
 
-    //Verification
-    // vector<int> cdsvps = extract_cdsvp();
-    // vector<int> sorted_cdsvps = cdsvps;
-    // sort(sorted_cdsvps.rbegin(),sorted_cdsvps.rend());
-    // assert(cdsvps == sorted_cdsvps);
-    // assert(no_repeated_value_verification(cdsvps));
+//     //Verification
+//     // vector<int> cdsvps = extract_cdsvp();
+//     // vector<int> sorted_cdsvps = cdsvps;
+//     // sort(sorted_cdsvps.rbegin(),sorted_cdsvps.rend());
+//     // assert(cdsvps == sorted_cdsvps);
+//     // assert(no_repeated_value_verification(cdsvps));
 
-    if(params->debug){
-        vector<double> dsvps = extract_dsvp();
-        vector<double> sorted_dsvps = dsvps;
-        // print_vector(dsvps);
-        sort(sorted_dsvps.rbegin(),sorted_dsvps.rend());
-        assert(dsvps == sorted_dsvps);
-        assert(no_repeated_value_verification(dsvps));
-    }
+//     if(params->debug){
+//         vector<double> dsvps = extract_dsvp();
+//         vector<double> sorted_dsvps = dsvps;
+//         // print_vector(dsvps);
+//         sort(sorted_dsvps.rbegin(),sorted_dsvps.rend());
+//         assert(dsvps == sorted_dsvps);
+//         assert(no_repeated_value_verification(dsvps));
+//     }
 
-    return make_pair(k,flag);
+//     return make_pair(k,flag);
 
-}
+// }
 
 
 //return value: to determine whether the current bs0 is changed or not.
 //False: bs0 is changed.
 //True: bs0 is not change.
 void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
-    //int cdsvp = ceil(get<0>(bs.dsvp_t));
+    
+    // params->enumbs_prec = PREC;
+    // while(pow(2,get<2>(bs.dsvp_t)) * params->enumbs_prec < params->enumbs_bound or pow(2,bs.GB_BKZ.first)*params->enumbs_prec < params->enumbs_bound ){
+    //     // print_strategy(bs.S);
+    //     // cout<<pow(2,get<2>(bs.dsvp_t))<<","<<pow(2,bs.GB_BKZ.first)<<endl;
+    //     params->enumbs_prec *= 10;
+    // }
+    
+
+    // double G2 = round(pow(2,get<2>(bs.dsvp_t))*params->enumbs_prec)/params->enumbs_prec;
+    // double G = round(pow(2,bs.GB_BKZ.first)*params->enumbs_prec)/params->enumbs_prec;
+    // double G = bs.GB_BKZ.first;
+
+
     double G2 = round(get<2>(bs.dsvp_t)*params->enumbs_prec)/params->enumbs_prec;
-    double G = bs.GB_BKZ.first;
+    double G = round(bs.GB_BKZ.first*params->enumbs_prec)/params->enumbs_prec;
 
-    // print_bs(bs);
+
+    
+
 
     //BS.size() == 0, add bs directly
     if(BS.size() == 0){
@@ -342,11 +368,16 @@ void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
         return;
     }
 
-
-
-    // int pos = find_pos_for_dsvp(cdsvp);
-    // int pos = find_pos_for_dsvp(dsvp);
     int pos = binary_search_for_G2(G2);
+
+    // cout<<"========================="<<endl;
+    // cout<<pow(2,get<2>(bs.dsvp_t))*params->enumbs_prec<<endl;
+    // vector<double> G2s = extract_G2();
+    // print_vector(G2s);
+    // cout<<"pos = "<<pos<<endl;
+    // printf("G2 = %3.2f ", G2);
+
+    // cout<<"\n------------------------"<<endl;
     
 
     
@@ -355,151 +386,51 @@ void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
         return;
     }
 
-    //BS.size() > 0, and it exits some dsvps in EnumBS >= dsvp_, then pos > 0.
-    //cdsvp_tmp == cdvsp
+    //BS.size() > 0, and it exits some G2s in EnumBS >= G2_, then pos > 0.
+    //G2_tmp == G2
     pos--;
-    // int cdsvp_pos = ceil(get<0>(BS[pos].dsvp_t));
-    double G2_pos = round(get<2>(BS[pos].dsvp_t)*params->enumbs_prec)/params->enumbs_prec;;
-    
-    double G_pos = BS[pos].GB_BKZ.first;
-    
+    // double G2_pos = round(pow(2,get<2>(BS[pos].dsvp_t))*params->enumbs_prec)/params->enumbs_prec;
+    // double G_pos = round(pow(2,BS[pos].GB_BKZ.first)*params->enumbs_prec)/params->enumbs_prec;
+    double G2_pos = round(get<2>(BS[pos].dsvp_t)*params->enumbs_prec)/params->enumbs_prec;
+    double G_pos = round(BS[pos].GB_BKZ.first*params->enumbs_prec)/params->enumbs_prec;
+    // double G_pos = BS[pos].GB_BKZ.first;
 
-    
-    // cerr<<"============="<<endl;
-    // while((cdsvp_pos == cdsvp and G_pos > G) or (cdsvp_pos > cdsvp and G_pos >= G )){
+    // cout<<"\n========================"<<endl;
+    // printf("G2_pos = %3.2f, G2 = %3.2f ", G2_pos, G2);
+    // printf("G_pos = %3.2f, G = %3.2f ", G_pos, G);
+    // cout<<"\n------------------------"<<endl;
+
     //While cost of previous strategy is worse than new strategy and the range of strategy to erase is smaller than or equal to new strategy.
-    while( G2_pos * MAX_NUM + G_pos > G2 * MAX_NUM + G and compare_max_strategy(BS[pos].S, bs.S) ){ 
-        if( k >= pos){
-            break;
-        }
+    while(((G2_pos == G2 and G_pos > G) or (G2_pos > G2 and G_pos >= G))){// and compare_max_strategy(BS[pos].S, bs.S)){ 
+     
         BS.erase(BS.begin()+pos);
         pos -= 1;
-        // if(pos < 0)
-        //     break;
-        // cdsvp_pos = ceil(get<0>(BS[pos].dsvp_t));
-        G2_pos = round(get<2>(BS[pos].dsvp_t)*params->enumbs_prec)/params->enumbs_prec;;
-        G_pos = BS[pos].GB_BKZ.first;
+        if(pos == -1)
+            break;
+
+        // G2_pos = round(pow(2,get<2>(BS[pos].dsvp_t))*params->enumbs_prec)/params->enumbs_prec;
+        // G_pos = round(pow(2,BS[pos].GB_BKZ.first)*params->enumbs_prec)/params->enumbs_prec;
+        // G_pos = BS[pos].GB_BKZ.first;
+
+        G2_pos = round(get<2>(BS[pos].dsvp_t)*params->enumbs_prec)/params->enumbs_prec;
+        G_pos = round(BS[pos].GB_BKZ.first*params->enumbs_prec)/params->enumbs_prec;
 
     }
-    // cerr<<pos<<endl;
-    // print_bs(BS[pos]);
-    if((G2_pos > G2 and G_pos <= G)){
+    
+    if( pos == -1 or ((G2_pos > G2 and G_pos <= G))){
         BS.insert(BS.begin()+pos+1,bs);
-        // if(k==pos+1)
-            // flag = false;
     }
 
-    // if(k==pos+1)
-        // flag = false;
 
-
-    //Verification
-    // vector<int> cdsvps = extract_cdsvp();
-    // vector<int> sorted_cdsvps = cdsvps;
-    // sort(sorted_cdsvps.rbegin(),sorted_cdsvps.rend());
-    // assert(cdsvps == sorted_cdsvps);
-    // assert(no_repeated_value_verification(cdsvps));
 
     if(params->debug){
         vector<double> G2s = extract_G2();
         vector<double> sorted_G2s = G2s;
-        // print_vector(dsvps);
+        // print_vector(G2s);
         sort(sorted_G2s.rbegin(),sorted_G2s.rend());
         assert(G2s == sorted_G2s);
         assert(no_repeated_value_verification(G2s));
     }
-
-
-
-}
-
-//return value: to determine whether the current bs0 is changed or not.
-//False: bs0 is changed.
-//True: bs0 is not change.
-pair<int,bool> EnumBS::BS_add_G2_backup(EnumBS::blocksize_strategy bs, int k){
-    //int cdsvp = ceil(get<0>(bs.dsvp_t));
-    double G2 = get<2>(bs.dsvp_t);
-    double G = bs.GB_BKZ.first;
-    bool flag = true;
-
-    //BS.size() == 0, add bs directly
-    if(BS.size() == 0){
-        // BS.resize(1);
-        // BS[0] = bs;
-        BS.insert(BS.end(),bs);
-        return make_pair(k,flag);
-    }
-
-
-
-    // int pos = find_pos_for_dsvp(cdsvp);
-    // int pos = find_pos_for_dsvp(dsvp);
-    int pos = binary_search_for_G2(G2);
-    
-
-    
-    //BS.size() > 0, but all dsvps in EnumBS are smaller than dsvp_, don't add dsvp_, then pos = 0.
-    if(pos == 0){
-        return make_pair(k,flag);
-    }
-
-    //BS.size() > 0, and it exits some dsvps in EnumBS >= dsvp_, then pos > 0.
-    //cdsvp_tmp == cdvsp
-    pos--;
-    // int cdsvp_pos = ceil(get<0>(BS[pos].dsvp_t));
-    double G2_pos = get<2>(BS[pos].dsvp_t);
-    
-    double G_pos = BS[pos].GB_BKZ.first;
-    
-
-    // while((cdsvp_pos == cdsvp and G_pos > G) or (cdsvp_pos > cdsvp and G_pos >= G )){
-    while((G2_pos == G2 and G_pos > G) or (G2_pos > G2 and G_pos >= G )){
-        // if(BS[pos].S.size()==0){
-        //     flag = true;
-        //     break;
-        // }
-        BS.erase(BS.begin()+pos);
-        
-        if( k > pos and k >0){
-            k -= 1;
-            flag = false;
-        }
-        pos -= 1;
-        if(pos < 0)
-            break;
-        // cdsvp_pos = ceil(get<0>(BS[pos].dsvp_t));
-        G2_pos = get<2>(BS[pos].dsvp_t);
-        G_pos = BS[pos].GB_BKZ.first;
-    }
-
-    if(pos == -1 or (G2_pos > G2 and G_pos <= G)){
-        BS.insert(BS.begin()+pos+1,bs);
-        if(k==pos+1)
-            flag = false;
-    }
-
-    if(k==pos+1)
-        flag = false;
-
-
-    //Verification
-    // vector<int> cdsvps = extract_cdsvp();
-    // vector<int> sorted_cdsvps = cdsvps;
-    // sort(sorted_cdsvps.rbegin(),sorted_cdsvps.rend());
-    // assert(cdsvps == sorted_cdsvps);
-    // assert(no_repeated_value_verification(cdsvps));
-
-    if(params->debug){
-        vector<double> G2s = extract_G2();
-        vector<double> sorted_G2s = G2s;
-        // print_vector(dsvps);
-        sort(sorted_G2s.rbegin(),sorted_G2s.rend());
-        assert(G2s == sorted_G2s);
-        assert(no_repeated_value_verification(G2s));
-    }
-
-    return make_pair(k,flag);
-
 }
 
 
@@ -535,14 +466,19 @@ void EnumBS::BS_add_cdsvp(EnumBS::blocksize_strategy bs, int k){
     // printf("\n%3.2f, %3.2f\n",cdsvp_pos, cdsvp);
     // printf("\n%3.7f, %3.7f\n",G_pos, G);
     
+    // if(bs.S[bs.S.size()-1].beta<80){
+    //     printf("\n\n====================================\n");
+    //     printf("pos = %d, BS_size = %d", pos, int(BS.size()));
+    //     printf("\n%3.7f, %3.7f\n",cdsvp_pos, cdsvp);
+    //     printf("\n%3.7f, %3.7f\n",G_pos, G);
+    //     print_strategy(BS[pos].S);
+    //     print_strategy(bs.S);
+    //     printf("...........................\n");
+    // }
+    //
+    //
+    while( ((cdsvp_pos == cdsvp and G_pos > G) or (cdsvp_pos > cdsvp and G_pos >= G)) and compare_max_strategy(BS[pos].S, bs.S)){
 
-    while(G_pos !=0. and ((cdsvp_pos == cdsvp and G_pos > G) or (cdsvp_pos > cdsvp and G_pos >= G))){
-    // while(cdsvp_pos + G_pos *  2000 > cdsvp_pos + G * 2000 ){ //and compare_max_strategy(BS[pos].S, bs.S)){
-        // cout << k <<","<<pos<<endl;
-        // if(BS[pos].S.size()==0){
-        //     flag = true;
-        //     break;
-        // }
         if( k >= pos){
             // break;
             k = 0;
@@ -553,15 +489,16 @@ void EnumBS::BS_add_cdsvp(EnumBS::blocksize_strategy bs, int k){
         
         if(pos == -1)
             break;
-        cdsvp_pos = round(get<0>(BS[pos].dsvp_t)*params->enumbs_prec)/params->enumbs_prec;
+        cdsvp_pos = get<0>(BS[pos].dsvp_t);//round(get<0>(BS[pos].dsvp_t)*params->enumbs_prec)/params->enumbs_prec;
         G_pos = BS[pos].GB_BKZ.first;
     }
 
-    // printf("pos = %d, BS_size = %d", pos, int(BS.size()));
-    // printf("\n%3.2f, %3.2f\n",cdsvp_pos, cdsvp);
-    // printf("\n%3.2f, %3.2f\n",G_pos, G);
+    
+
     // print_bs(bs);
     if(pos == -1 or (cdsvp_pos > cdsvp and G_pos <= G)){
+    // if(pos == -1 or (cdsvp_pos >= cdsvp and G_pos <= G)){
+    // if(pos == -1 or (cdsvp_pos > cdsvp and G_pos <= G) or cdsvp_pos == cdsvp){
         BS.insert(BS.begin()+pos+1,bs);
     }
     
@@ -571,9 +508,17 @@ void EnumBS::BS_add_cdsvp(EnumBS::blocksize_strategy bs, int k){
         vector<double> cdsvps = extract_cdsvp();
         vector<double> sorted_cdsvps = cdsvps;
         sort(sorted_cdsvps.rbegin(),sorted_cdsvps.rend());
-        // print_vector(cdsvps);
+        print_vector(cdsvps);
         assert(cdsvps == sorted_cdsvps);
         assert(no_repeated_value_verification(cdsvps));
+
+
+        // vector<double> G2s = extract_G2();
+        // vector<double> sorted_G2s = G2s;
+        // print_vector(G2s);
+        // sort(sorted_G2s.rbegin(),sorted_G2s.rend());
+        // assert(G2s == sorted_G2s);
+        
     }
 
 
@@ -591,9 +536,11 @@ tuple<double,int,double,double> EnumBS::max_tour_for_pnjbkz_beta_loop( vector<do
     
 
     pair<double,double> GB = cost->bkz_cost(d,beta,jump,params->cost_model);
-    // printf("beta = %d, G = %3.7f, rem_pr = %e, pr = %e\n", beta, GB.first, rem_pr, pr);
+    // if(beta == 178)
+    //     printf("beta = %d, l[i]= %e, G = %e, rem_pr = %e, pr = %e\n", beta, pow(2,2.*l[d-beta]), GB.first, rem_pr, pr);
     
     cum_GB.first = log2(pow(2,cum_GB.first)+(pow(2,GB.first)*rem_pr*pr));
+    // cum_GB.first = log2(pow(2,cum_GB.first)+(pow(2,GB.first)));
     cum_GB.second = max(cum_GB.second, GB.second);
 
     // printf("cum_G = %e\n", cum_GB.first );
@@ -625,6 +572,8 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
     
     dsvp1 = get<0>(dsvp_t1);
     // G21 = get<2>(dsvp_t1);
+
+    assert(dsvp1 >= 0.);
 
     while(dsvp0 - dsvp1 >= 1 and loop < params->max_loop){
 
@@ -658,125 +607,203 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
 
         dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
         dsvp1 = get<0>(dsvp_t1);
+        assert(dsvp1 >= 0.);
         // G21 = get<2>(dsvp_t1);
     }
 }
 
 
-void EnumBS::max_tour_for_pnjbkz_beta_G2(int k, int beta,int jump){
-    EnumBS::blocksize_strategy bs = BS[k];
+// void EnumBS::max_tour_for_pnjbkz_beta_G2(int k, int beta,int jump){
+//     EnumBS::blocksize_strategy bs = BS[k];
 
-    tuple<double,int,double,double> dsvp_t1;
-    // double dsvp0 = get<0>(bs.dsvp_t), dsvp1;
-    double G20 = get<2>(bs.dsvp_t), G21;
-    vector<double> l = bs.l; 
-    vector<strategy> S = bs.S;
+//     tuple<double,int,double,double> dsvp_t1;
+//     // double dsvp0 = get<0>(bs.dsvp_t), dsvp1;
+//     double G20 = get<2>(bs.dsvp_t), G21;
+//     vector<double> l = bs.l; 
+//     vector<strategy> S = bs.S;
 
-    double cum_pr = bs.cum_pr;
-    pair<double,double> cum_GB=bs.GB_BKZ;
+//     double cum_pr = bs.cum_pr;
+//     pair<double,double> cum_GB=bs.GB_BKZ;
 
-    int  loop = 0;
+//     int  loop = 0;
 
-    dsvp_t1 = max_tour_for_pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
+//     dsvp_t1 = max_tour_for_pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
     
-    // dsvp1 = get<0>(dsvp_t1);
-    G21 = get<2>(dsvp_t1);
+//     // dsvp1 = get<0>(dsvp_t1);
+//     G21 = get<2>(dsvp_t1);
 
-    // while(dsvp0 - dsvp1 >= 1){
-    while(G20 - G21 >= 1 and loop < params->max_loop){
-        // if(loop > 5)
-        //     printf("\n%d, %d, %d, %3.2f, %3.2f\n", beta, jump, loop, G20,G21);
-        loop +=1;
-        // dsvp0 = dsvp1;
-        G20 = G21;
+//     // while(dsvp0 - dsvp1 >= 1){
+//     while(G20 - G21 >= 1 and loop < params->max_loop){
+//         // if(loop > 5)
+//         //     printf("\n%d, %d, %d, %3.2f, %3.2f\n", beta, jump, loop, G20,G21);
+//         loop +=1;
+//         // dsvp0 = dsvp1;
+//         G20 = G21;
         
-        if(loop ==1){
-            // len_S+=1;
-            // S.resize(len_S);
-            // S[len_S-1] = {beta, jump, loop};
-            S.insert(S.end(),{beta, jump, loop});
+//         if(loop ==1){
+//             // len_S+=1;
+//             // S.resize(len_S);
+//             // S[len_S-1] = {beta, jump, loop};
+//             S.insert(S.end(),{beta, jump, loop});
           
-        }
-        else
-            // S[len_S-1].tours = loop;
-            S[S.size()-1].tours = loop;
-        bs = {dsvp_t1, S, l, cum_GB, cum_pr};
+//         }
+//         else
+//             // S[len_S-1].tours = loop;
+//             S[S.size()-1].tours = loop;
+//         bs = {dsvp_t1, S, l, cum_GB, cum_pr};
 
-        if(params->verification){
-            pair<double,double> verified_cum_G_pr = strategy_verification(l0,S);
-            //cerr<<"cum_pr="<<cum_pr<<", verified cum_pr="<< verified_cum_G_pr.second<<endl;
-            //cerr<<"cum_G="<<cum_GB.first<<", verified cum_G="<< verified_cum_G_pr.first<<endl;
-            assert(abs(verified_cum_G_pr.first-cum_GB.first)<0.001);
-            assert(abs(verified_cum_G_pr.second-cum_pr)<0.001);
-        }
+//         if(params->verification){
+//             pair<double,double> verified_cum_G_pr = strategy_verification(l0,S);
+//             //cerr<<"cum_pr="<<cum_pr<<", verified cum_pr="<< verified_cum_G_pr.second<<endl;
+//             //cerr<<"cum_G="<<cum_GB.first<<", verified cum_G="<< verified_cum_G_pr.first<<endl;
+//             assert(abs(verified_cum_G_pr.first-cum_GB.first)<0.001);
+//             assert(abs(verified_cum_G_pr.second-cum_pr)<0.001);
+//         }
     
-        // k_flag = EnumBS::BS_add(bs, k);
-        EnumBS::BS_add_G2(bs, k);
+//         // k_flag = EnumBS::BS_add(bs, k);
+//         EnumBS::BS_add_G2(bs, k);
 
-        dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
-        // dsvp1 = get<0>(dsvp_t1);
-        G21 = get<2>(dsvp_t1);
-    }
-}
+//         dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
+//         // dsvp1 = get<0>(dsvp_t1);
+//         G21 = get<2>(dsvp_t1);
+//     }
+// }
 
 
-pair<int,bool> EnumBS::max_tour_for_pnjbkz_beta_G2_backup(int k, int beta,int jump){
-    EnumBS::blocksize_strategy bs = BS[k];
-    pair<int,bool> k_flag = make_pair(k,true);
-    tuple<double,int,double,double> dsvp_t1;
-    // double dsvp0 = get<0>(bs.dsvp_t), dsvp1;
-    double G20 = get<2>(bs.dsvp_t), G21;
-    vector<double> l = bs.l; 
-    vector<strategy> S = bs.S;
+// pair<int,bool> EnumBS::max_tour_for_pnjbkz_beta_G2_backup(int k, int beta,int jump){
+//     EnumBS::blocksize_strategy bs = BS[k];
+//     pair<int,bool> k_flag = make_pair(k,true);
+//     tuple<double,int,double,double> dsvp_t1;
+//     // double dsvp0 = get<0>(bs.dsvp_t), dsvp1;
+//     double G20 = get<2>(bs.dsvp_t), G21;
+//     vector<double> l = bs.l; 
+//     vector<strategy> S = bs.S;
 
-    double cum_pr = bs.cum_pr;
-    pair<double,double> cum_GB=bs.GB_BKZ;
+//     double cum_pr = bs.cum_pr;
+//     pair<double,double> cum_GB=bs.GB_BKZ;
 
-    int  loop = 0;
+//     int  loop = 0;
 
-    dsvp_t1 = max_tour_for_pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
+//     dsvp_t1 = max_tour_for_pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
     
-    // dsvp1 = get<0>(dsvp_t1);
-    G21 = get<2>(dsvp_t1);
+//     // dsvp1 = get<0>(dsvp_t1);
+//     G21 = get<2>(dsvp_t1);
 
-    // while(dsvp0 - dsvp1 >= 1){
-    while(G20 - G21 >= 1){
-        // if(loop > 5)
-        //     printf("\n%d, %d, %d, %3.2f, %3.2f\n", beta, jump, loop, G20,G21);
-        loop +=1;
-        // dsvp0 = dsvp1;
-        G20 = G21;
+//     // while(dsvp0 - dsvp1 >= 1){
+//     while(G20 - G21 >= 1){
+//         // if(loop > 5)
+//         //     printf("\n%d, %d, %d, %3.2f, %3.2f\n", beta, jump, loop, G20,G21);
+//         loop +=1;
+//         // dsvp0 = dsvp1;
+//         G20 = G21;
         
-        if(loop ==1){
-            // len_S+=1;
-            // S.resize(len_S);
-            // S[len_S-1] = {beta, jump, loop};
-            S.insert(S.end(),{beta, jump, loop});
+//         if(loop ==1){
+//             // len_S+=1;
+//             // S.resize(len_S);
+//             // S[len_S-1] = {beta, jump, loop};
+//             S.insert(S.end(),{beta, jump, loop});
           
-        }
-        else
-            // S[len_S-1].tours = loop;
-            S[S.size()-1].tours = loop;
-        bs = {dsvp_t1, S, l, cum_GB, cum_pr};
+//         }
+//         else
+//             // S[len_S-1].tours = loop;
+//             S[S.size()-1].tours = loop;
+//         bs = {dsvp_t1, S, l, cum_GB, cum_pr};
 
-        if(params->verification){
-            pair<double,double> verified_cum_G_pr = strategy_verification(l0,S);
-            //cerr<<"cum_pr="<<cum_pr<<", verified cum_pr="<< verified_cum_G_pr.second<<endl;
-            //cerr<<"cum_G="<<cum_GB.first<<", verified cum_G="<< verified_cum_G_pr.first<<endl;
-            assert(abs(verified_cum_G_pr.first-cum_GB.first)<0.001);
-            assert(abs(verified_cum_G_pr.second-cum_pr)<0.001);
-        }
+//         if(params->verification){
+//             pair<double,double> verified_cum_G_pr = strategy_verification(l0,S);
+//             //cerr<<"cum_pr="<<cum_pr<<", verified cum_pr="<< verified_cum_G_pr.second<<endl;
+//             //cerr<<"cum_G="<<cum_GB.first<<", verified cum_G="<< verified_cum_G_pr.first<<endl;
+//             assert(abs(verified_cum_G_pr.first-cum_GB.first)<0.001);
+//             assert(abs(verified_cum_G_pr.second-cum_pr)<0.001);
+//         }
     
-        // k_flag = EnumBS::BS_add(bs, k);
-        // k_flag = EnumBS::BS_add_G2(bs, k);
-        EnumBS::BS_add_G2(bs, k);
+//         // k_flag = EnumBS::BS_add(bs, k);
+//         // k_flag = EnumBS::BS_add_G2(bs, k);
+//         EnumBS::BS_add_G2(bs, k);
 
-        dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
-        // dsvp1 = get<0>(dsvp_t1);
-        G21 = get<2>(dsvp_t1);
-    }
-    return k_flag;
-}
+//         dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
+//         // dsvp1 = get<0>(dsvp_t1);
+//         G21 = get<2>(dsvp_t1);
+//     }
+//     return k_flag;
+// }
+
+
+
+// void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector<pair<int,int>> beta_j_tid,  int k){
+//     // bool flag = true;
+
+//     for(int i = 0; i< int(beta_j_tid.size()); i++){
+//         EnumBS::blocksize_strategy bs = BS[k];
+//         tuple<double,int,double,double> dsvp_t1;
+//         double dsvp0 = get<0>(bs.dsvp_t), dsvp1;
+//         vector<double> l = bs.l; 
+//         vector<strategy> S = bs.S;
+
+//         double cum_pr = bs.cum_pr;
+//         pair<double,double> cum_GB=bs.GB_BKZ;
+
+//         int beta = beta_j_tid[i].first, jump = beta_j_tid[i].second;
+    
+//         int f = dims4free(beta);
+//         if(f == 0 and jump > 1)
+//             return;
+//         if(f!=0 and jump >= f)
+//             return;
+    
+//         // if(jump > beta)
+//         //     return;
+
+
+//         int index = beta_j_t_id_begin + i;
+        
+//         int  loop = 0;
+        
+//         dsvp_t1 = max_tour_for_pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
+        
+//         dsvp1 = get<0>(dsvp_t1);
+
+//         assert(dsvp1 >= 0.);
+
+//         tmpBS[index].clear();
+
+//         while(dsvp0 - dsvp1 >= 1 and loop < params->max_loop){
+//             loop +=1;
+//             dsvp0 = dsvp1;
+//             if(loop ==1){
+//                 S.insert(S.end(),{beta, jump, loop});
+            
+//             }
+//             else
+//                 S[S.size()-1].tours = loop;
+                
+//             bs = {dsvp_t1, S, l, cum_GB, cum_pr};
+            
+//             if(params->verification){
+//                 pair<double,double> verified_cum_G_pr = strategy_verification(l0,S);
+//                 assert(abs(verified_cum_G_pr.first-cum_GB.first)<0.001);
+//                 assert(abs(verified_cum_G_pr.second-cum_pr)<0.001);
+//             }
+        
+//             tmpBS[index].insert(tmpBS[index].end(),bs);
+
+//             // if(!BS_add_determine(bs, k)){
+//             //     flag = false;
+//             // }
+
+
+//             dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
+//             dsvp1 = get<0>(dsvp_t1);
+//             assert(dsvp1 >= 0.);
+//         }
+
+//         // if(!flag)
+//         //     return flag;
+        
+//     }
+//     // return flag;
+// }
+
 
 
 
@@ -786,7 +813,7 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
     for(int i = 0; i< int(beta_j_tid.size()); i++){
         EnumBS::blocksize_strategy bs = BS[k];
         tuple<double,int,double,double> dsvp_t1;
-        double dsvp0 = get<0>(bs.dsvp_t), dsvp1;
+        double G20 = get<2>(bs.dsvp_t), G21;
         vector<double> l = bs.l; 
         vector<strategy> S = bs.S;
 
@@ -800,10 +827,6 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
             return;
         if(f!=0 and jump >= f)
             return;
-    
-        // if(jump > beta)
-        //     return;
-
 
         int index = beta_j_t_id_begin + i;
         
@@ -811,16 +834,18 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         
         dsvp_t1 = max_tour_for_pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
         
-        dsvp1 = get<0>(dsvp_t1);
+        G21 = get<2>(dsvp_t1);
+
+        // assert(dsvp1 >= 0.);
 
         tmpBS[index].clear();
 
-        while(dsvp0 - dsvp1 >= 1 and loop < params->max_loop){
+        // while(pow(2,G20) - pow(2,G21) >= 1 and loop < params->max_loop){
+        while( G20 > G21  and loop < params->max_loop){
             loop +=1;
-            dsvp0 = dsvp1;
+            G20 = G21;
             if(loop ==1){
                 S.insert(S.end(),{beta, jump, loop});
-            
             }
             else
                 S[S.size()-1].tours = loop;
@@ -835,13 +860,10 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         
             tmpBS[index].insert(tmpBS[index].end(),bs);
 
-            // if(!BS_add_determine(bs, k)){
-            //     flag = false;
-            // }
-
 
             dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
-            dsvp1 = get<0>(dsvp_t1);
+            G21 = get<2>(dsvp_t1);
+            // assert(dsvp1 >= 0.);
         }
 
         // if(!flag)
@@ -889,7 +911,8 @@ void EnumBS::enumbs_est(vector<double> l){
         
         // if(params->verbose)
         auto start = system_clock::now();
-        for(int beta = beta_start; beta < min(params->max_dim,d); beta +=params->gap){
+        //int(0.9*d)
+        for(int beta = beta_start; beta < min(params->max_dim, d); beta +=params->gap){
             for(int j = j_start; j>0; j-= params->J_gap){
                 // k_flag = EnumBS::max_tour_for_pnjbkz_beta(k,beta,j); 
                 // k_flag = EnumBS::max_tour_for_pnjbkz_beta_G2(k,beta,j); 
@@ -948,80 +971,80 @@ void EnumBS::enumbs_est(vector<double> l){
 //return value: to determine whether the current bs0 will be changed or not.
 //False: bs0 will be changed.
 //True: bs0 will not change.
-bool EnumBS::BS_add_determine(EnumBS::blocksize_strategy bs, int k){
-    //int cdsvp = ceil(get<0>(bs.dsvp_t));
-    double dsvp = get<0>(bs.dsvp_t);
-    double G = bs.GB_BKZ.first;
+// bool EnumBS::BS_add_determine(EnumBS::blocksize_strategy bs, int k){
+//     //int cdsvp = ceil(get<0>(bs.dsvp_t));
+//     double dsvp = get<0>(bs.dsvp_t);
+//     double G = bs.GB_BKZ.first;
 
-    //BS.size() == 0, add bs directly
-    if(BS.size() == 0){
-        return true;
-    }
+//     //BS.size() == 0, add bs directly
+//     if(BS.size() == 0){
+//         return true;
+//     }
 
 
 
-    // int pos = find_pos_for_dsvp(cdsvp);
-    // int pos = find_pos_for_dsvp(dsvp);
-    int pos = binary_search_for_dsvp(dsvp);
+//     // int pos = find_pos_for_dsvp(cdsvp);
+//     // int pos = find_pos_for_dsvp(dsvp);
+//     int pos = binary_search_for_dsvp(dsvp);
     
 
     
-    //BS.size() > 0, but all dsvps in EnumBS are smaller than dsvp_, don't add dsvp_, then pos = 0.
-    if(pos == 0){
-        return true;
-    }
+//     //BS.size() > 0, but all dsvps in EnumBS are smaller than dsvp_, don't add dsvp_, then pos = 0.
+//     if(pos == 0){
+//         return true;
+//     }
 
-    //BS.size() > 0, and it exits some dsvps in EnumBS >= dsvp_, then pos > 0.
-    //cdsvp_tmp == cdvsp
-    pos--;
-    // int cdsvp_pos = ceil(get<0>(BS[pos].dsvp_t));
-    double dsvp_pos = get<0>(BS[pos].dsvp_t);
+//     //BS.size() > 0, and it exits some dsvps in EnumBS >= dsvp_, then pos > 0.
+//     //cdsvp_tmp == cdvsp
+//     pos--;
+//     // int cdsvp_pos = ceil(get<0>(BS[pos].dsvp_t));
+//     double dsvp_pos = get<0>(BS[pos].dsvp_t);
     
-    double G_pos = BS[pos].GB_BKZ.first;
-    
-
-    // while((cdsvp_pos == cdsvp and G_pos > G) or (cdsvp_pos > cdsvp and G_pos >= G )){
-    while((dsvp_pos == dsvp and G_pos > G) or (dsvp_pos > dsvp and G_pos >= G )){
-        if( k > pos and k >0){
-            k -= 1;
-            return false;
-        }
-        pos -= 1;
-        if(pos < 0)
-            break;
-        // cdsvp_pos = ceil(get<0>(BS[pos].dsvp_t));
-        dsvp_pos = get<0>(BS[pos].dsvp_t);
-        G_pos = BS[pos].GB_BKZ.first;
-    }
-
-
-    if(pos == -1 or (dsvp_pos > dsvp and G_pos <= G)){
-        if(k==pos+1){
-            return false;
-        }
-    }
+//     double G_pos = BS[pos].GB_BKZ.first;
     
 
+//     // while((cdsvp_pos == cdsvp and G_pos > G) or (cdsvp_pos > cdsvp and G_pos >= G )){
+//     while((dsvp_pos == dsvp and G_pos > G) or (dsvp_pos > dsvp and G_pos >= G )){
+//         if( k > pos and k >0){
+//             k -= 1;
+//             return false;
+//         }
+//         pos -= 1;
+//         if(pos < 0)
+//             break;
+//         // cdsvp_pos = ceil(get<0>(BS[pos].dsvp_t));
+//         dsvp_pos = get<0>(BS[pos].dsvp_t);
+//         G_pos = BS[pos].GB_BKZ.first;
+//     }
 
-    //Verification
-    // vector<int> cdsvps = extract_cdsvp();
-    // vector<int> sorted_cdsvps = cdsvps;
-    // sort(sorted_cdsvps.rbegin(),sorted_cdsvps.rend());
-    // assert(cdsvps == sorted_cdsvps);
-    // assert(no_repeated_value_verification(cdsvps));
 
-    if(params->debug){
-        vector<double> dsvps = extract_dsvp();
-        vector<double> sorted_dsvps = dsvps;
-        // print_vector(dsvps);
-        sort(sorted_dsvps.rbegin(),sorted_dsvps.rend());
-        assert(dsvps == sorted_dsvps);
-        assert(no_repeated_value_verification(dsvps));
-    }
+//     if(pos == -1 or (dsvp_pos > dsvp and G_pos <= G)){
+//         if(k==pos+1){
+//             return false;
+//         }
+//     }
+    
 
-    return true;
 
-}
+//     //Verification
+//     // vector<int> cdsvps = extract_cdsvp();
+//     // vector<int> sorted_cdsvps = cdsvps;
+//     // sort(sorted_cdsvps.rbegin(),sorted_cdsvps.rend());
+//     // assert(cdsvps == sorted_cdsvps);
+//     // assert(no_repeated_value_verification(cdsvps));
+
+//     if(params->debug){
+//         vector<double> dsvps = extract_dsvp();
+//         vector<double> sorted_dsvps = dsvps;
+//         // print_vector(dsvps);
+//         sort(sorted_dsvps.rbegin(),sorted_dsvps.rend());
+//         assert(dsvps == sorted_dsvps);
+//         assert(no_repeated_value_verification(dsvps));
+//     }
+
+//     return true;
+
+// }
 
 
 
@@ -1068,7 +1091,7 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
                 j -= params->J_gap;
         }
 
-        
+        //int(0.9*d)
         int t_id = 0, len = (((j-1)/params->J_gap)+1)+(min(params->max_dim,d)-1-beta_start)/params->gap*(((params->J-1)/params->J_gap)+1);
 
         if(len > 0){
@@ -1093,8 +1116,8 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
             } 
         
         
-            
-            for(beta = beta_start; beta < min(params->max_dim,d); beta +=params->gap){
+            //int(0.9*d)
+            for(beta = beta_start; beta < min(params->max_dim, d); beta +=params->gap){
                 for(; j>0; j-= params->J_gap){
                     if(int(beta_j[t_id].size()) ==  departs[t_id] and t_id < threads-1){
                         t_id++;
@@ -1143,10 +1166,15 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
             // if(params->verbose)
             //     start = clock();
             // start = system_clock::now();
+
             for(int i = 0; i< len; i++){
                 // printf("In BS_add: %3.2f s, i = %d, tmpBS_size = %d \n ", (double)((finish-start)/CLOCKS_PER_SEC), i,int(tmpBS[i].size()));
+                
                 for(int ii = 0; ii < int(tmpBS[i].size()); ii++){
-                    EnumBS::BS_add_cdsvp(tmpBS[i][ii], k);
+                        
+                    // EnumBS::BS_add_cdsvp(tmpBS[i][ii], k);
+                    EnumBS::BS_add_G2(tmpBS[i][ii], k);
+                    
                 }
             
             }
@@ -1162,6 +1190,7 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
     double Gmin = MAX_NUM, Bmin  = MAX_NUM, G1, G2, G,  B;
     EnumBS::blocksize_strategy bsmin;
     for(int i = 0; i<int(BS.size()); i++){
+        // G1 = strategy_verification(l,BS[i].S).first;
         G1 = BS[i].GB_BKZ.first;
         G2 = get<2>(BS[i].dsvp_t);
         G = log2(pow(2,G1)+pow(2,G2));
@@ -1174,6 +1203,7 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
     }
     printf("Find the optimal Strategy through EumBS!!\n");
     print_bs(bsmin);
+    
     if(params->cost_model == 1)
         printf("Min Cost = %3.2f log2(gate), Memory Cost = %3.2f log(bit)\n", Gmin, Bmin);
     if(params->cost_model == 2)
@@ -1211,10 +1241,10 @@ pair<double,double> EnumBS::strategy_verification(vector<double> l,vector<strate
     tuple<double,int,double,double> dsvp_t =  dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
     double G2 = get<2>(dsvp_t);
     double G = log2(pow(2,G1cum)+pow(2,G2));
-    printf("Verified cum_pr = %e \n ", cum_pr);
-    printf("Verified G1 = %3.2f, G2 = %3.2f, dsvp = %3.2f\n", G1cum,G2,get<0>(dsvp_t));
-    printf("G = %3.2f\n", G );
+    // printf("Verified cum_pr = %e \n ", cum_pr);
+    // printf("Verified G1 = %3.2f, G2 = %3.2f, dsvp = %3.2f\n", G1cum,G2,get<0>(dsvp_t));
+    // printf("G = %3.2f\n", G );
 
-    return make_pair(G1cum,cum_pr);
+    return make_pair(G1cum, cum_pr);
 
 }

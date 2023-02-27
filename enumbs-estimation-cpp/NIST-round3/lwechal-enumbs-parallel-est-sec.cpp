@@ -6,8 +6,9 @@ int main(){
     Params* params = new Params; //J, gap, J_gap, cost_model, verbose,
     params->max_dim = 300;
     params->cost_model = 2; //sec model;
-    params->J_gap = 1;
-    params->verbose = false;
+    // params->J = 20;
+    // params->max_loop = 20;
+    // params->verbose = false;
     // params->threads = 50;
     params->threads = 50;
     // params->debug = true;
