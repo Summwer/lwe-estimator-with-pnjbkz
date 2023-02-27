@@ -34,7 +34,7 @@ def unsolved_lwe_challenge_est(method,  cost_model, J=1, gap=1, J_gap=1, l = Non
 
     n = 45
     alpha = 0.035
-    dvol=390.6236363
+    dvol=357.0995642
     dim=211
     print("TU LWE Challenge, n = %3d, alpha = %3.3f" %(n,alpha))
     print("dim = %3d, dvol = %3.7f" %(dim, dvol))

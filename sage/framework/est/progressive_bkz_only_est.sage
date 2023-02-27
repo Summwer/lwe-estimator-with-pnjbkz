@@ -40,10 +40,7 @@ def progressive_bkz_only(l, verbose=False, cost_model = 1):
         remaining_proba *= 1. - proba
 
         if verbose:
-            print("β= %d,\t pr=%.4e, \t cum-pr=%.4e \t rem-pr=%.4e"%
-                        (beta, proba, cumulated_proba, remaining_proba), 
-                        end="\r" if cumulated_proba < 1e-4 else "\n")
-                
+            print("β= %d,\t pr=%.4e, \t cum-pr=%.4e \t rem-pr=%.4e"%(beta, proba, cumulated_proba, remaining_proba), end="\r" if cumulated_proba < 1e-4 else "\n")
 
         if remaining_proba < .001:
             average_beta += beta * remaining_proba
