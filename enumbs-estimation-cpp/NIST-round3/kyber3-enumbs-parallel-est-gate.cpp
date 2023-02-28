@@ -8,6 +8,7 @@ int main(){
     params->max_dim = 1000; // maximal selected blocksize value
     // params->J = 15; //maximal jump value
     params->threads = 50;
+    params->enumbs_prec = 1e2;
 
      // kyber-III(Kyber-1024) round-3 parameters
     printf("============= Kyber-III\n");

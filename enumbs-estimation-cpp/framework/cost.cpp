@@ -159,6 +159,9 @@ double COST::practical_pump_cost(int beta){
 
 //get pnj-BKZ time test in threads = 20
 double COST::practical_bkz_cost(int d,int beta,int f,int jump){
+    int extra_dim4free = 12;
+    beta = beta + extra_dim4free;
+    f = f + extra_dim4free;
     bool sieve;
     if(beta <= 60)
         sieve = false;

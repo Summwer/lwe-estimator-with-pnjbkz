@@ -8,6 +8,7 @@ int main(){
     params->max_dim = 500; // maximal selected blocksize value
     // params->J = 15; //maximal jump value
     params->threads = 50;
+    params->enumbs_prec = 1e2;
 
     printf("============= Dilithium-I\n");
     int dim =  2049;

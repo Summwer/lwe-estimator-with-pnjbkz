@@ -55,22 +55,31 @@ tuple<double,int,double,double> progressive_dsvp_predict(vector<double> l, doubl
     if(cum_pr >= 1.){
         return make_tuple(0.,0,0.,0.);
     }
+    
     for(int dsvp = 50; dsvp < d; dsvp++ ){
         //2**(2 * l1[d-dsvp])==2**(2 * l1d_dsvp)==gh
         gh = gaussian_heuristic_log2(l,d-dsvp);
         
         boost::math::chi_squared chisquare(dsvp);
         psvp = boost::math::cdf(chisquare,gh); //Compute chi-squared value
-        
+        // if(psvp <0)
+        //     cout<<psvp<<endl;
         p += rp * psvp;
         avg_d_svp += dsvp * rp * psvp;
 
         p_cost = cost->pump_cost(dsvp,cost_model);
+        
         G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * rp * psvp);
         B_cum = max(B_cum,p_cost.second);
      
         rp = 1. - p;
+
+        // cerr<<"dsvp = "<<dsv?p<<", rp = "<<rp<<endl;
+        // cerr<<"G_cum = " << G_cum <<", G2 = "<<p_cost.first<<endl;
+        
         if(rp < 0.001){
+            // cerr<<"dsvp = "<<dsvp<<", rp = "<<rp<<endl;
+            // cerr<<"G_cum = " << G_cum <<endl;
             avg_d_svp += dsvp * rp;
             G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * rp);
 

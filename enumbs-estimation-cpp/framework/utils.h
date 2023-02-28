@@ -8,6 +8,7 @@
 #include <chrono>
 
 
+
 using namespace std;
 using namespace boost;
 using namespace fplll;
@@ -23,7 +24,7 @@ using namespace std::chrono;
 
 
 #ifndef MAX_NUM
-#define MAX_NUM 1e50
+#define MAX_NUM 1000
 #endif
 
 #ifndef MAX_DIM
@@ -69,10 +70,14 @@ double gaussian_heuristic(vector<FP_NR<FT>> l, int index_start);
 double gaussian_heuristic_log2(vector<FP_NR<FT>> l, int index_start);
 double gaussian_heuristic_log2(vector<double> l, int index_start);
 
-int dims4free(int beta);
+int dims4free(int beta); //leaky-lwe-estimator
+int default_dim4free_fun(int beta);
+int theo_dim4free_fun1(int beta);
+int theo_dim4free_fun2(int beta);
+int get_beta_from_sieve_dim(int sieve_dim, int d, int choose_dims4f_fun);
 
 struct Params{
-    int J = 20; //J -- maximal jump value;
+    int J = 15; //J -- maximal jump value;
     int gap = 1; //gap -- gap of each beta;
     int J_gap = 1; //J_gap -- gap of each jump value;
     //cost_model: 1: gate model; 2: sec model with threads=32, gpus = 2 
@@ -82,7 +87,7 @@ struct Params{
     bool progressive_sieve =  true; 
     int threads = 1;
     int max_dim = MAX_DIM; //set the maximal blocksize to find the optimal strategy
-    int max_loop = 20; //set the maximal loop for one blocksize to find the optimal strategy
+    int max_loop = 10; //set the maximal loop for one blocksize to find the optimal strategy
     double enumbs_prec =  PREC; //1e-5; //set the precision of enumbs
     double enumbs_bound = 1.;
     int method = 1; //1: enumbs estiamtion

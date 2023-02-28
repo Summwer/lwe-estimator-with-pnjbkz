@@ -357,9 +357,6 @@ void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
     double G = round(bs.GB_BKZ.first*params->enumbs_prec)/params->enumbs_prec;
 
 
-    
-
-
     //BS.size() == 0, add bs directly
     if(BS.size() == 0){
         // BS.resize(1);
@@ -371,6 +368,9 @@ void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
     int pos = binary_search_for_G2(G2);
 
     // cout<<"========================="<<endl;
+    // print_strategy(bs.S);
+    // cout<<get<2>(bs.dsvp_t)<<endl;
+    // cout<<get<0>(bs.dsvp_t)<<endl;
     // cout<<pow(2,get<2>(bs.dsvp_t))*params->enumbs_prec<<endl;
     // vector<double> G2s = extract_G2();
     // print_vector(G2s);
@@ -378,6 +378,11 @@ void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
     // printf("G2 = %3.2f ", G2);
 
     // cout<<"\n------------------------"<<endl;
+
+    if(params -> debug)
+        assert( get<2>(bs.dsvp_t) < MAX_NUM);
+
+    
     
 
     
@@ -402,6 +407,10 @@ void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
 
     //While cost of previous strategy is worse than new strategy and the range of strategy to erase is smaller than or equal to new strategy.
     while(((G2_pos == G2 and G_pos > G) or (G2_pos > G2 and G_pos >= G))){// and compare_max_strategy(BS[pos].S, bs.S)){ 
+
+        // if(k>=pos)
+        //     // k=0;
+        //     k = -1;
      
         BS.erase(BS.begin()+pos);
         pos -= 1;
@@ -417,7 +426,7 @@ void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
 
     }
     
-    if( pos == -1 or ((G2_pos > G2 and G_pos <= G))){
+    if( pos == -1 or (G2_pos > G2 and G_pos <= G)){
         BS.insert(BS.begin()+pos+1,bs);
     }
 
@@ -546,6 +555,7 @@ tuple<double,int,double,double> EnumBS::max_tour_for_pnjbkz_beta_loop( vector<do
     // printf("cum_G = %e\n", cum_GB.first );
     cum_pr += rem_pr * pr;
     rem_pr = 1. - cum_pr;
+
 
     return dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
 
@@ -839,7 +849,11 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         // assert(dsvp1 >= 0.);
 
         tmpBS[index].clear();
-
+        // cerr<< "beta = "<< beta << ", jump = "<< jump <<endl;
+        // cerr<< "G20 = "<< G20 <<", G21 = " << G21 <<endl;
+        // throw "";
+        // if(G21 > 0)
+        //     throw "";
         // while(pow(2,G20) - pow(2,G21) >= 1 and loop < params->max_loop){
         while( G20 > G21  and loop < params->max_loop){
             loop +=1;
@@ -963,9 +977,9 @@ void EnumBS::enumbs_est(vector<double> l){
     printf("Find the optimal Strategy through EumBS!!\n");
     print_bs(bsmin);
     if(params->cost_model == 1)
-        printf("Min Cost = %3.2f log2(gate), Memory Cost = %3.2f log(bit)\n", Gmin, Bmin);
+        printf("Min Cost = %3.2f log2(gate), Memory Cost = %3.2f log2(bit)\n", Gmin, Bmin);
     if(params->cost_model == 2)
-        printf("Min Cost = %3.2f log2(sec), Memory Cost = %3.2f log(bit)\n", Gmin, Bmin);
+        printf("Min Cost = %3.2f log2(sec), Memory Cost = %3.2f log2(bit)\n", Gmin, Bmin);
 }
 
 //return value: to determine whether the current bs0 will be changed or not.

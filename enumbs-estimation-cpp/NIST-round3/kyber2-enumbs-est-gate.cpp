@@ -6,6 +6,7 @@ int main(){
     Params* params = new Params; //J, gap, J_gap, cost_model, verbose,
     params->max_dim = 700; // maximal selected blocksize value
     // params->J = 15; //maximal jump value
+    params->enumbs_prec = 1e2;
 
      // Kyber-II(Kyber-768) round-3 parameters
     printf("============= Kyber-II\n");

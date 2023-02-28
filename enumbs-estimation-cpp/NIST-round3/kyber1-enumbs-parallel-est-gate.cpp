@@ -9,6 +9,7 @@ int main(){
     // params->J = 9; //maximal jump value
     // params->J_gap = 3; //gap between each jump
     params->threads = 50;
+    params->enumbs_prec = 1e2;
 
     // Kyber-I(Kyber-512) round-3 parameters
     printf("============= Kyber-I\n");
