@@ -9,6 +9,76 @@ load("../framework/utils.sage")
 '''BKZ simulator with pump and jump.'''
 
 
+def dim4free_wrapper(dim4free_fun, blocksize):
+    """
+    Deals with correct dim4free choices for edge cases when non default
+    function is chosen.
+
+    :param dim4free_fun: the function for choosing the amount of dim4free
+    :param blocksize: the BKZ blocksize
+
+    """
+    if blocksize < 40:
+        return 0
+    dim4free = dim4free_fun(blocksize)
+    return int(min((blocksize - 40)/2, dim4free))
+
+
+
+def default_dim4free_fun(blocksize):
+    """
+    Return expected number of dimensions for free, from exact-SVP experiments.
+
+    :param blocksize: the BKZ blocksize
+
+    """
+    return int(11.5 + 0.075*blocksize)
+
+
+def theo_dim4free_fun1(blocksize):
+    """
+    Theoretical Dimension-for-free function 1 without e in [Duc18]
+    """
+
+    return int(blocksize*log(4/3.)/log(blocksize/2./pi)) 
+
+
+def theo_dim4free_fun2(blocksize):
+    """
+    Theoretical Dimension-for-free function 2 with e in [Duc18]
+    """
+
+    return int(blocksize*log(4/3.)/log(blocksize/2./pi/e)) 
+
+
+def dim4free_wrapper(dim4free_fun, blocksize):
+    """
+    Deals with correct dim4free choices for edge cases when non default
+    function is chosen.
+
+    :param dim4free_fun: the function for choosing the amount of dim4free
+    :param blocksize: the BKZ blocksize
+
+    """
+    if blocksize < 40:
+        return 0
+    dim4free = dim4free_fun(blocksize)
+    return int(min((blocksize - 40)/2, dim4free))
+
+
+
+
+
+def get_beta_from_sieve_dim(sieve_dim,d,dim4free_fun):
+    for beta in range(sieve_dim,d):
+        f = dim4free_wrapper(dim4free_fun,beta)
+        # print(beta,f,beta-f,sieve_dim)
+        if beta - f >= sieve_dim:
+            return beta
+
+        
+
+
 
 
 def simulate_pnjBKZ(l0, beta, jump, loop):
@@ -27,10 +97,20 @@ def simulate_pnjBKZ(l0, beta, jump, loop):
     
     l = deepcopy(l0)
 
+    extra_dim4free = 12
+    f = dim4free_wrapper(default_dim4free_fun, beta)
+    if jump <=2:
+        beta_ = beta
+    elif jump>=3 and jump <=4:
+        beta_ = get_beta_from_sieve_dim(beta-f,d,theo_dim4free_fun2)
+    elif jump>=5:
+        beta_ = get_beta_from_sieve_dim(beta-f,d,theo_dim4free_fun1)
+
+
     if beta < 45:
-        return simulate_pnjBKZ_below_45(l, beta, loop)
+        return simulate_pnjBKZ_below_45(l, beta_, loop)
     else:
-        return simulate_pnjBKZ_above_45(l, beta, jump, loop)
+        return simulate_pnjBKZ_above_45(l, beta_, jump, loop)
         
         
 

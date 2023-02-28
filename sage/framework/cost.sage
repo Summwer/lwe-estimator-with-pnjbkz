@@ -262,6 +262,10 @@ def get_pump_time(beta,d):
 
 #get pnj-BKZ time test in threads = 20
 def get_pre_pnj_time(d,beta,f,jump):
+    extra_dim4free = 12
+    beta = beta + extra_dim4free
+    f = f + extra_dim4free
+
     if beta <= 60:
         sieve = False
     else:
