@@ -12,7 +12,7 @@ int main(){
     // params->threads = 50;
     params->threads = 50;
     // params->threads = 1;
-    params->enumbs_prec = 1e3;
+    // params->enumbs_prec = 1e3;
     // params->debug = true;
 
     vector<LWEchal> unsolved_lwechallenges = load_unsolved_lwechallenges();

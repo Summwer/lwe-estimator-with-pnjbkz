@@ -9,121 +9,269 @@ void BSSA::print_strategy(vector<BSSA::strategy> S){
     cout<<"}"<<endl;
 }
 
-int BSSA::min_tour_to_each_goal_dsvp(vector<double> l0,double cumulated_proba0,int beta, int jump, double goal_dsvp){
-    /*
-    input: l0 -- log2(||b_i^*||) gs-lengths
-            cum_pr -- cumulated probability of success in reduction for current gs-lengths
-            beta -- simulated block size for pnj-bkz-beta-jump
-            jump -- jump value for simulated pnj-bkz-beta-jump
-    output: 
-        dsvp -- reduced basis quality dsvp, 
-        loop -- minimal loop of pnj-bkz-beta-jump in reduction.
-    */
 
-    int d = l0.size(), loop = 0;
-    double dsvp0, dsvp1, proba;
+void BSSA::print_BS(map<int,blocksize_strategy> BS){
+    cout<<"BS = ";
+    cout<<"{";
+    for(int i =0; i< int(BS.size()); i++){
+        printf("(GB_BKZ = %3.2f gate, B_BKZ = %3.2f bit cum-pr = %3.2f)", BS[i].GB_BKZ.first, BS[i].GB_BKZ.second, BS[i].cum_pr);   
+        if(i!=int(BS.size()) - 1)
+            printf(",\n");
+    }
+    cout<<"}"<<endl;
+}
+
+void BSSA::print_bs(blocksize_strategy bs){
+    cout<<"bs = ";
+
+    // double G1 = strategy_verification(l,BS[i].S).first;
     
-    vector<double> l1;
-    l1.resize(d);
-    dsvp1 = dsvp_predict(l0, beta, cum_pr);
-    do{
-        dsvp0 = dsvp1;
-        sim -> sim_above_45(l1, l0, beta,jump, 1); 
-        dsvp1 = dsvp_predict(l1, beta, cum_pr);
+    printf("(G_BKZ = %3.2f gate, B_BKZ = %3.2f bit cum-pr = %3.2f)\n",  bs.GB_BKZ.first, bs.GB_BKZ.second, bs.cum_pr );   
 
-        boost::math::chi_squared chisquare(beta);   
-        proba = boost::math::cdf(chisquare,pow(2,(2. * l1[d-beta])));
-        cum_pr = cum_pr + (1.-cum_pr) * proba;
-        l0 = l1;
-        loop += 1;
-        
-    }while(dsvp0 - dsvp1 > 1);
-    
-    return make_pair(dsvp0,loop-1);
-
+    print_strategy(bs.S);
 }
 
 
-pair<double,int> BSSA::max_tour_for_pnjbkz_beta(vector<double> l0, double cum_pr,int beta, int jump){
-    /*
-    input: l0 -- log2(||b_i^*||) gs-lengths
-            cum_pr -- cumulated probability of success in reduction for current gs-lengths
-            beta -- simulated block size for pnj-bkz-beta-jump
-            jump -- jump value for simulated pnj-bkz-beta-jump
-    output: 
-        dsvp -- reduced basis quality dsvp, 
-        loop -- maximal loop of pnj-bkz-beta-jump in reduction.
-    */
+// tuple<double,int,double,double> BSSA::max_tour_for_pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, double &cum_pr, int beta){
 
-    int d = l0.size(), loop = 0;
-    double dsvp0, dsvp1, proba;
+
+
+//     double rem_pr = 1. - cum_pr;
+//     sim -> simulate(l,l,beta_,1,1);
+
+//     boost::math::chi_squared chisquare(beta_);
+//     double pr = boost::math::cdf(chisquare,pow(2,2.*l[d-beta_]));
     
-    vector<double> l1;
-    l1.resize(d);
-    dsvp1 = dsvp_predict(l0, beta, cum_pr);
-    do{
-        dsvp0 = dsvp1;
-        sim -> sim_above_45(l1, l0, beta,jump, 1); 
-        dsvp1 = dsvp_predict(l1, beta, cum_pr);
 
-        boost::math::chi_squared chisquare(beta);   
-        proba = boost::math::cdf(chisquare,pow(2,(2. * l1[d-beta])));
-        cum_pr = cum_pr + (1-cum_pr) * proba;
-        l0 = l1;
-        loop += 1;
+//     pair<double,double> GB = cost->bkz_cost(d,beta,1,params->cost_model);
+
+    
+//     cum_GB.first = log2(pow(2,cum_GB.first)+(pow(2,GB.first)*rem_pr*pr));
+//     cum_GB.second = max(cum_GB.second, GB.second);
+
+//     cum_pr += rem_pr * pr;
+//     rem_pr = 1. - cum_pr;
+
+//     return dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
+// }
+
+
+// void BSSA::max_tour_for_pnjbkz_beta(BSSA::blocksize_strategy bs){
+    
+//     tuple<double,int,double,double> dsvp_t1;
+//     double G20 =  get<2>(bs.dsvp_t), G21;
+   
+//     vector<double> l = bs.l; 
+//     // vector<strategy> S = bs.S;
+//     double cum_pr = bs.cum_pr;
+//     pair<double,double> cum_GB=bs.GB_BKZ;
+
+//     int  loop = 0;
+    
+//     dsvp_t1 = max_tour_for_pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
+    
+//     G21 = get<2>(dsvp_t1);
+
+//     assert(G21 >= 0.);
+
+//     while(G20 > G21 and loop < params->max_loop and cum_pr <= 0.999 ){
+
+//         loop +=1;
+//         G20 = G21;
         
-    }while(dsvp0 - dsvp1 > 1);
+//         // if(loop ==1){
+//         //     S.insert(S.end(),{beta, jump, loop});
+//         // }
+//         // else
+//         //     // S[len_S-1].tours = loop;
+//         //     S[S.size()-1].tours = loop;
+//         // bs = {dsvp_t1, S, l, cum_GB, cum_pr};
+
+//         if(params->verification){
+//             pair<double,double> verified_cum_G_pr = strategy_verification(l0,S);
+//             assert(abs(verified_cum_G_pr.first-cum_GB.first)<0.001);
+//             assert(abs(verified_cum_G_pr.second-cum_pr)<0.001);
+//         }
     
-    return make_pair(dsvp0,loop-1);
+//         dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
+//         G21 = get<2>(dsvp_t1);
+//         assert(G21 >= 0.);
+//     }
 
-}
+//     return dsvp_t1;
+// }
 
-void BSSA::bssa_generate(vector<double> l0, int beta_start, int beta_goal, int jump, int gap, int J_gap){
+
+
+
+
+// //node mode, we can set nodes more freely.
+// // void BSSA::bssa_generate(vector<double> l0, int sbeta, int gbeta, int jump, int gap, int J_gap){
+// //     /*
+// //     param: node_start, node_goal, node_mid, node
+// //     */
+// //     int d= l0.size();
+// //     int node, node_start, node_goal = 0, node_mid, beta;
+// //     int dsvp_star = ceil(dsvp_predict(l0, 0, 0.));
+// //     node_start = -dsvp_star; //quality increase while value of dsvp decreases.
+
+// //     double G_min,G_tmp;
+
+// //     for(node_mid = node_start; node_mid <= node_goal; node_mid+= max(gap,1)){
+// //         G_min = MAX_NUM;
+// //         for(node = node_start; node < node_mid; node += max(gap,1)){
+// //             printf("\r Blocksize strategy selection process: %4d --> %4d  --> %4d --> %4d", node_start,node,node_mid,node_goal);
+// //             if(node == node_start){
+// //                 bs0 = {{},l0,0.,0.};
+// //             }
+// //             else if(node > node_start){
+// //                 if(BS.find(node)==BS.end()){
+// //                     bssa_generate(l0, node_start, node);
+// //                 }else{
+// //                     bs0 = BS[node];
+// //                 }
+// //             }
+
+// //             G_tmp = MAX_NUM;
+// //             //node_tmp = MAX_DIM;
+// //             //beta = max(bs0.S);
+// //             print_strategy(bs0.S);
+// //             // dsvp_star = d - ssbeta
+// //             beta = 50;
+// //             for(int beta_alg = beta+1; beta_alg < min(MAX_DIM,d); beta_alg++){
+// //                 printf("\r Blocksize strategy selection process: %4d --> %4d --> (%4d) --> %4d --> %4d", node_start,node,beta_alg,node_mid,node_goal);
+// //                 if (beta_alg >= beta_tmp + 3)
+// //                     break
+// //                 for(int j=1; j < J+1; j+=J_gap){
+// //                     if(G_tmp == 0)
+// //                         break;
+// //                     // l_, _, loop_, G_, cumulated_proba_= min_tour_to_each_goal_dsvp(l,cum_pr,beta,jump=j,dsvp_star = dsvp_star);
+                        
+// //                 //     if G_tmp > G_:
+// //                 //         S_tmp, l_tmp, G_tmp, cumulated_proba_tmp,beta_tmp =[(beta_alg,j) for _ in range(loop_)], l_,  G_,cumulated_proba_, beta_alg
+// //                 }
+// //             }
+// //         }
+// //     }
+// //     printf("\n");
+// // }
+
+
+
+//beta mode, the node is depend on cost of bkz-betas.
+void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
     /*
     param: node_start, node_goal, node_mid, node
     */
-    int d= l0.size();
-    int node, node_start, node_goal = 0, node_mid, beta;
-    int dsvp_star = ceil(dsvp_predict(l0, 0, 0.));
-    node_start = -dsvp_star; //quality increase while value of dsvp decreases.
+    int d= l0.size(), len_S, beta_start, j_start;
+  
+    tuple<double,int,double,double> dsvp_t0 =  dsvp_predict(l0, 0., cost, params->cost_model, params->progressive_sieve);
 
-    double G_min,G_tmp;
+    BS.insert(pair<int,BSSA::blocksize_strategy>(sbeta,{{}, l0, make_pair(0.,0.), 0.}));
 
-    for(node_mid = node_start; node_mid <= node_goal; node_mid+= max(gap,1)){
-        G_min = MAX_NUM;
-        for(node = node_start; node < node_mid; node += max(gap,1)){
-            printf("\r Blocksize strategy selection process: %4d --> %4d  --> %4d --> %4d", node_start,node,node_mid,node_goal);
-            if(node == node_start){
-                bs0 = {{},l0,0.,0.};
+    print_bs(BS[sbeta]);
+
+
+    for(int beta = sbeta; beta < gbeta; beta++ ){
+        double G_BKZ_min = MAX_NUM;
+        for(int ssbeta = sbeta; ssbeta < beta; ssbeta++){
+            blocksize_strategy bs = BS[ssbeta];
+            len_S = bs.S.size();
+            if(len_S == 0){
+                beta_start = 51;
+                j_start = params->J;
             }
-            else if(node > node_start){
-                if(BS.find(node)==BS.end()){
-                    bssa_generate(l0, node_start, node);
-                }else{
-                    bs0 = BS[node];
+            else{
+                j_start = bs.S[len_S-1].jump;
+                beta_start = bs.S[len_S-1].beta;
+                if(j_start==1){
+                    beta_start += 1;
+                    j_start = params->J;
                 }
+                else
+                    j_start -= params->J_gap;
             }
 
-            G_tmp = MAX_NUM;
-            //node_tmp = MAX_DIM;
-            //beta = max(bs0.S);
-            print_strategy(bs0.S);
-            // dsvp_star = d - beta_sstart
-            beta = 50;
-            for(int beta_alg = beta+1; beta_alg < min(MAX_DIM,d); beta_alg++){
-                printf("\r Blocksize strategy selection process: %4d --> %4d --> (%4d) --> %4d --> %4d", node_start,node,beta_alg,node_mid,node_goal);
-                if (beta_alg >= beta_tmp + 3)
-                    break
-                for(int j=1; j < J+1; j+=J_gap){
-                    if(G_tmp == 0)
-                        break;
-                    // l_, _, loop_, G_, cumulated_proba_= min_tour_to_each_goal_dsvp(l,cum_pr,beta,jump=j,dsvp_star = dsvp_star);
-                        
-                //     if G_tmp > G_:
-                //         S_tmp, l_tmp, G_tmp, cumulated_proba_tmp,beta_tmp =[(beta_alg,j) for _ in range(loop_)], l_,  G_,cumulated_proba_, beta_alg
-                }
-            }
+            double G_tmp_min = MAX_NUM;
+
+
+        
         }
     }
-    printf("\n");
+    //     G_min = MAX_NUM;
+    //     for(node = node_start; node < node_mid; node += max(gap,1)){
+    //         printf("\r Blocksize strategy selection process: %4d --> %4d  --> %4d --> %4d", node_start,node,node_mid,node_goal);
+    //         if(node == node_start){
+    //             bs0 = {{},l0,0.,0.};
+    //         }
+    //         else if(node > node_start){
+    //             if(BS.find(node)==BS.end()){
+    //                 bssa_generate(l0, node_start, node);
+    //             }else{
+    //                 bs0 = BS[node];
+    //             }
+    //         }
+
+    //         G_tmp = MAX_NUM;
+    //         //node_tmp = MAX_DIM;
+    //         //beta = max(bs0.S);
+    //         print_strategy(bs0.S);
+    //         // dsvp_star = d - ssbeta
+    //         beta = 50;
+    //         for(int beta_alg = beta+1; beta_alg < min(MAX_DIM,d); beta_alg++){
+    //             printf("\r Blocksize strategy selection process: %4d --> %4d --> (%4d) --> %4d --> %4d", node_start,node,beta_alg,node_mid,node_goal);
+    //             if (beta_alg >= beta_tmp + 3)
+    //                 break
+    //             for(int j=1; j < J+1; j+=J_gap){
+    //                 if(G_tmp == 0)
+    //                     break;
+    //                 // l_, _, loop_, G_, cumulated_proba_= min_tour_to_each_goal_dsvp(l,cum_pr,beta,jump=j,dsvp_star = dsvp_star);
+                        
+    //             //     if G_tmp > G_:
+    //             //         S_tmp, l_tmp, G_tmp, cumulated_proba_tmp,beta_tmp =[(beta_alg,j) for _ in range(loop_)], l_,  G_,cumulated_proba_, beta_alg
+    //             }
+    //         }
+    //     }
+    // }
+    // printf("\n");
+
+}
+
+
+
+pair<double,double> BSSA::strategy_verification(vector<double> l,vector<strategy> S){
+
+    int d = l.size();
+    double cum_pr = 0., rem_pr = 1., proba, G1cum=0., B1cum = 0.;
+    BKZJSim* sim = new BKZJSim();
+    COST* cost = new COST();
+    for(int i = 0; i< int(S.size()); i++){
+        BSSA::strategy bs = S[i];
+        int beta = bs.beta, jump = bs.jump, N = bs.tours;
+        for(int tour = 0; tour < N; tour++){
+        
+            sim -> simulate(l,l,beta,jump,1);
+
+            boost::math::chi_squared chisquare(beta);
+            proba = boost::math::cdf(chisquare,pow(2,2.*l[d-beta]));
+            
+
+            pair<double,double> GB = cost -> bkz_cost(d,beta,jump,params->cost_model);
+            G1cum = log2(pow(2,G1cum) + (pow(2,GB.first) * rem_pr * proba));
+            B1cum = max(B1cum,GB.second);
+
+            cum_pr += rem_pr * proba;
+            rem_pr *= 1. - proba;
+        }
+    }
+
+    tuple<double,int,double,double> dsvp_t =  dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
+    double G2 = get<2>(dsvp_t);
+    double G = log2(pow(2,G1cum)+pow(2,G2));
+    // printf("Verified cum_pr = %e \n ", cum_pr);
+    // printf("Verified G1 = %3.2f, G2 = %3.2f, dsvp = %3.2f\n", G1cum,G2,get<0>(dsvp_t));
+    // printf("G = %3.2f\n", G );
+
+    return make_pair(G1cum, cum_pr);
+
 }

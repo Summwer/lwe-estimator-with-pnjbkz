@@ -4,8 +4,16 @@ void gsa_est(int dim, FP_NR<FT> dvol, Params* params){
     printf_input(dim,dvol);
     printf("Generate gs-lengths by GSA assumption.");
     vector<double> l = gen_simulated_gso(dim, dvol);
-    if(params->method == 1)
-        call_enumbs(l,params);
+    switch(params->method){
+        case 1:
+            call_enumbs(l,params);
+            break;
+        case 2:
+            call_bssa(l,params,50,dim);
+            break;
+        default:
+            cout<<"Tere's no method named: "<<params->method<<endl;
+    }
 }
 
 

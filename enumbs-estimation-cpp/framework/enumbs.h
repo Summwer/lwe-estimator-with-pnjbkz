@@ -1,4 +1,4 @@
-#include "bkz_with_jump_simulator.h"
+#include "bssa.h"
 #include <fplll/threadpool.h>
 
 
@@ -68,9 +68,6 @@ class EnumBS{
 
 
         tuple<double,int,double,double> max_tour_for_pnjbkz_beta_loop(vector<double> &l, pair<double,double> &cum_GB, double &cum_pr, int beta, int jump);
-        
-
-        int min_tour_to_each_goal_dsvp(vector<double> l0,double cumulated_proba0,int beta, int jump, double goal_dsvp); //Find the minial tours for a pnj-BKZ-beta-J to reach a basis quality of goal_dsvp.
 
 
         void max_tour_for_pnjbkz_beta(int k, int beta,int jump);

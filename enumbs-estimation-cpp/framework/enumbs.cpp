@@ -382,8 +382,6 @@ void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
     if(params -> debug)
         assert( get<2>(bs.dsvp_t) < MAX_NUM);
 
-    
-    
 
     
     //BS.size() > 0, but all dsvps in EnumBS are smaller than dsvp_, don't add dsvp_, then pos = 0.
@@ -406,12 +404,10 @@ void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
     // cout<<"\n------------------------"<<endl;
 
     //While cost of previous strategy is worse than new strategy and the range of strategy to erase is smaller than or equal to new strategy.
-    while(((G2_pos == G2 and G_pos > G) or (G2_pos > G2 and G_pos >= G))){// and compare_max_strategy(BS[pos].S, bs.S)){ 
-
-        // if(k>=pos)
-        //     // k=0;
-        //     k = -1;
-     
+    // (G2_pos == G2 and G_pos > G) and compare_max_strategy(BS[pos].S, bs.S)) or (G2_pos > G2 and G_pos == G and compare_max_strategy(BS[pos].S, bs.S)) or 
+    while( (G2_pos > G2 and G_pos > G)){ // Add equal strategy
+    // while((G2_pos == G2 and G_pos > G) or  (G2_pos > G2 and G_pos >= G)){ // ){ 
+ 
         BS.erase(BS.begin()+pos);
         pos -= 1;
         if(pos == -1)
@@ -426,10 +422,11 @@ void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
 
     }
     
-    if( pos == -1 or (G2_pos > G2 and G_pos <= G)){
+
+    if( pos == -1 or (G2_pos >= G2 and G_pos <= G)){
         BS.insert(BS.begin()+pos+1,bs);
     }
-
+ 
 
 
     if(params->debug){
@@ -438,7 +435,7 @@ void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
         // print_vector(G2s);
         sort(sorted_G2s.rbegin(),sorted_G2s.rend());
         assert(G2s == sorted_G2s);
-        assert(no_repeated_value_verification(G2s));
+        // assert(no_repeated_value_verification(G2s));
     }
 }
 
@@ -535,13 +532,24 @@ void EnumBS::BS_add_cdsvp(EnumBS::blocksize_strategy bs, int k){
 
 
 tuple<double,int,double,double> EnumBS::max_tour_for_pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, double &cum_pr, int beta, int jump){
+
+    //simulate pnj-bkz more precisely
+    int f, beta_, d = l.size();
+    f = default_dim4free_fun(beta);
+    if(jump <= 2)
+        beta_ = beta;
+    else if(jump >=3 and jump <=4)
+        beta_ = get_beta_from_sieve_dim(beta-f,d,2);
+    else if(jump>=5)
+        beta_ = get_beta_from_sieve_dim(beta-f,d,1);
+
+
+
     double rem_pr = 1. - cum_pr;
-    int d = l.size();
+    sim -> simulate(l,l,beta_,jump,1);
 
-    sim -> simulate(l,l,beta,jump,1);
-
-    boost::math::chi_squared chisquare(beta);
-    double pr = boost::math::cdf(chisquare,pow(2,2.*l[d-beta]));
+    boost::math::chi_squared chisquare(beta_);
+    double pr = boost::math::cdf(chisquare,pow(2,2.*l[d-beta_]));
     
 
     pair<double,double> GB = cost->bkz_cost(d,beta,jump,params->cost_model);
@@ -565,12 +573,10 @@ tuple<double,int,double,double> EnumBS::max_tour_for_pnjbkz_beta_loop( vector<do
 void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
     EnumBS::blocksize_strategy bs = BS[k];
     tuple<double,int,double,double> dsvp_t1;
-    double dsvp0 = get<0>(bs.dsvp_t), dsvp1;
+    double G20 =  get<2>(bs.dsvp_t), G21;
     // double G20 = get<2>(bs.dsvp_t), G21;
     vector<double> l = bs.l; 
     vector<strategy> S = bs.S;
-
-    
 
     double cum_pr = bs.cum_pr;
     pair<double,double> cum_GB=bs.GB_BKZ;
@@ -580,23 +586,17 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
 
     dsvp_t1 = max_tour_for_pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
     
-    dsvp1 = get<0>(dsvp_t1);
-    // G21 = get<2>(dsvp_t1);
+    G21 = get<2>(dsvp_t1);
 
-    assert(dsvp1 >= 0.);
+    assert(G21 >= 0.);
 
-    while(dsvp0 - dsvp1 >= 1 and loop < params->max_loop){
+    while(G20 > G21 and loop < params->max_loop and cum_pr <= 0.999 ){
 
         loop +=1;
-        dsvp0 = dsvp1;
-        // G20 = G21;
+        G20 = G21;
         
         if(loop ==1){
-            // len_S+=1;
-            // S.resize(len_S);
-            // S[len_S-1] = {beta, jump, loop};
             S.insert(S.end(),{beta, jump, loop});
-          
         }
         else
             // S[len_S-1].tours = loop;
@@ -611,13 +611,12 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
             assert(abs(verified_cum_G_pr.second-cum_pr)<0.001);
         }
     
-        // k_flag = EnumBS::BS_add(bs, k);
-        EnumBS::BS_add_cdsvp(bs, k);
-        // k_flag = EnumBS::BS_add_G2(bs, k);
+        EnumBS::BS_add_G2(bs, k);
+      
 
         dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
-        dsvp1 = get<0>(dsvp_t1);
-        assert(dsvp1 >= 0.);
+        G21 = get<2>(dsvp_t1);
+        assert(G21 >= 0.);
         // G21 = get<2>(dsvp_t1);
     }
 }
@@ -627,7 +626,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
 //     EnumBS::blocksize_strategy bs = BS[k];
 
 //     tuple<double,int,double,double> dsvp_t1;
-//     // double dsvp0 = get<0>(bs.dsvp_t), dsvp1;
+//     // double G20 =  get<2>(bs.dsvp_t), G21;
 //     double G20 = get<2>(bs.dsvp_t), G21;
 //     vector<double> l = bs.l; 
 //     vector<strategy> S = bs.S;
@@ -639,15 +638,15 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
 
 //     dsvp_t1 = max_tour_for_pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
     
-//     // dsvp1 = get<0>(dsvp_t1);
+//     // G21 = get<2>(dsvp_t1);
 //     G21 = get<2>(dsvp_t1);
 
-//     // while(dsvp0 - dsvp1 >= 1){
-//     while(G20 - G21 >= 1 and loop < params->max_loop){
+//     // while(G20 - G21 >= 1){
+//     while(G20 > G21 and loop < params->max_loop and cum_pr <= 0.999 ){
 //         // if(loop > 5)
 //         //     printf("\n%d, %d, %d, %3.2f, %3.2f\n", beta, jump, loop, G20,G21);
 //         loop +=1;
-//         // dsvp0 = dsvp1;
+//         // G20 = G21;
 //         G20 = G21;
         
 //         if(loop ==1){
@@ -674,7 +673,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
 //         EnumBS::BS_add_G2(bs, k);
 
 //         dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
-//         // dsvp1 = get<0>(dsvp_t1);
+//         // G21 = get<2>(dsvp_t1);
 //         G21 = get<2>(dsvp_t1);
 //     }
 // }
@@ -684,7 +683,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
 //     EnumBS::blocksize_strategy bs = BS[k];
 //     pair<int,bool> k_flag = make_pair(k,true);
 //     tuple<double,int,double,double> dsvp_t1;
-//     // double dsvp0 = get<0>(bs.dsvp_t), dsvp1;
+//     // double G20 =  get<2>(bs.dsvp_t), G21;
 //     double G20 = get<2>(bs.dsvp_t), G21;
 //     vector<double> l = bs.l; 
 //     vector<strategy> S = bs.S;
@@ -696,15 +695,15 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
 
 //     dsvp_t1 = max_tour_for_pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
     
-//     // dsvp1 = get<0>(dsvp_t1);
+//     // G21 = get<2>(dsvp_t1);
 //     G21 = get<2>(dsvp_t1);
 
-//     // while(dsvp0 - dsvp1 >= 1){
+//     // while(G20 - G21 >= 1){
 //     while(G20 - G21 >= 1){
 //         // if(loop > 5)
 //         //     printf("\n%d, %d, %d, %3.2f, %3.2f\n", beta, jump, loop, G20,G21);
 //         loop +=1;
-//         // dsvp0 = dsvp1;
+//         // G20 = G21;
 //         G20 = G21;
         
 //         if(loop ==1){
@@ -732,7 +731,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
 //         EnumBS::BS_add_G2(bs, k);
 
 //         dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
-//         // dsvp1 = get<0>(dsvp_t1);
+//         // G21 = get<2>(dsvp_t1);
 //         G21 = get<2>(dsvp_t1);
 //     }
 //     return k_flag;
@@ -746,7 +745,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
 //     for(int i = 0; i< int(beta_j_tid.size()); i++){
 //         EnumBS::blocksize_strategy bs = BS[k];
 //         tuple<double,int,double,double> dsvp_t1;
-//         double dsvp0 = get<0>(bs.dsvp_t), dsvp1;
+//         double G20 =  get<2>(bs.dsvp_t), G21;
 //         vector<double> l = bs.l; 
 //         vector<strategy> S = bs.S;
 
@@ -771,15 +770,15 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
         
 //         dsvp_t1 = max_tour_for_pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
         
-//         dsvp1 = get<0>(dsvp_t1);
+//         G21 = get<2>(dsvp_t1);
 
-//         assert(dsvp1 >= 0.);
+//         assert(G21 >= 0.);
 
 //         tmpBS[index].clear();
 
-//         while(dsvp0 - dsvp1 >= 1 and loop < params->max_loop){
+//         while(G20 > G21 and loop < params->max_loop and cum_pr <= 0.999 ){
 //             loop +=1;
-//             dsvp0 = dsvp1;
+//             G20 = G21;
 //             if(loop ==1){
 //                 S.insert(S.end(),{beta, jump, loop});
             
@@ -803,8 +802,8 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
 
 
 //             dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
-//             dsvp1 = get<0>(dsvp_t1);
-//             assert(dsvp1 >= 0.);
+//             G21 = get<2>(dsvp_t1);
+//             assert(G21 >= 0.);
 //         }
 
 //         // if(!flag)
@@ -846,7 +845,7 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         
         G21 = get<2>(dsvp_t1);
 
-        // assert(dsvp1 >= 0.);
+        // assert(G21 >= 0.);
 
         tmpBS[index].clear();
         // cerr<< "beta = "<< beta << ", jump = "<< jump <<endl;
@@ -855,7 +854,7 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         // if(G21 > 0)
         //     throw "";
         // while(pow(2,G20) - pow(2,G21) >= 1 and loop < params->max_loop){
-        while( G20 > G21  and loop < params->max_loop){
+        while(G20 > G21 and loop < params->max_loop and cum_pr <= 0.999 ){
             loop +=1;
             G20 = G21;
             if(loop ==1){
@@ -877,7 +876,7 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
 
             dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
             G21 = get<2>(dsvp_t1);
-            // assert(dsvp1 >= 0.);
+            // assert(G21 >= 0.);
         }
 
         // if(!flag)
@@ -986,8 +985,8 @@ void EnumBS::enumbs_est(vector<double> l){
 //False: bs0 will be changed.
 //True: bs0 will not change.
 // bool EnumBS::BS_add_determine(EnumBS::blocksize_strategy bs, int k){
-//     //int cdsvp = ceil(get<0>(bs.dsvp_t));
-//     double dsvp = get<0>(bs.dsvp_t);
+//     //int cdsvp = ceil( get<2>(bs.dsvp_t));
+//     double dsvp =  get<2>(bs.dsvp_t);
 //     double G = bs.GB_BKZ.first;
 
 //     //BS.size() == 0, add bs directly

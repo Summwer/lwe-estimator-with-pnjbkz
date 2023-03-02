@@ -88,12 +88,17 @@ struct Params{
     int threads = 1;
     int max_dim = MAX_DIM; //set the maximal blocksize to find the optimal strategy
     int max_loop = 10; //set the maximal loop for one blocksize to find the optimal strategy
-    double enumbs_prec =  PREC; //1e-5; //set the precision of enumbs
-    double enumbs_bound = 1.;
-    int method = 1; //1: enumbs estiamtion
+
+    int method = 1; //1: enumbs estimation; 2: bssa estimation
 
     bool debug = false; //print debug logging or not.
     bool verification =false; //verify the correctness of strategy
+
+
+    //enumbs params
+    double enumbs_prec =  PREC; //1e-5; //set the precision of enumbs
+    double enumbs_bound = 1.;
+
 
 };
 

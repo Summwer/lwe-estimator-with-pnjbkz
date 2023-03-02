@@ -27,18 +27,13 @@ void BKZJSim::init(){
 
 
 void BKZJSim::simulate(vector<double> &l_,vector<double> l,int beta, int jump, int N){
-    int beta_, f, d = l.size();
-    f = default_dim4free_fun(beta);
-    if(jump <= 2)
-        beta_ = beta;
-    else if(jump >=3 and jump <=4)
-        beta_ = get_beta_from_sieve_dim(beta-f,d,1);
-    else if(jump>=5)
-        beta_ = get_beta_from_sieve_dim(beta-f,d,2);
-    if(beta_ >= 45)
-        sim_above_45(l_,l,beta_, jump, N);
-    else
-        sim_below_45(l_,l,beta_, N);
+    if(beta >= 45){
+        // cerr<<"beta = "<<beta<<", beta_ = "<< beta_<<endl;
+        sim_above_45(l_,l,beta, jump, N);
+    }
+    else{
+        sim_below_45(l_,l,beta, N);
+    }
 }
 
 

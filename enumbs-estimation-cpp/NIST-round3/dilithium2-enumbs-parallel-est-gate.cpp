@@ -8,7 +8,7 @@ int main(){
     params->max_dim = 700; // maximal selected blocksize value
     // params->J = 15; //maximal jump value
     params->threads = 50;
-    params->enumbs_prec = 1e2;
+    params->enumbs_prec = 1e3;
 
     // Dilithium-II round-2 parameters
     printf("============= Dilithium-II\n");
