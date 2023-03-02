@@ -401,30 +401,85 @@ void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
     // cout<<"\n========================"<<endl;
     // printf("G2_pos = %3.2f, G2 = %3.2f ", G2_pos, G2);
     // printf("G_pos = %3.2f, G = %3.2f ", G_pos, G);
+    // print_strategy(BS[pos].S);
+    // print_strategy(bs.S);
+    // printf("\n cum_pr_pos = %e, cum_pr = %e \n", BS[pos].cum_pr, bs.cum_pr);
+    // cout<<BS[pos].cum_pr<<endl;
+    // cout<<bs.cum_pr<<endl;
     // cout<<"\n------------------------"<<endl;
 
-    //While cost of previous strategy is worse than new strategy and the range of strategy to erase is smaller than or equal to new strategy.
-    // (G2_pos == G2 and G_pos > G) and compare_max_strategy(BS[pos].S, bs.S)) or (G2_pos > G2 and G_pos == G and compare_max_strategy(BS[pos].S, bs.S)) or 
-    while( (G2_pos > G2 and G_pos > G)){ // Add equal strategy
-    // while((G2_pos == G2 and G_pos > G) or  (G2_pos > G2 and G_pos >= G)){ // ){ 
- 
-        BS.erase(BS.begin()+pos);
-        pos -= 1;
-        if(pos == -1)
-            break;
-
-        // G2_pos = round(pow(2,get<2>(BS[pos].dsvp_t))*params->enumbs_prec)/params->enumbs_prec;
-        // G_pos = round(pow(2,BS[pos].GB_BKZ.first)*params->enumbs_prec)/params->enumbs_prec;
-        // G_pos = BS[pos].GB_BKZ.first;
-
-        G2_pos = round(get<2>(BS[pos].dsvp_t)*params->enumbs_prec)/params->enumbs_prec;
-        G_pos = round(BS[pos].GB_BKZ.first*params->enumbs_prec)/params->enumbs_prec;
-
-    }
     
 
-    if( pos == -1 or (G2_pos >= G2 and G_pos <= G)){
-        BS.insert(BS.begin()+pos+1,bs);
+    
+    switch (params->enumbs_add_strategy){
+        case 1: // Remain all equal strategies
+            while( G_pos!= 0. and(G2_pos > G2 and G_pos > G)){
+            // while((G2_pos == G2 and G_pos > G) or  (G2_pos > G2 and G_pos >= G)){
+        
+                BS.erase(BS.begin()+pos);
+                pos -= 1;
+                if(pos == -1)
+                    break;
+
+                // G2_pos = round(pow(2,get<2>(BS[pos].dsvp_t))*params->enumbs_prec)/params->enumbs_prec;
+                // G_pos = round(pow(2,BS[pos].GB_BKZ.first)*params->enumbs_prec)/params->enumbs_prec;
+                // G_pos = BS[pos].GB_BKZ.first;
+
+                G2_pos = round(get<2>(BS[pos].dsvp_t)*params->enumbs_prec)/params->enumbs_prec;
+                G_pos = round(BS[pos].GB_BKZ.first*params->enumbs_prec)/params->enumbs_prec;
+
+            }
+            
+
+            if( pos == -1 or (G2_pos >= G2 and G_pos <= G) or G==0.){
+                BS.insert(BS.begin()+pos+1,bs);
+            }
+
+            break;
+
+        case 2: //Delete equal strategies
+            while( G_pos!= 0. and (G2_pos == G2 and G_pos > G) or  (G2_pos > G2 and G_pos >= G)){
+        
+                BS.erase(BS.begin()+pos);
+                pos -= 1;
+                if(pos == -1)
+                    break;
+
+                G2_pos = round(get<2>(BS[pos].dsvp_t)*params->enumbs_prec)/params->enumbs_prec;
+                G_pos = round(BS[pos].GB_BKZ.first*params->enumbs_prec)/params->enumbs_prec;
+
+            }
+            
+
+            if( pos == -1 or (G2_pos > G2 and G_pos <= G) or G==0.){
+                BS.insert(BS.begin()+pos+1,bs);
+            }
+
+            break;
+
+        case 3: //Delete equal strategies, except small strategies
+            //While cost of previous strategy is worse than new strategy and the range of strategy to erase is smaller than or equal to new strategy.
+            while(G_pos!= 0. and ((G2_pos == G2 and G_pos > G) and compare_max_strategy(BS[pos].S, bs.S)) or (G2_pos > G2 and G_pos == G and compare_max_strategy(BS[pos].S, bs.S)) or  (G2_pos > G2 and G_pos > G)){
+        
+                BS.erase(BS.begin()+pos);
+                pos -= 1;
+                if(pos == -1)
+                    break;
+
+                G2_pos = round(get<2>(BS[pos].dsvp_t)*params->enumbs_prec)/params->enumbs_prec;
+                G_pos = round(BS[pos].GB_BKZ.first*params->enumbs_prec)/params->enumbs_prec;
+
+            }
+            
+
+            if( pos == -1 or (G2_pos > G2 and G_pos <= G) or G==0.){
+                BS.insert(BS.begin()+pos+1,bs);
+            }
+
+            break;
+        default:
+            cerr << "Please choose right add strategy for EnuBS: (1/2/3)" << endl;
+
     }
  
 

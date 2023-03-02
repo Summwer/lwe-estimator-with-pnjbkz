@@ -17,7 +17,7 @@
 In unbuntu, you can install the above dependences by implementing the following code directly:
 
 ```bash
-./install-dependences.sh
+./install-dependency.sh
 ```
 
 
