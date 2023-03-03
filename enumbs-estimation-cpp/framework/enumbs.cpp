@@ -586,7 +586,7 @@ void EnumBS::BS_add_cdsvp(EnumBS::blocksize_strategy bs, int k){
 }
 
 
-tuple<double,int,double,double> EnumBS::max_tour_for_pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, double &cum_pr, int beta, int jump){
+tuple<double,int,double,double> EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, double &cum_pr, int beta, int jump){
 
     //simulate pnj-bkz more precisely
     int f, beta_, d = l.size();
@@ -639,7 +639,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
     int  loop = 0;
     
 
-    dsvp_t1 = max_tour_for_pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
+    dsvp_t1 = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
     
     G21 = get<2>(dsvp_t1);
 
@@ -669,7 +669,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
         EnumBS::BS_add_G2(bs, k);
       
 
-        dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
+        dsvp_t1 = pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
         G21 = get<2>(dsvp_t1);
         assert(G21 >= 0.);
         // G21 = get<2>(dsvp_t1);
@@ -691,7 +691,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
 
 //     int  loop = 0;
 
-//     dsvp_t1 = max_tour_for_pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
+//     dsvp_t1 = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
     
 //     // G21 = get<2>(dsvp_t1);
 //     G21 = get<2>(dsvp_t1);
@@ -727,7 +727,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
 //         // k_flag = EnumBS::BS_add(bs, k);
 //         EnumBS::BS_add_G2(bs, k);
 
-//         dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
+//         dsvp_t1 = pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
 //         // G21 = get<2>(dsvp_t1);
 //         G21 = get<2>(dsvp_t1);
 //     }
@@ -748,7 +748,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
 
 //     int  loop = 0;
 
-//     dsvp_t1 = max_tour_for_pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
+//     dsvp_t1 = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
     
 //     // G21 = get<2>(dsvp_t1);
 //     G21 = get<2>(dsvp_t1);
@@ -785,7 +785,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
 //         // k_flag = EnumBS::BS_add_G2(bs, k);
 //         EnumBS::BS_add_G2(bs, k);
 
-//         dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
+//         dsvp_t1 = pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
 //         // G21 = get<2>(dsvp_t1);
 //         G21 = get<2>(dsvp_t1);
 //     }
@@ -823,7 +823,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
         
 //         int  loop = 0;
         
-//         dsvp_t1 = max_tour_for_pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
+//         dsvp_t1 = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
         
 //         G21 = get<2>(dsvp_t1);
 
@@ -856,7 +856,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
 //             // }
 
 
-//             dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
+//             dsvp_t1 = pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
 //             G21 = get<2>(dsvp_t1);
 //             assert(G21 >= 0.);
 //         }
@@ -896,7 +896,7 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         
         int  loop = 0;
         
-        dsvp_t1 = max_tour_for_pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
+        dsvp_t1 = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
         
         G21 = get<2>(dsvp_t1);
 
@@ -929,7 +929,7 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
             tmpBS[index].insert(tmpBS[index].end(),bs);
 
 
-            dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
+            dsvp_t1 = pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
             G21 = get<2>(dsvp_t1);
             // assert(G21 >= 0.);
         }

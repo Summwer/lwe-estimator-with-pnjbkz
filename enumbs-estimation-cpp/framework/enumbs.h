@@ -67,7 +67,7 @@ class EnumBS{
         bool BS_add_determine(EnumBS::blocksize_strategy bs, int k);
 
 
-        tuple<double,int,double,double> max_tour_for_pnjbkz_beta_loop(vector<double> &l, pair<double,double> &cum_GB, double &cum_pr, int beta, int jump);
+        tuple<double,int,double,double> pnjbkz_beta_loop(vector<double> &l, pair<double,double> &cum_GB, double &cum_pr, int beta, int jump);
 
 
         void max_tour_for_pnjbkz_beta(int k, int beta,int jump);

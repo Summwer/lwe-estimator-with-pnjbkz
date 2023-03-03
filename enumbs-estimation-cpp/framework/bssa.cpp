@@ -31,75 +31,71 @@ void BSSA::print_bs(blocksize_strategy bs){
     print_strategy(bs.S);
 }
 
+tuple<double,int,double,double> BSSA::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, double &cum_pr, int beta, int jump){
 
-// tuple<double,int,double,double> BSSA::max_tour_for_pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, double &cum_pr, int beta){
+    //simulate pnj-bkz more precisely
+    int f, beta_, d = l.size();
+    f = default_dim4free_fun(beta);
+    if(jump <= 2)
+        beta_ = beta;
+    else if(jump >=3 and jump <=4)
+        beta_ = get_beta_from_sieve_dim(beta-f,d,2);
+    else if(jump>=5)
+        beta_ = get_beta_from_sieve_dim(beta-f,d,1);
 
+    double rem_pr = 1. - cum_pr;
+    sim -> simulate(l,l,beta_,jump,1);
 
-
-//     double rem_pr = 1. - cum_pr;
-//     sim -> simulate(l,l,beta_,1,1);
-
-//     boost::math::chi_squared chisquare(beta_);
-//     double pr = boost::math::cdf(chisquare,pow(2,2.*l[d-beta_]));
+    boost::math::chi_squared chisquare(beta_);
+    double pr = boost::math::cdf(chisquare,pow(2,2.*l[d-beta_]));
     
 
-//     pair<double,double> GB = cost->bkz_cost(d,beta,1,params->cost_model);
+    pair<double,double> GB = cost->bkz_cost(d,beta,jump,params->cost_model);
 
     
-//     cum_GB.first = log2(pow(2,cum_GB.first)+(pow(2,GB.first)*rem_pr*pr));
-//     cum_GB.second = max(cum_GB.second, GB.second);
-
-//     cum_pr += rem_pr * pr;
-//     rem_pr = 1. - cum_pr;
-
-//     return dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
-// }
+    cum_GB.first = log2(pow(2,cum_GB.first)+(pow(2,GB.first)*rem_pr*pr));
+    cum_GB.second = max(cum_GB.second, GB.second);
 
 
-// void BSSA::max_tour_for_pnjbkz_beta(BSSA::blocksize_strategy bs){
+    cum_pr += rem_pr * pr;
+    rem_pr = 1. - cum_pr;
+
+
+    return dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
+
+}
+
+
+tuple<double,int,double,double> BSSA::max_tour_for_pnjbkz_beta(BSSA::blocksize_strategy bs, int beta){
     
-//     tuple<double,int,double,double> dsvp_t1;
-//     double G20 =  get<2>(bs.dsvp_t), G21;
+    tuple<double,int,double,double> dsvp_t1;
+    double G20 =  MAX_NUM, G21;
    
-//     vector<double> l = bs.l; 
-//     // vector<strategy> S = bs.S;
-//     double cum_pr = bs.cum_pr;
-//     pair<double,double> cum_GB=bs.GB_BKZ;
+    vector<double> l = bs.l; 
+    // vector<strategy> S = bs.S;
+    double cum_pr = bs.cum_pr;
+    pair<double,double> cum_GB=bs.GB_BKZ;
 
-//     int  loop = 0;
+    int  loop = 0;
     
-//     dsvp_t1 = max_tour_for_pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
+    dsvp_t1 = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, 1);
     
-//     G21 = get<2>(dsvp_t1);
+    G21 = get<2>(dsvp_t1);
 
-//     assert(G21 >= 0.);
+    assert(G21 >= 0.);
 
-//     while(G20 > G21 and loop < params->max_loop and cum_pr <= 0.999 ){
+    while(G20 > G21 and loop < params->max_loop and cum_pr <= 0.999 ){
 
-//         loop +=1;
-//         G20 = G21;
-        
-//         // if(loop ==1){
-//         //     S.insert(S.end(),{beta, jump, loop});
-//         // }
-//         // else
-//         //     // S[len_S-1].tours = loop;
-//         //     S[S.size()-1].tours = loop;
-//         // bs = {dsvp_t1, S, l, cum_GB, cum_pr};
-
-//         if(params->verification){
-//             pair<double,double> verified_cum_G_pr = strategy_verification(l0,S);
-//             assert(abs(verified_cum_G_pr.first-cum_GB.first)<0.001);
-//             assert(abs(verified_cum_G_pr.second-cum_pr)<0.001);
-//         }
+        loop +=1;
+        G20 = G21;
     
-//         dsvp_t1 = max_tour_for_pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
-//         G21 = get<2>(dsvp_t1);
-//         assert(G21 >= 0.);
-//     }
+        dsvp_t1 = pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, 1);
+        G21 = get<2>(dsvp_t1);
+        assert(G21 >= 0.);
+    }
 
-//     return dsvp_t1;
-// }
+    return dsvp_t1;
+}
 
 
 
@@ -193,6 +189,10 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
             }
 
             double G_tmp_min = MAX_NUM;
+
+            tuple<double,int,double,double> dsvp_t0 = max_tour_for_pnjbkz_beta(bs, beta);
+
+            cout<<"G2_star = "<<get<2>(dsvp_t0)<<", beta = "<<beta<<endl;
 
 
         
