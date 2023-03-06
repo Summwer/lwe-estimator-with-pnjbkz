@@ -9,7 +9,8 @@ void gsa_est(int dim, FP_NR<FT> dvol, Params* params){
             call_enumbs(l,params);
             break;
         case 2:
-            call_bssa(l,params,50,dim);
+            call_bssa(l,params,50, dim);
+            // call_bssa(l,params,50, int(0.9*(double)dim));
             break;
         default:
             cout<<"Tere's no method named: "<<params->method<<endl;

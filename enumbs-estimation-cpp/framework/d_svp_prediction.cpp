@@ -18,7 +18,7 @@ tuple<double,int,double,double> fixed_dsvp_predict(vector<double> l, double cum_
     int d = l.size();
     double psvp, p, rp, gh, dsvp_;
     pair<double,double> p_cost;
-    if(cum_pr >= 1.){
+    if(cum_pr >= 0.999){
         return make_tuple(0.,0,0.,0.);
     }
     for(int dsvp = 50; dsvp < d; dsvp++ ){
@@ -52,7 +52,7 @@ tuple<double,int,double,double> progressive_dsvp_predict(vector<double> l, doubl
     double psvp, p = cum_pr , rp = 1.-cum_pr, gh, avg_d_svp  = 0.;
     pair<double,double> p_cost, p_cost_cum;
     double G_cum = 0., B_cum = 0.;
-    if(cum_pr >= 1.){
+    if(cum_pr >= 0.999){
         return make_tuple(0.,0,0.,0.);
     }
     
