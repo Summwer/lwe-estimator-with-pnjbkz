@@ -11,8 +11,9 @@ int main(){
     FP_NR<FT> dvol;
 
     // Kyber-I(Kyber-512) round-3 parameters
-     params->max_dim = 500; // maximal selected blocksize value
+     
     printf("============= Kyber-I\n");
+    params->max_dim = 1000; // maximal selected blocksize value
     //eta1 = eta2 = 3
     // dim = 1025;
     // FP_NR<FT> dvol = 3944.9406103;

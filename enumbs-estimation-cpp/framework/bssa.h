@@ -33,12 +33,11 @@ class BSSA{
 
 
         void print_strategy(vector<strategy> S);
-        void print_BS(map<int,blocksize_strategy> BS);
+        void print_BS(map<int,BSSA::blocksize_strategy> BS);
         void print_bs(blocksize_strategy bs);
 
 
-        int min_tour_to_each_goal_dsvp(vector<double> l0,double cumulated_proba0,int beta, int jump, double goal_dsvp); //Find the minial tours for a pnj-BKZ-beta-J to reach a basis quality of goal_dsvp.
-
+        BSSA::blocksize_strategy min_tour_to_each_goal_beta(BSSA::blocksize_strategy bs, int beta, int jump, double G2_star); //Find the minial tours for a pnj-BKZ-beta-J to reach a basis quality of goal_dsvp.
 
         tuple<double,int,double,double> pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, double &cum_pr, int beta, int jump);
         tuple<double,int,double,double> max_tour_for_pnjbkz_beta(BSSA::blocksize_strategy bs, int beta); //maximal tours for one pnj-bkz-beta to reduce the basis.
