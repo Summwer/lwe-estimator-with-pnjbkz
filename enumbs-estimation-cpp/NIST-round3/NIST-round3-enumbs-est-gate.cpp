@@ -43,14 +43,14 @@ int main(){
 
 
     // Dilithium-I round-3 parameters
-    params->max_dim = 500; 
+    params->max_dim = 1000; 
     printf("============= Dilithium-I\n");
     dim =  2049;
     FP_NR<FT> dvol = 15614.219317244602;
     gsa_est(dim, dvol, params);
 
     // Dilithium-II round-3 parameters
-    params->max_dim = 700; 
+    params->max_dim = 1000; 
     printf("============= Dilithium-II\n");
     dim =  2817;
     FP_NR<FT> dvol = 21814.858106487554;

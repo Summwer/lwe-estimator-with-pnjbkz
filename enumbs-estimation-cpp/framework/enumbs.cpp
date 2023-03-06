@@ -1156,9 +1156,11 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
     while( k < int(BS.size())){
         bs = BS[k];
         len_S = bs.S.size();
-        print_strategy(bs.S);
-        if(bs.cum_pr >= 0.999)
-            break;
+ 
+        if(bs.cum_pr >= 0.999){
+            k++;
+            continue;
+        }
       
     
         if(len_S == 0){
@@ -1196,8 +1198,8 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
                 else{
                     departs[t_id] = block;
                 }
-                
-                beta_j_t_id_begins[t_id] = beta_j_t_id_begins[t_id-1]+departs[t_id-1];
+                if(t_id > 0)
+                    beta_j_t_id_begins[t_id] = beta_j_t_id_begins[t_id-1]+departs[t_id-1];
             } 
         
         

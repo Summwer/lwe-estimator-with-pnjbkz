@@ -97,7 +97,7 @@ struct Params{
 
     //enumbs params
     double enumbs_prec =  PREC; //1e-5; //set the precision of enumbs
-    int enumbs_add_strategy = 2; //1: remain all equal strategies; 2: (Large block strategy) delete all equal strategies; 3: (Small block strategy) remain the small blocksize strategy first.
+    int enumbs_add_strategy = 3; //1: remain all equal strategies; 2: (Large block strategy) delete all equal strategies; 3: (Small block strategy) remain the small blocksize strategy first.
 
 
 };

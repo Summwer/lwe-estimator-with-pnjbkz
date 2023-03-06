@@ -249,7 +249,8 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
                 // if ( len_S != 0 && beta_alg >= bs_min.S[len_S-1].beta + 3)
                 //         break;
                 for(int j = params->J; j > 0; j--){
-                    printf("\r Blocksize strategy selection process: %4d --> %4d --> (%4d, %2d) --> %4d --> %4d", sbeta,ssbeta,beta_alg,j,beta,gbeta);
+                    if(params->verbose)
+                        printf("\r Blocksize strategy selection process: %4d --> %4d --> (%4d, %2d) --> %4d --> %4d", sbeta,ssbeta,beta_alg,j,beta,gbeta);
                     pair<double, double> GB_alg = cost->bkz_cost(d,beta_alg,j,params->cost_model);
 
                     if(GB_alg.first > G_tmp_min)
@@ -288,9 +289,9 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
             }
         }
     }
-    cout<<endl;
+    if(params->verbose)
+        cout<<endl;
 
-    print_BS(BS);
 
     //Find the optimized strategy
     double Gmin = MAX_NUM, Bmin  = MAX_NUM, G1, G2, G,  B;

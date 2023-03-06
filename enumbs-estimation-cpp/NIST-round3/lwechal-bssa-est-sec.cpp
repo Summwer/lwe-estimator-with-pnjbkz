@@ -10,7 +10,8 @@ int main(){
     params->cost_model = 2; //sec model;
     // params->debug = true;
     params->method = 2; 
-    params->max_loop = 20;
+    params->max_loop = 10;
+    params->verbose = false;
 
     vector<LWEchal> unsolved_lwechallenges = load_unsolved_lwechallenges();
     for(int i = 0; i < int(unsolved_lwechallenges.size()); i++){
