@@ -589,7 +589,7 @@ void EnumBS::BS_add_cdsvp(EnumBS::blocksize_strategy bs, int k){
 }
 
 
-tuple<double,int,double,double> EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, double &cum_pr, int beta, int jump){
+bool EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, double &cum_pr, int beta, int jump, tuple<double,int,double,double> &dsvp_t_){
 
     //simulate pnj-bkz more precisely
     int f, beta_, d = l.size();
@@ -604,26 +604,37 @@ tuple<double,int,double,double> EnumBS::pnjbkz_beta_loop( vector<double> &l, pai
 
 
     double rem_pr = 1. - cum_pr;
-    sim -> simulate(l,l,beta_,jump,1);
 
-    boost::math::chi_squared chisquare(beta_);
-    double pr = boost::math::cdf(chisquare,pow(2,2.*l[d-beta_]));
-    
+    vector<double> l_;
 
-    pair<double,double> GB = cost->bkz_cost(d,beta,jump,params->cost_model);
-    // if(beta == 178)
-    //     printf("beta = %d, l[i]= %e, G = %e, rem_pr = %e, pr = %e\n", beta, pow(2,2.*l[d-beta]), GB.first, rem_pr, pr);
-    
-    cum_GB.first = log2(pow(2,cum_GB.first)+(pow(2,GB.first)*rem_pr*pr));
-    // cum_GB.first = log2(pow(2,cum_GB.first)+(pow(2,GB.first)));
-    cum_GB.second = max(cum_GB.second, GB.second);
-
-    // printf("cum_G = %e\n", cum_GB.first );
-    cum_pr += rem_pr * pr;
-    rem_pr = 1. - cum_pr;
+    sim -> simulate(l_,l,beta_,jump,1);
 
 
-    return dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
+    if(l_[d-beta_] == l[d-beta_])
+        return false;
+    else{
+        l = l_;
+        boost::math::chi_squared chisquare(beta_);
+        double pr = boost::math::cdf(chisquare,pow(2,2.*l[d-beta_]));
+        
+
+        pair<double,double> GB = cost->bkz_cost(d,beta,jump,params->cost_model);
+        // if(beta == 178)
+        //     printf("beta = %d, l[i]= %e, G = %e, rem_pr = %e, pr = %e\n", beta, pow(2,2.*l[d-beta]), GB.first, rem_pr, pr);
+        
+        cum_GB.first = log2(pow(2,cum_GB.first)+(pow(2,GB.first)*rem_pr*pr));
+        // cum_GB.first = log2(pow(2,cum_GB.first)+(pow(2,GB.first)));
+        cum_GB.second = max(cum_GB.second, GB.second);
+
+        // printf("cum_G = %e\n", cum_GB.first );
+        cum_pr += rem_pr * pr;
+        rem_pr = 1. - cum_pr;
+
+
+        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
+
+        return true;
+    }
 
 }
 
@@ -642,7 +653,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
     int  loop = 0;
     
 
-    dsvp_t1 = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
+    bool sim_term = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump, dsvp_t1);
     
     G21 = get<2>(dsvp_t1);
 
@@ -673,11 +684,11 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
     
         EnumBS::BS_add_G2(bs, k);
 
-        if(cum_pr >= 0.999)
+        if(cum_pr >= 0.999 or not sim_term)
             break;
       
 
-        dsvp_t1 = pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
+        sim_term = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump, dsvp_t1);
         G21 = get<2>(dsvp_t1);
         assert(G21 >= 0.);
         // G21 = get<2>(dsvp_t1);
@@ -903,8 +914,8 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         int index = beta_j_t_id_begin + i;
         
         int  loop = 0;
-        
-        dsvp_t1 = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump);
+
+        bool sim_term = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump, dsvp_t1);
         
         G21 = get<2>(dsvp_t1);
 
@@ -932,10 +943,10 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         
             tmpBS[index].insert(tmpBS[index].end(),bs);
 
-            if(cum_pr >= 0.999)
+            if(cum_pr >= 0.999 or not sim_term)
                 break;
 
-            dsvp_t1 = pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump);
+            sim_term = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump, dsvp_t1);
             G21 = get<2>(dsvp_t1);
             // assert(G21 >= 0.);
         }
