@@ -50,8 +50,10 @@ bool BSSA::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, dou
     
     sim -> simulate(l_,l,beta_,jump,1);
 
-    if(l_[d-beta_] == l[d-beta_])
+    if(l_[d-beta_] == l[d-beta_]){
+        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
         return false;
+    }
     else{
         l = l_;
         boost::math::chi_squared chisquare(beta_);
@@ -90,6 +92,9 @@ tuple<double,int,double,double> BSSA::max_tour_for_pnjbkz_beta(BSSA::blocksize_s
     int  loop = 0;
     
     bool sim_term = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, 1,dsvp_t1);
+
+    if(not sim_term)
+        return dsvp_t1;
     
     G21 = get<2>(dsvp_t1);
 
@@ -127,6 +132,9 @@ BSSA::blocksize_strategy BSSA::min_tour_to_each_goal_beta(BSSA::blocksize_strate
     
     
     bool sim_term = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump, dsvp_t1);
+
+    if(not sim_term)
+        return {};
     
     G21 = get<2>(dsvp_t1);
 

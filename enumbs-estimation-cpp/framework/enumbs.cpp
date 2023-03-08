@@ -654,6 +654,9 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
     
 
     bool sim_term = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump, dsvp_t1);
+
+    if(not sim_term)
+        return;
     
     G21 = get<2>(dsvp_t1);
 
@@ -907,15 +910,18 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
     
         int f = dims4free(beta);
         if(f == 0 && jump > 1)
-            return;
+            continue;
         if(f!=0 && jump >= f)
-            return;
+            continue;
 
         int index = beta_j_t_id_begin + i;
         
         int  loop = 0;
 
         bool sim_term = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump, dsvp_t1);
+
+        if(not sim_term)
+            continue;
         
         G21 = get<2>(dsvp_t1);
 

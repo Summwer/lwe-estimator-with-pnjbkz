@@ -9,7 +9,7 @@ int main(){
     params->max_dim = 300;
     params->cost_model = 2; //sec model;
     // params->debug = true;
-    params->method = 2; 
+    params->method = 1; 
     params->max_loop = 30;
     params->verbose = false;
 
