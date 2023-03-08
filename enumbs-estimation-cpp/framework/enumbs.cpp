@@ -610,8 +610,10 @@ bool EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, d
     sim -> simulate(l_,l,beta_,jump,1);
 
 
-    if(l_[d-beta_] == l[d-beta_])
+    if(l_[d-beta_] == l[d-beta_]){
+        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
         return false;
+    }
     else{
         l = l_;
         boost::math::chi_squared chisquare(beta_);
