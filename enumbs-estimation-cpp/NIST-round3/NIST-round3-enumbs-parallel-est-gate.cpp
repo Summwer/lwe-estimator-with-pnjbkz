@@ -8,10 +8,9 @@ int main(){
     Params* params = new Params; //J, gap, J_gap, cost_model, verbose,
     params->max_dim = 500; // maximal selected blocksize value
     params->threads = 50;
-    params->debug = true;
-    params->enumbs_prec = 1e3;
+ 
 
-    int dim;
+    int dim;    
     FP_NR<FT> dvol;
 
     // Kyber-I(Kyber-512) round-3 parameters
@@ -21,17 +20,18 @@ int main(){
     // dvol = 3944.9406103;
 
     //eta1 = 3, eta2 = 2
+    params->max_dim = 700; 
     dim = 1004;
     dvol = 3882.6780896;
-    // gsa_est(dim, dvol, params);
+    gsa_est(dim, dvol, params);
     
 
     // Kyber-II(Kyber-768) round-3 parameters
-    params->max_dim = 700; 
+    params->max_dim = 800; 
     printf("============= Kyber-II\n");
     dim =  1467;
     dvol =  5661.0782118;
-    // gsa_est(dim, dvol, params);
+    gsa_est(dim, dvol, params);
 
 
 
@@ -40,7 +40,7 @@ int main(){
     printf("============= Kyber-III\n");
     dim =  1918;
     dvol = 7242.6115232;
-    // gsa_est(dim, dvol, params);
+    gsa_est(dim, dvol, params);
 
 
     // Dilithium-I round-3 parameters

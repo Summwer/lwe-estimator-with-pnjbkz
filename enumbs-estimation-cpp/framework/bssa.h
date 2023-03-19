@@ -13,7 +13,7 @@ class BSSA{
             vector<strategy> S; //pnj-BKZ strategy: 
             vector<double> l;
             pair<double,double> GB_BKZ;
-            double cum_pr; //cumulated probability      
+            double cum_pr; //cumulated probability     
         };
         
 
@@ -27,7 +27,7 @@ class BSSA{
 
         BSSA(Params* params){
             sim = new BKZJSim();
-            cost = new COST();
+            cost = new COST(params);
             this->params = params;
         }
 
@@ -39,10 +39,11 @@ class BSSA{
 
         BSSA::blocksize_strategy min_tour_to_each_goal_beta(BSSA::blocksize_strategy bs, int beta, int jump, double G2_star); //Find the minial tours for a pnj-BKZ-beta-J to reach a basis quality of goal_dsvp.
 
-        bool pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, double &cum_pr, int beta, int jump, tuple<double,int,double,double> &dsvp_t_);
+        bool pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, double &cum_pr, int beta, int jump, tuple<double,int,double,double> &dsvp_t_, double &slope);
         tuple<double,int,double,double> max_tour_for_pnjbkz_beta(BSSA::blocksize_strategy bs, int beta); //maximal tours for one pnj-bkz-beta to reduce the basis.
 
         void bssa_est(vector<double> l0, int sbeta, int gbeta); //bssa estimation
+        void bssa_est_mul_node(vector<double> l0, int sbeta, int gbeta); //bssa estimation with more node
 
 
         pair<double,double> strategy_verification( vector<double> l,vector<strategy> strategy);

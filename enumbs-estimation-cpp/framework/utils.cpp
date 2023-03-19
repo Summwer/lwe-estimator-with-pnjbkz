@@ -109,6 +109,16 @@ void print_vector(vector<pair<int,int>> v, int index_start, int index_end){
     cout<<"]"<<endl;
 }
 
+void print_vector(vector<tuple<double,double,double>> v,int index_start, int index_end){
+    cout<< "[";
+    if(index_end == -1)
+        index_end = v.size();
+    for(int i = index_start; i < index_end; i++) {
+        cout << "(" << get<0>(v[i]) << ", " << get<1>(v[i]) << ", " << get<2>(v[i])  << ") ";
+    }
+    cout<<"]"<<endl;
+}
+
 /*
 void print_matrix(ZZ_mat<ZT> matrix){
     cout<< "[";
@@ -259,9 +269,34 @@ FP_NR<FT> compute_delta( int beta){
 }
 
 
+
+//calculate slope in G6K
+double get_current_slope(vector<double> l, int start, int end){
+    /*
+    Return current slope of log-gs-lengths
+
+    :param log_rr: vector of log(squared) Gram-Schmidt norms
+    :param start_row: start row
+    :param stopr_row: stop row
+
+    */
+    
+    int n = end - start;
+    double i_mean = (n - 1) * 0.5 + start;
+    double x_mean =  accumulate(l.begin(), l.end(), 0.)/n;
+    double v1 = 0.0, v2 = 0.0;
+    for(int i = start; i < end; i++){
+        v1 += (i - i_mean) * (l[i] - x_mean);
+        v2 += (i - i_mean) * (i - i_mean);
+     }
+    return v1 / v2 ; //round(v1 / v2 * 1e6)/1e6; 
+}
+
+
+
 FP_NR<FT> bkzgsa_gso_len( FP_NR<FT> logvol, int i, int d, FP_NR<FT> delta, int beta){
     FP_NR<FT> gso_len;
-    if(delta >= MAX_NUM)
+    if(delta >= 1000.)
         delta = compute_delta(beta);
     gso_len.pow_si(delta,(d-1-2*i));
     FP_NR<FT> tmp;

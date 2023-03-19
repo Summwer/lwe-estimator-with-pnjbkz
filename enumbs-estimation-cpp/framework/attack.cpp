@@ -8,7 +8,7 @@ void call_enumbs(vector<double> l, Params* params){
     if(params->threads == 1){
         auto start = system_clock::now();
         cout<<" Attack Estimation via simulation + probabilistic model (EnumBS)"<<endl;
-        printf("gap = %d, J = %d, J_gap = %d, max_loop = %d, cost_model = %d, prec = %e, strategy_add_method = %d\n", params->gap, params->J, params->J_gap, params->max_loop, params->cost_model, params->enumbs_prec, params->enumbs_add_strategy);
+        printf("beta_start= %d, gap = %d, J = %d, J_gap = %d, cost_model = %d, max_loop = %d, threads = %d, G_prec = %e, slope_prec = %e, progressive_sieve = %d\n", params->beta_start, params->gap, params->J, params->J_gap, params->cost_model, params->max_loop, params->threads, params->enumbs_G_prec,params->enumbs_slope_prec, params->progressive_sieve);
         enumbs->enumbs_est(l);
         auto finish = system_clock::now();
         duration<double> diff = finish - start;
@@ -16,7 +16,7 @@ void call_enumbs(vector<double> l, Params* params){
     }else if (params->threads > 1){
         auto start = system_clock::now();
         cout<<" Attack Estimation via simulation + probabilistic model (EnumBS in parallel)"<<endl;
-        printf("gap = %d, J = %d, J_gap = %d, cost_model = %d, max_loop = %d, threads = %d, prec = %e, strategy_add_method = %d\n", params->gap, params->J, params->J_gap, params->cost_model, params->max_loop, params->threads, params->enumbs_prec, params->enumbs_add_strategy);
+        printf("beta_start= %d, gap = %d, J = %d, J_gap = %d, cost_model = %d, max_loop = %d, threads = %d, G_prec = %e,  slope_prec = %e,  progressive_sieve = %d\n", params->beta_start, params->gap, params->J, params->J_gap, params->cost_model, params->max_loop, params->threads, params->enumbs_G_prec, params->enumbs_slope_prec,  params->progressive_sieve);
         enumbs->enumbs_est_in_parallel(l);
         auto finish = system_clock::now();
         duration<double> diff = finish - start;
@@ -34,8 +34,11 @@ void call_bssa(vector<double> l, Params* params, int sbeta, int gbeta){
     
     auto start = system_clock::now();
     cout<<" Attack Estimation via simulation + probabilistic model (BSSA)"<<endl;
-    printf("gap = %d, J = %d, J_gap = %d, max_loop = %d, cost_model = %d\n", params->gap, params->J, params->J_gap, params->max_loop, params->cost_model);
-    bssa->bssa_est(l, sbeta, gbeta);
+    printf("gap = %d, J = %d, J_gap = %d, max_loop = %d, cost_model = %d, mul_node = %d, progressive_sieve = %d\n", params->gap, params->J, params->J_gap, params->max_loop, params->cost_model, params->mul_node, params->progressive_sieve);
+    if(params->mul_node)
+        bssa->bssa_est_mul_node(l, sbeta, gbeta);
+    else
+        bssa->bssa_est(l, sbeta, gbeta);
     auto finish = system_clock::now();
     duration<double> diff = finish - start;
     cout<<"BSSA cost:"<< setprecision(2)<<diff.count()<<"s."<<endl;

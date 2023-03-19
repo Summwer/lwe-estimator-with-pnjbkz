@@ -12,7 +12,7 @@ class COST{
         
         double C = 1./(1.- pow(2,(-.292))); // Progressivity Overhead Factor
         
-        
+        Params* params;
 
         FP_NR<FT> agps20_gates(int beta_prime);
     
@@ -30,4 +30,10 @@ class COST{
 
         pair<double,double> pump_cost(int beta,int cost_model = 1);
         pair<double,double> bkz_cost(int d, int beta,int jump,int cost_model=1);
+
+        
+
+        COST(Params* params){
+            this->params = params;
+        }
 };

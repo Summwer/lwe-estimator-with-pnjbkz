@@ -17,7 +17,9 @@ class EnumBS{
             vector<strategy> S; //pnj-BKZ strategy: 
             vector<double> l;
             pair<double,double> GB_BKZ;
+            pair<double,double> GB;
             double cum_pr; //cumulated probability 
+            double slope;
         };
 
         vector<blocksize_strategy> BS; //key: beta;  value: blocksize_strategy
@@ -33,7 +35,7 @@ class EnumBS{
 
         EnumBS(Params* params){
             sim = new BKZJSim();
-            cost = new COST();
+            cost = new COST(params);
             this->params = params;
         }
 
@@ -48,6 +50,9 @@ class EnumBS{
         int binary_search_for_cdsvp(double cdsvp);
         int binary_search_for_dsvp(double dsvp);
         int binary_search_for_G2(double G2);
+        int binary_search_for_G(double G);
+        int binary_search_for_slope(double slope);
+        int binary_search_for_G2_slope_cum_pr(blocksize_strategy bs);
 
         pair<int,int> get_max_strategy(vector<EnumBS::strategy> S);
         bool compare_max_strategy(vector<EnumBS::strategy> S0, vector<EnumBS::strategy> S1);
@@ -56,18 +61,22 @@ class EnumBS{
         vector<double> extract_cdsvp();
         vector<double> extract_dsvp();
         vector<double> extract_G2();
+        vector<double> extract_slope();
+        vector<double> extract_cum_pr();
+        vector<tuple<double,double,double>> extract_G2_slope_cum_pr();
         bool no_repeated_value_verification(vector<int> nums);
         bool no_repeated_value_verification(vector<double> nums);
 
-        pair<int,bool> BS_add(EnumBS::blocksize_strategy bs, int k); //dsvp, high accuracy, more time cost
-        void BS_add_G2(EnumBS::blocksize_strategy bs, int k);
-        pair<int,bool> BS_add_G2_backup(EnumBS::blocksize_strategy bs, int k);
+        void BS_add(EnumBS::blocksize_strategy bs, int k); //dsvp, high accuracy, more time cost
+        // void BS_add_G2(EnumBS::blocksize_strategy bs, int k);
+        // void BS_add_slope(EnumBS::blocksize_strategy bs, int k);
+        // pair<int,bool> BS_add_G2_backup(EnumBS::blocksize_strategy bs, int k);
         
-        void BS_add_cdsvp(EnumBS::blocksize_strategy bs, int k);
-        bool BS_add_determine(EnumBS::blocksize_strategy bs, int k);
+        // void BS_add_cdsvp(EnumBS::blocksize_strategy bs, int k);
+        // bool BS_add_determine(EnumBS::blocksize_strategy bs, int k);
 
 
-        bool pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, double &cum_pr, int beta, int jump, tuple<double,int,double,double> &dsvp_t_);
+        bool pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BKZ, pair<double,double> &GB, double &cum_pr, int beta, int jump, tuple<double,int,double,double> &dsvp_t_, double &slope);
 
 
         void max_tour_for_pnjbkz_beta(int k, int beta,int jump);

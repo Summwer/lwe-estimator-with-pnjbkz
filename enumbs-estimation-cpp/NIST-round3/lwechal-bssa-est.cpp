@@ -9,9 +9,10 @@ int main(){
     params->max_dim = 300;
     params->cost_model = 2; //sec model;
     // params->debug = true;
-    params->method = 1; 
+    params->method = 2; 
     params->max_loop = 30;
     params->verbose = false;
+    params->progressive_sieve = false;
 
     vector<LWEchal> unsolved_lwechallenges = load_unsolved_lwechallenges();
     for(int i = 0; i < int(unsolved_lwechallenges.size()); i++){

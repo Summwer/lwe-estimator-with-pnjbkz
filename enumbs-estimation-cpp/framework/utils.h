@@ -23,10 +23,6 @@ using namespace std::chrono;
 #endif
 
 
-#ifndef MAX_NUM
-#define MAX_NUM 1000
-#endif
-
 #ifndef MAX_DIM
 #define MAX_DIM 1000
 #endif
@@ -46,6 +42,7 @@ void print_vector(vector<int> v,int index_start=0, int index_end=-1);
 void print_vector(vector<Z_NR<ZT>> v,int index_start=0, int index_end=-1);
 void print_vector(vector<FP_NR<FT>> v,int index_start=0, int index_end=-1);
 void print_vector(vector<pair<int,int>> v,int index_start=0, int index_end=-1);
+void print_vector(vector<tuple<double,double,double>> v,int index_start=0, int index_end=-1);
 
 //void print_matrix(ZZ_mat<ZT> matrix);
 
@@ -61,6 +58,7 @@ void build_LWE_lattice(ZZ_mat<ZT> &matrix, ZZ_mat<ZT> A, int q);
 void kannan_embedding(ZZ_mat<ZT> &matrix, vector<Z_NR<ZT>> target, int factor=1);
 
 FP_NR<FT> compute_delta(int beta);
+double get_current_slope(vector<double> l, int start, int end);
 FP_NR<FT> bkzgsa_gso_len( FP_NR<FT> logvol, int i, int d, FP_NR<FT> delta, int beta=-1);
 vector<double> gen_simulated_gso(int d, FP_NR<FT> logvol);
 
@@ -87,7 +85,8 @@ struct Params{
     bool progressive_sieve =  true; 
     int threads = 1;
     int max_dim = MAX_DIM; //set the maximal blocksize to find the optimal strategy
-    int max_loop = 10; //set the maximal loop for one blocksize to find the optimal strategy
+    double max_num = 1e3;
+    int max_loop = 30; //set the maximal loop for one blocksize to find the optimal strategy
 
     int method = 1; //1: enumbs estimation; 2: bssa estimation
 
@@ -96,9 +95,13 @@ struct Params{
 
 
     //enumbs params
-    double enumbs_prec =  PREC; //1e-5; //set the precision of enumbs
-    int enumbs_add_strategy = 3; //1: remain all equal strategies; 2: (Large block strategy) delete all equal strategies; 3: (Small block strategy) remain the small blocksize strategy first.
+    double enumbs_G_prec =  0.; //1e-5; //set the precision of enumbs
+    double enumbs_slope_prec = 0.;
+    int beta_start = 79;
 
+
+    //bssa params
+    bool mul_node  = true;
 
 };
 

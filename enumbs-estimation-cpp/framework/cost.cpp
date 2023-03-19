@@ -47,7 +47,7 @@ pair<double,double> COST::theo_bkz_cost(int n, int beta,int J){
     if(beta_prime < 64 or beta < beta_prime)
         return make_pair(0.,0.);
     else if(beta_prime > 1024)
-        return make_pair(MAX_NUM,MAX_NUM);
+        return make_pair(params->max_num,params->max_num);
     else{
         //double gates = log2((((double)n-beta)/J)*COST::C*COST::C) + agps20_gates(beta_prime).get_d();
         double gates = log2((((double)n-beta)/J)*COST::C) + agps20_gates(beta_prime).get_d();
@@ -64,7 +64,7 @@ pair<double,double> COST::theo_pump_cost(int beta){
     if(beta_prime < 64 or beta < beta_prime)
         return make_pair(0.,0.);
     else if(beta_prime > 1024)
-        return make_pair(MAX_NUM,MAX_NUM);
+        return make_pair(params->max_num,params->max_num);
     else{
         //double gates = log2(COST::C*COST::C) + agps20_gates(beta_prime).get_d();
         double gates = log2(COST::C) + agps20_gates(beta_prime).get_d();
@@ -163,11 +163,11 @@ double COST::practical_bkz_cost(int d,int beta,int f,int jump){
     // beta = beta + extra_dim4free;
     // f = f + extra_dim4free;
     bool sieve;
-    if(beta <= 60)
+    if(beta - f <= 60)
         sieve = false;
     else
         sieve = true;  
-    pair<double,double> k = get_k1_k2_pnj(beta,sieve); // threads = 20
+    pair<double,double> k = get_k1_k2_pnj(beta-f,sieve); // threads = 20
     double k1 = k.first, k2 = k.second;
     double c3= 0.018, c4 = -2.24;
 
@@ -179,9 +179,11 @@ double COST::practical_bkz_cost(int d,int beta,int f,int jump){
 pair<double,double> COST::pump_cost(int beta,int cost_model){
     if(cost_model == 1)
         return theo_pump_cost(beta);
-    else if(cost_model == 2)
-        return make_pair(practical_pump_cost(beta),theo_pump_cost(beta).second);
-    return make_pair(MAX_NUM,MAX_NUM);
+    else if(cost_model == 2){
+        int f = dims4free(beta);
+        return make_pair(practical_pump_cost(beta-f),theo_pump_cost(beta).second);
+    }
+    return make_pair(params->max_num,params->max_num);
 }
 
 pair<double,double> COST::bkz_cost(int d, int beta,int J,int cost_model){
@@ -191,7 +193,7 @@ pair<double,double> COST::bkz_cost(int d, int beta,int J,int cost_model){
         int f = dims4free(beta);
         return make_pair(practical_bkz_cost(d,beta,f,J), theo_bkz_cost(d, beta,J).second);
     }
-    return make_pair(MAX_NUM,MAX_NUM);
+    return make_pair(params->max_num,params->max_num);
 }    
 
 

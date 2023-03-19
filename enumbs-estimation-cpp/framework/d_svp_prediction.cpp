@@ -21,9 +21,10 @@ tuple<double,int,double,double> fixed_dsvp_predict(vector<double> l, double cum_
     if(cum_pr >= 0.999){
         return make_tuple(0.,0,0.,0.);
     }
-    for(int dsvp = 50; dsvp < d; dsvp++ ){
+    for(int dsvp = 50; dsvp <= d; dsvp++ ){
         //2**(2 * l1[d-dsvp])==2**(2 * l1d_dsvp)==gh
         gh = gaussian_heuristic_log2(l,d-dsvp);
+        // cout<<"d-dsvp = "<<d-dsvp<<", gh = "<<gh <<endl;
         
         boost::math::chi_squared chisquare(dsvp);
         psvp = boost::math::cdf(chisquare,gh); //Compute chi-squared value
@@ -56,7 +57,7 @@ tuple<double,int,double,double> progressive_dsvp_predict(vector<double> l, doubl
         return make_tuple(0.,0,0.,0.);
     }
     
-    for(int dsvp = 50; dsvp < d; dsvp++ ){
+    for(int dsvp = 50; dsvp <= d; dsvp++ ){
         //2**(2 * l1[d-dsvp])==2**(2 * l1d_dsvp)==gh
         gh = gaussian_heuristic_log2(l,d-dsvp);
         
