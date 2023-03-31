@@ -1,17 +1,17 @@
 #include "d_svp_prediction.h"
 
 
-tuple<double,int,double,double> dsvp_predict(vector<double> l,  double cum_pr, COST* cost, int cost_model, bool progressive_sieve){
+tuple<double,int,double,double> dsvp_predict(vector<double> l,  double cum_pr, COST* cost, int cost_model, bool progressive_sieve, bool worst_case){
     /*
     return dsvp, G, B. 
     */
     if(progressive_sieve)
-        return progressive_dsvp_predict(l, cum_pr, cost, cost_model);
+        return progressive_dsvp_predict(l, cum_pr, cost, cost_model, worst_case);
     else
-        return fixed_dsvp_predict(l, cum_pr, cost, cost_model);
+        return fixed_dsvp_predict(l, cum_pr, cost, cost_model, worst_case);
 }
 
-tuple<double,int,double,double> fixed_dsvp_predict(vector<double> l, double cum_pr, COST* cost, int cost_model){
+tuple<double,int,double,double> fixed_dsvp_predict(vector<double> l, double cum_pr, COST* cost, int cost_model, bool worst_case){
     /*
     return dsvp, G, B. 
     */
@@ -34,8 +34,11 @@ tuple<double,int,double,double> fixed_dsvp_predict(vector<double> l, double cum_
         rp = 1. - p;
         if(rp < 0.001){
             dsvp_ = dsvp + dsvp * rp;
-            p_cost = cost->pump_cost(dsvp_,cost_model);
-            return  make_tuple(dsvp_, dsvp, p_cost.first, p_cost.second);  //Avoid too small of dsvp
+            p_cost = cost->pump_cost(dsvp,cost_model);
+            if(not worst_case)
+                return  make_tuple(dsvp_, dsvp, p_cost.first * ((1-cum_pr) * psvp + rp), p_cost.second);  //Avoid too small of dsvp
+            else
+                return  make_tuple(dsvp, dsvp, p_cost.first, p_cost.second);
             // return  make_tuple(round(dsvp_*PREC)/PREC, dsvp, round(p_cost.first*PREC)/PREC, p_cost.second);  //Avoid too small of dsvp
             // return  make_tuple(round(dsvp_*PREC)/PREC, dsvp, round(p_cost.first*PREC)/PREC, p_cost.second);  //Avoid too small of dsvp
             
@@ -45,7 +48,10 @@ tuple<double,int,double,double> fixed_dsvp_predict(vector<double> l, double cum_
     return make_tuple(d, d, p_cost.first, p_cost.second);   
 }
 
-tuple<double,int,double,double> progressive_dsvp_predict(vector<double> l, double cum_pr, COST* cost, int cost_model){
+
+
+//no cum G with model 2
+tuple<double,int,double,double> progressive_dsvp_predict(vector<double> l, double cum_pr, COST* cost, int cost_model, bool worst_case){
     /*
     return dsvp, G, B. 
     */
@@ -66,25 +72,34 @@ tuple<double,int,double,double> progressive_dsvp_predict(vector<double> l, doubl
         // if(psvp <0)
         //     cout<<psvp<<endl;
         p += rp * psvp;
-        avg_d_svp += dsvp * rp * psvp;
-
-        p_cost = cost->pump_cost(dsvp,cost_model);
         
-        G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * rp * psvp);
-        B_cum = max(B_cum,p_cost.second);
-     
+        
+        if(not worst_case){
+            avg_d_svp += dsvp * rp * psvp;
+            p_cost = cost->pump_cost(dsvp,cost_model);
+            G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * rp * psvp);
+            B_cum = max(B_cum,p_cost.second);
+        }
         rp = 1. - p;
 
-        // cerr<<"dsvp = "<<dsv?p<<", rp = "<<rp<<endl;
+        // cerr<<"dsvp = "<<dsvp<<", rp = "<<rp<<endl;
         // cerr<<"G_cum = " << G_cum <<", G2 = "<<p_cost.first<<endl;
         
         if(rp < 0.001){
             // cerr<<"dsvp = "<<dsvp<<", rp = "<<rp<<endl;
             // cerr<<"G_cum = " << G_cum <<endl;
-            avg_d_svp += dsvp * rp;
-            G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * rp);
+            
 
-            return  make_tuple(avg_d_svp, dsvp, G_cum,B_cum);  //Avoid too small of dsvp
+            if(worst_case){
+                p_cost = cost->pump_cost(dsvp,cost_model);
+                avg_d_svp = dsvp;
+                return  make_tuple(avg_d_svp, dsvp, p_cost.first,p_cost.second);  //Avoid too small of dsvp
+            }
+            else{
+                avg_d_svp += dsvp * rp;
+                G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * rp);
+                return  make_tuple(avg_d_svp, dsvp, G_cum,B_cum); 
+            }
             // return  make_tuple(round(avg_d_svp*PREC)/PREC, dsvp, round(G_cum*PREC)/PREC,B_cum); 
         }
     }

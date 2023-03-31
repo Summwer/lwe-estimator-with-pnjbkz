@@ -24,7 +24,7 @@ void BSSA::print_BS(map<int,BSSA::blocksize_strategy> BS){
 }
 
 void BSSA::print_bs(blocksize_strategy bs){
-    tuple<double,int,double,double> dsvp_t_ =  dsvp_predict(bs.l, bs.cum_pr, cost, params->cost_model, params->progressive_sieve);
+    tuple<double,int,double,double> dsvp_t_ =  dsvp_predict(bs.l, bs.cum_pr, cost, params->cost_model, params->progressive_sieve, params->worst_case);
     cout<<"bs = ";
 
     printf("(G_BKZ = %3.2f gate, B_BKZ = %3.2f bit cum-pr = %3.2f, dsvp = %3.2f, dsvp_r = %3d, G_dsvp = %3.2f gate, B_dsvp = %3.2f bit, G = %3.2f gate, B = %3.2f bit)\n",  bs.GB_BKZ.first, bs.GB_BKZ.second, bs.cum_pr, get<0>(dsvp_t_), get<1>(dsvp_t_),get<2>(dsvp_t_),get<3>(dsvp_t_), log2(pow(2,get<2>(dsvp_t_)) + pow(2,bs.GB_BKZ.first)), max(bs.GB_BKZ.second,get<3>(dsvp_t_)) );   
@@ -51,7 +51,7 @@ bool BSSA::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, dou
     sim -> simulate(l_,l,beta_,jump,1);
 
     if(l_[d-beta_] == l[d-beta_]){
-        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
+        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
         slope = get_current_slope(l, 0, d);
         return false;
     }
@@ -63,8 +63,11 @@ bool BSSA::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, dou
 
         pair<double,double> GB = cost->bkz_cost(d,beta,jump,params->cost_model);
 
-        
-        cum_GB.first = log2(pow(2,cum_GB.first)+(pow(2,GB.first)*rem_pr*pr));
+
+        if(not params->worst_case)
+            cum_GB.first = log2(pow(2,cum_GB.first)+(pow(2,GB.first)*rem_pr*pr));
+        else
+            cum_GB.first = log2(pow(2,cum_GB.first)+pow(2,GB.first));
         cum_GB.second = max(cum_GB.second, GB.second);
 
 
@@ -72,7 +75,7 @@ bool BSSA::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, dou
         rem_pr = 1. - cum_pr;
 
 
-        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
+        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
 
         return true;
 
@@ -305,7 +308,7 @@ void BSSA::bssa_est_mul_node(vector<double> l0, int sbeta, int gbeta){
     double Gmin = params->max_num, Bmin  = params->max_num, G1, G2, G,  B;
     BSSA::blocksize_strategy bsmin;
     for (map<int, BSSA::blocksize_strategy> ::iterator it = BS.begin(); it != BS.end(); it++) {
-        tuple<double,int,double,double> dsvp_t0 = dsvp_predict(it->second.l, it->second.cum_pr, cost,params->cost_model, params->progressive_sieve);
+        tuple<double,int,double,double> dsvp_t0 = dsvp_predict(it->second.l, it->second.cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
         G1 = it->second.GB_BKZ.first;
         G2 = get<2>(dsvp_t0);
         G = log2(pow(2,G1)+pow(2,G2));
@@ -428,7 +431,7 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
     double Gmin = params->max_num, Bmin  = params->max_num, G1, G2, G,  B;
     BSSA::blocksize_strategy bsmin;
     for (map<int, BSSA::blocksize_strategy> ::iterator it = BS.begin(); it != BS.end(); it++) {
-        tuple<double,int,double,double> dsvp_t0 = dsvp_predict(it->second.l, it->second.cum_pr, cost,params->cost_model, params->progressive_sieve);
+        tuple<double,int,double,double> dsvp_t0 = dsvp_predict(it->second.l, it->second.cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
         G1 = it->second.GB_BKZ.first;
         G2 = get<2>(dsvp_t0);
         G = log2(pow(2,G1)+pow(2,G2));
@@ -468,7 +471,11 @@ pair<double,double> BSSA::strategy_verification(vector<double> l,vector<strategy
             
 
             pair<double,double> GB = cost -> bkz_cost(d,beta,jump,params->cost_model);
-            G1cum = log2(pow(2,G1cum) + (pow(2,GB.first) * rem_pr * proba));
+            if(not params->worst_case)
+                G1cum = log2(pow(2,G1cum) + (pow(2,GB.first) * rem_pr * proba));
+            else
+                G1cum = log2(pow(2,G1cum) + pow(2,GB.first));
+
             B1cum = max(B1cum,GB.second);
 
             cum_pr += rem_pr * proba;
@@ -476,7 +483,7 @@ pair<double,double> BSSA::strategy_verification(vector<double> l,vector<strategy
         }
     }
 
-    tuple<double,int,double,double> dsvp_t =  dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
+    tuple<double,int,double,double> dsvp_t =  dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
     double G2 = get<2>(dsvp_t);
     double G = log2(pow(2,G1cum)+pow(2,G2));
     // printf("Verified cum_pr = %e \n ", cum_pr);

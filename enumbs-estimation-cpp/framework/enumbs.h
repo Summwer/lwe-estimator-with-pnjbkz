@@ -67,8 +67,9 @@ class EnumBS{
         bool no_repeated_value_verification(vector<int> nums);
         bool no_repeated_value_verification(vector<double> nums);
 
-        void BS_add(EnumBS::blocksize_strategy bs, int k); //dsvp, high accuracy, more time cost
-        // void BS_add_G2(EnumBS::blocksize_strategy bs, int k);
+        void BS_add(EnumBS::blocksize_strategy bs, int k); 
+        void BS_add_op(EnumBS::blocksize_strategy bs, int k);
+        void BS_add_G2(EnumBS::blocksize_strategy bs, int k);
         // void BS_add_slope(EnumBS::blocksize_strategy bs, int k);
         // pair<int,bool> BS_add_G2_backup(EnumBS::blocksize_strategy bs, int k);
         
@@ -85,6 +86,7 @@ class EnumBS{
         void enumbs_est(vector<double> l0); //Generate strategy for enumbs
 
         void max_tour_for_pnjbkz_beta_in_parallel(int  beta_j_t_id_begin, vector<pair<int,int>> beta_j_tid,int k);
+        
         void enumbs_est_in_parallel(vector<double> l0); //Generate strategy for enumbs in parallel
         
 

@@ -2,6 +2,8 @@ from numpy.random import choice as np_random_choice
 from numpy.linalg import slogdet, qr, cholesky
 from numpy import array
 from math import pi, exp, lgamma
+import importlib
+importlib.reload(sys)
 
 print_style = {'SUCCESS': '\x1b[1;37;42m',
                'FAILURE': '\x1b[1;37;41m',

@@ -1,8 +1,0 @@
-============= Kyber-I
-============= Kyber-II
-============= Kyber-III
-============= Dilithium-I
-[0m[1;31m dim = 2049, dvol = 15614.22 [0m
-Generate gs-lengths by GSA assumption. Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
-gap = 1, J = 15, J_gap = 1, cost_model = 1, max_loop = 10, threads = 50, prec = 1.000000e+03, strategy_add_method = 3
- index:    1, (beta,j): (  51,  15) --> ( 999,   1), goal index:    1, cost = index:    2, (beta,j): ( 426,   6) --> ( 999,   1), goal index: 9453, cost = index:    3, (beta,j): ( 410,  15) --> ( 999,   1), goal index: 12966, cost = index:    4, (beta,j): ( 411,  14) --> ( 999,   1), goal index: 14166, cost =

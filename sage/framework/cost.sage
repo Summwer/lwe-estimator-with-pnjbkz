@@ -142,7 +142,7 @@ def pro_theo_pump_cost(beta):
     elif(beta_prime > 1024):
         return (float("inf"),float("inf"))
     else:
-        gates = log2(C) + agps20_gates(beta_prime)
+        gates = log2(C*C) + agps20_gates(beta_prime)
         bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
         return (gates, bits)
 
@@ -156,16 +156,17 @@ def theo_pump_cost(beta):
     elif(beta_prime > 1024):
         return (float("inf"),float("inf"))
     else:
-        gates = agps20_gates(beta_prime)
+        gates = log2(C) + agps20_gates(beta_prime)
         bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
         return (gates, bits)
 
     
 def pump_cost(d,beta,cost_model = 1):
     if(cost_model == 1):
-        return pro_theo_pump_cost(beta)
+        return theo_pump_cost(beta)
     elif(cost_model == 2):
-        return log2(get_pump_time(beta,d)),pro_theo_pump_cost(beta)[1]
+        f = dims4free(beta)
+        return log2(get_pump_time(beta-f,d)),theo_pump_cost(beta)[1]
 
 def pro_bkz_cost(d, beta,J=1,cost_model=1):
     if(cost_model == 1):
@@ -262,19 +263,18 @@ def get_pump_time(beta,d):
 
 #get pnj-BKZ time test in threads = 20
 def get_pre_pnj_time(d,beta,f,jump):
-    #extra_dim4free = 12
-    #beta = beta + extra_dim4free
-    #f = f + extra_dim4free
-
-    if beta <= 60:
+    if beta-f <= 60:
         sieve = False
     else:
         sieve = True   
-    k1,k2 = get_k1_k2_pnj(beta,sieve)
+    k1,k2 = get_k1_k2_pnj(beta-f,sieve)
     c3, c4 = 0.018, -2.24
     T_pnj = 2**(k1*(beta-f)+k2)
     pre_pnj_time = T_pnj*(c3*d+c4)/jump
 
     return round(pre_pnj_time,4)
  
+
+
+
 
