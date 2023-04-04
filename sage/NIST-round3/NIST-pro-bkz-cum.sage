@@ -7,11 +7,8 @@ load("../framework/est/NIST-est.sage")
     
     method = 1: progressive bkz estimation.
              2: two step mode
-             3, parallel_ = False: EnumBS
-             3, parallel_=True: EnumBS in parallel
-             4: bssa
-             5: bkz-only with fixed blocksize
-             6: default g6k
+             3: bkz-only with fixed blocksize
+             4: default g6k
              "fixed-blocksize bkz-only": call fixed-blocksize bkz-only model to estimate security.
     progressive_sieve = True:  progressive sieve
 
@@ -23,12 +20,13 @@ load("../framework/est/NIST-est.sage")
 
 method = 1
 cost_model = 1
+worst_case = False
 
 #------------------------------------
 
 
-dilithium_est(method,  cost_model)
+dilithium_est(method,  cost_model, worst_case)
 
-kyber_est(method,  cost_model)
+kyber_est(method,  cost_model, worst_case)
 
-frodo_est(method,  cost_model)
+frodo_est(method,  cost_model, worst_case)
