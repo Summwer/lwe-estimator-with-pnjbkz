@@ -1,8 +1,8 @@
 #include <iostream>
 #include <map>
 #include <vector>
-#include <boost/rational.hpp>
-#include<bits/stdc++.h>
+// #include <boost/rational.hpp>
+// #include<bits/stdc++.h>
 #include <fplll.h>
 #include <boost/math/distributions/chi_squared.hpp>
 #include <chrono>

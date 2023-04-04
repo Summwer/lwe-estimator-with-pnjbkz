@@ -1,11 +1,8 @@
+
 load("../framework/utils.sage")
 
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
-
-def bkz_only(d, logvol, l, verbose=False, cost_model = 1):
+def bkz_only(d, logvol, l, verbose=False, cost_model = 1, worst_case = False):
     """
     Computes the beta value for given dimension and volumes
     It is assumed that the instance has been normalized and sphericized, 
@@ -46,6 +43,7 @@ def bkz_only(d, logvol, l, verbose=False, cost_model = 1):
 
 
     G1cum,B1cum = 0.,0.
+    GBKZ = 0.
 
     # Keep increasing beta to be sure to catch the second intersection
     
@@ -68,7 +66,11 @@ def bkz_only(d, logvol, l, verbose=False, cost_model = 1):
 
         average_beta += beta * remaining_proba * proba
         G1, B1 = bkz_cost(d,beta,cost_model=cost_model)
-        G1cum = log2(2**G1cum + ((2**G1) * remaining_proba * proba))
+        if(not worst_case):
+            GBKZ = log2(2**GBKZ + 2**G1)
+            G1cum = log2(2**G1cum + ((2**GBKZ) * remaining_proba * proba))
+        else:
+            G1cum = log2(2**G1cum + 2**G1)
         B1cum = max(B1cum,B1)
 
         cumulated_proba += remaining_proba * proba
@@ -80,7 +82,8 @@ def bkz_only(d, logvol, l, verbose=False, cost_model = 1):
         if remaining_proba < .001:
             average_beta += beta * remaining_proba * proba
             G1, B1 = bkz_cost(d,beta,cost_model=cost_model)
-            G1cum = log2(2**G1cum + ((2**G1) * remaining_proba))
+            if(not worst_case):
+                G1cum = log2(2**G1cum + ((2**GBKZ) * remaining_proba))
             B1cum = max(B1cum,B1)
             break
 

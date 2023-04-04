@@ -108,13 +108,14 @@ def dims4free(beta):
 def theo_bkz_cost(n, beta,J=1):
     if(beta <=10):
         return (0,0)
-    beta_prime = floor(beta - dims4free(beta))
+    f = dims4free(beta)
+    beta_prime = floor(beta - f)
     if(beta_prime < 64 or beta < beta_prime):
         return (0,0)
     elif(beta_prime > 1024):
         return (float("inf"),float("inf"))
     else:
-        gates = log2((1.*(n-beta)/J)*C) + agps20_gates(beta_prime)
+        gates = log2((1.*(n+2*f-beta)/J)*C) + agps20_gates(beta_prime)
         bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
         return (gates, bits)
 
@@ -156,17 +157,19 @@ def theo_pump_cost(beta):
     elif(beta_prime > 1024):
         return (float("inf"),float("inf"))
     else:
-        gates = log2(C) + agps20_gates(beta_prime)
+        #gates = log2(C) + agps20_gates(beta_prime)
+        gates = agps20_gates(beta_prime)
         bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
         return (gates, bits)
 
     
+#Return sieve cost
 def pump_cost(d,beta,cost_model = 1):
     if(cost_model == 1):
         return theo_pump_cost(beta)
     elif(cost_model == 2):
         f = dims4free(beta)
-        return log2(get_pump_time(beta-f,d)),theo_pump_cost(beta)[1]
+        return log2(get_pump_time(beta-f,d)),theo_pump_cost(beta-f)[1]
 
 def pro_bkz_cost(d, beta,J=1,cost_model=1):
     if(cost_model == 1):
@@ -277,4 +280,14 @@ def get_pre_pnj_time(d,beta,f,jump):
 
 
 
+'''
+dim = 323
+for beta in range(70,100):
+    for J in range(1,2):
+        print("dim = %d, beta = %d, jump = %d" %(dim, beta, J) )
+        f =  dims4free(beta)
 
+        print(2**pump_cost(dim,beta,cost_model = 2)[0]*(dim+2*f-beta)*C, 2**bkz_cost(dim, beta,J,cost_model=2)[0])
+        print(2**pump_cost(dim,beta,cost_model = 1)[0] *(dim+2*f-beta) * C, 2**bkz_cost(dim, beta,J,cost_model=1)[0])
+
+'''

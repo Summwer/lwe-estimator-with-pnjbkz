@@ -108,9 +108,9 @@ def simulate_pnjBKZ(l0, beta, jump, loop):
 
 
     if beta < 45:
-        return simulate_pnjBKZ_below_45(l, beta_, loop)
+        return simulate_pnjBKZ_below_45(l, beta, loop)
     else:
-        return simulate_pnjBKZ_above_45(l, beta_, jump, loop)
+        return simulate_pnjBKZ_above_45(l, beta, jump, loop)
         
         
 

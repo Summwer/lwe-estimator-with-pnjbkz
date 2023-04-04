@@ -4,7 +4,7 @@ load("../framework/simulator/pump_simulator.sage")
 load("../framework/cost.sage")
 
 
-def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_model=1):
+def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_model=1, worst_case = False):
     l0 = deepcopy(l)
     d = len(l)
     remaining_proba = 1. - cumulated_proba
@@ -35,7 +35,7 @@ def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_mode
         rp = 1. - p
         avg_d_svp = 0.
         avgG2,avgB2 = 0.,0.
-
+        Gpump = 0.
         for dsvp in range(50, up_dsvp+1):
             
             psvp = 1.
@@ -46,7 +46,10 @@ def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_mode
             G_sieve, B_sieve = pump_cost(d,dsvp,cost_model=cost_model)
         
             avg_d_svp += dsvp * rp * psvp
-            avgG2 = log2(2**avgG2+(2**G_sieve) * rp * psvp)
+            if(not worst_case):
+                Gpump = log2(2**Gpump+2**G_sieve)
+                avgG2 = log2(2**avgG2+(2**Gpump) * rp * psvp)
+            
             avgB2 = max(B_sieve,avgB2)
 
             p += rp * psvp
@@ -57,14 +60,17 @@ def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_mode
                 #raise ""
                 #print(rp,avg_d_svp,dsvp * rp)
                 avg_d_svp += dsvp * rp #Avoid too small of dsvp
-                
-                avgG2 = log2(2**avgG2 + ((2**G_sieve) * rp))
+                if(not worst_case):
+                    avgG2 = log2(2**avgG2 + ((2**Gpump) * rp))
+                else:
+                    avgG2 = G_sieve
+
                 return (avgG2,avgB2,avg_d_svp,dsvp,1.,l_)
                 
     return (G_sieve,B_sieve,avg_d_svp,dsvp,p,l_)
 
 #LWE estimation: Simplified progressive BKZs + Pump
-def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, cost_model=1):
+def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, cost_model=1, worst_case = False):
     """
     Computes the beta value for given dimension and volumes
     It is assumed that the instance has been normalized and sphericized, 
@@ -125,8 +131,7 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
         remaining_proba = 1.
         average_beta = 0.
         cumulated_proba = 0.
-        G1cum,B1cum = 0.,0.
-        G_BKZ = 0.
+        Gcum,Bcum = 0.,0.
         G = 0.
         
 
@@ -148,9 +153,13 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
 
             G1, B1 = bkz_cost(d,beta,1,cost_model=cost_model)
 
-            G1cum = log2(2**G1cum + ((2**G1) * remaining_proba * proba))
-            G_BKZ = log2(2**G_BKZ +2**G1)
-            B1cum = max(B1cum,B1)
+            if(not worst_case):
+                G = log2(2**G +2**G1)
+                Gcum = log2(2**Gcum + ((2**G) * remaining_proba * proba))
+            else:
+                Gcum = log2(2**Gcum + 2**G1)
+            
+            Bcum = max(Bcum,B1)
 
             cumulated_proba += remaining_proba * proba
             remaining_proba = 1. - cumulated_proba
@@ -159,8 +168,8 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
             
             G_sieve,B_sieve = 0., 0.
             
-            n_max = int(58 + 2.85 * G1cum) #G_BKZ
-            #n_max = int(53 + 2.85 * G1cum)
+            n_max = int(58 + 2.85 * G) #G_BKZ
+            #n_max = int(53 + 2.85 * Gcum)
 
             for n_expected in range(2, d-2):
                 x = target_norm * n_expected/(1.*d)
@@ -189,8 +198,8 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
                 remaining_proba = 1. - cumulated_proba
       
 
-            G = log2(2**G1cum + 2**G_sieve)
-            B = max(B1cum, B_sieve)
+            G = log2(2**Gcum + 2**G_sieve)
+            B = max(Bcum, B_sieve)
 
             if verbose:
                 print("β= %d, cum-pr=%.2e,  G=%3.2f gate,  B=%3.2f bit"%
@@ -199,7 +208,8 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
     
             if remaining_proba < .001:
                 average_beta += beta * remaining_proba 
-                G = log2(2**G + ((2**G1) * remaining_proba))
+                if(not worst_case):
+                    G = log2(2**Gcum + ((2**G) * remaining_proba))
                 break
         
         if remaining_proba > .01:

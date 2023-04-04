@@ -6,11 +6,8 @@ load("../framework/est/lwechal-est.sage")
     
     method = 1: progressive bkz estimation.
              2: two step mode
-             3, parallel_ = False: EnumBS
-             3, parallel_=True: EnumBS in parallel
-             4: bssa
-             5: bkz-only with fixed blocksize
-             6: default g6k
+             3: bkz-only with fixed blocksize
+             4: default g6k
              
     progressive_sieve = True:  progressive sieve
 
@@ -19,8 +16,9 @@ load("../framework/est/lwechal-est.sage")
 '''
 #######################################
 #Fixed parameters
-method = 6
-cost_model = 2
+method = 1
+cost_model = 1
+worst_case = True
 #------------------------------------
 
-unsolved_lwe_challenge_est(method,  cost_model)
+unsolved_lwe_challenge_est(method,  cost_model, worst_case)

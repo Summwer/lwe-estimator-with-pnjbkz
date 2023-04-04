@@ -1,6 +1,6 @@
 
 
-def d_svp_prediction(l, cumulated_proba,cost_model, progressive_sieve):
+def d_svp_prediction(l, cumulated_proba,cost_model, progressive_sieve, worst_case):
     """
     Dimension of sieve/progressive sieve chosen to find target vector.
     Computes the probabilistic cumulated cost value for given gs-lengths.
@@ -46,7 +46,7 @@ def d_svp_prediction(l, cumulated_proba,cost_model, progressive_sieve):
         rp = 1. - p
         avgdsvp = 0.
         avgG_sieve,avgB_sieve = 0.,0.
-
+        Gpump = 0.
         for dsvp in range(50, d):
             
             psvp = 1.
@@ -55,9 +55,12 @@ def d_svp_prediction(l, cumulated_proba,cost_model, progressive_sieve):
             psvp *= chisquared_table[dsvp].cum_distribution_function(gh)
 
             G_sieve, B_sieve = pump_cost(d,dsvp,cost_model=cost_model)
-        
+            
             avgdsvp += dsvp * rp * psvp
-            avgG_sieve = log2(2**avgG_sieve+(2**G_sieve) * rp * psvp)
+            if(not worst_case):
+                #avgG_sieve = log2(2**avgG_sieve+(2**G_sieve) * rp * psvp)
+                Gpump = log2(2**Gpump+2**G_sieve)
+                avgG_sieve = log2(2**avgG_sieve+(2**Gpump) * rp * psvp)
             avgB_sieve = max(B_sieve,avgB_sieve)
 
             p += rp * psvp
@@ -66,8 +69,10 @@ def d_svp_prediction(l, cumulated_proba,cost_model, progressive_sieve):
         
             if rp < 0.001:
                 avgdsvp += dsvp * rp #Avoid too small of dsvp
-                
-                avgG_sieve = log2(2**avgG_sieve + ((2**G_sieve) * rp))
+                if(not worst_case):
+                    avgG_sieve = log2(2**avgG_sieve + ((2**Gpump) * rp))
+                else:
+                    avgG_sieve = G_sieve
                 return (avgG_sieve,avgB_sieve,avgdsvp,dsvp)
                 
     return (G_sieve,B_sieve,dsvp,dsvp)
