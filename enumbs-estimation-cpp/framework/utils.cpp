@@ -109,6 +109,18 @@ void print_vector(vector<pair<int,int>> v, int index_start, int index_end){
     cout<<"]"<<endl;
 }
 
+
+void print_vector(vector<pair<double,double>> v, int index_start, int index_end){
+    cout<< "[";
+    if(index_end == -1)
+        index_end = v.size();
+    for(int i = index_start; i < index_end; i++) {
+        cout << "(" << (v[i].first) << ", " << v[i].second << ") ";
+    }
+    cout<<"]"<<endl;
+}
+
+
 void print_vector(vector<tuple<double,double,double>> v,int index_start, int index_end){
     cout<< "[";
     if(index_end == -1)

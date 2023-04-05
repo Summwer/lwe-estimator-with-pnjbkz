@@ -16,7 +16,8 @@ class EnumBS{
             tuple<double,int,double,double> dsvp_t;
             vector<strategy> S; //pnj-BKZ strategy: 
             vector<double> l;
-            pair<double,double> GB_BKZ;
+            pair<double,double> cum_GB_BKZ;
+            pair<double,double> cum_avg_GB_BKZ;
             pair<double,double> GB;
             double cum_pr; //cumulated probability 
             double slope;
@@ -61,6 +62,7 @@ class EnumBS{
         vector<double> extract_cdsvp();
         vector<double> extract_dsvp();
         vector<double> extract_G2();
+        vector<pair<double,double>> extract_G2G1();
         vector<double> extract_slope();
         vector<double> extract_cum_pr();
         vector<tuple<double,double,double>> extract_G2_slope_cum_pr();
@@ -77,7 +79,7 @@ class EnumBS{
         // bool BS_add_determine(EnumBS::blocksize_strategy bs, int k);
 
 
-        bool pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BKZ, pair<double,double> &GB, double &cum_pr, int beta, int jump, tuple<double,int,double,double> &dsvp_t_, double &slope);
+        bool pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BKZ,  pair<double,double> &cum_avg_GB_BKZ,  pair<double,double> &GB, double &cum_pr, int beta, int jump, tuple<double,int,double,double> &dsvp_t_, double &slope);
 
 
         void max_tour_for_pnjbkz_beta(int k, int beta,int jump);

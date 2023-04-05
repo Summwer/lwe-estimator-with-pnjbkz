@@ -5,9 +5,9 @@
 int main(){
     Params* params = new Params; //J, gap, J_gap, cost_model, verbose,
     params->max_dim = 300;
-    params->cost_model = 2; //sec model;
+    params->cost_model = 1; //sec model;
     params->progressive_sieve = true;
-    params->threads = 50;
+    params->threads = 10;
     params->debug = false;
     // params->worst_case = false;
 

@@ -58,7 +58,7 @@ tuple<double,int,double,double> progressive_dsvp_predict(vector<double> l, doubl
     int d = l.size();
     double psvp, p = cum_pr , rp = 1.-cum_pr, gh, avg_d_svp  = 0.;
     pair<double,double> p_cost, p_cost_cum;
-    double G_cum = 0., B_cum = 0.;
+    double G_cum = 0., B_cum = 0., Gpump = 0.;
     if(cum_pr >= 0.999){
         return make_tuple(0.,0,0.,0.);
     }
@@ -77,7 +77,9 @@ tuple<double,int,double,double> progressive_dsvp_predict(vector<double> l, doubl
         if(not worst_case){
             avg_d_svp += dsvp * rp * psvp;
             p_cost = cost->pump_cost(dsvp,cost_model);
-            G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * rp * psvp);
+            Gpump = log2(pow(2,Gpump)+pow(2,p_cost.first));
+            G_cum = log2(pow(2,G_cum)+pow(2,Gpump) * rp * psvp);
+            //G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * rp * psvp);
             B_cum = max(B_cum,p_cost.second);
         }
         rp = 1. - p;
@@ -97,7 +99,8 @@ tuple<double,int,double,double> progressive_dsvp_predict(vector<double> l, doubl
             }
             else{
                 avg_d_svp += dsvp * rp;
-                G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * rp);
+                //G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * rp);
+                G_cum = log2(pow(2,G_cum)+pow(2,Gpump) * rp);
                 return  make_tuple(avg_d_svp, dsvp, G_cum,B_cum); 
             }
             // return  make_tuple(round(avg_d_svp*PREC)/PREC, dsvp, round(G_cum*PREC)/PREC,B_cum); 

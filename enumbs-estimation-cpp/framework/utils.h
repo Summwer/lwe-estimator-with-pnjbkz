@@ -1,8 +1,8 @@
 #include <iostream>
 #include <map>
 #include <vector>
-// #include <boost/rational.hpp>
-// #include<bits/stdc++.h>
+#include <boost/rational.hpp>
+#include<bits/stdc++.h>
 #include <fplll.h>
 #include <boost/math/distributions/chi_squared.hpp>
 #include <chrono>
@@ -42,6 +42,7 @@ void print_vector(vector<int> v,int index_start=0, int index_end=-1);
 void print_vector(vector<Z_NR<ZT>> v,int index_start=0, int index_end=-1);
 void print_vector(vector<FP_NR<FT>> v,int index_start=0, int index_end=-1);
 void print_vector(vector<pair<int,int>> v,int index_start=0, int index_end=-1);
+void print_vector(vector<pair<double,double>> v,int index_start=0, int index_end=-1);
 void print_vector(vector<tuple<double,double,double>> v,int index_start=0, int index_end=-1);
 
 //void print_matrix(ZZ_mat<ZT> matrix);
@@ -75,7 +76,7 @@ int theo_dim4free_fun2(int beta);
 int get_beta_from_sieve_dim(int sieve_dim, int d, int choose_dims4f_fun);
 
 struct Params{
-    int J = 15; //J -- maximal jump value;
+    int J =  5; //J -- maximal jump value;
     int gap = 1; //gap -- gap of each beta;
     int J_gap = 1; //J_gap -- gap of each jump value;
     //cost_model: 1: gate model; 2: sec model with threads=32, gpus = 2 
@@ -86,7 +87,7 @@ struct Params{
     int threads = 1;
     int max_dim = MAX_DIM; //set the maximal blocksize to find the optimal strategy
     double max_num = 1e3;
-    int max_loop = 15; //set the maximal loop for one blocksize to find the optimal strategy
+    int max_loop = 5; // 15; //set the maximal loop for one blocksize to find the optimal strategy1
 
     int method = 1; //1: enumbs estimation; 2: bssa estimation
 
@@ -95,11 +96,11 @@ struct Params{
 
 
     //enumbs params
-    double enumbs_G_prec = 0; // 1e-3;//1e-3; //1e-5; //set the precision of enumbs
-    double enumbs_slope_prec = 0;// 1e-4;//1e-6;
+    double enumbs_G_prec = 1e-3; //1e-5; //set the precision of enumbs
+    double enumbs_slope_prec = 0;//1e-6;
     int beta_start = 79;
     bool worst_case = false;
-    bool enum_add_G2 = false;
+    bool enum_add_G2 = true;
 
     //bssa params
     bool mul_node  = true;

@@ -66,8 +66,8 @@ pair<double,double> COST::theo_pump_cost(int beta){
     else if(beta_prime > 1024)
         return make_pair(params->max_num,params->max_num);
     else{
-        //double gates = log2(COST::C*COST::C) + agps20_gates(beta_prime).get_d();
-        double gates = log2(COST::C) + agps20_gates(beta_prime).get_d();
+        //double gates = log2(COST::C) + agps20_gates(beta_prime).get_d();
+        double gates = agps20_gates(beta_prime).get_d();
         double bits = log2(8.*beta_prime) + agps20_vectors(beta_prime);
         return make_pair(gates, bits);
         
