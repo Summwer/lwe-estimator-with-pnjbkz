@@ -149,10 +149,10 @@ pair<double,double> COST::get_k1_k2_pump(int beta){
 //get pump cost in threads = 20
 double COST::practical_pump_cost(int beta){
     //make sure not use the enum cost 
-    pair<double,double> k = get_k1_k2_pump(beta); // threads = 20
+    int f = dims4free(beta);
+    pair<double,double> k = get_k1_k2_pump(beta-f); // threads = 20
     double k1 = k.first, k2 = k.second;
     // k = (1/71.)*((1.33)**(beta/10.));
-    int f = dims4free(beta);
     return k1*((double)(beta-f))+k2; //n_expected = beta -f , beta = d-llb
 }
     

@@ -44,14 +44,15 @@ def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_mode
             l_ = pump_simulator(l0,d,d-dsvp)
             psvp *= chisquared_table[dsvp].cum_distribution_function(2**(2 * l_[d-dsvp]))
 
-            G_sieve, B_sieve = pump_cost(d,dsvp,cost_model=cost_model)
+            
         
             avg_d_svp += dsvp * rp * psvp
+            G_sieve, B_sieve = sieve_cost(d,dsvp,cost_model=cost_model)
             Gpump = log2(2**Gpump+2**G_sieve)
             if(not worst_case):
                 avgG2 = log2(2**avgG2+(2**Gpump) * rp * psvp)
             else:
-                avgG2 = log2(2**avgG2+(2**Gpump) * (1 - pre_psvp))
+                avgG2 = log2(2**avgG2+(2**G_sieve) * (1 - pre_psvp))
             
             avgB2 = max(B_sieve,avgB2)
 

@@ -55,7 +55,7 @@ def d_svp_prediction(l, cumulated_proba,cost_model, progressive_sieve, worst_cas
             gh = gaussian_heuristic(l_[d-dsvp:])
             psvp *= chisquared_table[dsvp].cum_distribution_function(gh)
 
-            G_sieve, B_sieve = pump_cost(d,dsvp,cost_model=cost_model)
+            G_sieve, B_sieve = sieve_cost(d,dsvp,cost_model=cost_model)
             
             avgdsvp += dsvp * rp * psvp
             Gpump = log2(2**Gpump+2**G_sieve)
@@ -63,7 +63,7 @@ def d_svp_prediction(l, cumulated_proba,cost_model, progressive_sieve, worst_cas
                 #avgG_sieve = log2(2**avgG_sieve+(2**G_sieve) * rp * psvp)
                 avgG_sieve = log2(2**avgG_sieve+(2**Gpump) * rp * psvp)
             else:
-                avgG_sieve = log2(2**avgG_sieve+(2**Gpump) * (1-pre_psvp))
+                avgG_sieve = log2(2**avgG_sieve+(2**G_sieve) * (1-pre_psvp))
             avgB_sieve = max(B_sieve,avgB_sieve)
 
             p += rp * psvp

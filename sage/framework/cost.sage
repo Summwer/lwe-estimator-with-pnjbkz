@@ -134,19 +134,6 @@ def pro_theo_bkz_cost(n, beta,J=1):
         bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
         return (gates, bits)
 
-def pro_theo_pump_cost(beta):
-    if(beta <=10):
-        return (0,0)
-    beta_prime = floor(beta - dims4free(beta))
-    if(beta_prime < 64 or beta < beta_prime):
-        return (0,0)
-    elif(beta_prime > 1024):
-        return (float("inf"),float("inf"))
-    else:
-        gates = log2(C*C) + agps20_gates(beta_prime)
-        bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
-        return (gates, bits)
-
 
 def theo_pump_cost(beta):
     if(beta <=10):
@@ -157,19 +144,24 @@ def theo_pump_cost(beta):
     elif(beta_prime > 1024):
         return (float("inf"),float("inf"))
     else:
-        #gates = log2(C) + agps20_gates(beta_prime)
-        gates = agps20_gates(beta_prime)
+        gates = log2(C) + agps20_gates(beta_prime)
         bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
         return (gates, bits)
 
     
-#Return sieve cost
+#Return progressive sieve cost
 def pump_cost(d,beta,cost_model = 1):
     if(cost_model == 1):
         return theo_pump_cost(beta)
     elif(cost_model == 2):
-        f = dims4free(beta)
-        return log2(get_pump_time(beta-f,d)),theo_pump_cost(beta-f)[1]
+        return log2(practical_pump_cost(beta,d)),theo_pump_cost(beta)[1]
+
+#Return progressive sieve cost
+def sieve_cost(d,beta,cost_model = 1):
+    if(cost_model == 1):
+        return theo_pump_cost(beta) - log2(C)
+    elif(cost_model == 2):
+        return log2(practical_pump_cost(beta,d)) - log2(C),theo_pump_cost(beta)[1]
 
 def pro_bkz_cost(d, beta,J=1,cost_model=1):
     if(cost_model == 1):
@@ -255,11 +247,12 @@ def get_k1_k2_pump(beta):
 
 
 #get pump time test in threads = 20
-def get_pump_time(beta,d):
+def practical_pump_cost(beta,d):
      #make sure not use the enum cost 
-    k1, k2 = get_k1_k2_pump(beta) # threads = 20
+    f = dims4free(beta)
+    k1, k2 = get_k1_k2_pump(beta - f) # threads = 20
     # k = (1/71.)*((1.33)**(beta/10.))
-    T_pump = round((2 **(k1*(beta)+k2)),4)
+    T_pump = round((2 **(k1*(beta-f)+k2)),4)
     return T_pump  # n_expected = beta -f , beta = d-llb
 
     

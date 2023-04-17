@@ -84,8 +84,7 @@ tuple<double,int,double,double> progressive_dsvp_predict(vector<double> l, doubl
         }
         if(worst_case){
             p_cost = cost->sieve_cost(dsvp,cost_model);
-            Gpump = log2(pow(2,Gpump)+pow(2,p_cost.first));
-            G_cum = log2(pow(2,G_cum)+pow(2,Gpump) * (1-pre_psvp));
+            G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * (1-pre_psvp));
             //G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * rp * psvp);
             B_cum = max(B_cum,p_cost.second);
         }
