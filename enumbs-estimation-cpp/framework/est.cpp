@@ -1,5 +1,7 @@
 #include "est.h"
 
+
+//dvol = sum(log2(||b_i^*||/sigma))
 void gsa_est(int dim, FP_NR<FT> dvol, Params* params){
     printf_input(dim,dvol);
     printf("Generate gs-lengths by GSA assumption.");
@@ -41,6 +43,23 @@ vector<LWEchal> load_solved_lwechallenges(){
 }
 
 
+// low-dim lwe challenges: (n,alpha,dim,dvol)
+vector<LWEchal> load_low_dim_lwechallenges(){
+    return  {
+        {40, 0.035,	188,	327.7388246557668}
+        // {40, 0.025,	172,	331.9735338747315},
+        // {45, 0.020,	185,	373.4658972674150},
+        // {50, 0.015,	194,	415.6552752456852},
+        // {55, 0.010,	205,	495.0168620849964},
+        // {60, 0.010,	222,	522.7192487542407},
+        // {70, 0.005,	235,	641.7748006815514},
+        // {75, 0.005,	252,	678.7288625607595}
+
+    };
+}
+
+
+
    
 
 // unsolved lwe challenges: (n,alpha,dim,dvol)
@@ -54,7 +73,6 @@ vector<LWEchal> load_unsolved_lwechallenges(){
         {65, 0.015,	262,	557.6405653},
         {75, 0.010,	281,	637.6057085},
         {95, 0.005,	323,	836.9696072}
-
     };
 }
 

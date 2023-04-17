@@ -96,8 +96,8 @@ struct Params{
 
 
     //enumbs params
-    double enumbs_G_prec = 1e-3; //1e-5; //set the precision of enumbs
-    double enumbs_slope_prec = 0;//1e-6;
+    double enumbs_G_prec = 0; //1e-5; //set the precision of enumbs
+    double enumbs_slope_prec = 1e-4;//1e-6;
     int beta_start = 79;
     bool worst_case = false;
     bool enum_add_G2 = true;

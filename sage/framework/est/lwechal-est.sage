@@ -21,6 +21,76 @@ load("../framework/attack.sage")
 #######################################
 
 
+def low_dim_lwe_challenge_est(method,  cost_model, worst_case, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel_ = False, progressive_sieve = True, print_l = False):
+
+    n = 40
+    alpha = 0.025
+    dvol=331.9735338747315
+    dim=172
+    print("TU LWE Challenge, n = %3d, alpha = %3.3f" %(n,alpha))
+    print("dim = %3d, dvol = %3.7f" %(dim, dvol))
+
+    estimate_attack( silent=False, method = method, progressive_sieve = progressive_sieve, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim,J=J,gap =gap,J_gap = J_gap,cost_model=cost_model,gen_GSA_gso=gen_GSA_gso,print_l = print_l, worst_case = worst_case)
+
+    n = 45
+    alpha = 0.020
+    dvol=373.4658972674150
+    dim=185
+    print("TU LWE Challenge, n = %3d, alpha = %3.3f" %(n,alpha))
+    print("dim = %3d, dvol = %3.7f" %(dim, dvol))
+
+    estimate_attack( silent=False, method = method,progressive_sieve = progressive_sieve, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim,J=J,gap =gap,J_gap = J_gap,cost_model=cost_model,gen_GSA_gso=gen_GSA_gso,print_l = print_l, worst_case = worst_case)
+
+    n = 50
+    alpha = 0.015
+    dvol=415.6552752456852
+    dim=194
+    print("TU LWE Challenge, n = %3d, alpha = %3.3f" %(n,alpha))
+    print("dim = %3d, dvol = %3.7f" %(dim, dvol))
+
+    estimate_attack( silent=False, method = method,progressive_sieve = progressive_sieve, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim,J=J,gap =gap,J_gap = J_gap,cost_model=cost_model,gen_GSA_gso=gen_GSA_gso,print_l = print_l, worst_case = worst_case)
+
+    n = 55
+    alpha = 0.010
+    dvol=495.0168620849964
+    dim=205
+    print("TU LWE Challenge, n = %3d, alpha = %3.3f" %(n,alpha))
+    print("dim = %3d, dvol = %3.7f" %(dim, dvol))
+
+    estimate_attack( silent=False, method = method,progressive_sieve = progressive_sieve, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim,J=J,gap =gap,J_gap = J_gap,cost_model=cost_model,gen_GSA_gso=gen_GSA_gso,print_l = print_l, worst_case = worst_case)
+
+    n = 60
+    alpha = 0.010
+    dvol=522.7192487542407
+    dim=222
+    print("TU LWE Challenge, n = %3d, alpha = %3.3f" %(n,alpha))
+    print("dim = %3d, dvol = %3.7f" %(dim, dvol))
+
+    estimate_attack( silent=False, method = method,progressive_sieve = progressive_sieve, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim,J=J,gap =gap,J_gap = J_gap,cost_model=cost_model,gen_GSA_gso=gen_GSA_gso,print_l = print_l, worst_case = worst_case)
+
+    n = 70
+    alpha = 0.005
+    dvol=641.7748006815514
+    dim= 235
+    print("TU LWE Challenge, n = %3d, alpha = %3.3f" %(n,alpha))
+    print("dim = %3d, dvol = %3.7f" %(dim, dvol))
+
+    estimate_attack( silent=False, method = method,progressive_sieve = progressive_sieve, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim,J=J,gap =gap,J_gap = J_gap,cost_model=cost_model,gen_GSA_gso=gen_GSA_gso,print_l = print_l, worst_case = worst_case)
+
+
+    n = 75
+    alpha = 0.005
+    dvol=678.7288625607595
+    dim= 251
+    print("TU LWE Challenge, n = %3d, alpha = %3.3f" %(n,alpha))
+    print("dim = %3d, dvol = %3.7f" %(dim, dvol))
+
+    estimate_attack( silent=False, method = method,progressive_sieve = progressive_sieve, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim,J=J,gap =gap,J_gap = J_gap,cost_model=cost_model,gen_GSA_gso=gen_GSA_gso,print_l = print_l, worst_case = worst_case)
+
+
+
+
+
 def unsolved_lwe_challenge_est(method,  cost_model, worst_case, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel_ = False, progressive_sieve = True, print_l = False):
 
     n = 40

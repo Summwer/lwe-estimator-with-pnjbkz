@@ -36,6 +36,7 @@ def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_mode
         avg_d_svp = 0.
         avgG2,avgB2 = 0.,0.
         Gpump = 0.
+        pre_psvp = 0.
         for dsvp in range(50, up_dsvp+1):
             
             psvp = 1.
@@ -46,9 +47,11 @@ def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_mode
             G_sieve, B_sieve = pump_cost(d,dsvp,cost_model=cost_model)
         
             avg_d_svp += dsvp * rp * psvp
+            Gpump = log2(2**Gpump+2**G_sieve)
             if(not worst_case):
-                Gpump = log2(2**Gpump+2**G_sieve)
                 avgG2 = log2(2**avgG2+(2**Gpump) * rp * psvp)
+            else:
+                avgG2 = log2(2**avgG2+(2**Gpump) * (1 - pre_psvp))
             
             avgB2 = max(B_sieve,avgB2)
 
@@ -56,16 +59,18 @@ def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_mode
             rp = 1. - p
             #print(dsvp, gh)
         
-            if rp < 0.001:
-                #raise ""
-                #print(rp,avg_d_svp,dsvp * rp)
-                avg_d_svp += dsvp * rp #Avoid too small of dsvp
-                if(not worst_case):
+            if(not worst_case):
+                if rp < 0.001:
+                    #raise ""
+                    #print(rp,avg_d_svp,dsvp * rp)
+                    avg_d_svp += dsvp * rp #Avoid too small of dsvp
                     avgG2 = log2(2**avgG2 + ((2**Gpump) * rp))
-                else:
-                    avgG2 = G_sieve
-
-                return (avgG2,avgB2,avg_d_svp,dsvp,1.,l_)
+                    return (avgG2,avgB2,avg_d_svp,dsvp,1.,l_)
+            else:
+                if(1-psvp < 0.001):
+                    return (avgG_sieve,avgB_sieve,avgdsvp,dsvp,1.,l_)
+            
+            pre_psvp = psvp
                 
     return (G_sieve,B_sieve,avg_d_svp,dsvp,p,l_)
 

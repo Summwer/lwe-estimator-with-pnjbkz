@@ -491,7 +491,7 @@ void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
     pos--;
 
     if(params->debug){
-        if(bs.S.size()>3){
+        if(bs.S.size()>0){
             cout<<"====Add===="<<endl;
             printf("pos=%d\n",pos);
             print_bs(bs);
@@ -502,10 +502,12 @@ void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
     }
 
 
-    while(pos > k && ( get<2>(bs.dsvp_t) < get<2>(BS[pos].dsvp_t) + params->enumbs_G_prec || (bs.slope > BS[pos].slope - params->enumbs_slope_prec && get<2>(bs.dsvp_t) == get<2>(BS[pos].dsvp_t)  + params->enumbs_G_prec )) && bs.cum_avg_GB_BKZ.first < BS[pos].cum_avg_GB_BKZ.first + params->enumbs_G_prec && compare_max_strategy(BS[pos].S, bs.S)){
+
+    // while(pos > k && ( get<2>(bs.dsvp_t) < get<2>(BS[pos].dsvp_t) + params->enumbs_G_prec || (bs.slope > BS[pos].slope - params->enumbs_slope_prec && get<2>(bs.dsvp_t) == get<2>(BS[pos].dsvp_t)  + params->enumbs_G_prec )) && bs.cum_avg_GB_BKZ.first < BS[pos].cum_avg_GB_BKZ.first + params->enumbs_G_prec && compare_max_strategy(BS[pos].S, bs.S)){
+    while(pos > k && ( get<2>(bs.dsvp_t) < get<2>(BS[pos].dsvp_t) + params->enumbs_G_prec || (bs.slope > BS[pos].slope - params->enumbs_slope_prec && get<2>(bs.dsvp_t) == get<2>(BS[pos].dsvp_t)  + params->enumbs_G_prec )) && bs.cum_avg_GB_BKZ.first < BS[pos].cum_avg_GB_BKZ.first + params->enumbs_G_prec){
 
         if(params->debug){
-            if(bs.S.size()>3){
+            if(bs.S.size()>0){
                 cout<<"====Delete1===="<<endl;
                 printf("pos=%d\n",pos);
                 print_bs(bs);
@@ -524,9 +526,10 @@ void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
             
 
     
-    while( pos+1<int(BS.size())-1 && pos+1 > k && ( get<2>(BS[pos+2].dsvp_t) < get<2>(BS[pos+1].dsvp_t) + params->enumbs_G_prec || (BS[pos+2].slope > BS[pos+1].slope - params->enumbs_slope_prec  &&  get<2>(BS[pos+2].dsvp_t) == get<2>(BS[pos+1].dsvp_t) + params->enumbs_G_prec)) && BS[pos+2].cum_avg_GB_BKZ.first < BS[pos+1].cum_avg_GB_BKZ.first + params->enumbs_G_prec && compare_max_strategy(BS[pos+1].S, BS[pos+2].S)){
+    // while( pos+1<int(BS.size())-1 && pos+1 > k && ( get<2>(BS[pos+2].dsvp_t) < get<2>(BS[pos+1].dsvp_t) + params->enumbs_G_prec || (BS[pos+2].slope > BS[pos+1].slope - params->enumbs_slope_prec  &&  get<2>(BS[pos+2].dsvp_t) == get<2>(BS[pos+1].dsvp_t) + params->enumbs_G_prec)) && BS[pos+2].cum_avg_GB_BKZ.first < BS[pos+1].cum_avg_GB_BKZ.first + params->enumbs_G_prec && compare_max_strategy(BS[pos+1].S, BS[pos+2].S)){
+    while( pos+1<int(BS.size())-1 && pos+1 > k && ( get<2>(BS[pos+2].dsvp_t) < get<2>(BS[pos+1].dsvp_t) + params->enumbs_G_prec || (BS[pos+2].slope > BS[pos+1].slope - params->enumbs_slope_prec  &&  get<2>(BS[pos+2].dsvp_t) == get<2>(BS[pos+1].dsvp_t) + params->enumbs_G_prec)) && BS[pos+2].cum_avg_GB_BKZ.first < BS[pos+1].cum_avg_GB_BKZ.first + params->enumbs_G_prec){
         if(params->debug){
-            if(BS[pos+1].S.size()>3){
+            if(BS[pos+1].S.size()>0){
                 cout<<"====Delete2===="<<endl;
                 printf("pos=%d\n",pos+1);
                 print_bs(BS[pos+1]);
@@ -1174,12 +1177,12 @@ bool EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BK
         //     printf("beta = %d, l[i]= %e, G = %e, rem_pr = %e, pr = %e\n", beta, pow(2,2.*l[d-beta]), GB.first, rem_pr, pr);
 
 
+        cum_GB_BKZ.first = log2(pow(2,cum_GB_BKZ.first)+pow(2,GB_BKZ.first));
         if(not params->worst_case){
-            cum_GB_BKZ.first = log2(pow(2,cum_GB_BKZ.first)+pow(2,GB_BKZ.first));
             cum_avg_GB_BKZ.first = log2(pow(2,cum_avg_GB_BKZ.first)+(pow(2,cum_GB_BKZ.first)*rem_pr*pr));
         }
         else{
-            cum_avg_GB_BKZ.first = log2(pow(2,cum_avg_GB_BKZ.first)+(pow(2,GB_BKZ.first)));
+            cum_avg_GB_BKZ.first = cum_GB_BKZ.first;
         }
         cum_avg_GB_BKZ.second = max(cum_avg_GB_BKZ.second, GB_BKZ.second);
 
@@ -1527,17 +1530,17 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         
             int len_tmpBS = tmpBS[index].size();
 
+
+            // if(params->debug){
+            //     cout<<"====Delete loop===="<<endl;
+            //     print_bs(bs);
+            //     print_bs(tmpBS[index][len_tmpBS - 1]);
+            //     cout<<"......."<<endl;
+            //     usleep(10000000);
+            // }
+
             if( loop > 1 && ((get<2>(bs.dsvp_t) < get<2>(tmpBS[index][len_tmpBS - 1].dsvp_t) + params->enumbs_G_prec  || (get<2>(bs.dsvp_t) == get<2>(tmpBS[index][len_tmpBS - 1].dsvp_t) + params->enumbs_G_prec && bs.slope > tmpBS[index][len_tmpBS - 1].slope - params->enumbs_slope_prec ))) && bs.cum_avg_GB_BKZ.first < tmpBS[index][len_tmpBS - 1].cum_avg_GB_BKZ.first + params->enumbs_G_prec){
-                tmpBS[index][len_tmpBS-1] = bs;
-                if(params->debug){
-                    cout<<"====Delete loop===="<<endl;
-                    print_bs(bs);
-                    print_bs(tmpBS[index][len_tmpBS - 1]);
-                    cout<<"......."<<endl;
-                    usleep(10000000);
-                    
-                }
-                
+                tmpBS[index][len_tmpBS-1] = bs;   
             }
             else
                 tmpBS[index].insert(tmpBS[index].end(),bs);
@@ -1670,7 +1673,7 @@ void EnumBS::enumbs_est(vector<double> l){
     if(params->cost_model == 1)
         printf("Min Cost = %3.2f log2(gate), Memory Cost = %3.2f log2(bit)\n", Gmin, Bmin);
     if(params->cost_model == 2)
-        printf("Min Cost = %3.2f log2(sec), Memory Cost = %3.2f log2(bit)\n", Gmin, Bmin);
+        printf("Min Cost = %3.2f log2(sec) = %3.2f h, Memory Cost = %3.2f log2(bit) = %3.2f TB \n", Gmin, pow(2,Gmin)/3600, Bmin, pow(2,Bmin-43));
 }
 
 //return value: to determine whether the current bs0 will be changed || not.
@@ -1909,7 +1912,7 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
     if(params->cost_model == 1)
         printf("Min Cost = %3.2f log2(gate), Memory Cost = %3.2f log(bit)\n", Gmin, Bmin);
     if(params->cost_model == 2)
-        printf("Min Cost = %3.2f log2(sec), Memory Cost = %3.2f log(bit)\n", Gmin, Bmin);
+        printf("Min Cost = %3.2f log2(sec) = %3.2f h, Memory Cost = %3.2f log2(bit) = %3.2f TB \n", Gmin, pow(2,Gmin)/3600, Bmin, pow(2,Bmin-43));
 }
 
 

@@ -5,5 +5,6 @@ void gsa_est(int dim, FP_NR<FT> dvol, Params* params);
 
 //lwe challenges estimation
 vector<LWEchal> load_unsolved_lwechallenges();
+vector<LWEchal> load_low_dim_lwechallenges();
 void lwechal_est(LWEchal lwechal, Params* params);
 

@@ -47,6 +47,7 @@ def d_svp_prediction(l, cumulated_proba,cost_model, progressive_sieve, worst_cas
         avgdsvp = 0.
         avgG_sieve,avgB_sieve = 0.,0.
         Gpump = 0.
+        pre_psvp = 0.
         for dsvp in range(50, d):
             
             psvp = 1.
@@ -57,22 +58,28 @@ def d_svp_prediction(l, cumulated_proba,cost_model, progressive_sieve, worst_cas
             G_sieve, B_sieve = pump_cost(d,dsvp,cost_model=cost_model)
             
             avgdsvp += dsvp * rp * psvp
+            Gpump = log2(2**Gpump+2**G_sieve)
             if(not worst_case):
                 #avgG_sieve = log2(2**avgG_sieve+(2**G_sieve) * rp * psvp)
-                Gpump = log2(2**Gpump+2**G_sieve)
                 avgG_sieve = log2(2**avgG_sieve+(2**Gpump) * rp * psvp)
+            else:
+                avgG_sieve = log2(2**avgG_sieve+(2**Gpump) * (1-pre_psvp))
             avgB_sieve = max(B_sieve,avgB_sieve)
 
             p += rp * psvp
             rp = 1. - p
             #print(dsvp, gh)
         
-            if rp < 0.001:
-                avgdsvp += dsvp * rp #Avoid too small of dsvp
-                if(not worst_case):
+            if(not worst_case):
+                if rp < 0.001:
+                    avgdsvp += dsvp * rp #Avoid too small of dsvp
+                    
                     avgG_sieve = log2(2**avgG_sieve + ((2**Gpump) * rp))
-                else:
-                    avgG_sieve = G_sieve
-                return (avgG_sieve,avgB_sieve,avgdsvp,dsvp)
-                
+                    
+                    return (avgG_sieve,avgB_sieve,avgdsvp,dsvp)
+            else:
+                if(1-psvp < 0.001):
+                    return (avgG_sieve,avgB_sieve,avgdsvp,dsvp)
+            pre_psvp = psvp
+            
     return (G_sieve,B_sieve,dsvp,dsvp)

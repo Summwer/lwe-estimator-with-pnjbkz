@@ -17,8 +17,10 @@ load("../framework/est/lwechal-est.sage")
 #######################################
 #Fixed parameters
 method = 4
-cost_model = 1
-worst_case = False
+cost_model = 2
+worst_case = True
 #------------------------------------
 
-unsolved_lwe_challenge_est(method,  cost_model, worst_case)
+#unsolved_lwe_challenge_est(method,  cost_model, worst_case)
+low_dim_lwe_challenge_est(method,  cost_model, worst_case)
+

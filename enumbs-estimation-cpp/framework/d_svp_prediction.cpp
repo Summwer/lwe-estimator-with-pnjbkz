@@ -56,9 +56,10 @@ tuple<double,int,double,double> progressive_dsvp_predict(vector<double> l, doubl
     return dsvp, G, B. 
     */
     int d = l.size();
-    double psvp, p = cum_pr , rp = 1.-cum_pr, gh, avg_d_svp  = 0.;
+    double psvp, pre_psvp =0., p = cum_pr , rp = 1.-cum_pr, gh, avg_d_svp  = 0.;
     pair<double,double> p_cost, p_cost_cum;
     double G_cum = 0., B_cum = 0., Gpump = 0.;
+    
     if(cum_pr >= 0.999){
         return make_tuple(0.,0,0.,0.);
     }
@@ -73,7 +74,6 @@ tuple<double,int,double,double> progressive_dsvp_predict(vector<double> l, doubl
         //     cout<<psvp<<endl;
         p += rp * psvp;
         
-        
         if(not worst_case){
             avg_d_svp += dsvp * rp * psvp;
             p_cost = cost->pump_cost(dsvp,cost_model);
@@ -82,29 +82,36 @@ tuple<double,int,double,double> progressive_dsvp_predict(vector<double> l, doubl
             //G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * rp * psvp);
             B_cum = max(B_cum,p_cost.second);
         }
+        if(worst_case){
+            p_cost = cost->sieve_cost(dsvp,cost_model);
+            Gpump = log2(pow(2,Gpump)+pow(2,p_cost.first));
+            G_cum = log2(pow(2,G_cum)+pow(2,Gpump) * (1-pre_psvp));
+            //G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * rp * psvp);
+            B_cum = max(B_cum,p_cost.second);
+        }
         rp = 1. - p;
 
         // cerr<<"dsvp = "<<dsvp<<", rp = "<<rp<<endl;
         // cerr<<"G_cum = " << G_cum <<", G2 = "<<p_cost.first<<endl;
-        
-        if(rp < 0.001){
-            // cerr<<"dsvp = "<<dsvp<<", rp = "<<rp<<endl;
-            // cerr<<"G_cum = " << G_cum <<endl;
-            
-
-            if(worst_case){
-                p_cost = cost->pump_cost(dsvp,cost_model);
-                avg_d_svp = dsvp;
-                return  make_tuple(avg_d_svp, dsvp, p_cost.first,p_cost.second);  //Avoid too small of dsvp
-            }
-            else{
+        if(not worst_case){
+            if(rp < 0.001){
+                // cerr<<"dsvp = "<<dsvp<<", rp = "<<rp<<endl;
+                // cerr<<"G_cum = " << G_cum <<endl;
+                
                 avg_d_svp += dsvp * rp;
                 //G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * rp);
                 G_cum = log2(pow(2,G_cum)+pow(2,Gpump) * rp);
                 return  make_tuple(avg_d_svp, dsvp, G_cum,B_cum); 
+                
+                // return  make_tuple(round(avg_d_svp*PREC)/PREC, dsvp, round(G_cum*PREC)/PREC,B_cum); 
             }
-            // return  make_tuple(round(avg_d_svp*PREC)/PREC, dsvp, round(G_cum*PREC)/PREC,B_cum); 
+        }else{
+            if(1-psvp < 0.001){
+                return  make_tuple(avg_d_svp, dsvp, G_cum,B_cum); 
+            }
         }
+
+        pre_psvp = psvp;
     }
     p_cost = cost->pump_cost(d,cost_model);
     return make_tuple(d,d, p_cost.first, p_cost.second);

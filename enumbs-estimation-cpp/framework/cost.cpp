@@ -66,8 +66,8 @@ pair<double,double> COST::theo_pump_cost(int beta){
     else if(beta_prime > 1024)
         return make_pair(params->max_num,params->max_num);
     else{
-        //double gates = log2(COST::C) + agps20_gates(beta_prime).get_d();
-        double gates = agps20_gates(beta_prime).get_d();
+        double gates = log2(COST::C) + agps20_gates(beta_prime).get_d();
+        // double gates = agps20_gates(beta_prime).get_d();
         double bits = log2(8.*beta_prime) + agps20_vectors(beta_prime);
         return make_pair(gates, bits);
         
@@ -152,16 +152,17 @@ double COST::practical_pump_cost(int beta){
     pair<double,double> k = get_k1_k2_pump(beta); // threads = 20
     double k1 = k.first, k2 = k.second;
     // k = (1/71.)*((1.33)**(beta/10.));
-
-    return k1*((double)beta)+k2; //n_expected = beta -f , beta = d-llb
+    int f = dims4free(beta);
+    return k1*((double)(beta-f))+k2; //n_expected = beta -f , beta = d-llb
 }
     
 
 //get pnj-BKZ time test in threads = 20
-double COST::practical_bkz_cost(int d,int beta,int f,int jump){
+double COST::practical_bkz_cost(int d,int beta,int jump){
     // int extra_dim4free = 12;
     // beta = beta + extra_dim4free;
     // f = f + extra_dim4free;
+    int f = dims4free(beta);
     bool sieve;
     if(beta - f <= 60)
         sieve = false;
@@ -175,13 +176,26 @@ double COST::practical_bkz_cost(int d,int beta,int f,int jump){
 }
 
 
+// //triple gpu time cost test in the artical G6K-GPU
+// double pump_cost_triple_gpu(int beta){
+//     double k1 = 0.367, k2 = -37.15;
+//     return k1*((double)beta)+k2;
+// }
+
+pair<double,double> COST::sieve_cost(int beta,int cost_model){
+    if(cost_model == 1)
+        return make_pair(theo_pump_cost(beta).first - log2(COST::C),  theo_pump_cost(beta).second) ;
+    else if(cost_model == 2){
+        return make_pair(practical_pump_cost(beta) - log2(COST::C), theo_pump_cost(beta).second);
+    }
+    return make_pair(params->max_num,params->max_num);
+}
     
 pair<double,double> COST::pump_cost(int beta,int cost_model){
     if(cost_model == 1)
         return theo_pump_cost(beta);
     else if(cost_model == 2){
-        int f = dims4free(beta);
-        return make_pair(practical_pump_cost(beta-f),theo_pump_cost(beta).second);
+        return make_pair(practical_pump_cost(beta),theo_pump_cost(beta).second);
     }
     return make_pair(params->max_num,params->max_num);
 }
@@ -190,8 +204,7 @@ pair<double,double> COST::bkz_cost(int d, int beta,int J,int cost_model){
     if(cost_model == 1)
         return theo_bkz_cost(d, beta, J);
     else if(cost_model == 2){
-        int f = dims4free(beta);
-        return make_pair(practical_bkz_cost(d,beta,f,J), theo_bkz_cost(d, beta,J).second);
+        return make_pair(practical_bkz_cost(d,beta,J), theo_bkz_cost(d, beta,J).second);
     }
     return make_pair(params->max_num,params->max_num);
 }    
