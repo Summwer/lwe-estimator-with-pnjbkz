@@ -1141,6 +1141,7 @@ void EnumBS::BS_add_op(EnumBS::blocksize_strategy bs, int k){
 
 bool EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BKZ, pair<double,double> &cum_avg_GB_BKZ, pair<double,double> &GB, double &cum_pr, int beta, int jump, tuple<double,int,double,double> &dsvp_t_, double &slope){
 
+    
     //simulate pnj-bkz more precisely
     int f, beta_, d = l.size();
     f = default_dim4free_fun(beta);
@@ -1159,7 +1160,7 @@ bool EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BK
 
     sim -> simulate(l_,l,beta_,jump,1);
 
-
+   
     if(l_[d-beta_] == l[d-beta_]){
         dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
         slope = get_current_slope(l, 0, d);
@@ -1756,24 +1757,48 @@ void EnumBS::enumbs_est(vector<double> l){
 
 
 
-void EnumBS::enumbs_est_in_parallel(vector<double> l){
+void EnumBS::enumbs_est_in_parallel(vector<double> l0){
     /*
-    input: l -- gs-lengths;
+    input: l0 -- gs-lengths;
     Return: Optimal strategy to minimize solving cost.
     */
     set_threads(params->threads);
     
-
-    l0 = l;
-    int beta_start, k = 0, d = l0.size(),beta;
+ 
+    int k = 0, d = l0.size(),beta, beta_start = params->beta_start;
     blocksize_strategy bs;
 
     tuple<double,int,double,double>  dsvp0_t = dsvp_predict(l0, 0., cost,params->cost_model, params->progressive_sieve, params->worst_case);
 
+    bs = {dsvp0_t, {},l0,make_pair(0.,0.), make_pair(0.,0.),make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t)), 0., get_current_slope(l0,0,d)};
+
+    BS.insert(BS.end(),bs);
     
-    // BS.resize(1);
-    // BS[0] =  {dsvp0_t, {},l0,make_pair(0.,0.),0.};;
-    BS.insert(BS.end(),{dsvp0_t, {},l0,make_pair(0.,0.), make_pair(0.,0.),make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t)), 0., get_current_slope(l0,0,d)});
+
+
+    //Add a normal two-step strategy from (beta_start,1,1) to (d,1,1)
+
+
+    
+    tuple<double,int,double,double> dsvp_t1;
+    vector<double> l = bs.l; 
+    vector<strategy> S = bs.S;
+    double cum_pr = bs.cum_pr;
+    pair<double,double> cum_GB_BKZ = bs.cum_GB_BKZ, cum_avg_GB_BKZ = bs.cum_avg_GB_BKZ, GB = bs.GB;
+    double slope0 = bs.slope, slope1;
+    
+    for(int beta = beta_start;  beta < d; beta++){
+        if(cum_pr >= 0.999)
+            break;
+        pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, beta, 1, dsvp_t1, slope1);
+        S.insert(S.end(),{beta,1,1}); 
+        bs = {dsvp_t1, S, l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, slope1};
+        if(params->enum_add_G2)
+            BS_add_G2(bs, k);
+        else
+            BS_add(bs,k);
+
+    }
 
     
     int j,len_S;
@@ -1791,7 +1816,6 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l){
       
     
         if(len_S == 0){
-            beta_start = params->beta_start;
             j = params->J;
         }
         else{

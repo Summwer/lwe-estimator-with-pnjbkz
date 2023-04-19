@@ -11,7 +11,7 @@
 # and differ from the one we used by less than a bit at dim 376.
 
 from mpmath import mp
-from math import ceil, floor, exp, pi
+from math import ceil, floor, exp, pi, pow
 from math import log as ln
 
 
@@ -146,6 +146,7 @@ def theo_pump_cost(beta):
     else:
         gates = log2(C) + agps20_gates(beta_prime)
         bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
+
         return (gates, bits)
 
     
@@ -154,14 +155,14 @@ def pump_cost(d,beta,cost_model = 1):
     if(cost_model == 1):
         return theo_pump_cost(beta)
     elif(cost_model == 2):
-        return log2(practical_pump_cost(beta,d)),theo_pump_cost(beta)[1]
+        return practical_pump_cost(beta)
 
 #Return progressive sieve cost
 def sieve_cost(d,beta,cost_model = 1):
     if(cost_model == 1):
-        return theo_pump_cost(beta) - log2(C)
+        return (theo_pump_cost(beta)[0] - log2(C), theo_pump_cost(beta)[1])
     elif(cost_model == 2):
-        return log2(practical_pump_cost(beta,d)) - log2(C),theo_pump_cost(beta)[1]
+        return  (practical_pump_cost(beta)[0] - log2(C), practical_pump_cost(beta)[1])
 
 def pro_bkz_cost(d, beta,J=1,cost_model=1):
     if(cost_model == 1):
@@ -247,13 +248,29 @@ def get_k1_k2_pump(beta):
 
 
 #get pump time test in threads = 20
-def practical_pump_cost(beta,d):
+def practical_pump_cost(beta):
      #make sure not use the enum cost 
     f = dims4free(beta)
-    k1, k2 = get_k1_k2_pump(beta - f) # threads = 20
+    beta_prime = beta - f
+    k1, k2 = get_k1_k2_pump(beta_prime) # threads = 20
     # k = (1/71.)*((1.33)**(beta/10.))
-    T_pump = round((2 **(k1*(beta-f)+k2)),4)
-    return T_pump  # n_expected = beta -f , beta = d-llb
+    secs = k1*beta_prime+k2
+
+    
+
+    #unit: GB
+    if( beta_prime <= 56):
+    	bits = 2.0311
+    elif( beta_prime >=57 and  beta_prime <=63):
+    	bits = 8e-5 *  pow(beta_prime,2) - 0.0083*beta_prime + 2.2555
+    elif( beta_prime >= 64 and beta_prime <= 94):
+    	bits = 2.195202e-6 * pow(beta_prime,4) - 6.297613e-4 * pow(beta_prime,3) +6.803540e-2 * pow(beta_prime,2) - 3.274476 * beta_prime + 61.31963
+    elif( beta_prime >= 95):
+    	bits = 2.0311 + pow(2,0.1992* beta_prime  - 18.714)
+    
+    bits = log2(bits * pow(2,33))
+
+    return (secs, bits)  # n_expected = beta -f , beta = d-llb
 
     
 
@@ -284,3 +301,5 @@ for beta in range(70,100):
         print(2**pump_cost(dim,beta,cost_model = 1)[0] *(dim+2*f-beta) * C, 2**bkz_cost(dim, beta,J,cost_model=1)[0])
 
 '''
+
+print(practical_pump_cost(138))

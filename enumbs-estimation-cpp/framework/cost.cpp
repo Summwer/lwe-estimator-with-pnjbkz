@@ -147,13 +147,35 @@ pair<double,double> COST::get_k1_k2_pump(int beta){
 
 
 //get pump cost in threads = 20
-double COST::practical_pump_cost(int beta){
+pair<double,double> COST::practical_pump_cost(int beta){
     //make sure not use the enum cost 
     int f = dims4free(beta);
-    pair<double,double> k = get_k1_k2_pump(beta-f); // threads = 20
+    int beta_prime = beta - f;
+    double secs, bits;
+    pair<double,double> k = get_k1_k2_pump(beta_prime); // threads = 20
     double k1 = k.first, k2 = k.second;
     // k = (1/71.)*((1.33)**(beta/10.));
-    return k1*((double)(beta-f))+k2; //n_expected = beta -f , beta = d-llb
+    
+    
+    
+    secs = k1*((double) beta_prime)+k2; 
+    
+
+    //unit: GB
+    if( beta_prime <= 56)
+    	bits = 2.0311;
+    else if( beta_prime >=57 and  beta_prime <=63)
+    	bits = 8e-5 *  pow(beta_prime,2) - 0.0083*beta_prime + 2.2555;
+    else if( beta_prime >= 64 and beta_prime <= 94)
+    	bits = 2.195202e-6 * pow(beta_prime,4) - 6.297613e-4 * pow(beta_prime,3) +6.803540e-2 * pow(beta_prime,2) - 3.274476 * beta_prime + 61.31963;
+    else if( beta_prime >= 95)
+    	bits = 2.0311 + pow(2,0.1992* beta_prime  - 18.714);
+
+    //unit: log2(bit)
+    bits = log2(bits * pow(2,33));
+    
+    
+    return make_pair(secs,bits); //n_expected = beta -f , beta = d-llb
 }
     
 
@@ -186,7 +208,7 @@ pair<double,double> COST::sieve_cost(int beta,int cost_model){
     if(cost_model == 1)
         return make_pair(theo_pump_cost(beta).first - log2(COST::C),  theo_pump_cost(beta).second) ;
     else if(cost_model == 2){
-        return make_pair(practical_pump_cost(beta) - log2(COST::C), theo_pump_cost(beta).second);
+        return make_pair(practical_pump_cost(beta).first - log2(COST::C), practical_pump_cost(beta).second);
     }
     return make_pair(params->max_num,params->max_num);
 }
@@ -195,7 +217,7 @@ pair<double,double> COST::pump_cost(int beta,int cost_model){
     if(cost_model == 1)
         return theo_pump_cost(beta);
     else if(cost_model == 2){
-        return make_pair(practical_pump_cost(beta),theo_pump_cost(beta).second);
+        return practical_pump_cost(beta);
     }
     return make_pair(params->max_num,params->max_num);
 }
