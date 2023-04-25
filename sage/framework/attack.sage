@@ -1,7 +1,5 @@
 import time
 
-
-
 load("../framework/est/bkz_only_est.sage")
 load("../framework/est/progressive_bkz_only_est.sage")
 load("../framework/est/default_g6k_est.sage")

@@ -302,4 +302,4 @@ for beta in range(70,100):
 
 '''
 
-print(practical_pump_cost(138))
+#print(practical_pump_cost(138))
