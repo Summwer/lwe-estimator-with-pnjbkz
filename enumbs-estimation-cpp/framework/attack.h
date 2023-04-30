@@ -1,5 +1,5 @@
 #include <time.h>
-#include "../framework/search_tree.h"
+#include "enumbs.h"
 
 
 void call_enumbs(vector<double> l, Params* params);

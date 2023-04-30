@@ -131,6 +131,17 @@ void print_vector(vector<tuple<double,double,double>> v,int index_start, int ind
     cout<<"]"<<endl;
 }
 
+
+void print_vector(vector<tuple<int,int,int>> v,int index_start, int index_end){
+    cout<< "[";
+    if(index_end == -1)
+        index_end = v.size();
+    for(int i = index_start; i < index_end; i++) {
+        cout << "(" << get<0>(v[i]) << ", " << get<1>(v[i]) << ", " << get<2>(v[i])  << ") ";
+    }
+    cout<<"]"<<endl;
+}
+
 /*
 void print_matrix(ZZ_mat<ZT> matrix){
     cout<< "[";
@@ -140,6 +151,17 @@ void print_matrix(ZZ_mat<ZT> matrix){
     cout<<"]"<<endl;
 }
 */
+
+
+void print_matrix(vector<vector<Z_NR<ZT>>> matrix){
+    int row = matrix.size(), col = matrix[0].size();
+
+    printf("[");
+    for(int i = 0; i < row; i++){
+        print_vector(matrix[i],0,col);
+    }
+    printf("]\n");
+}
 
 void printf_input(int d, FP_NR<FT> dvol)
 {
@@ -276,8 +298,11 @@ FP_NR<FT> compute_delta( int beta){
 
     map<int,FP_NR<FT>> small= {{0,1e20}, {1, 1e20}, {2, 1.021900}, {3, 1.020807}, {4, 1.019713}, {5, 1.018620}, {6, 1.018128}, {7, 1.017636}, {8, 1.017144}, {9, 1.016652}, {10, 1.016160}, {11, 1.015898}, {12, 1.015636}, {13, 1.015374}, {14, 1.015112}, {15, 1.014850}, {16, 1.014720}, {17, 1.014590}, {18, 1.014460}, {19, 1.014330}, {20, 1.014200}, {21, 1.014044}, {22, 1.013888}, {23, 1.013732}, {24, 1.013576}, {25, 1.013420}, {26, 1.013383}, {27, 1.013347}, {28, 1.013310}, {29, 1.013253}, {30, 1.013197}, {31, 1.013140}, {32, 1.013084}, {33, 1.013027}, {34, 1.012970}, {35, 1.012914}, {36, 1.012857}, {37, 1.012801}, {38, 1.012744}, {39, 1.012687}, {40, 1.012631}, {41, 1.012574}, {42, 1.012518}, {43, 1.012461}, {44, 1.012404}, {45, 1.012348}, {46, 1.012291}, {47, 1.012235}, {48, 1.012178}, {49, 1.012121}, {50, 1.012065}};
 
-    return small[beta];
-
+    if(beta <=50)
+        return small[beta];
+    else{
+        return pow((double)beta/(2.*M_PI*exp(1)) * pow((M_PI*(double)beta),(1./(double)beta)), (1./(2*((double)beta-1.))));
+    }
 }
 
 

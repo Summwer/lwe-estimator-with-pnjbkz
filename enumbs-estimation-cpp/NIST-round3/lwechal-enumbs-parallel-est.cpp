@@ -7,23 +7,36 @@ int main(){
     params->max_dim = 300;
     params->cost_model = 2; //sec model;
     params->progressive_sieve = true;
-    params->threads = 15;
+    params->threads = 10;
     params->debug = false;
     params->worst_case = true;
-
-    
-
     params->J = 8; 
-    vector<LWEchal> low_dim_lwechallenges = load_low_dim_lwechallenges();
-    for(int i = 0; i < int(low_dim_lwechallenges.size()); i++){
-        lwechal_est(low_dim_lwechallenges[i], params);
+
+    vector<pair<int,double>> lwes;
+
+    //low_dim_lwechallenge_est.
+    //{40,0.035}, 
+    lwes = {{40, 0.025}, {45, 0.020}, {50, 0.015}, {55, 0.010}, {60, 0.010}, {70, 0.005}, {75, 0.005}};
+    for(int i = 0; i < int(lwes.size());i++){
+        int n = lwes[i].first;
+        double alpha  = lwes[i].second;
+        lwechal_est(n, alpha, params);
     }
     
-    
-    vector<LWEchal> unsolved_lwechallenges = load_unsolved_lwechallenges();
-    
-    for(int i = 0; i < int(unsolved_lwechallenges.size()); i++){
-    	lwechal_est(unsolved_lwechallenges[i], params);
+    //solve_lwechal_est
+    lwes =  {{45,0.030}, {50, 0.025}, {55, 0.020}, {60, 0.015}, {85, 0.005}, {90, 0.005}};
+    for(int i = 0; i < int(lwes.size());i++){
+        int n = lwes[i].first;
+        double alpha  = lwes[i].second;
+        lwechal_est(n, alpha, params);
+    }
+
+
+    lwes = {{40,0.045}, {45, 0.035}, {50, 0.030}, {55, 0.025}, {60, 0.020}, {65, 0.015}, {75, 0.010}, {95, 0.005}};
+    for(int i = 0; i < int(lwes.size());i++){
+        int n = lwes[i].first;
+        double alpha  = lwes[i].second;
+        lwechal_est(n, alpha, params);
     }
     
     return 1;

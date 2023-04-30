@@ -1797,13 +1797,14 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
             BS_add_G2(bs, k);
         else
             BS_add(bs,k);
-
+        k++;
     }
 
     
     int j,len_S;
     params->J = floor((params->J-1)/params->J_gap) * params->J_gap+1;
 
+    k = 0;
     while( k < int(BS.size())){
         bs = BS[k];
         

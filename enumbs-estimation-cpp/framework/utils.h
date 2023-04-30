@@ -9,6 +9,7 @@
 
 
 
+
 using namespace std;
 using namespace boost;
 using namespace fplll;
@@ -40,10 +41,12 @@ void printf_input(int d, FP_NR<FT> dvol);
 void print_vector(vector<double> v,int index_start=0, int index_end=-1);
 void print_vector(vector<int> v,int index_start=0, int index_end=-1);
 void print_vector(vector<Z_NR<ZT>> v,int index_start=0, int index_end=-1);
+void print_matrix(vector<vector<Z_NR<ZT>>> matrix);
 void print_vector(vector<FP_NR<FT>> v,int index_start=0, int index_end=-1);
 void print_vector(vector<pair<int,int>> v,int index_start=0, int index_end=-1);
 void print_vector(vector<pair<double,double>> v,int index_start=0, int index_end=-1);
 void print_vector(vector<tuple<double,double,double>> v,int index_start=0, int index_end=-1);
+void print_vector(vector<tuple<int,int,int>> v,int index_start=0, int index_end=-1);
 
 //void print_matrix(ZZ_mat<ZT> matrix);
 
@@ -111,6 +114,15 @@ struct Params{
 struct LWEchal{
     int n;
     double alpha;
-    int dim;
-    FP_NR<FT> dvol;
+    int q;
+    int m;
+    vector<Z_NR<ZT>> c = {};
+    ZZ_mat<ZT> A;
+    ZZ_mat<ZT> B; //primal basis
+
+    int dim = 0;
+    FP_NR<FT> dvol = 0.;
+    
 };
+
+

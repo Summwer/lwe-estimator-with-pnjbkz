@@ -6,6 +6,7 @@ apt-get install m4 #should install m4 first
 apt-get install libgmp-dev
 apt-get install libboost-all-dev
 apt-get install libalglib-dev
+apt-get install libcurl4-openssl-dev libcurl4-doc libidn11-dev libkrb5-dev libldap2-dev librtmp-dev libssh2-1-dev libssl-dev zlib1g-dev
 
 
 

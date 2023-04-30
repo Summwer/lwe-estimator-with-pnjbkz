@@ -1,4 +1,4 @@
-#include "utils.h"
+#include "lwe_estimation.h"
 #include "/usr/include/libalglib/stdafx.h"
 #include "/usr/include/libalglib/specialfunctions.h"
 
