@@ -244,7 +244,7 @@ def gen_lwechal_instance(n=40, alpha=0.005):
     A, c, q = load_lwe_challenge(n=n, alpha=alpha)
     
     print("-------------------------")
-    print("Primal attack, TU LWE challenge n=%d, alpha=%.4f" % (n, alpha))
+    print("Primal attack, TU LWE challenge n=%d, alpha=%.4f, q = %d. " % (n, alpha, q))
 
     try:
         min_cost_param = gsa_params(n=A.ncols(), alpha=alpha, q=q, decouple=True)
@@ -252,8 +252,8 @@ def gen_lwechal_instance(n=40, alpha=0.005):
     except TypeError:
         raise TypeError("No winning parameters.")
    
-    print("Chose %d samples. Predict solution at bkz-%d + svp-%d" % (m, b, s))
-    print()
+    print("Chose %d samples. Predict solution at bkz-%d + svp-%d." % (m, b, s))
+    
 
     d = m + 1
 
@@ -268,6 +268,7 @@ def gen_lwechal_instance(n=40, alpha=0.005):
 
     dim = m + 1
     print("dim = %3d, dvol = %3.7f" %(dim, dvol))
+    print()
 
     return (dim, dvol)
 

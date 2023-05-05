@@ -174,7 +174,6 @@ pair<double,double> COST::practical_pump_cost(int beta){
     //unit: log2(bit)
     bits = log2(bits * pow(2,33));
     
-    
     return make_pair(secs,bits); //n_expected = beta -f , beta = d-llb
 }
     
@@ -194,7 +193,10 @@ double COST::practical_bkz_cost(int d,int beta,int jump){
     double k1 = k.first, k2 = k.second;
     double c3= 0.018, c4 = -2.24;
 
-    return (k1*(beta-f)+k2) + log2((c3*d+c4)/jump);
+    if(beta - f <= 60)
+        return (k1*(beta-f)+k2) - log2(jump);
+    else
+        return (k1*(beta-f)+k2) + log2((c3*d+c4)/jump);
 }
 
 
@@ -226,7 +228,7 @@ pair<double,double> COST::bkz_cost(int d, int beta,int J,int cost_model){
     if(cost_model == 1)
         return theo_bkz_cost(d, beta, J);
     else if(cost_model == 2){
-        return make_pair(practical_bkz_cost(d,beta,J), theo_bkz_cost(d, beta,J).second);
+        return make_pair(practical_bkz_cost(d,beta,J), practical_pump_cost(beta).second);
     }
     return make_pair(params->max_num,params->max_num);
 }    

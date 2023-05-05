@@ -169,14 +169,14 @@ def pro_bkz_cost(d, beta,J=1,cost_model=1):
         return pro_theo_bkz_cost(d, beta,J)
     elif(cost_model == 2):
         f = dims4free(beta)
-        return log2(get_pre_pnj_time(d,beta,f,J)),pro_theo_bkz_cost(d, beta,J)[1]
+        return log2(get_pre_pnj_time(d,beta,f,J)),practical_pump_cost(beta)[1]
 
 def bkz_cost(d, beta,J=1,cost_model=1):
     if(cost_model == 1):
         return theo_bkz_cost(d, beta,J)
     elif(cost_model == 2):
         f = dims4free(beta)
-        return log2(get_pre_pnj_time(d,beta,f,J)),theo_bkz_cost(d, beta,J)[1]
+        return log2(get_pre_pnj_time(d,beta,f,J)),practical_pump_cost(beta)[1]
     
 
 def summary(n, beta):
@@ -187,7 +187,6 @@ def summary(n, beta):
     gates = log2(2**gates1+2**gates2)
     bits = max(bits1,bits2)
     return(n, beta, beta_prime, gates, bits)
-
 
 
 ###########################
@@ -283,8 +282,11 @@ def get_pre_pnj_time(d,beta,f,jump):
     k1,k2 = get_k1_k2_pnj(beta-f,sieve)
     c3, c4 = 0.018, -2.24
     T_pnj = 2**(k1*(beta-f)+k2)
-    pre_pnj_time = T_pnj*(c3*d+c4)/jump
-
+    if(beta - f <= 60):
+        pre_pnj_time = T_pnj/jump
+    else:
+        pre_pnj_time = T_pnj*(c3*d+c4)/jump
+    
     return round(pre_pnj_time,4)
  
 
