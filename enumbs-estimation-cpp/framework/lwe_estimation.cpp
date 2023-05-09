@@ -180,7 +180,6 @@ LWEchal* gen_lwechal_instance(int n, double alpha){
     printf("-------------------------\n");
     printf("Primal attack, TU LWE challenge n=%d, m=%d, alpha=%.3f, q=%d \n" , n, m, alpha, q);
 
-
     tuple<int,int,int> min_cost_param = gsa_params(lwechal);
     int b = get<0>(min_cost_param), s = get<1>(min_cost_param);
     m = get<2>(min_cost_param);

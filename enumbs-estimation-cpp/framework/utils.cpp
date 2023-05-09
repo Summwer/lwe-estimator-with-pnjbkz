@@ -436,7 +436,6 @@ int dims4free(int beta){
     return max(0,int(ceil((double)beta * log(4./3.) / log((double)beta/(2.*M_PI*exp(1.))))));
 }
 
-
 int default_dim4free_fun(int beta){
     if(beta < 40)
         return 0;

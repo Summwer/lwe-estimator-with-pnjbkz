@@ -15,7 +15,7 @@ CURLcode dl_curl_get_req(const std::string &url, std::string filename)
 {
 
 	const char* file_name = filename.c_str();
-	char* pc = new char[65536];//long enough
+	char* pc = new char[1024];//long enough
 	strcpy(pc, file_name);
 
 	FILE *fp = fopen(pc, "wb");
@@ -53,7 +53,7 @@ CURLcode dl_curl_get_req(const std::string &url, std::string filename)
 		curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
 
 		//set requst the longest duration
-		curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 6); // set transport and time out time  
+		// curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 6); // set transport and time out time  
 		curl_easy_setopt(curl, CURLOPT_TIMEOUT, 6);
 
 		// open request
@@ -111,6 +111,8 @@ LWEchal* load_lwe_challenge(int n, double alpha_){
 	fin>>lwechal->m;
 	fin>>lwechal->q;
 	fin>>lwechal->alpha;
+
+	
 	
 	vector<Z_NR<ZT>> c;
 	char ch;
@@ -155,7 +157,8 @@ LWEchal* load_lwe_challenge(int n, double alpha_){
 			i++;
 		}
 	}
-	// print_matrix(matrix);s
+	// print_matrix(matrix);
+	
 
 
 	lwechal->A.resize(lwechal->m,lwechal->n);

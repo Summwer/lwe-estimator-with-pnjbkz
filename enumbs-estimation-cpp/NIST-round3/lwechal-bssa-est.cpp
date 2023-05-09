@@ -10,13 +10,19 @@ int main(){
     params->cost_model = 2; //sec model;
     // params->debug = true;
     params->method = 2; 
-    params->max_loop = 30;
+    params->J = 8;
     params->verbose = false;
-    params->progressive_sieve = false;
+    params->worst_case = true;
+    params->progressive_sieve = true;
 
-    vector<LWEchal> unsolved_lwechallenges = load_unsolved_lwechallenges();
-    for(int i = 0; i < int(unsolved_lwechallenges.size()); i++){
-        lwechal_est(unsolved_lwechallenges[i], params);
+    vector<pair<int,double>> lwes;
+    // lwes = {{40,0.035}, {40, 0.025}, {45, 0.020}, {50, 0.015}, {55, 0.010}, {60, 0.010}, {70, 0.005}, {75, 0.005}};
+    lwes = {{40,0.045}, {45, 0.035}, {50, 0.030}, {55, 0.025}, {60, 0.020}, {65, 0.015}, {75, 0.010}, {95, 0.005}};
+    for(int i = 0; i < int(lwes.size());i++){
+        int n = lwes[i].first;
+        double alpha  = lwes[i].second;
+        lwechal_est(n, alpha, params);
     }
+
     return 1;
 }

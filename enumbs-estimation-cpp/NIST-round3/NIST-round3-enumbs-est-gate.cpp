@@ -7,6 +7,15 @@
 int main(){
     Params* params = new Params; //J, gap, J_gap, cost_model, verbose,
     params->threads = 1;
+    params->cost_model = 1; //sec model;
+    params->progressive_sieve = true;
+    params->verbose = true;
+    params->debug = false;
+    params->worst_case = true;
+    params->J = 8; 
+    params->max_loop = 5;
+
+
     int dim;
     FP_NR<FT> dvol;
 

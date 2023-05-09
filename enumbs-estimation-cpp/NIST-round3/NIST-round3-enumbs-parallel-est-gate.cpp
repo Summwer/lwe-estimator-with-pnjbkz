@@ -6,7 +6,15 @@
 
 int main(){
     Params* params = new Params; //J, gap, J_gap, cost_model, verbose,
-    params->max_dim = 500; // maximal selected blocksize value 
+    params->threads = 10;
+    params->cost_model = 1; //sec model;
+    params->progressive_sieve = true;
+    params->verbose = true;
+    params->debug = false;
+    params->worst_case = true;
+    params->J = 8; 
+    params->max_loop = 5;
+
 
     int dim;    
     FP_NR<FT> dvol;
@@ -29,7 +37,7 @@ int main(){
     printf("============= Kyber-II\n");
     dim =  1467;
     dvol =  5661.0782118;
-    // gsa_est(dim, dvol, params);
+    gsa_est(dim, dvol, params);
 
 
 
@@ -38,7 +46,7 @@ int main(){
     printf("============= Kyber-III\n");
     dim =  1918;
     dvol = 7242.6115232;
-    // gsa_est(dim, dvol, params);
+    gsa_est(dim, dvol, params);
 
 
     // Dilithium-I round-3 parameters

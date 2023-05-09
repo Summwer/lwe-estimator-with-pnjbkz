@@ -21,6 +21,7 @@ class EnumBS{
             pair<double,double> GB;
             double cum_pr; //cumulated probability 
             double slope;
+            double min_G;
         };
 
         vector<blocksize_strategy> BS; //key: beta;  value: blocksize_strategy
@@ -30,6 +31,7 @@ class EnumBS{
         COST* cost;
         vector<double> l0;
         bool verification = false;
+        double min_G_prec = 0.1;
         thread_pool::thread_pool threadpool;
         Params* params;
         

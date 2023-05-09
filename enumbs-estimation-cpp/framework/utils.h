@@ -101,7 +101,7 @@ struct Params{
     //enumbs params
     double enumbs_G_prec = 0; //1e-5; //set the precision of enumbs
     double enumbs_slope_prec = 1e-4;//1e-6;
-    int beta_start = 79;
+    int beta_start = 79;  //79 for cost model 1, since gate cost of <=79  is 0.
     bool worst_case = false;
     bool enum_add_G2 = true;
 

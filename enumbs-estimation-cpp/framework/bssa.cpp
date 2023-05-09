@@ -255,7 +255,7 @@ void BSSA::bssa_est_mul_node(vector<double> l0, int sbeta, int gbeta){
             tuple<double,int,double,double> dsvp_t0 = max_tour_for_pnjbkz_beta(bs, beta);
 
             
-            for(int beta_alg = beta+1; beta_alg < d; beta_alg++){
+            for(int beta_alg = max(beta+1,params->beta_start); beta_alg < d; beta_alg++){
                 len_S = bs_tmp.S.size();
                 // if ( len_S != 0 && beta_alg >= bs_min.S[len_S-1].beta + 3)
                 //         break;

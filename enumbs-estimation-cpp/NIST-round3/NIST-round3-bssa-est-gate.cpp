@@ -9,6 +9,12 @@ int main(){
     params->threads = 1;
     params->method = 2;
     params->verbose = false;
+    params->worst_case = true;
+    params->J = 8;
+    params->max_loop = 5;
+    params->cost_model = 1;
+    params->progressive_sieve = true;
+
     int dim;
     FP_NR<FT> dvol;
 

@@ -1,0 +1,4 @@
+============= Kyber-I
+Generate gs-lengths by GSA assumption... Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 79, gap = 1, J = 8, J_gap = 1, cost_model = 1, max_loop = 5, threads = 10, G_prec = 0.000000e+00,  slope_prec = 1.000000e-04,  progressive_sieve = 1, worst_case, Min G2 Strategy. 
+ index:        1, (beta,j): (  79,   8) --> ( 699,   1), goal index:      311, cost = index:        2, (beta,j): (  79,   7) --> ( 699,   1), goal index:      353, cost = index:        3, (beta,j): (  79,   6) --> ( 699,   1), goal index:      377, cost = index:        4, (beta,j): (  80,   7) --> ( 699,   1), goal index:      406, cost =
