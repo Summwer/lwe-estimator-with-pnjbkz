@@ -168,15 +168,14 @@ def pro_bkz_cost(d, beta,J=1,cost_model=1):
     if(cost_model == 1):
         return pro_theo_bkz_cost(d, beta,J)
     elif(cost_model == 2):
-        f = dims4free(beta)
-        return log2(get_pre_pnj_time(d,beta,f,J)),practical_pump_cost(beta)[1]
+        return log2(get_pre_pnj_time(d,beta,J)),practical_pump_cost(beta)[1]
 
 def bkz_cost(d, beta,J=1,cost_model=1):
     if(cost_model == 1):
         return theo_bkz_cost(d, beta,J)
     elif(cost_model == 2):
         f = dims4free(beta)
-        return log2(get_pre_pnj_time(d,beta,f,J)),practical_pump_cost(beta)[1]
+        return log2(get_pre_pnj_time(d,beta,J)),practical_pump_cost(beta)[1]
     
 
 def summary(n, beta):
@@ -194,23 +193,23 @@ def summary(n, beta):
 
 
 # threads = 32, gpus = 2,  pnj-bkz cost
-def get_k1_k2_pnj(beta,sieve):
-    if beta >=0 and beta <10:
+def get_k1_k2_pnj(beta, sieve):
+    if beta >=0 and beta <10 and not sieve:
         k1 = 0 
         k2 = 0
-    elif beta>=10 and beta<=42 and sieve == False:
+    elif beta>=10 and beta<=42 and not sieve:
         k1 = 0.03
         k2 = 5.188
-    elif beta<=60 and sieve == False:
+    elif beta < 50 and not sieve:
         k1 = 0.19
         k2 = -1.741
-    elif beta <= 97:
+    elif beta <= 97 and sieve:
         k1 = 0.056
         k2 = 7.85
-    elif beta <= 118:
+    elif beta <= 118 and sieve:
         k1 = 0.215
         k2 = -7.61
-    elif beta <= 128:
+    elif beta <= 128 and sieve:
         k1 = 0.314
         k2 = - 19.24
     else:
@@ -274,11 +273,13 @@ def practical_pump_cost(beta):
     
 
 #get pnj-BKZ time test in threads = 20
-def get_pre_pnj_time(d,beta,f,jump):
-    if beta-f <= 60:
+def get_pre_pnj_time(d,beta,jump):
+    if beta < 50:
         sieve = False
+        f = 0
     else:
         sieve = True   
+        f = dims4free(beta)
     k1,k2 = get_k1_k2_pnj(beta-f,sieve)
     c3, c4 = 0.018, -2.24
     T_pnj = 2**(k1*(beta-f)+k2)

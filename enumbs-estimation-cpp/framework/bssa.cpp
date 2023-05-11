@@ -87,7 +87,7 @@ bool BSSA::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, dou
 tuple<double,int,double,double> BSSA::max_tour_for_pnjbkz_beta(BSSA::blocksize_strategy bs, int beta){
     
     tuple<double,int,double,double> dsvp_t1;
-    double G20 =  params->max_num, G21;
+    double G21;
    
     vector<double> l = bs.l; 
     // vector<strategy> S = bs.S;
@@ -112,7 +112,6 @@ tuple<double,int,double,double> BSSA::max_tour_for_pnjbkz_beta(BSSA::blocksize_s
     while( (slope1 - slope0) > 0 && loop < params->max_loop){
 
         loop +=1;
-        G20 = G21;
         slope0 = slope1;
         if(cum_pr >= 0.999 or not sim_term)
             break;
@@ -233,7 +232,7 @@ void BSSA::bssa_est_mul_node(vector<double> l0, int sbeta, int gbeta){
     /*
     param: node_start, node_goal, node_mid, node
     */
-    int d= l0.size(), len_S;
+    int d= l0.size();
 
     BS.insert(pair<int,BSSA::blocksize_strategy>(sbeta,{{}, l0, make_pair(0.,0.), 0.}));
 
@@ -256,7 +255,7 @@ void BSSA::bssa_est_mul_node(vector<double> l0, int sbeta, int gbeta){
 
             
             for(int beta_alg = max(beta+1,params->beta_start); beta_alg < d; beta_alg++){
-                len_S = bs_tmp.S.size();
+                // int len_S = bs_tmp.S.size();
                 // if ( len_S != 0 && beta_alg >= bs_min.S[len_S-1].beta + 3)
                 //         break;
                 for(int j = params->J; j > 0; j--){
@@ -332,11 +331,10 @@ void BSSA::bssa_est_mul_node(vector<double> l0, int sbeta, int gbeta){
             G2 = get<2>(dsvp_t0);
             G = log2(pow(2,G1)+pow(2,G2));
             B = max(get<3>(dsvp_t0),it->second.GB_BKZ.second);
-            if( B < params->max_RAM ){
+            if( B < Bmin ){
                 bsmin = it->second;
                 Gmin = G;
                 Bmin = B;
-                flag = true;
             }
         }
         printf("There's no strategy whose memory cost (%lf log(bit)) is below %lf log(bit), the lowest memory cost strategy is:\n", Bmin, params->max_RAM);
@@ -359,7 +357,7 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
     /*
     param: node_start, node_goal, node_mid, node
     */
-    int d= l0.size(), len_S;
+    int d= l0.size();
 
     BS.insert(pair<int,BSSA::blocksize_strategy>(sbeta,{{}, l0, make_pair(0.,0.), 0.}));
 
@@ -400,7 +398,7 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
 
             
             for(int beta_alg = beta+1; beta_alg < d; beta_alg++){
-                len_S = bs_tmp.S.size();
+                // int len_S = bs_tmp.S.size();
                 // if ( len_S != 0 && beta_alg >= bs_min.S[len_S-1].beta + 3)
                 //         break;
                 for(int j = params->J; j > 0; j--){
@@ -412,7 +410,7 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
                         break;
 
                     int f = dims4free(beta_alg);
-                    if((f == 0 && j > 1) || (f!=0 && j >= f))
+                    if(((f == 0 or beta_alg < 79 )&& j > 1) || (f!=0 && j >= f))
                         continue;
                     
                     bs_tmp = min_tour_to_each_goal_beta(bs, beta_alg, j, get<2>(dsvp_t0));
@@ -507,9 +505,9 @@ pair<double,double> BSSA::strategy_verification(vector<double> l,vector<strategy
     tuple<double,int,double,double> dsvp_t =  dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
     double G2 = get<2>(dsvp_t);
     double G = log2(pow(2,G1cum)+pow(2,G2));
-    // printf("Verified cum_pr = %e \n ", cum_pr);
-    // printf("Verified G1 = %3.2f, G2 = %3.2f, dsvp = %3.2f\n", G1cum,G2,get<0>(dsvp_t));
-    // printf("G = %3.2f\n", G );
+    printf("Verified cum_pr = %e \n ", cum_pr);
+    printf("Verified G1 = %3.2f, G2 = %3.2f, dsvp = %3.2f\n", G1cum,G2,get<0>(dsvp_t));
+    printf("G = %3.2f\n", G );
 
     return make_pair(G1cum, cum_pr);
 

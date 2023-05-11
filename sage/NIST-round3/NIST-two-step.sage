@@ -21,12 +21,10 @@ load("../framework/est/NIST-est.sage")
 method = 2
 progressive_sieve = True
 cost_model = 1
-worst_case = False
+worst_case = True
 #------------------------------------
 
 
 dilithium_est(method,  cost_model, worst_case, progressive_sieve = progressive_sieve)
-
 kyber_est(method,  cost_model, worst_case, progressive_sieve = progressive_sieve)
-
 frodo_est(method,  cost_model,  worst_case, progressive_sieve = progressive_sieve)

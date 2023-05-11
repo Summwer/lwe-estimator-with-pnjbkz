@@ -21,6 +21,6 @@ cost_model = 2
 worst_case = True
 #------------------------------------
 
-#unsolved_lwe_challenge_est(method,  cost_model, worst_case)
-low_dim_lwe_challenge_est(method,  cost_model, worst_case)
+unsolved_lwe_challenge_est(method,  cost_model, worst_case)
+#low_dim_lwe_challenge_est(method,  cost_model, worst_case)
 

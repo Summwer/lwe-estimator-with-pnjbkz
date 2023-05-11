@@ -433,6 +433,8 @@ vector<double> gen_simulated_gso(int d, FP_NR<FT> logvol){
 
 //=theo_dim4free_fun2
 int dims4free(int beta){
+    if(beta < 40)
+        return 0;
     return max(0,int(ceil((double)beta * log(4./3.) / log((double)beta/(2.*M_PI*exp(1.))))));
 }
 
@@ -459,7 +461,7 @@ int theo_dim4free_fun2(int beta){
 
 
 int get_beta_from_sieve_dim(int sieve_dim, int d, int choose_dims4f_fun){
-    int f;
+    int f = 0;
     for(int beta = sieve_dim; beta < d; beta++){
         if(choose_dims4f_fun == 1 )
             f = theo_dim4free_fun1(beta);

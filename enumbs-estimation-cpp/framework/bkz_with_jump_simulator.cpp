@@ -83,7 +83,6 @@ void BKZJSim::sim_below_45(vector<FP_NR<FT>> &l_,vector<FP_NR<FT>> l, int beta, 
                 l_[k] = l_k;
             }           
         }
-        
         l = l_;
     }            
 }

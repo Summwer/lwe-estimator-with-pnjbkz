@@ -122,8 +122,8 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
         b = ceil(bbeta)
 
 
-
-    target_norm = d / 1.5
+    goal_margin = 1.5
+    target_norm = d * goal_margin
 
 
     
@@ -140,7 +140,6 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
         Gcum,Bcum = 0.,0.
         G = 0.
         
-
         betamin = []
 
         blocksizes = list(range(10, 50)) + [b-20, b-17] + list(range(b - 14, b + 25, 2))
@@ -170,6 +169,12 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
             cumulated_proba += remaining_proba * proba
             remaining_proba = 1. - cumulated_proba
 
+            if remaining_proba < .001:
+                average_beta += beta * remaining_proba 
+                if(not worst_case):
+                    G = log2(2**Gcum + ((2**G) * remaining_proba))
+                break
+
             #d_svp prediction
             
             G_sieve,B_sieve = 0., 0.
@@ -178,7 +183,7 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
             #n_max = int(53 + 2.85 * Gcum)
 
             for n_expected in range(2, d-2):
-                x = target_norm * n_expected/(1.*d)
+                x = target_norm / goal_margin * n_expected/(1.*d)
                 l_ = [2*_*log(2.) for _ in l]
                 if 4./3 * gaussian_heuristic(l_[d-n_expected:]) > x:
                     break
@@ -188,7 +193,6 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
             flag = true
             if n_expected >= n_max - 1:
                 flag = false
-
 
             llb = d - beta
             l_ = [2*_*log(2.) for _ in l]

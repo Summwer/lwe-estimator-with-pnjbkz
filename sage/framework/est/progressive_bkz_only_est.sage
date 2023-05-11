@@ -19,7 +19,7 @@ def progressive_bkz_only(l, verbose=False, cost_model = 1, worst_case = False):
     cumulated_proba = 0.
     
     
-    for beta in [x  for x in range(50, d)]:
+    for beta in [x  for x in range(79, d)]:
 
         #l = simBKZ(l, beta, 1)   
         l = simulate_pnjBKZ(l, beta, 1, 1)#simulate_pnjBKZ(log_GS_lengths, beta, loop, jump)
@@ -43,8 +43,8 @@ def progressive_bkz_only(l, verbose=False, cost_model = 1, worst_case = False):
         B1cum = max(B1cum,B1)
 
         cumulated_proba += remaining_proba * proba
-        #remaining_proba = 1. - cumulated_proba 
-        remaining_proba *= 1. - proba
+        remaining_proba = 1. - cumulated_proba 
+      
 
         if verbose:
             print("β= %d,\t pr=%.4e, \t cum-pr=%.4e \t rem-pr=%.4e"%(beta, proba, cumulated_proba, remaining_proba), end="\r" if cumulated_proba < 1e-4 else "\n")

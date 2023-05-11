@@ -18,7 +18,7 @@ FP_NR<FT> COST::agps20_gates(int beta_prime){
 
 
 // Function C from AGPS20 source code
-double caps_vol(int d, double theta, bool integrate=false){
+double caps_vol(int d, double theta){
     /*
     The probability that some v from the sphere has angle at most theta with some fixed u.
 
@@ -79,27 +79,27 @@ pair<double,double> COST::theo_pump_cost(int beta){
 //threads = 32, gpus = 2,  pnj-bkz cost
 pair<double,double> COST::get_k1_k2_pnj(int beta,bool sieve){
     double k1,k2;
-    if(beta >=0 and beta <10){
+    if(beta >=0 and beta <10 and not sieve){
         k1 = 0;
         k2 = 0;
     }
-    else if(beta>=10 and beta<=42 and sieve == false){
+    else if(beta>=10 and beta<=42 and not sieve){
         k1 = 0.03;
         k2 = 5.188;
     }
-    else if(beta<=60 and sieve == false){
+    else if(beta< 50 and not sieve){
         k1 = 0.19;
         k2 = -1.741;
     }
-    else if(beta <= 97){
+    else if(beta <= 97 and sieve){
         k1 = 0.056;
         k2 = 7.85;
     }
-    else if(beta <= 118){
+    else if(beta <= 118 and sieve){
         k1 = 0.215;
         k2 = -7.61;
     }
-    else if(beta <= 128){
+    else if(beta <= 128 and sieve){
         k1 = 0.314;
         k2 = - 19.24;
     }
@@ -183,12 +183,16 @@ double COST::practical_bkz_cost(int d,int beta,int jump){
     // int extra_dim4free = 12;
     // beta = beta + extra_dim4free;
     // f = f + extra_dim4free;
-    int f = dims4free(beta);
+    int f;
     bool sieve;
-    if(beta - f <= 60)
+    if(beta < 50){
         sieve = false;
-    else
+        f = 0;
+    }
+    else{
         sieve = true;  
+        f = dims4free(beta);
+    }
     pair<double,double> k = get_k1_k2_pnj(beta-f,sieve); // threads = 20
     double k1 = k.first, k2 = k.second;
     double c3= 0.018, c4 = -2.24;

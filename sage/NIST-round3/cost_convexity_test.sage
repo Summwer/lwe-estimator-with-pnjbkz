@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 import os
 from random import randint
 
+
+
 chisquared_table = {i: None for i in range(1000)}
 for i in range(5000):
     chisquared_table[i] = RealDistribution('chisquared', i)

@@ -17,7 +17,7 @@ load("../framework/est/lwechal-est.sage")
 #######################################
 #Fixed parameters
 method = 2
-cost_model = 1
+cost_model = 2
 worst_case = True
 #------------------------------------
 

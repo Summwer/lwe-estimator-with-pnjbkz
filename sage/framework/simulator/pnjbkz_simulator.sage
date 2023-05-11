@@ -24,7 +24,6 @@ def dim4free_wrapper(dim4free_fun, blocksize):
     return int(min((blocksize - 40)/2, dim4free))
 
 
-
 def default_dim4free_fun(blocksize):
     """
     Return expected number of dimensions for free, from exact-SVP experiments.

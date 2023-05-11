@@ -19,8 +19,6 @@ void EnumBS::print_strategy(vector<EnumBS::strategy> S){
 
 void EnumBS::print_BS(vector<blocksize_strategy> BS){
     cout<<"BS = ";
-    double dsvp;
-    int dsvp_r;
     cout<<"{";
     for(int i =0; i< int(BS.size()); i++){
         //print_strategy(BS[i].S);
@@ -1145,6 +1143,7 @@ bool EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BK
     
     //simulate pnj-bkz more precisely
     int f, beta_, d = l.size();
+    
     f = default_dim4free_fun(beta);
     if(jump <= 2)
         beta_ = beta;
@@ -1207,13 +1206,13 @@ bool EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BK
 void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
     EnumBS::blocksize_strategy bs = BS[k];
     tuple<double,int,double,double> dsvp_t1;
-    double G20 =  get<2>(bs.dsvp_t), G21;
+    double G21;
     // double G20 = get<2>(bs.dsvp_t), G21;
     vector<double> l = bs.l; 
     vector<strategy> S = bs.S;
 
     double cum_pr = bs.cum_pr;
-    pair<double,double> cum_GB_BKZ = bs.cum_GB_BKZ, cum_avg_GB_BKZ=bs.cum_avg_GB_BKZ, GB = bs.GB;
+    pair<double,double> cum_GB_BKZ = bs.cum_GB_BKZ, cum_avg_GB_BKZ=bs.cum_avg_GB_BKZ, GB = bs.GB, min_GB = bs.GB;
 
     int  loop = 0;
     
@@ -1227,10 +1226,10 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
 
     assert(G21 >= 0.);
 
+    bool leaf = false;
     while(((slope1 - slope0) > params->enumbs_slope_prec) && loop < params->max_loop ){
 
         loop +=1;
-        G20 = G21;
         slope0 = slope1;
         
         if(loop ==1){
@@ -1239,9 +1238,15 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
         else
             // S[len_S-1].tours = loop;
             S[S.size()-1].tours = loop;
-        bs = {dsvp_t1, S, l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr,slope1};
+        
+        if(min_GB.first > GB.first or min_GB.second > params->max_RAM){
+            min_GB = GB;
+            leaf = false;
+        }
+        else if(GB.first >= min_GB.first + min_G_prec)
+            leaf = true;
 
-
+        bs = {dsvp_t1, S, l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr,slope1,min_GB};
 
         if(params->verification){
             pair<double,double> verified_cum_G_pr = strategy_verification(l0,S);
@@ -1259,10 +1264,9 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
         else
             BS_add(bs,k);
 
-        if(cum_pr >= 0.999 or not sim_term)
+        if(cum_pr >= 0.999 or not sim_term or leaf)
             break;
-      
-
+    
         sim_term = pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, beta, jump, dsvp_t1,slope1);
         G21 = get<2>(dsvp_t1);
         assert(G21 >= 0.);
@@ -1481,7 +1485,7 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         int beta = beta_j_tid[i].first, jump = beta_j_tid[i].second;
     
         int f = dims4free(beta);
-        if(f == 0 && jump > 1)
+        if( (f == 0 or beta < 79) && jump > 1)
             continue;
         if(f!=0 && jump >= f)
             continue;
@@ -1507,7 +1511,6 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
 
         // while((abs(G20 - params->max_num)<0.01 or G20 > G21 or (slope1 - slope0) > 1e-6) && loop < params->max_loop){
 
-        bool flag = true;
         bool leaf = false;
         while( (slope1 - slope0) > params->enumbs_slope_prec && loop < params->max_loop){
             loop +=1;
@@ -1526,8 +1529,6 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
             else if(GB.first >= min_GB.first + min_G_prec)
                 leaf = true;
             
-            if(leaf)
-                cout<<min_GB.first<<","<<min_GB.second<<","<<params->max_RAM<<endl;
             
             // if(params->debug){
             //     if(bs.GB.second < params->max_RAM){
@@ -1607,7 +1608,7 @@ void EnumBS::enumbs_est(vector<double> l0){
     input: l -- gs-lengths; 
     Return: Optimal strategy to minimize solving cost.
     */
-    int beta_start, k = 0, d = l0.size();
+    int beta_start = params->beta_start, k = 0, d = l0.size(),j_start,len_S;
     
     tuple<double,int,double,double>  dsvp0_t = dsvp_predict(l0, 0., cost, params->cost_model, params->progressive_sieve, params->worst_case);
     blocksize_strategy bs =  {dsvp0_t, {},l0,make_pair(0.,0.), make_pair(0.,0.), make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t)), 0., get_current_slope(l0,0,d), make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t))};
@@ -1615,7 +1616,6 @@ void EnumBS::enumbs_est(vector<double> l0){
 
     BS.insert(BS.end(),bs);
 
-    int j_start,len_S;
     params->J = floor((params->J-1)/params->J_gap) * params->J_gap+1;
 
         //Add a normal two-step strategy from (beta_start,1,1) to (d,1,1)
@@ -1627,7 +1627,7 @@ void EnumBS::enumbs_est(vector<double> l0){
     vector<strategy> S = bs.S;
     double cum_pr = bs.cum_pr;
     pair<double,double> cum_GB_BKZ = bs.cum_GB_BKZ, cum_avg_GB_BKZ = bs.cum_avg_GB_BKZ, GB = bs.GB, min_GB = bs.min_GB;
-    double slope0 = bs.slope, slope1;
+    double slope1;
     bool leaf = false;
     
     for(int beta = beta_start;  beta < d; beta++){
@@ -1721,7 +1721,7 @@ void EnumBS::enumbs_est(vector<double> l0){
     //print_BS(BS);
 
     //Find the optimal strategy
-    double Gmin = params->max_num, Bmin  = params->max_num, G1, G2, G,  B;
+    double Gmin = params->max_num, Bmin  = params->max_num;
     EnumBS::blocksize_strategy bsmin;
     for(int i = 0; i<int(BS.size()); i++){
         // G1 = BS[i].cum_avg_GB_BKZ.first;
@@ -1851,7 +1851,7 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
     vector<strategy> S = bs.S;
     double cum_pr = bs.cum_pr;
     pair<double,double> cum_GB_BKZ = bs.cum_GB_BKZ, cum_avg_GB_BKZ = bs.cum_avg_GB_BKZ, GB = bs.GB, min_GB = bs.min_GB;
-    double slope0 = bs.slope, slope1;
+    double slope1;
     bool leaf = false;
     
     for(int beta = beta_start;  beta < d; beta++){
@@ -1995,7 +1995,7 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
     printf("\n");
 
     //Find the optimal strategy
-    double Gmin = params->max_num, Bmin  = params->max_num, G1, G2, G,  B;
+    double Gmin = params->max_num, Bmin  = params->max_num;
     EnumBS::blocksize_strategy bsmin;
     bool flag = false;
     for(int i = 0; i<int(BS.size()); i++){
@@ -2062,9 +2062,9 @@ pair<double,double> EnumBS::strategy_verification(vector<double> l,vector<strate
     tuple<double,int,double,double> dsvp_t =  dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
     double G2 = get<2>(dsvp_t);
     double G = log2(pow(2,G1cum)+pow(2,G2));
-    // printf("Verified cum_pr = %e \n ", cum_pr);
-    // printf("Verified G1 = %e, G2 = %e, dsvp = %e\n", G1cum,G2,get<0>(dsvp_t));
-    // printf("G = %e\n", G );
+    printf("Verified cum_pr = %e \n ", cum_pr);
+    printf("Verified G1 = %e, G2 = %e, dsvp = %e\n", G1cum,G2,get<0>(dsvp_t));
+    printf("G = %e\n", G );
 
     return make_pair(G1cum, cum_pr);
 

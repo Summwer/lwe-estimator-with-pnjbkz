@@ -43,7 +43,7 @@ vector<tuple<int,int,int>> decoupler(LWEchal* lwechal){
         error vector components were uniformly and indepedently drawn
     :param d: find best parameters for dimension ``d`` embedding lattice
     */
-    int n = lwechal->n, m = lwechal->m, q = lwechal->q;
+    int n = lwechal->n, q = lwechal->q;
     double alpha = lwechal->alpha;
     vector<tuple<int,int,int>> params = {};
 

@@ -23,7 +23,7 @@ CURLcode dl_curl_get_req(const std::string &url, std::string filename)
 	//curl initilization 
 	CURL *curl = curl_easy_init();
 	// curl return
-	CURLcode res;
+	CURLcode res = curl_global_init(CURL_GLOBAL_ALL);
 	if (curl)
 	{
 		//set header of curl
@@ -136,7 +136,7 @@ LWEchal* load_lwe_challenge(int n, double alpha_){
 	vector<vector<Z_NR<ZT>>> matrix;
 	fin>>ch;
 	if(ch == '['){
-		int i = 0, j = 0;
+		int i = 0;
 		matrix.resize(0);
 		// cout<<ch<<endl;
 		while(fin >> ch && ch == '['){
