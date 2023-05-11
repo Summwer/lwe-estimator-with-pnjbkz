@@ -307,19 +307,40 @@ void BSSA::bssa_est_mul_node(vector<double> l0, int sbeta, int gbeta){
     //Find the optimized strategy
     double Gmin = params->max_num, Bmin  = params->max_num, G1, G2, G,  B;
     BSSA::blocksize_strategy bsmin;
+    bool flag = false;
     for (map<int, BSSA::blocksize_strategy> ::iterator it = BS.begin(); it != BS.end(); it++) {
         tuple<double,int,double,double> dsvp_t0 = dsvp_predict(it->second.l, it->second.cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
         G1 = it->second.GB_BKZ.first;
         G2 = get<2>(dsvp_t0);
         G = log2(pow(2,G1)+pow(2,G2));
         B = max(get<3>(dsvp_t0),it->second.GB_BKZ.second);
-        if(G<Gmin){
+        print_bs(it->second);
+        if(G<Gmin and B < params->max_RAM){
             bsmin = it->second;
             Gmin = G;
             Bmin = B;
+            flag = true;
         }
     }
-    printf("Find the optimized Strategy through BSSA!!\n");
+    if(flag){
+        printf("Find the optimized Strategy through BSSA!!\n");
+    }
+    else{
+        for (map<int, BSSA::blocksize_strategy> ::iterator it = BS.begin(); it != BS.end(); it++) {
+            tuple<double,int,double,double> dsvp_t0 = dsvp_predict(it->second.l, it->second.cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
+            G1 = it->second.GB_BKZ.first;
+            G2 = get<2>(dsvp_t0);
+            G = log2(pow(2,G1)+pow(2,G2));
+            B = max(get<3>(dsvp_t0),it->second.GB_BKZ.second);
+            if( B < params->max_RAM ){
+                bsmin = it->second;
+                Gmin = G;
+                Bmin = B;
+                flag = true;
+            }
+        }
+        printf("There's no strategy whose memory cost (%lf log(bit)) is below %lf log(bit), the lowest memory cost strategy is:\n", Bmin, params->max_RAM);
+    }
     print_bs(bsmin);
     
     if(params->cost_model == 1)
@@ -436,7 +457,7 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
         G2 = get<2>(dsvp_t0);
         G = log2(pow(2,G1)+pow(2,G2));
         B = max(get<3>(dsvp_t0),it->second.GB_BKZ.second);
-        if(G<Gmin){
+        if(G < Gmin and B < params->max_RAM){
             bsmin = it->second;
             Gmin = G;
             Bmin = B;

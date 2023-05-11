@@ -90,6 +90,7 @@ struct Params{
     int threads = 1;
     int max_dim = MAX_DIM; //set the maximal blocksize to find the optimal strategy
     double max_num = 1e3;
+    double max_RAM = 300; //43.58; //=1.5TB , //no-limit, 300
     int max_loop = 5; // 15; //set the maximal loop for one blocksize to find the optimal strategy1
 
     int method = 1; //1: enumbs estimation; 2: bssa estimation
@@ -99,7 +100,7 @@ struct Params{
 
 
     //enumbs params
-    double enumbs_G_prec = 0; //1e-5; //set the precision of enumbs
+    double enumbs_G_prec = 1e-3; //1e-5; //set the precision of enumbs
     double enumbs_slope_prec = 1e-4;//1e-6;
     int beta_start = 79;  //79 for cost model 1, since gate cost of <=79  is 0.
     bool worst_case = false;

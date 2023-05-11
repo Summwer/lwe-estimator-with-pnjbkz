@@ -21,7 +21,7 @@ class EnumBS{
             pair<double,double> GB;
             double cum_pr; //cumulated probability 
             double slope;
-            double min_G;
+            pair<double,double> min_GB;
         };
 
         vector<blocksize_strategy> BS; //key: beta;  value: blocksize_strategy
