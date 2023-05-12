@@ -100,6 +100,9 @@ def agps20_vectors(beta_prime):
 # Progressivity Overhead Factor
 C = 1./(1.- 2**(-.292))
 
+
+
+#theo d4f 2
 def dims4free(beta):
     return ceil(beta * ln(4./3.) / ln(beta/(2*pi*exp(1))))
 
@@ -108,7 +111,7 @@ def dims4free(beta):
 def theo_bkz_cost(n, beta,J=1):
     if(beta <=10):
         return (0,0)
-    f = dims4free(beta)
+    f = dim4free_wrapper(default_dim4free_fun,beta)
     beta_prime = floor(beta - f)
     if(beta_prime < 64 or beta < beta_prime):
         return (0,0)
@@ -124,7 +127,7 @@ def theo_bkz_cost(n, beta,J=1):
 def pro_theo_bkz_cost(n, beta,J=1):
     if(beta <=10):
         return (0,0)
-    beta_prime = floor(beta - dims4free(beta))
+    beta_prime = floor(beta - dim4free_wrapper(default_dim4free_fun,beta))
     if(beta_prime < 64 or beta < beta_prime):
         return (0,0)
     elif(beta_prime > 1024):
@@ -174,7 +177,6 @@ def bkz_cost(d, beta,J=1,cost_model=1):
     if(cost_model == 1):
         return theo_bkz_cost(d, beta,J)
     elif(cost_model == 2):
-        f = dims4free(beta)
         return log2(get_pre_pnj_time(d,beta,J)),practical_pump_cost(beta)[1]
     
 
@@ -279,7 +281,7 @@ def get_pre_pnj_time(d,beta,jump):
         f = 0
     else:
         sieve = True   
-        f = dims4free(beta)
+        f = dim4free_wrapper(default_dim4free_fun,beta)
     k1,k2 = get_k1_k2_pnj(beta-f,sieve)
     c3, c4 = 0.018, -2.24
     T_pnj = 2**(k1*(beta-f)+k2)
@@ -298,7 +300,7 @@ dim = 323
 for beta in range(70,100):
     for J in range(1,2):
         print("dim = %d, beta = %d, jump = %d" %(dim, beta, J) )
-        f =  dims4free(beta)
+        f = dim4free_wrapper(default_dim4free_fun,beta)
 
         print(2**pump_cost(dim,beta,cost_model = 2)[0]*(dim+2*f-beta)*C, 2**bkz_cost(dim, beta,J,cost_model=2)[0])
         print(2**pump_cost(dim,beta,cost_model = 1)[0] *(dim+2*f-beta) * C, 2**bkz_cost(dim, beta,J,cost_model=1)[0])

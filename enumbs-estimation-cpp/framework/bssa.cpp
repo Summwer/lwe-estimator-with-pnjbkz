@@ -267,7 +267,7 @@ void BSSA::bssa_est_mul_node(vector<double> l0, int sbeta, int gbeta){
                         break;
 
                     int f = dims4free(beta_alg);
-                    if((f == 0 && j > 1) || (f!=0 && j >= f))
+                    if(((f == 0 or beta_alg < 79 )&& j > 1) || (f!=0 && j >= f))
                         continue;
                     
                     bs_tmp = min_tour_to_each_goal_beta(bs, beta_alg, j, get<2>(dsvp_t0));

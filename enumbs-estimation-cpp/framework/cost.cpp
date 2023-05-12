@@ -43,7 +43,7 @@ pair<double,double> COST::theo_bkz_cost(int n, int beta,int J){
     /*Return cost of bkz-beta in theoretical Gate: T/G -- time cost, B -- memory cost*/
     if(beta <=10)
         return make_pair(0.,0.);
-    int beta_prime = floor(beta - dims4free(beta));
+    int beta_prime = floor(beta - default_dim4free_fun(beta));
     if(beta_prime < 64 or beta < beta_prime)
         return make_pair(0.,0.);
     else if(beta_prime > 1024)
@@ -191,7 +191,7 @@ double COST::practical_bkz_cost(int d,int beta,int jump){
     }
     else{
         sieve = true;  
-        f = dims4free(beta);
+        f = default_dim4free_fun(beta);
     }
     pair<double,double> k = get_k1_k2_pnj(beta-f,sieve); // threads = 20
     double k1 = k.first, k2 = k.second;
