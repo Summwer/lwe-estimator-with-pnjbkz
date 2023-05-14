@@ -12,12 +12,13 @@ int main(){
     params->debug = false;
     params->worst_case = true;
     params->J = 8; 
-    // params->max_RAM = 43.58; //1.5T = 43.58
+    // params->max_RAM = 1000;
+    params->max_RAM = 43.58; //1.5T = 43.58
+    params->enumbs_min_G = false;
 
     vector<pair<int,double>> lwes;
 
     //low_dim_lwechallenge_est. 
-    // lwes = { 
     lwes= {{40, 0.025}, {45, 0.020}, {50, 0.015}, {55, 0.010}, {60, 0.010}, {70, 0.005}, {75, 0.005},{40,0.035}};
     for(int i = 0; i < int(lwes.size());i++){
         int n = lwes[i].first;

@@ -1,0 +1,7 @@
+"lwechallenge/50-030.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=50, m=2500, alpha=0.030, q=2503 
+Chose 227 samples. Predict solution at bkz-146 + svp-181. 
+dim = 228, dvol = 400.40769158427
+
+Generate gs-lengths by GSA assumption... Attack Estimation via simulation + probabilistic model (EnumBS in parallel)

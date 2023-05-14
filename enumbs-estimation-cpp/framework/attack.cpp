@@ -13,7 +13,11 @@ void call_enumbs(vector<double> l, Params* params){
     else{
         cerr<<"Set bad threads = "<<params->threads<<"."<<endl;
     }
-    printf("beta_start= %d, gap = %d, J = %d, J_gap = %d, cost_model = %d, max_loop = %d, threads = %d, G_prec = %e,  slope_prec = %e,  progressive_sieve = %d, max_RAM = %f, ", params->beta_start, params->gap, params->J, params->J_gap, params->cost_model, params->max_loop, params->threads, params->enumbs_G_prec, params->enumbs_slope_prec, params->progressive_sieve, params->max_RAM);
+    printf("beta_start= %d, gap = %d, J = %d, J_gap = %d, cost_model = %d, max_loop = %d, threads = %d, G_prec = %e,  slope_prec = %e,  progressive_sieve = %d, ", params->beta_start, params->gap, params->J, params->J_gap, params->cost_model, params->max_loop, params->threads, params->enumbs_G_prec, params->enumbs_slope_prec, params->progressive_sieve);
+    if(params->enumbs_min_G)
+        printf("Find minimal time cost strategy, ");
+    else
+        printf("Find a strategy below the maximal RAM = %f log2(bit), ", params->max_RAM);
     if(params->worst_case)
         printf("worst_case, ");
     else
@@ -73,7 +77,7 @@ void call_bssa(vector<double> l, Params* params, int sbeta, int gbeta){
     auto start = system_clock::now();
     cout<<" Attack Estimation via simulation + probabilistic model (BSSA)"<<endl;
     printf("gap = %d, J = %d, J_gap = %d, max_loop = %d, cost_model = %d, mul_node = %d, progressive_sieve = %d, max_RAM = %f\n", params->gap, params->J, params->J_gap, params->max_loop, params->cost_model, params->mul_node, params->progressive_sieve, params->max_RAM);
-     if(params->worst_case)
+    if(params->worst_case)
         printf("worst_case. \n");
     else
         printf("average_case. \n");

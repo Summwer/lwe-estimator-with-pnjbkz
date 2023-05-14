@@ -14,6 +14,7 @@ int main(){
     params->worst_case = true;
     params->J = 8; 
     params->max_loop = 5;
+    
 
 
     int dim;    

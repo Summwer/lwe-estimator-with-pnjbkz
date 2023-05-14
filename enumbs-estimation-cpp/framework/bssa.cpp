@@ -253,6 +253,7 @@ void BSSA::bssa_est_mul_node(vector<double> l0, int sbeta, int gbeta){
 
             tuple<double,int,double,double> dsvp_t0 = max_tour_for_pnjbkz_beta(bs, beta);
 
+
             
             for(int beta_alg = max(beta+1,params->beta_start); beta_alg < d; beta_alg++){
                 // int len_S = bs_tmp.S.size();
@@ -313,7 +314,7 @@ void BSSA::bssa_est_mul_node(vector<double> l0, int sbeta, int gbeta){
         G2 = get<2>(dsvp_t0);
         G = log2(pow(2,G1)+pow(2,G2));
         B = max(get<3>(dsvp_t0),it->second.GB_BKZ.second);
-        print_bs(it->second);
+        // print_bs(it->second);
         if(G<Gmin and B < params->max_RAM){
             bsmin = it->second;
             Gmin = G;
