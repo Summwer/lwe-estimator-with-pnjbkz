@@ -14,7 +14,8 @@ int main(){
     params->verbose = false;
     params->worst_case = true;
     params->progressive_sieve = true;
-    // params->max_RAM = 43.58; //1.5T = 43.58
+    params->max_RAM = 43.58; //1.5T = 43.58
+    params->enumbs_min_G = false;
 
     vector<pair<int,double>> lwes;
     lwes = {{40, 0.025}, {45, 0.020}, {50, 0.015}, {55, 0.010}, {60, 0.010}, {70, 0.005}, {75, 0.005}, {40,0.035}};

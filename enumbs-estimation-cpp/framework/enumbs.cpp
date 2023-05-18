@@ -487,16 +487,16 @@ void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
 
     pos--;
 
-    if(params->debug){
-        if(bs.GB.second < params->max_RAM){
-            cout<<"====Add===="<<endl;
-            printf("pos=%d\n",pos);
-            print_bs(bs);
-            print_bs(BS[pos]);
-            cout<<"......."<<endl;
-            usleep(10000000);
-        }
-    }
+    // if(params->debug){
+    //     if(bs.GB.second < params->max_RAM){
+    //         cout<<"====Add===="<<endl;
+    //         printf("pos=%d\n",pos);
+    //         print_bs(bs);
+    //         print_bs(BS[pos]);
+    //         cout<<"......."<<endl;
+    //         usleep(10000000);
+    //     }
+    // }
 
 
 
@@ -593,7 +593,7 @@ void EnumBS::BS_add_G2(EnumBS::blocksize_strategy bs, int k){
 
 //     int pos = binary_search_for_G2(G2);
 
-//     // cout<<"========================="<<endl;
+//     // cerr<<"========================="<<endl;
 //     // // print_strategy(bs.S);
 //     // print_bs(bs);
 //     // if(pos != 0)
@@ -783,7 +783,7 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
 
     // and bs.S[0].beta<100
     // if(k > 1000 ){
-    //     cout<<"========================="<<endl;
+    //     cerr<<"========================="<<endl;
     //     // print_strategy(bs.S);
     //     print_bs(BS[k]);
     //     print_bs(bs);
@@ -878,7 +878,7 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
             //(abs(G2_pos - params->max_num) <0.01)  &&
             //&& G_pos > 1
             // if(slope >= slope_pos && cum_pr < cum_pr_pos){
-            //     cout<<"================="<<endl;
+            //     cerr<<"================="<<endl;
             //     print_bs(bs);
             //     print_bs(BS[pos]);
             //     cout<<"----------------"<<endl;
@@ -895,7 +895,7 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
             
             //     if(pos > -1 && (get<2>(bs.dsvp_t) <  get<2>(BS[pos].dsvp_t)  || (get<2>(bs.dsvp_t) == get<2>(BS[pos].dsvp_t) && bs.slope >= BS[pos].slope && bs.cum_pr >= BS[pos].cum_pr)) && bs.cum_avg_GB_BKZ.first < BS[pos].cum_avg_GB_BKZ.first && compare_max_strategy(BS[pos].S, bs.S))
             //     {
-            //         cout<<"========"<<endl;
+            //         cerr<<"========"<<endl;
             //         print_bs(bs);
             //         print_bs(BS[pos]);
             //         cout<<"......."<<endl;
@@ -929,16 +929,16 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
 
         while(pos > -1 && ( bs.GB.first < BS[pos].GB.first + params->enumbs_G_prec || (bs.slope > BS[pos].slope - params->enumbs_slope_prec && bs.GB.first == BS[pos].GB.first + params->enumbs_G_prec) ) && compare_max_strategy(BS[pos].S, bs.S)){
 
-            if(params->debug){
-                if(bs.GB.second < params->max_RAM){
-                    cout<<"====Delete1===="<<endl;
-                    printf("pos=%d\n",pos);
-                    print_bs(bs);
-                    print_bs(BS[pos]);
-                    cout<<"......."<<endl;
-                    usleep(10000000);
-                }
-            }
+            // if(params->debug){
+            //     if(bs.GB.second < params->max_RAM){
+            //         cout<<"====Delete1===="<<endl;
+            //         printf("pos=%d\n",pos);
+            //         print_bs(bs);
+            //         print_bs(BS[pos]);
+            //         cout<<"......."<<endl;
+            //         usleep(10000000);
+            //     }
+            // }
 
             BS.erase(BS.begin()+pos);
 
@@ -952,7 +952,7 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
         // if(params->debug){
         //     //
         //     if(get<2>(bs.dsvp_t) == get<2>(BS[pos].dsvp_t) && slope == slope_pos && bs.cum_pr == BS[pos].cum_pr && G >= G_pos && compare_max_strategy(bs.S, BS[pos].S)){
-        //         cout<<"========"<<endl;
+        //         cerr<<"========"<<endl;
         //         print_bs(bs);
         //         print_bs(BS[pos]);
         //         cout<<"......."<<endl;
@@ -969,16 +969,16 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
 
         while( pos+1<int(BS.size())-1 && ( BS[pos+2].GB.first < BS[pos+1].GB.first + params->enumbs_G_prec || (BS[pos+2].slope > BS[pos+1].slope - params->enumbs_slope_prec &&  BS[pos+2].GB.first == BS[pos+1].GB.first + params->enumbs_G_prec )) && compare_max_strategy(BS[pos+1].S, BS[pos+2].S)){
 
-            if(params->debug){
-                if(bs.GB.second < params->max_RAM){
-                    cout<<"====Delete2===="<<endl;
-                    printf("pos=%d\n",pos+1);
-                    print_bs(BS[pos+1]);
-                    print_bs(BS[pos+2]);
-                    cout<<"......."<<endl;
-                    usleep(10000000);
-                }
-            }
+            // if(params->debug){
+            //     if(bs.GB.second < params->max_RAM){
+            //         cout<<"====Delete2===="<<endl;
+            //         printf("pos=%d\n",pos+1);
+            //         print_bs(BS[pos+1]);
+            //         print_bs(BS[pos+2]);
+            //         cout<<"......."<<endl;
+            //         usleep(10000000);
+            //     }
+            // }
 
             // while (pos+1<BS.size()-1 && BS[pos+2].slope >= BS[pos+1].slope - params->enumbs_slope_prec  && BS[pos+2].cum_avg_GB_BKZ.first <= BS[pos+1].cum_avg_GB_BKZ.first +  params->enumbs_G_prec && compare_max_strategy(BS[pos+1].S, BS[pos+2].S)){
             BS.erase(BS.begin()+pos+1);
@@ -987,7 +987,7 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
                 
            
     // if(params->debug){
-    //     cout<<"========"<<endl;
+    //     cerr<<"========"<<endl;
     //     print_bs(bs);
     //     print_BS(BS);
     //     cout<<"......."<<endl;
@@ -1030,18 +1030,18 @@ void EnumBS::BS_add_op(EnumBS::blocksize_strategy bs, int k){
         BS.insert(BS.end(),bs);
      
     }
-    else{
-        if(params->debug){
-            if(bs.GB.second < params->max_RAM){
-                cout<<"====Add===="<<endl;
-                printf("k=%d\n",k);
-                print_bs(bs);
-                print_bs(BS[k]);
-                cout<<"......."<<endl;
-                usleep(10000000);
-            }
-        }
-    }
+    // else{
+    //     if(params->debug){
+    //         if(bs.GB.second < params->max_RAM){
+    //             cout<<"====Add===="<<endl;
+    //             printf("k=%d\n",k);
+    //             print_bs(bs);
+    //             print_bs(BS[k]);
+    //             cout<<"......."<<endl;
+    //             usleep(10000000);
+    //         }
+    //     }
+    // }
 }
 
 
@@ -1489,8 +1489,6 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         pair<double,double> cum_GB_BKZ = bs.cum_GB_BKZ, cum_avg_GB_BKZ = bs.cum_avg_GB_BKZ, GB = bs.GB, min_GB = bs.GB;
 
         int beta = beta_j_tid[i].first, jump = beta_j_tid[i].second;
-
-        
     
         int f = default_dim4free_fun(beta);
         if( (f == 0 or beta < 79) && jump > 1)
@@ -1502,13 +1500,12 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         
         int  loop = 0;
 
-
         double slope0 = bs.slope, slope1;
 
 
         bool sim_term = pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, beta, jump, dsvp_t1, slope1);
 
-        // if(bs.S.size() == 0 and  beta == 79 and jump == 8){
+        // if(BS[k].S.size() == 0 and  beta == 79 and jump == 8){
         //     printf("slope0 = %f, ", slope0);
         //     printf("slope1 = %f\n", slope1);
         // }
@@ -1525,6 +1522,9 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         // while((abs(G20 - params->max_num)<0.01 or G20 > G21 or (slope1 - slope0) > 1e-6) && loop < params->max_loop){
 
         bool leaf = false;
+    
+        // if(beta == 117 and jump == 8 and bs.S.size() == 0)
+        //     cout<< 117<<","<<jump<<","<<pow(2,cum_avg_GB_BKZ.first)/3600 <<endl;
         while( (slope1 - slope0) > params->enumbs_slope_prec && loop < params->max_loop){
             loop +=1;
             // G20 = G21;
@@ -1551,76 +1551,52 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
                 else if(GB.second >= params->max_RAM)
                     leaf = true;
             }
+
+            // if(BS[k].S.size() == 0 and beta >= 113 and jump <= 6)
+            //     cout<<beta<<","<<jump<<endl;
+            // if(beta == 111 and jump == 7 and bs.S.size() == 0)
+            //     cout<<leaf<<endl;
             
-            if(params->enumbs_min_G){
-                if(cum_pr >= 0.999 or not sim_term or leaf)
-                    break;
+
+            if(params->enumbs_min_G and leaf){
+                break;
             }
             
             
-            
-            // if(params->debug){
-            //     if(bs.GB.second < params->max_RAM){
-            //         print("----");
-            //         print_bs(bs);
-            //         print("====");
-            //     }
-            // }
+
     
             bs = {dsvp_t1, S, l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, slope1, min_GB};
+    
+            
             
             if(params->verification){
                 pair<double,double> verified_cum_G_pr = strategy_verification(l0,S);
                 assert(abs(verified_cum_G_pr.first-cum_avg_GB_BKZ.first)<0.001);
                 assert(abs(verified_cum_G_pr.second-cum_pr)<0.001);
-            }
+            }            
 
 
-            
-        
             int len_tmpBS = tmpBS[index].size();
 
 
-            // if(params->debug){
-            //     cout<<"====Delete loop===="<<endl;
-            //     print_bs(bs);
-            //     print_bs(tmpBS[index][len_tmpBS - 1]);
-            //     cout<<"......."<<endl;
-            //     usleep(10000000);
-            // }
-
-        
             if( loop > 1 && ((get<2>(bs.dsvp_t) < get<2>(tmpBS[index][len_tmpBS - 1].dsvp_t) + params->enumbs_G_prec  || (get<2>(bs.dsvp_t) == get<2>(tmpBS[index][len_tmpBS - 1].dsvp_t) + params->enumbs_G_prec && bs.slope > tmpBS[index][len_tmpBS - 1].slope - params->enumbs_slope_prec ))) && bs.cum_avg_GB_BKZ.first < tmpBS[index][len_tmpBS - 1].cum_avg_GB_BKZ.first + params->enumbs_G_prec){
                 tmpBS[index][len_tmpBS-1] = bs;   
             }
             else
                 tmpBS[index].insert(tmpBS[index].end(),bs);
-                    
-            // tmpBS[index].insert(tmpBS[index].end(),bs);
-            
 
-
-            // BS_add_op(bs, k);
-            // if(bs.cum_avg_GB_BKZ.first <= BS[k].cum_avg_GB_BKZ.first)
-            //     tmpBS[index].insert(tmpBS[index].end(),bs);
-            
-            // if(bs.GB.first <= BS[k].GB.first){
-            //     if( not flag && ( bs.cum_avg_GB_BKZ.first < tmpBS[index][len_tmpBS - 1].cum_avg_GB_BKZ.first || (bs.slope > tmpBS[index][len_tmpBS - 1].slope && bs.cum_avg_GB_BKZ.first == tmpBS[index][len_tmpBS - 1].cum_avg_GB_BKZ.first))){
-            //         tmpBS[index][len_tmpBS-1] = bs;
-            //     }
-            //     else{
-            //         tmpBS[index].insert(tmpBS[index].end(),bs);
-            //         flag = false;
-            //     }
-            // }
-
-            if(not params->enumbs_min_G){
-                if(cum_pr >= 0.999 or not sim_term or leaf)
-                    break;
+           
+            if(not params->enumbs_min_G and leaf){
+                break;
             }
+
+            
+            if(cum_pr >= 0.999 or not sim_term)
+                break; //Cannot return, will omit the later blocksize strategy
             
             
             sim_term = pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, beta, jump, dsvp_t1, slope1);
+
         
             // G21 = get<2>(dsvp_t1);
             // assert(G21 >= 0.);
@@ -1952,9 +1928,9 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
         bs = BS[k];
         len_S = bs.S.size();
         
-        if(params->debug){
-            print_bs(bs);
-        }
+        // if(params->debug){
+        //     print_bs(bs);
+        // }
         if(bs.cum_pr >= 0.999){
             k++;
             continue;
@@ -1978,8 +1954,8 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
         //int(0.9*d)
         int t_id = 0, len = (((j-1)/params->J_gap)+1)+(min(params->max_dim,d)-1-beta_start)/params->gap*(((params->J-1)/params->J_gap)+1);
 
+        // cout<<len<<endl;
         if(len > 0){
-                
             int threads = min(len, params->threads);
             int block = len/threads;
             vector<vector<pair<int,int>>> beta_j;
@@ -2016,10 +1992,10 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
                 for(int t_id = 0; t_id  < int(beta_j.size()); t_id ++){
                     Sum += beta_j[t_id ].size();
             
-                    // cout<<beta_j[t_id][0].first<<", "<<beta_j[t_id][0].second<<endl;
-                    // cerr<<"t_id = "<<t_id<<", beta_j[i].size() = "<<beta_j[t_id].size()<<endl;
+                    cout<<beta_j[t_id][0].first<<", "<<beta_j[t_id][0].second<<endl;
+                    cerr<<"t_id = "<<t_id<<", beta_j[i].size() = "<<beta_j[t_id].size()<<endl;
                 }
-                // cerr<<len<<","<<Sum<<endl;
+                cerr<<len<<","<<Sum<<endl;
                 assert(len == Sum);
             }
         
@@ -2030,6 +2006,7 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
                     max_tour_for_pnjbkz_beta_in_parallel(  beta_j_t_id_begins[t_id], beta_j[t_id], k); 
                 });            
             }
+
             threadpool.wait_work(); 
             
             if(params->verbose){

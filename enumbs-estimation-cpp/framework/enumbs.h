@@ -31,7 +31,7 @@ class EnumBS{
         COST* cost;
         vector<double> l0;
         bool verification = false;
-        double min_G_prec = 0.1;
+        double min_G_prec = 10;
         thread_pool::thread_pool threadpool;
         Params* params;
         

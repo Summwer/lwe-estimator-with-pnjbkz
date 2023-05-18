@@ -20,7 +20,6 @@ int main(){
 
     //low_dim_lwechallenge_est. 
     lwes= {{40, 0.025}, {45, 0.020}, {50, 0.015}, {55, 0.010}, {60, 0.010}, {70, 0.005}, {75, 0.005},{40,0.035}};
-    // lwes= {{40, 0.025}};
     for(int i = 0; i < int(lwes.size());i++){
         int n = lwes[i].first;
         double alpha  = lwes[i].second;
