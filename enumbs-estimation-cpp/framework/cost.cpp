@@ -1,7 +1,5 @@
 #include "cost.h"
 
-
-
 // Return log2 of the number of gates for FindAllPairs according to AGPS20
 FP_NR<FT> COST::agps20_gates(int beta_prime){
     FP_NR<FT> k = ((double)beta_prime) / 8.;
@@ -43,7 +41,7 @@ pair<double,double> COST::theo_bkz_cost(int n, int beta,int J){
     /*Return cost of bkz-beta in theoretical Gate: T/G -- time cost, B -- memory cost*/
     if(beta <=10)
         return make_pair(0.,0.);
-    int beta_prime = floor(beta - default_dim4free_fun(beta));
+    int beta_prime = floor(beta - dims4free(beta));
     if(beta_prime < 64 or beta < beta_prime)
         return make_pair(0.,0.);
     else if(beta_prime > 1024)
@@ -149,17 +147,15 @@ pair<double,double> COST::get_k1_k2_pump(int beta){
 //get pump cost in threads = 20
 pair<double,double> COST::practical_pump_cost(int beta){
     //make sure not use the enum cost 
-    int f = dims4free(beta);
+    int f = max(0,default_dim4free_fun(beta));
+    // f = dims4free(beta);
     int beta_prime = beta - f;
     double secs, bits;
     pair<double,double> k = get_k1_k2_pump(beta_prime); // threads = 20
     double k1 = k.first, k2 = k.second;
     // k = (1/71.)*((1.33)**(beta/10.));
     
-    
-    
     secs = k1*((double) beta_prime)+k2; 
-    
 
     //unit: GB
     if( beta_prime <= 56)
@@ -173,7 +169,6 @@ pair<double,double> COST::practical_pump_cost(int beta){
 
     //unit: log2(bit)
     bits = log2(bits * pow(2,33));
-    
     return make_pair(secs,bits); //n_expected = beta -f , beta = d-llb
 }
     
@@ -210,14 +205,14 @@ double COST::practical_bkz_cost(int d,int beta,int jump){
 //     return k1*((double)beta)+k2;
 // }
 
-pair<double,double> COST::sieve_cost(int beta,int cost_model){
-    if(cost_model == 1)
-        return make_pair(theo_pump_cost(beta).first - log2(COST::C),  theo_pump_cost(beta).second) ;
-    else if(cost_model == 2){
-        return make_pair(practical_pump_cost(beta).first - log2(COST::C), practical_pump_cost(beta).second);
-    }
-    return make_pair(params->max_num,params->max_num);
-}
+// pair<double,double> COST::sieve_cost(int beta,int cost_model){
+//     if(cost_model == 1)
+//         return make_pair(theo_pump_cost(beta).first - log2(COST::C),  theo_pump_cost(beta).second) ;
+//     else if(cost_model == 2){
+//         return make_pair(practical_pump_cost(beta).first - log2(COST::C), practical_pump_cost(beta).second);
+//     }
+//     return make_pair(params->max_num,params->max_num);
+// }
     
 pair<double,double> COST::pump_cost(int beta,int cost_model){
     if(cost_model == 1)

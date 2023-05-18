@@ -6,6 +6,12 @@ void gsa_est(int dim, FP_NR<FT> dvol, Params* params){
     // printf_input(dim,dvol);
     printf("Generate gs-lengths by GSA assumption...");
     vector<double> l = gen_simulated_gso(dim, dvol);
+    est(l, params);
+}
+
+
+void est(vector<double> l, Params* params){
+    int dim = int(l.size());
     switch(params->method){
         case 1:
             call_enumbs(l,params);
@@ -26,9 +32,22 @@ void gsa_est(int dim, FP_NR<FT> dvol, Params* params){
 
 void lwechal_est(int n, double alpha, Params* params){
     LWEchal* lwechal = gen_lwechal_instance(n,alpha);
-    int dim = lwechal->dim;
-    FP_NR<FT> dvol = lwechal->dvol;
-    gsa_est(dim, dvol, params);
+    // int dim = lwechal->dim;
+    // FP_NR<FT> dvol = lwechal->dvol;
+    // gsa_est(dim, dvol, params);
+    double  sigma = lwechal->alpha * lwechal->q;
+
+    printf("After a sigma normalization,");
+    vector<double> l = lwechal->log_rr;
+    int dim = int(l.size());
+    for(int i = 0; i < dim; i++){
+        l[i] -= log2(sigma);
+    }
+
+    double slope = get_current_slope(l,0,dim);
+    printf("Slope = %f\n", slope);
+
+    est(l,params);
     printf("\n\n\n");
 }
 

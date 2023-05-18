@@ -203,6 +203,14 @@ LWEchal* gen_lwechal_instance(int n, double alpha){
     ZZ_mat<ZT> UT;
     MatGSO<Z_NR<ZT>, FP_NR<FT>> M(lwechal->B, U, UT, GSO_DEFAULT);
     M.update_gso();
+    lwechal->log_rr.resize(d);
+    for(int i = 0; i < d; i++){
+        FP_NR<FT> tmp;
+        M.get_r(tmp,i,i);
+        lwechal->log_rr[i] = log2(tmp.get_d())/2.;
+    }
+    double slope = get_current_slope(lwechal->log_rr,0,d);
+    cout<<"Initial slope = "<<slope<<endl;
     lwechal->dvol = M.get_log_det(0,d)/2. - log(sigma)*d;
 
     printf("dim = %d, dvol = %3.11f\n\n", lwechal->dim, lwechal->dvol.get_d());

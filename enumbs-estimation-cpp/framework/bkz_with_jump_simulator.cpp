@@ -1,6 +1,7 @@
 #include "bkz_with_jump_simulator.h"
 
 
+
 void BKZJSim::init(){
     cd.resize(CD_NUM);
     FP_NR<FT> tmp_sum;
@@ -27,12 +28,24 @@ void BKZJSim::init(){
 
 
 void BKZJSim::simulate(vector<double> &l_,vector<double> l,int beta, int jump, int N){
+
+    //simulate pnj-bkz more precisely
+    int f, beta_, d = l.size();
+    
+    f = default_dim4free_fun(beta);
+    if(jump <= 2)
+        beta_ = beta;
+    else if(jump >=3 && jump <=4)
+        beta_ = get_beta_from_sieve_dim(beta-f,d,2);
+    else if(jump>=5)
+        beta_ = get_beta_from_sieve_dim(beta-f,d,1);
+
     if(beta >= 45){
         // cerr<<"beta = "<<beta<<", beta_ = "<< beta_<<endl;
-        sim_above_45(l_,l,beta, jump, N);
+        sim_above_45(l_,l,beta_, jump, N);
     }
     else{
-        sim_below_45(l_,l,beta, N);
+        sim_below_45(l_,l,beta_, N);
     }
 }
 

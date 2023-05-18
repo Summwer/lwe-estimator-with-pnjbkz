@@ -24,13 +24,12 @@ tuple<double,int,double,double> fixed_dsvp_predict(vector<double> l, double cum_
     for(int dsvp = 50; dsvp <= d; dsvp++ ){
         //2**(2 * l1[d-dsvp])==2**(2 * l1d_dsvp)==gh
         gh = gaussian_heuristic_log2(l,d-dsvp);
-        // cout<<"d-dsvp = "<<d-dsvp<<", gh = "<<gh <<endl;
+        
         
         boost::math::chi_squared chisquare(dsvp);
         psvp = boost::math::cdf(chisquare,gh); //Compute chi-squared value
         
         p = cum_pr + (1. - cum_pr)* psvp;
-        // cout<<dsvp<<","<<gh<<","<<p<<endl;
         rp = 1. - p;
         if(rp < 0.001){
             dsvp_ = dsvp + dsvp * rp;
@@ -73,7 +72,6 @@ tuple<double,int,double,double> progressive_dsvp_predict(vector<double> l, doubl
         // if(psvp <0)
         //     cout<<psvp<<endl;
         p += rp * psvp;
-        
         if(not worst_case){
             avg_d_svp += dsvp * rp * psvp;
             p_cost = cost->pump_cost(dsvp,cost_model);
@@ -81,15 +79,13 @@ tuple<double,int,double,double> progressive_dsvp_predict(vector<double> l, doubl
             G_cum = log2(pow(2,G_cum)+pow(2,Gpump) * rp * psvp);
             //G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * rp * psvp);
             B_cum = max(B_cum,p_cost.second);
-        }
-        if(worst_case){
-            p_cost = cost->sieve_cost(dsvp,cost_model);
+        }else{
+            p_cost = cost->pump_cost(dsvp,cost_model);
             G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * (1-pre_psvp));
             //G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * rp * psvp);
             B_cum = max(B_cum,p_cost.second);
         }
         rp = 1. - p;
-
         // cerr<<"dsvp = "<<dsvp<<", rp = "<<rp<<endl;
         // cerr<<"G_cum = " << G_cum <<", G2 = "<<p_cost.first<<endl;
         if(not worst_case){

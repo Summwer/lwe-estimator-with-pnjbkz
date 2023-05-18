@@ -310,13 +310,17 @@ FP_NR<FT> compute_delta( int beta){
 //calculate slope in G6K
 double get_current_slope(vector<double> l, int start, int end){
     /*
-    Return current slope of log-gs-lengths
+    Return current slope of 2*ln(gs-lengths)
 
-    :param log_rr: vector of log(squared) Gram-Schmidt norms
+    :param log_rr: vector of log2(gs-lengths) Gram-Schmidt norms
     :param start_row: start row
     :param stopr_row: stop row
-
+    
     */
+
+    for(int i = 0; i < int(l.size()); i++){
+        l[i] *= 2*log(2.);
+    }
     
     int n = end - start;
     double i_mean = (n - 1) * 0.5 + start;

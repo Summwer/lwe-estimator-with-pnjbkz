@@ -50,21 +50,6 @@ def theo_dim4free_fun2(blocksize):
     return int(blocksize*log(4/3.)/log(blocksize/2./pi/e)) 
 
 
-def dim4free_wrapper(dim4free_fun, blocksize):
-    """
-    Deals with correct dim4free choices for edge cases when non default
-    function is chosen.
-
-    :param dim4free_fun: the function for choosing the amount of dim4free
-    :param blocksize: the BKZ blocksize
-
-    """
-    if blocksize < 40:
-        return 0
-    dim4free = dim4free_fun(blocksize)
-    return int(min((blocksize - 40)/2, dim4free))
-
-
 
 
 
@@ -97,19 +82,19 @@ def simulate_pnjBKZ(l0, beta, jump, loop):
     l = deepcopy(l0)
 
     #extra_dim4free = 12
-    #f = dim4free_wrapper(default_dim4free_fun, beta)
-    #if jump <=2:
-    #    beta_ = beta
-    #elif jump>=3 and jump <=4:
-    #    beta_ = get_beta_from_sieve_dim(beta-f,d,theo_dim4free_fun2)
-    #elif jump>=5:
-    #    beta_ = get_beta_from_sieve_dim(beta-f,d,theo_dim4free_fun1)
+    f = dim4free_wrapper(default_dim4free_fun, beta)
+    if jump <=2:
+        beta_ = beta
+    elif jump>=3 and jump <=4:
+        beta_ = get_beta_from_sieve_dim(beta-f,d,theo_dim4free_fun2)
+    elif jump>=5:
+        beta_ = get_beta_from_sieve_dim(beta-f,d,theo_dim4free_fun1)
 
 
     if beta < 45:
-        return simulate_pnjBKZ_below_45(l, beta, loop)
+        return simulate_pnjBKZ_below_45(l, beta_, loop)
     else:
-        return simulate_pnjBKZ_above_45(l, beta, jump, loop)
+        return simulate_pnjBKZ_above_45(l, beta_, jump, loop)
         
         
 
@@ -271,3 +256,30 @@ def compute_square_error(list1,list2,flag = 1):
             
     return square_error/sum(_**2 for _ in list1)
              
+
+
+def get_current_slope(r, start_row=0, stop_row=-1):
+    """
+    A Python re-implementation of ``MatGSO.get_current_slope``.
+
+        >>> from fpylll import IntegerMatrix, GSO, LLL, FPLLL
+        >>> FPLLL.set_random_seed(1337)
+        >>> A = IntegerMatrix.random(100, "qary", bits=30, k=50)
+        >>> _ = LLL.reduction(A)
+        >>> M = GSO.Mat(A); _ = M.update_gso()
+        >>> from fpylll.tools.quality import get_current_slope
+        >>> M.get_current_slope(0, 100)  # doctest: +ELLIPSIS
+        -0.085500625...
+        >>> get_current_slope(M.r(), 0, 100) # doctest: +ELLIPSIS
+        -0.085500625...
+
+    """
+    x = [2.*r[i]*log(2.) for i in range(start_row, stop_row)]
+    n = stop_row - start_row
+    i_mean = (n - 1) * 0.5 + start_row
+    x_mean = sum(x)/n
+    v1, v2 = 0.0, 0.0
+    for i in range(stop_row - start_row):
+        v1 += (i - i_mean) * (x[i] - x_mean)
+        v2 += (i - i_mean) * (i - i_mean)
+    return v1 / v2

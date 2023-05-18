@@ -5,7 +5,7 @@
 from math import e, lgamma, log, pi
 
 load("../framework/load_lwechal.sage")
-
+load("../framework/simulator/pnjbkz_simulator.sage")
 
 def dim4free_wrapper(dim4free_fun, blocksize):
     """
@@ -263,7 +263,11 @@ def gen_lwechal_instance(n=40, alpha=0.005):
     G, M = B.gram_schmidt()
     G = matrix(RDF, G)
     rr = [sum(G[i,j]**2 for j in range(d)) for i in range(d)]
+    log_rr = [log(rr[i])/log(2)/2 for i in range(d)]
+    print("Initial slope: ", get_current_slope(log_rr,0,d))
+    
     log_rr = [log(rr[i])/2 - log(sigma) for i in range(d)]
+    
     dvol = sum(log_rr)
 
     dim = m + 1

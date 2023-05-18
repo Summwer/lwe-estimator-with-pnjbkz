@@ -141,7 +141,7 @@ def pro_theo_bkz_cost(n, beta,J=1):
 def theo_pump_cost(beta):
     if(beta <=10):
         return (0,0)
-    beta_prime = floor(beta - dims4free(beta))
+    beta_prime = floor(beta -  dim4free_wrapper(dims4free,beta))
     if(beta_prime < 64 or beta < beta_prime):
         return (0,0)
     elif(beta_prime > 1024):
@@ -181,7 +181,7 @@ def bkz_cost(d, beta,J=1,cost_model=1):
     
 
 def summary(n, beta):
-    beta_prime = floor(beta - dims4free(beta))  
+    beta_prime = floor(beta -  dim4free_wrapper(dims4free,beta))  
     gates1, bits1 = bkz_cost(n, beta)
     gates2, bits2 = pump_cost(beta)
     print(gates1,gates2)
@@ -250,7 +250,7 @@ def get_k1_k2_pump(beta):
 #get pump time test in threads = 20
 def practical_pump_cost(beta):
      #make sure not use the enum cost 
-    f = dims4free(beta)
+    f = dim4free_wrapper(dims4free,beta)
     beta_prime = beta - f
     k1, k2 = get_k1_k2_pump(beta_prime) # threads = 20
     # k = (1/71.)*((1.33)**(beta/10.))

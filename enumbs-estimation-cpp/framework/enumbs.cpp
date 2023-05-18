@@ -1140,28 +1140,16 @@ void EnumBS::BS_add_op(EnumBS::blocksize_strategy bs, int k){
 
 bool EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BKZ, pair<double,double> &cum_avg_GB_BKZ, pair<double,double> &GB, double &cum_pr, int beta, int jump, tuple<double,int,double,double> &dsvp_t_, double &slope){
 
-    
-    //simulate pnj-bkz more precisely
-    int f, beta_, d = l.size();
-    
-    f = default_dim4free_fun(beta);
-    if(jump <= 2)
-        beta_ = beta;
-    else if(jump >=3 && jump <=4)
-        beta_ = get_beta_from_sieve_dim(beta-f,d,2);
-    else if(jump>=5)
-        beta_ = get_beta_from_sieve_dim(beta-f,d,1);
-
-
-
     double rem_pr = 1. - cum_pr;
 
     vector<double> l_;
 
-    sim -> simulate(l_,l,beta_,jump,1);
+    int d = int(l.size());
+
+    sim -> simulate(l_,l,beta,jump,1);
 
    
-    if(l_[d-beta_] == l[d-beta_]){
+    if(l_[d-beta] == l[d-beta]){
         dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
         slope = get_current_slope(l, 0, d);
         return false;
@@ -1169,8 +1157,8 @@ bool EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BK
     else{
         l = l_;
         slope = get_current_slope(l, 0, d);
-        boost::math::chi_squared chisquare(beta_);
-        double pr = boost::math::cdf(chisquare,pow(2,2.*l[d-beta_]));
+        boost::math::chi_squared chisquare(beta);
+        double pr = boost::math::cdf(chisquare,pow(2,2.*l[d-beta]));
         
 
         pair<double,double> GB_BKZ = cost->bkz_cost(d,beta,jump,params->cost_model);
@@ -1501,8 +1489,10 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         pair<double,double> cum_GB_BKZ = bs.cum_GB_BKZ, cum_avg_GB_BKZ = bs.cum_avg_GB_BKZ, GB = bs.GB, min_GB = bs.GB;
 
         int beta = beta_j_tid[i].first, jump = beta_j_tid[i].second;
+
+        
     
-        int f = dims4free(beta);
+        int f = default_dim4free_fun(beta);
         if( (f == 0 or beta < 79) && jump > 1)
             continue;
         if(f!=0 && jump >= f)
@@ -1517,6 +1507,11 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
 
 
         bool sim_term = pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, beta, jump, dsvp_t1, slope1);
+
+        // if(bs.S.size() == 0 and  beta == 79 and jump == 8){
+        //     printf("slope0 = %f, ", slope0);
+        //     printf("slope1 = %f\n", slope1);
+        // }
 
         if(not sim_term)
             continue;
@@ -1740,7 +1735,7 @@ void EnumBS::enumbs_est(vector<double> l0){
                 // k_flag = EnumBS::max_tour_for_pnjbkz_beta_G2(k,beta,j); 
                 // EnumBS::max_tour_for_pnjbkz_beta_G2(k,beta,j); 
 
-                int f = dims4free(beta);
+                int f = default_dim4free_fun(beta);
                 if((f == 0 && j > 1) or (f!=0 && j >= f))
                     continue;
 
@@ -1892,7 +1887,8 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
     bs = {dsvp0_t, {},l0,make_pair(0.,0.), make_pair(0.,0.),make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t)), 0., get_current_slope(l0,0,d), make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t))};
 
     BS.insert(BS.end(),bs);
-    
+
+
 
 
     //Add a normal two-step strategy from (beta_start,1,1) to (d,1,1)
@@ -1908,7 +1904,6 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
     bool leaf = false;
     
     for(int beta = beta_start;  beta < d; beta++){
-        
         pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, beta, 1, dsvp_t1, slope1);
         S.insert(S.end(),{beta,1,1}); 
         if(params->enumbs_min_G){
@@ -1956,6 +1951,7 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
     while( k < int(BS.size())){
         bs = BS[k];
         len_S = bs.S.size();
+        
         if(params->debug){
             print_bs(bs);
         }
@@ -2039,8 +2035,10 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
             if(params->verbose){
                 auto finish = system_clock::now();
                 duration<double> diff = finish - start;
-                printf("\r index: %8d, (%4d,%4d): (%4d,%4d) --> (%4d,%4d), goal index: %8d, cost =" ,k+1,bs.S[len_S-1].beta, bs.S[len_S-1].jump, beta_j[0][0].first,beta_j[0][0].second,beta_j[threads-1][beta_j[threads-1].size()-1].first,beta_j[threads-1][beta_j[threads-1].size()-1].second,int(BS.size()));
-                cerr<<setprecision(2)<<diff.count()<<'s';
+                if(k > 0){
+                    printf("\r index: %8d, (%4d,%4d): (%4d,%4d) --> (%4d,%4d), goal index: %8d, cost =" ,k+1,bs.S[len_S-1].beta, bs.S[len_S-1].jump, beta_j[0][0].first,beta_j[0][0].second,beta_j[threads-1][beta_j[threads-1].size()-1].first,beta_j[threads-1][beta_j[threads-1].size()-1].second,int(BS.size()));
+                    cerr<<setprecision(2)<<diff.count()<<'s';
+                }
             }
            
             

@@ -116,6 +116,7 @@ struct Params{
 struct LWEchal{
     int n;
     double alpha;
+    vector<double> log_rr; //log2(||b_i^*||)
     int q;
     int m;
     vector<Z_NR<ZT>> c = {};
