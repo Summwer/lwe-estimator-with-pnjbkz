@@ -160,12 +160,6 @@ def pump_cost(d,beta,cost_model = 1):
     elif(cost_model == 2):
         return practical_pump_cost(beta)
 
-#Return progressive sieve cost
-def sieve_cost(d,beta,cost_model = 1):
-    if(cost_model == 1):
-        return (theo_pump_cost(beta)[0] - log2(C), theo_pump_cost(beta)[1])
-    elif(cost_model == 2):
-        return  (practical_pump_cost(beta)[0] - log2(C), practical_pump_cost(beta)[1])
 
 def pro_bkz_cost(d, beta,J=1,cost_model=1):
     if(cost_model == 1):

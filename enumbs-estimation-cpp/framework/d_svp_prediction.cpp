@@ -81,7 +81,8 @@ tuple<double,int,double,double> progressive_dsvp_predict(vector<double> l, doubl
             B_cum = max(B_cum,p_cost.second);
         }else{
             p_cost = cost->pump_cost(dsvp,cost_model);
-            G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * (1-pre_psvp));
+            // printf("dsvp = %d, pre_psvp = %e, cost = %lf sec,  pr_cost = %lf sec \n", dsvp, pre_psvp, pow(2,p_cost.first), pow(2,p_cost.first) * (psvp-pre_psvp));
+            G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * (psvp-pre_psvp));
             //G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * rp * psvp);
             B_cum = max(B_cum,p_cost.second);
         }
