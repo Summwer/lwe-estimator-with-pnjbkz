@@ -263,16 +263,15 @@ def gen_lwechal_instance(n=40, alpha=0.005):
     G, M = B.gram_schmidt()
     G = matrix(RDF, G)
     rr = [sum(G[i,j]**2 for j in range(d)) for i in range(d)]
-    log_rr = [log(rr[i])/log(2)/2 for i in range(d)]
+    
+    log_rr = [log(rr[i],2)/2 - log(sigma,2) for i in range(d)]
     print("Initial slope: ", get_current_slope(log_rr,0,d))
     
-    log_rr = [log(rr[i])/2 - log(sigma) for i in range(d)]
-    
-    dvol = sum(log_rr)
+    dvol = sum(log_rr) * log(2)  #ln(vol)
 
     dim = m + 1
     print("dim = %3d, dvol = %3.7f" %(dim, dvol))
     print()
 
-    return (dim, dvol)
-
+    # return (dim, dvol)
+    return (log_rr,dim,dvol)

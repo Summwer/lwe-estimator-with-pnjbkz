@@ -165,13 +165,13 @@ def pro_bkz_cost(d, beta,J=1,cost_model=1):
     if(cost_model == 1):
         return pro_theo_bkz_cost(d, beta,J)
     elif(cost_model == 2):
-        return log2(get_pre_pnj_time(d,beta,J)),practical_pump_cost(beta)[1]
+        return log2(practical_bkz_cost(d,beta,J)),practical_pump_cost(beta)[1]
 
 def bkz_cost(d, beta,J=1,cost_model=1):
     if(cost_model == 1):
         return theo_bkz_cost(d, beta,J)
     elif(cost_model == 2):
-        return log2(get_pre_pnj_time(d,beta,J)),practical_pump_cost(beta)[1]
+        return log2(practical_bkz_cost(d,beta,J)),practical_pump_cost(beta)[1]
     
 
 def summary(n, beta):
@@ -244,7 +244,7 @@ def get_k1_k2_pump(beta):
 #get pump time test in threads = 20
 def practical_pump_cost(beta):
      #make sure not use the enum cost 
-    f = dim4free_wrapper(dims4free,beta)
+    f = dim4free_wrapper(default_dim4free_fun,beta)
     beta_prime = beta - f
     k1, k2 = get_k1_k2_pump(beta_prime) # threads = 20
     # k = (1/71.)*((1.33)**(beta/10.))
@@ -269,7 +269,7 @@ def practical_pump_cost(beta):
     
 
 #get pnj-BKZ time test in threads = 20
-def get_pre_pnj_time(d,beta,jump):
+def practical_bkz_cost(d,beta,jump):
     if beta < 50:
         sieve = False
         f = 0

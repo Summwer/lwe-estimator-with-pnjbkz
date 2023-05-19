@@ -82,19 +82,19 @@ def simulate_pnjBKZ(l0, beta, jump, loop):
     l = deepcopy(l0)
 
     #extra_dim4free = 12
-    f = dim4free_wrapper(default_dim4free_fun, beta)
-    if jump <=2:
-        beta_ = beta
-    elif jump>=3 and jump <=4:
-        beta_ = get_beta_from_sieve_dim(beta-f,d,theo_dim4free_fun2)
-    elif jump>=5:
-        beta_ = get_beta_from_sieve_dim(beta-f,d,theo_dim4free_fun1)
+    #f = dim4free_wrapper(default_dim4free_fun, beta)
+    #if jump <=2:
+    #    beta_ = beta
+    #elif jump>=3 and jump <=4:
+    #    beta_ = get_beta_from_sieve_dim(beta-f,d,theo_dim4free_fun2)
+    #elif jump>=5:
+    #    beta_ = get_beta_from_sieve_dim(beta-f,d,theo_dim4free_fun1)
 
 
     if beta < 45:
-        return simulate_pnjBKZ_below_45(l, beta_, loop)
+        return simulate_pnjBKZ_below_45(l, beta, loop)
     else:
-        return simulate_pnjBKZ_above_45(l, beta_, jump, loop)
+        return simulate_pnjBKZ_above_45(l, beta, jump, loop)
         
         
 

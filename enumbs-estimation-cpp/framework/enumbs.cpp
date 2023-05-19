@@ -1144,12 +1144,19 @@ bool EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BK
 
     vector<double> l_;
 
-    int d = int(l.size());
+    int f, beta_, d = l.size();
+    f = default_dim4free_fun(beta);
+    if(jump <= 2)
+        beta_ = beta;
+    else if(jump >=3 and jump <=4)
+        beta_ = get_beta_from_sieve_dim(beta-f,d,2);
+    else if(jump>=5)
+        beta_ = get_beta_from_sieve_dim(beta-f,d,1);
 
     sim -> simulate(l_,l,beta,jump,1);
 
    
-    if(l_[d-beta] == l[d-beta]){
+    if(l_[d-beta_] == l[d-beta_]){
         dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
         slope = get_current_slope(l, 0, d);
         return false;
@@ -1157,8 +1164,8 @@ bool EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BK
     else{
         l = l_;
         slope = get_current_slope(l, 0, d);
-        boost::math::chi_squared chisquare(beta);
-        double pr = boost::math::cdf(chisquare,pow(2,2.*l[d-beta]));
+        boost::math::chi_squared chisquare(beta_);
+        double pr = boost::math::cdf(chisquare,pow(2,2.*l[d-beta_]));
         
 
         pair<double,double> GB_BKZ = cost->bkz_cost(d,beta,jump,params->cost_model);
@@ -1240,7 +1247,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
                 min_GB = GB;
                 leaf = false;
             }
-            else if(GB.second >= params->max_RAM)
+            else if(GB.second >= params->max_RAM and GB.first >= min_GB.first + min_G_prec)
                 leaf = true;
         }
 
@@ -1548,7 +1555,7 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
                     min_GB = GB;
                     leaf = false;
                 }
-                else if(GB.second >= params->max_RAM)
+                else if(GB.second >= params->max_RAM and GB.first >= min_GB.first + min_G_prec)
                     leaf = true;
             }
 
@@ -1653,7 +1660,7 @@ void EnumBS::enumbs_est(vector<double> l0){
                 min_GB = GB;
                 leaf = false;
             }
-            else if(GB.second >= params->max_RAM)
+            else if(GB.second >= params->max_RAM and GB.first >= min_GB.first + min_G_prec)
                 leaf = true;
         }
 
@@ -1895,7 +1902,7 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
                 min_GB = GB;
                 leaf = false;
             }
-            else if(GB.second >= params->max_RAM)
+            else if(GB.second >= params->max_RAM and GB.first >= min_GB.first + min_G_prec)
                 leaf = true;
         }
         if(params->enumbs_min_G){

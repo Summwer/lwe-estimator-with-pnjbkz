@@ -31,7 +31,7 @@ class EnumBS{
         COST* cost;
         vector<double> l0;
         bool verification = false;
-        double min_G_prec = 10;
+        double min_G_prec = 0.1;
         thread_pool::thread_pool threadpool;
         Params* params;
         
@@ -40,6 +40,7 @@ class EnumBS{
             sim = new BKZJSim();
             cost = new COST(params);
             this->params = params;
+            cout<<"enumbs min_G_prec = "<< min_G_prec <<endl;
         }
 
         void set_threads(int nr);

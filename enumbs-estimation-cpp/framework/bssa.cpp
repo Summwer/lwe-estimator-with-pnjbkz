@@ -27,7 +27,7 @@ void BSSA::print_bs(blocksize_strategy bs){
     tuple<double,int,double,double> dsvp_t_ =  dsvp_predict(bs.l, bs.cum_pr, cost, params->cost_model, params->progressive_sieve, params->worst_case);
     cout<<"bs = ";
 
-    printf("(G_BKZ = %3.2f gate, B_BKZ = %3.2f bit cum-pr = %3.2f, dsvp = %3.2f, dsvp_r = %3d, G_dsvp = %3.2f gate, B_dsvp = %3.2f bit, G = %3.2f gate, B = %3.2f bit)\n",  bs.GB_BKZ.first, bs.GB_BKZ.second, bs.cum_pr, get<0>(dsvp_t_), get<1>(dsvp_t_),get<2>(dsvp_t_),get<3>(dsvp_t_), log2(pow(2,get<2>(dsvp_t_)) + pow(2,bs.GB_BKZ.first)), max(bs.GB_BKZ.second,get<3>(dsvp_t_)) );   
+    printf("(slope = %3.5f, G_BKZ = %3.2f gate, B_BKZ = %3.2f bit cum-pr = %3.2f, dsvp = %3.2f, dsvp_r = %3d, G_dsvp = %3.2f gate, B_dsvp = %3.2f bit, G = %3.2f gate, B = %3.2f bit)\n", get_current_slope(bs.l,0,int(bs.l.size())), bs.GB_BKZ.first, bs.GB_BKZ.second, bs.cum_pr, get<0>(dsvp_t_), get<1>(dsvp_t_),get<2>(dsvp_t_),get<3>(dsvp_t_), log2(pow(2,get<2>(dsvp_t_)) + pow(2,bs.GB_BKZ.first)), max(bs.GB_BKZ.second,get<3>(dsvp_t_)) );   
 
     print_strategy(bs.S);
 }
@@ -48,7 +48,7 @@ bool BSSA::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, dou
 
     vector<double> l_;
     
-    sim -> simulate(l_,l,beta_,jump,1);
+    sim -> simulate(l_,l,beta,jump,1);
 
     if(l_[d-beta_] == l[d-beta_]){
         dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
@@ -142,7 +142,7 @@ BSSA::blocksize_strategy BSSA::min_tour_to_each_goal_beta(BSSA::blocksize_strate
     
     double slope0 = get_current_slope(l, 0, l.size()), slope1;
     bool sim_term = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump, dsvp_t1, slope1);
-
+    
     if(not sim_term)
         return {};
     
@@ -243,7 +243,7 @@ void BSSA::bssa_est_mul_node(vector<double> l0, int sbeta, int gbeta){
         for(int ssbeta = sbeta; ssbeta < beta; ssbeta++){
             BSSA::blocksize_strategy bs = BS[ssbeta], bs_min = {}, bs_tmp = {};
             if(bs.cum_pr >= 0.999){
-                // cout<<"ssbeta = "<<ssbeta<<endl;
+                cout<<"goalbeta = "<<ssbeta<<" achieves success probability 0.999 "<<endl;
                 beta = ssbeta;
                 gbeta = ssbeta;
                 break;
@@ -252,10 +252,9 @@ void BSSA::bssa_est_mul_node(vector<double> l0, int sbeta, int gbeta){
             double G_tmp_min = params->max_num;
 
             tuple<double,int,double,double> dsvp_t0 = max_tour_for_pnjbkz_beta(bs, beta);
-
-
             
             for(int beta_alg = max(beta+1,params->beta_start); beta_alg < d; beta_alg++){
+                
                 // int len_S = bs_tmp.S.size();
                 // if ( len_S != 0 && beta_alg >= bs_min.S[len_S-1].beta + 3)
                 //         break;
@@ -267,11 +266,12 @@ void BSSA::bssa_est_mul_node(vector<double> l0, int sbeta, int gbeta){
                     if(GB_alg.first > G_tmp_min)
                         break;
 
-                    int f = dims4free(beta_alg);
+                    int f = default_dim4free_fun(beta_alg);
                     if(((f == 0 or beta_alg < 79 )&& j > 1) || (f!=0 && j >= f))
                         continue;
                     
                     bs_tmp = min_tour_to_each_goal_beta(bs, beta_alg, j, get<2>(dsvp_t0));
+                    
                     
                     // printf("======================\n");
                     // cout<<"G2_star = "<<get<2>(dsvp_t0)<<", beta = "<<beta<<endl;
@@ -283,7 +283,6 @@ void BSSA::bssa_est_mul_node(vector<double> l0, int sbeta, int gbeta){
                         G_tmp_min = bs_tmp.GB_BKZ.first;
                         bs_min = bs_tmp;
                     }
-
                     
                 }
             }

@@ -3,4 +3,3 @@ g++ -O3 -funroll-loops -o lwechal-enumbs-parallel-est ./NIST-round3/lwechal-enum
 
 # ./lwechal-enumbs-parallel-est | tee enumbs_result/beta-start-50/lwechal-enumbs-parallel-est-sec-leaf-prec3-limRAM.log
 ./lwechal-enumbs-parallel-est | tee enumbs_result/beta-start-50/lwechal-enumbs-parallel-est-sec-leaf-prec3.log
-

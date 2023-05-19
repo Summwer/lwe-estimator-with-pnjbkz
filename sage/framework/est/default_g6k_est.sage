@@ -11,7 +11,7 @@ def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_mode
     if(cumulated_proba>= 1. or up_dsvp < 50):
         return (0.,0,0.,0,0,l)
     if not progressive_sieve:
-        G_sieve, B_sieve = float("inf"), float("inf")
+        Gpump, Bpump = float("inf"), float("inf")
         for dsvp in range(50, up_dsvp+1):
             psvp = 1.
             #2**(2 * l1[d-dsvp])==2**(2 * l1d_dsvp)==gh
@@ -23,10 +23,10 @@ def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_mode
             rp = 1 - p
 
             if rp < 0.001:
-                G_sieve, B_sieve = pump_cost(d,dsvp,cost_model=cost_model)
-                return (G_sieve,B_sieve,dsvp+dsvp*rp,dsvp,1.,l_)
-        G_sieve, B_sieve = pump_cost(d,dsvp,cost_model=cost_model)
-        return (G_sieve,B_sieve,dvsp,dsvp,p,l_)    
+                Gpump, Bpump = pump_cost(d,dsvp,cost_model=cost_model)
+                return (Gpump,Bpump,dsvp+dsvp*rp,dsvp,1.,l_)
+        Gpump, Bpump = pump_cost(d,dsvp,cost_model=cost_model)
+        return (Gpump,Bpump,dvsp,dsvp,p,l_)    
        
         
     else:           
@@ -47,14 +47,14 @@ def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_mode
             
         
             avg_d_svp += dsvp * rp * psvp
-            G_sieve, B_sieve = sieve_cost(d,dsvp,cost_model=cost_model)
-            Gpump = log2(2**Gpump+2**G_sieve)
+            Gpump, Bpump = pump_cost(d,dsvp,cost_model=cost_model)
+            Gpump = log2(2**Gpump+2**Gpump)
             if(not worst_case):
                 avgG2 = log2(2**avgG2+(2**Gpump) * rp * psvp)
             else:
-                avgG2 = log2(2**avgG2+(2**G_sieve) * (1 - pre_psvp))
+                avgG2 = log2(2**avgG2+(2**Gpump) * (psvp - pre_psvp))
             
-            avgB2 = max(B_sieve,avgB2)
+            avgB2 = max(Bpump,avgB2)
 
             p += rp * psvp
             rp = 1. - p
@@ -69,11 +69,11 @@ def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_mode
                     return (avgG2,avgB2,avg_d_svp,dsvp,1.,l_)
             else:
                 if(1-psvp < 0.001):
-                    return (avgG_sieve,avgB_sieve,avgdsvp,dsvp,1.,l_)
+                    return (avgGpump,avgBpump,avgdsvp,dsvp,1.,l_)
             
             pre_psvp = psvp
                 
-    return (G_sieve,B_sieve,avg_d_svp,dsvp,p,l_)
+    return (Gpump,Bpump,avg_d_svp,dsvp,p,l_)
 
 #LWE estimation: Simplified progressive BKZs + Pump
 def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, cost_model=1, worst_case = False):
@@ -177,7 +177,7 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
 
             #d_svp prediction
             
-            G_sieve,B_sieve = 0., 0.
+            Gpump,Bpump = 0., 0.
             
             n_max = int(58 + 2.85 * G) #G_BKZ
             #n_max = int(53 + 2.85 * Gcum)
@@ -205,12 +205,12 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
                 f = d - llb - n_expected
                 print("Starting svp pump_{%d, %d, %d}, n_max = %d, Tmax= %.2f sec" % (llb, d-llb, f, n_max, G1))
                 dsvp = get_beta_from_sieve_dim(n_expected,d,dims4free)
-                (G_sieve,B_sieve,avg_d_svp,dsvp,cumulated_proba,l) = simulate_pump(l,dsvp, cumulated_proba,progressive_sieve = progressive_sieve ,cost_model=cost_model)
+                (Gpump,Bpump,avg_d_svp,dsvp,cumulated_proba,l) = simulate_pump(l,dsvp, cumulated_proba,progressive_sieve = progressive_sieve ,cost_model=cost_model)
                 remaining_proba = 1. - cumulated_proba
       
 
-            G = log2(2**Gcum + 2**G_sieve)
-            B = max(Bcum, B_sieve)
+            G = log2(2**Gcum + 2**Gpump)
+            B = max(Bcum, Bpump)
 
             if verbose:
                 print("β= %d, cum-pr=%.2e,  G=%3.2f gate,  B=%3.2f bit"%

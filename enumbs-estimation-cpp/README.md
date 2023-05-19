@@ -67,7 +67,7 @@ make install
 
 
 
-### Compile codes
+### Compile codes in the file folder framework
 
 ```
 ./compile-framework.sh
@@ -77,11 +77,17 @@ make install
 
 
 
-
-
-#### Implement all NIST Estimation (Dilihthium + Kyber)
+#### Implement all NIST Estimation in EnumBS (Dilihthium + Kyber)
 
 ```bash
-implement_all_NIST_schemes.sh #estimate NIST scheme in 50(default) threads. 
+./implement_all_NIST_schemes.sh #estimate NIST scheme in 50(default) threads in EnumBS. 
 ```
 
+
+#### Implement lwe challenge Estimation
+
+```bash
+./lwechal-bssa-est.sh #estimate lwe challenges in bssa. 
+
+./lwechal-enumbs-parallel-est.sh #estimate lwe challenges in enumbs in parallel.
+```

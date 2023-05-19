@@ -12,7 +12,6 @@ int main(){
     params->debug = false;
     params->worst_case = true;
     params->J = 8; 
-    // params->max_RAM = 1000;
     // params->max_RAM = 43.58; //1.5T = 43.58
     // params->enumbs_min_G = false;
 

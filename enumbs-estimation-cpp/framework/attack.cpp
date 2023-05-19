@@ -76,7 +76,11 @@ void call_bssa(vector<double> l, Params* params, int sbeta, int gbeta){
     
     auto start = system_clock::now();
     cout<<" Attack Estimation via simulation + probabilistic model (BSSA)"<<endl;
-    printf("gap = %d, J = %d, J_gap = %d, max_loop = %d, cost_model = %d, mul_node = %d, progressive_sieve = %d, max_RAM = %f\n", params->gap, params->J, params->J_gap, params->max_loop, params->cost_model, params->mul_node, params->progressive_sieve, params->max_RAM);
+    printf("gap = %d, J = %d, J_gap = %d, max_loop = %d, cost_model = %d, mul_node = %d, progressive_sieve = %d, ", params->gap, params->J, params->J_gap, params->max_loop, params->cost_model, params->mul_node, params->progressive_sieve);
+    if(params->enumbs_min_G)
+        printf("Find minimal time cost strategy, ");
+    else
+        printf("Find a strategy below the maximal RAM = %f log2(bit), ", params->max_RAM);
     if(params->worst_case)
         printf("worst_case. \n");
     else
