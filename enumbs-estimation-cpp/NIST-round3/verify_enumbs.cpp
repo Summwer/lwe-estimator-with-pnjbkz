@@ -4,7 +4,7 @@
 void strategy_verification(vector<double> l,vector<tuple<int,int,int>> strategy, int cost_model,int progressive_sieve, bool worst_case){
     int dim =  l.size();
     double cum_pr = 0., rem_pr = 1., proba, G1cum=0., B1cum = 0.;
-    BKZJSim* sim = new BKZJSim(params);
+    BKZJSim* sim = new BKZJSim(params,dim);
     COST* cost = new COST();
 
     for(int i = 0; i< int(strategy.size()); i++){

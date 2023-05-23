@@ -36,8 +36,8 @@ class EnumBS{
         Params* params;
         
 
-        EnumBS(Params* params){
-            sim = new BKZJSim(params);
+        EnumBS(Params* params,int d){
+            sim = new BKZJSim(params,d);
             cost = new COST(params);
             this->params = params;
             cout<<"enumbs min_G_prec = "<< min_G_prec <<endl;
@@ -73,13 +73,7 @@ class EnumBS{
         bool no_repeated_value_verification(vector<double> nums);
 
         void BS_add(EnumBS::blocksize_strategy bs, int k); 
-        void BS_add_op(EnumBS::blocksize_strategy bs, int k);
-        void BS_add_G2(EnumBS::blocksize_strategy bs, int k);
-        // void BS_add_slope(EnumBS::blocksize_strategy bs, int k);
-        // pair<int,bool> BS_add_G2_backup(EnumBS::blocksize_strategy bs, int k);
-        
-        // void BS_add_cdsvp(EnumBS::blocksize_strategy bs, int k);
-        // bool BS_add_determine(EnumBS::blocksize_strategy bs, int k);
+        // void BS_add_G2(EnumBS::blocksize_strategy bs, int k);
 
 
         bool pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BKZ,  pair<double,double> &cum_avg_GB_BKZ,  pair<double,double> &GB, double &cum_pr, int beta, int jump, tuple<double,int,double,double> &dsvp_t_, double &slope);

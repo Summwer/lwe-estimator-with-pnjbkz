@@ -2,11 +2,11 @@
 
 
 
-void BKZJSim::init(){
-    cd.resize(CD_NUM);
+void BKZJSim::init(int d){
+    cd.resize(d);
     FP_NR<FT> tmp_sum;
     int beta;
-    for(int i = 0; i < CD_NUM; i++){
+    for(int i = 0; i < d; i++){
         beta = i + 1;
         if(i < 45){
             tmp_sum = 0.;
@@ -30,29 +30,7 @@ void BKZJSim::init(){
 void BKZJSim::simulate(vector<double> &l_,vector<double> l,int beta, int jump, int N){
 
     //simulate pnj-bkz more precisely
-    int f = 0, beta_, d = l.size();
-    if(params->cost_model == 1){
-        if(params->theo_pnjbkz_d4f == 1)
-            f = max(0,theo_dim4free_fun1(beta));
-        if(params->theo_pnjbkz_d4f == 2)
-            f = max(0,theo_dim4free_fun2(beta));
-        if(params->theo_pnjbkz_d4f == 3)
-            f = max(0,default_dim4free_fun(beta));
-    }
-    if(params->cost_model == 2){
-        if(params->practical_pnjbkz_d4f == 1)
-            f = max(0,theo_dim4free_fun1(beta));
-        if(params->practical_pnjbkz_d4f == 2)
-            f = max(0,theo_dim4free_fun2(beta));
-        if(params->practical_pnjbkz_d4f == 3)
-            f = max(0,default_dim4free_fun(beta));
-    }
-    if(jump <= 2)
-        beta_ = beta;
-    else if(jump >=3 && jump <=4)
-        beta_ = get_beta_from_sieve_dim(beta-f,d,2);
-    else if(jump>=5)
-        beta_ = get_beta_from_sieve_dim(beta-f,d,1);
+    int d = l.size(), beta_ =get_beta_(params, beta, jump,d);
 
     if(beta >= 45){
         // cerr<<"beta = "<<beta<<", beta_ = "<< beta_<<endl;

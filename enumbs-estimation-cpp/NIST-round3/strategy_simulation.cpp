@@ -11,7 +11,7 @@ void sim_strategy(vector<double> l, vector<tuple<int,int,int>> strategy, double 
     int dim = int(l.size());
     Params* params = new Params;
     params->cost_model = 2;
-    BKZJSim* sim = new BKZJSim(params);
+    BKZJSim* sim = new BKZJSim(params,dim);
     COST* cost = new COST(params);
 
     for(int i = 0; i<int(strategy.size()); i++){
@@ -44,12 +44,13 @@ void sim_strategy(vector<double> l, vector<tuple<int,int,int>> strategy, double 
 //Simulate the stratey from gsa-gs-lengths and original lwe instance 
 void test_lwechal_from_gsa_and_original_instance(int n, double alpha, vector<tuple<int,int,int>> strategy){
 
-    printf("No sigma normalization,");
+   
     LWEchal* lwechal = gen_lwechal_instance(n, alpha);
     int dim = lwechal->dim;
     FP_NR<FT> dvol = lwechal->dvol;
     vector<double> l = lwechal->log_rr, l_;
     double  sigma = lwechal->alpha * lwechal->q;
+    // printf("No sigma normalization,");
     // sim_strategy(l, strategy,sigma);
 
 
@@ -71,12 +72,20 @@ void test_lwechal_from_gsa_and_original_instance(int n, double alpha, vector<tup
 }
 
 int main(){
+
     int n = 40;
-    double alpha = 0.025;
-    vector<tuple<int,int,int>> strategy = {{ 79,  8,  1},{ 91,  8,  1},{112,  8,  1}};
-    for(int i = 10; i < 50; i++)
-        strategy.insert(strategy.end(),{i,1,1});
+    double alpha = 0.035;
+    vector<tuple<int,int,int>> strategy = {{83, 8, 1}, {93, 8, 1}, {108, 8, 1}, {117, 8, 1}, {119, 4, 1}, {133, 4, 1}};
+    // for(int i = 10; i < 50; i++)
+    //     strategy.insert(strategy.end(),{i,1,1});
     test_lwechal_from_gsa_and_original_instance(n, alpha, strategy);
+
+    // int n = 40;
+    // double alpha = 0.025;
+    // vector<tuple<int,int,int>> strategy = {{ 79,  8,  1},{ 91,  8,  1},{112,  8,  1}};
+    // for(int i = 10; i < 50; i++)
+    //     strategy.insert(strategy.end(),{i,1,1});
+    // test_lwechal_from_gsa_and_original_instance(n, alpha, strategy);
 
     // n = 45;
     // alpha = 0.020;

@@ -27,6 +27,7 @@ def cost_convexity_test(l,strategy,cost_model,progressive_sieve, worst_case):
         for tours in range(N):
             l = simulate_pnjBKZ(l, beta, jump, 1)
             i = d - beta
+            if(cost_model == 2 )
             proba = 1.*chisquared_table[beta].cum_distribution_function(2**(2 * l[i]))
             G1, B1 = bkz_cost(d,beta,J=jump,cost_model=cost_model)
             
@@ -98,9 +99,9 @@ betamin = 50
 J = 8
 loop = 5
 
-mincost = (213.95,0)
+mincost = (149.81,0)
 
-while(mincost[0] >= 213.95):
+while(mincost[0] >= 149.81):
     plt.cla()
     plt.close("all")
     #dim,dvol = gen_lwechal_instance(n, alpha)

@@ -452,7 +452,7 @@ int default_dim4free_fun(int beta){
 int theo_dim4free_fun1(int beta){
     if(beta < 40)
         return 0;
-    int f = max(0,int(ceil((double)beta * log(4./3.) / log((double)beta/(2.*M_PI)))));
+    int f = max(0,int((double)beta * log(4./3.) / log((double)beta/(2.*M_PI))));
     return min(int(((double)beta - 40)/2.), f);
     
 }
@@ -466,6 +466,7 @@ int theo_dim4free_fun2(int beta){
 
 int get_beta_from_sieve_dim(int sieve_dim, int d, int choose_dims4f_fun){
     int f = 0;
+
     for(int beta = sieve_dim; beta < d; beta++){
         if(choose_dims4f_fun == 1 )
             f = theo_dim4free_fun1(beta);
@@ -476,3 +477,45 @@ int get_beta_from_sieve_dim(int sieve_dim, int d, int choose_dims4f_fun){
     }
     return d;
 }
+
+
+int get_f(Params* params, int beta){
+    if(params->cost_model == 1){
+        if(params->theo_pnjbkz_d4f == 1)
+            return max(0,theo_dim4free_fun1(beta));
+        if(params->theo_pnjbkz_d4f == 2)
+            return max(0,theo_dim4free_fun2(beta));
+        if(params->theo_pnjbkz_d4f == 3)
+            return max(0,default_dim4free_fun(beta));
+    }
+    if(params->cost_model == 2){
+        if(params->practical_pnjbkz_d4f == 1)
+            return max(0,theo_dim4free_fun1(beta));
+        if(params->practical_pnjbkz_d4f == 2)
+            return max(0,theo_dim4free_fun2(beta));
+        if(params->practical_pnjbkz_d4f == 3)
+            return max(0,default_dim4free_fun(beta));
+    }
+    return 0;
+}
+
+
+int get_beta_(Params* params, int beta, int jump, int d){
+    int f = get_f(params, beta);
+    if(jump <= 2)
+        return beta;
+    else if(jump >=3 && jump <=4){
+        if((params->cost_model == 2 and params->practical_pnjbkz_d4f == 3) or (params->cost_model == 1 and params->theo_pnjbkz_d4f == 3)){
+            return get_beta_from_sieve_dim(beta-f,d,2);
+        }else
+            return beta;
+    }
+    else if(jump>=5){
+        if((params->cost_model == 2 and params->practical_pnjbkz_d4f == 1) or (params->cost_model == 1 and params->theo_pnjbkz_d4f == 1))
+            return beta;
+        else
+            return get_beta_from_sieve_dim(beta-f,d,1);
+    }
+    return beta;
+}
+

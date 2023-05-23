@@ -2,7 +2,8 @@
 
 
 void call_enumbs(vector<double> l, Params* params){
-    EnumBS* enumbs = new EnumBS(params);
+    int d = int(l.size());
+    EnumBS* enumbs = new EnumBS(params,d);
 
     
     if(params->threads == 1){
@@ -30,10 +31,10 @@ void call_enumbs(vector<double> l, Params* params){
         printf("practical_pnjbkz_d4f = %d, practical_pump_d4f = %d, ", params->practical_pnjbkz_d4f, params->practical_pump_d4f);
     }
     
-    if(params->enum_add_G2)
-        printf("Min G2 Strategy. \n");
-    else
-        printf("Min G Strategy. \n");
+    // if(params->enum_add_G2)
+    // printf("Min G2 Strategy. \n");
+    // else
+    //     printf("Min G Strategy. \n");
     auto start = system_clock::now();
     if(params->threads == 1)
         enumbs->enumbs_est(l);
@@ -79,7 +80,8 @@ void call_enumbs(vector<double> l, Params* params){
 // }
 
 void call_bssa(vector<double> l, Params* params, int sbeta, int gbeta){
-    BSSA* bssa = new BSSA(params);
+    int d = int(l.size());
+    BSSA* bssa = new BSSA(params,d);
     
     auto start = system_clock::now();
     cout<<" Attack Estimation via simulation + probabilistic model (BSSA)"<<endl;

@@ -35,14 +35,8 @@ void BSSA::print_bs(blocksize_strategy bs){
 bool BSSA::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, double &cum_pr, int beta, int jump, tuple<double,int,double,double> &dsvp_t_, double &slope){
 
     //simulate pnj-bkz more precisely
-    int f, beta_, d = l.size();
-    f = default_dim4free_fun(beta);
-    if(jump <= 2)
-        beta_ = beta;
-    else if(jump >=3 and jump <=4)
-        beta_ = get_beta_from_sieve_dim(beta-f,d,2);
-    else if(jump>=5)
-        beta_ = get_beta_from_sieve_dim(beta-f,d,1);
+    int d = l.size(),beta_ = get_beta_(params,beta,jump,d);
+
 
     double rem_pr = 1. - cum_pr;
 
@@ -265,8 +259,7 @@ void BSSA::bssa_est_mul_node(vector<double> l0, int sbeta, int gbeta){
 
                     if(GB_alg.first > G_tmp_min)
                         break;
-
-                    int f = default_dim4free_fun(beta_alg);
+                    int f = get_f(params,beta_alg);
                     if(((f == 0 or beta_alg < 79 )&& j > 1) || (f!=0 && j >= f))
                         continue;
                     
@@ -409,7 +402,7 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
                     if(GB_alg.first > G_tmp_min)
                         break;
 
-                    int f = dims4free(beta_alg);
+                    int f = get_f(params,beta_alg);
                     if(((f == 0 or beta_alg < 79 )&& j > 1) || (f!=0 && j >= f))
                         continue;
                     

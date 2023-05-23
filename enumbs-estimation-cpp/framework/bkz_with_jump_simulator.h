@@ -2,9 +2,6 @@
 #include <tuple>
 #include "d_svp_prediction.h"
 
-#ifndef CD_NUM
-#define CD_NUM 1000
-#endif
 
 //v2: Add the jump value into the simulator
 class BKZJSim{
@@ -29,12 +26,12 @@ class BKZJSim{
         vector<FP_NR<FT>> cd;
         Params* params;
 
-        BKZJSim(Params* params){
+        BKZJSim(Params* params, int d){
             this->params = params;
-            init();
+            init(d);
         }
 
-        void init();
+        void init(int d);
         void sim_above_45(vector<FP_NR<FT>> &l_,vector<FP_NR<FT>> l,int beta, int jump, int N); // simulate pnj-bkz >= 45, high precision
         void sim_above_45(vector<double> &l_,vector<double> l,int beta, int jump, int N); //simulate pnj-bkz >= 45
         void sim_below_45(vector<FP_NR<FT>> &l_,vector<FP_NR<FT>> l,int beta, int N); //simulate pnj-bkz < 45, high precision
