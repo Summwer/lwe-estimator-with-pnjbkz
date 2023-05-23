@@ -3,9 +3,10 @@
 
 
 from math import e, lgamma, log, pi
-
+from fpylll import *
 load("../framework/load_lwechal.sage")
 load("../framework/simulator/pnjbkz_simulator.sage")
+
 
 def dim4free_wrapper(dim4free_fun, blocksize):
     """
@@ -223,7 +224,7 @@ def primal_lattice_basis(A, c, q, m=None):
         raise ValueError("Only m=%d samples available." % A.nrows())
     n = A.ncols()
 
-    B = matrix(m+n+1, m+1)
+    B = IntegerMatrix(m+n+1, m+1)
     for i in range(m):
         for j in range(n):
             B[j, i] = A[i, j]
@@ -231,8 +232,8 @@ def primal_lattice_basis(A, c, q, m=None):
         B[-1, i] = c[i]
     B[-1, -1] = 1
 
-    B = B.LLL()
-    assert(B[:n] == matrix(n, m+1))
+    B = LLL.reduction(B)
+    assert(B[:n] == IntegerMatrix(n, m+1))
     B = B[n:]
 
     return B
@@ -240,7 +241,7 @@ def primal_lattice_basis(A, c, q, m=None):
 
 
 
-def gen_lwechal_instance(n=40, alpha=0.005):
+def gen_lwechal_instance(n=40, alpha=0.005, default_g6k = False):
     A, c, q = load_lwe_challenge(n=n, alpha=alpha)
     
     print("-------------------------")
@@ -260,11 +261,15 @@ def gen_lwechal_instance(n=40, alpha=0.005):
     B = primal_lattice_basis(A, c, q, m=m)
 
     sigma = alpha * q
-    G, M = B.gram_schmidt()
-    G = matrix(RDF, G)
-    rr = [sum(G[i,j]**2 for j in range(d)) for i in range(d)]
     
-    log_rr = [log(rr[i],2)/2 - log(sigma,2) for i in range(d)]
+    M = GSO.Mat(B)
+    M.update_gso()
+    rr = [M.get_r(i,i) for i in range(d)]
+    if(default_g6k):
+        log_rr = [log(rr[i])/log(2)/2 for i in range(d)]
+    else:
+        log_rr = [log(rr[i])/log(2)/2 - log(sigma)/log(2) for i in range(d)]
+        sigma = 0.
     print("Initial slope: ", get_current_slope(log_rr,0,d))
     
     dvol = sum(log_rr) * log(2)  #ln(vol)
@@ -274,4 +279,4 @@ def gen_lwechal_instance(n=40, alpha=0.005):
     print()
 
     # return (dim, dvol)
-    return (log_rr,dim,dvol)
+    return (log_rr,dim,dvol,b,sigma)

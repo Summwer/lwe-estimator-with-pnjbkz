@@ -37,7 +37,7 @@ class EnumBS{
         
 
         EnumBS(Params* params){
-            sim = new BKZJSim();
+            sim = new BKZJSim(params);
             cost = new COST(params);
             this->params = params;
             cout<<"enumbs min_G_prec = "<< min_G_prec <<endl;

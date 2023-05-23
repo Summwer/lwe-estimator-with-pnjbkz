@@ -27,8 +27,10 @@ class BKZJSim{
                     -0.859933249032210,  -0.884479963601658,  -0.886666930030433};
 
         vector<FP_NR<FT>> cd;
+        Params* params;
 
-        BKZJSim(){
+        BKZJSim(Params* params){
+            this->params = params;
             init();
         }
 

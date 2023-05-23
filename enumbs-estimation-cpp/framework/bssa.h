@@ -26,7 +26,7 @@ class BSSA{
         Params* params;
 
         BSSA(Params* params){
-            sim = new BKZJSim();
+            sim = new BKZJSim(params);
             cost = new COST(params);
             this->params = params;
         }

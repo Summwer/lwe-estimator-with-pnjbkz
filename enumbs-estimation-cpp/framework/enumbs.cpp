@@ -2091,7 +2091,7 @@ pair<double,double> EnumBS::strategy_verification(vector<double> l,vector<strate
 
     int d = l.size();
     double cum_pr = 0., rem_pr = 1., proba, G1cum=0., B1cum = 0.;
-    // BKZJSim* sim = new BKZJSim();
+    // BKZJSim* sim = new BKZJSim(params);
     // COST* cost = new COST();
     for(int i = 0; i< int(S.size()); i++){
         EnumBS::strategy bs = S[i];

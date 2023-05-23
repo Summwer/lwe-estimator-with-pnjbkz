@@ -19,7 +19,7 @@ public:
     COST* cost;
     Params* params;
     SearchTree(Params* params){
-        sim = new BKZJSim();
+        sim = new BKZJSim(params);
         cost = new COST(params);
         enumbs = new EnumBS(params);
         this->params = params;

@@ -123,9 +123,8 @@ rk = (
 
 
 
-cd = [(rk[-i] - sum(rk[-i:])) / i for i in range(1, 46)]
+cd = [rk[-i] - sum(rk[-i:]) / i for i in range(1, 46)]
 cd += [(lgamma(beta_ / 2.0 + 1) * (1.0 / beta_) - log(sqrt(pi))) / log(2.0) for beta_ in range(46, 1000)]
-
 
 
 chisquared_table = {i: None for i in range(1000)}
@@ -141,7 +140,7 @@ def gaussian_heuristic(log_rr):
     """
     Return squared norm of shortest vector as predicted by the Gaussian heuristic.
 
-    :param log_rr: vector of log(squared) Gram-Schmidt norms
+    :param log_rr: vector of ln(squared) Gram-Schmidt norms
 
     """
     n = len(list(log_rr))

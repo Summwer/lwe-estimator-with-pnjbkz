@@ -10,8 +10,10 @@ using namespace std;
 void sim_strategy(vector<double> l, vector<tuple<int,int,int>> strategy, double sigma){
     int dim = int(l.size());
     Params* params = new Params;
-    BKZJSim* sim = new BKZJSim();
+    params->cost_model = 2;
+    BKZJSim* sim = new BKZJSim(params);
     COST* cost = new COST(params);
+
     for(int i = 0; i<int(strategy.size()); i++){
         int beta = get<0>(strategy[i]), jump = get<1>(strategy[i]), tours = get<2>(strategy[i]);
         for(int t = 0; t< tours; t++){
@@ -24,7 +26,6 @@ void sim_strategy(vector<double> l, vector<tuple<int,int,int>> strategy, double 
     }
 
     // print_vector(l,0,dim);
-
     for(int i = 0; i < dim; i++){
         l[i] -= log2(sigma);
     }
@@ -48,8 +49,9 @@ void test_lwechal_from_gsa_and_original_instance(int n, double alpha, vector<tup
     FP_NR<FT> dvol = lwechal->dvol;
     vector<double> l = lwechal->log_rr, l_;
     double  sigma = lwechal->alpha * lwechal->q;
-    sim_strategy(l, strategy,sigma);
+    // sim_strategy(l, strategy,sigma);
 
+    
 
     printf("After a sigma normalization,");
     for(int i = 0; i < dim; i++){
@@ -59,6 +61,7 @@ void test_lwechal_from_gsa_and_original_instance(int n, double alpha, vector<tup
     printf("slope = %f\n", slope);
     sim_strategy(l, strategy,1.);
 
+    throw "";
 
     printf("Generate gs-lengths by GSA assumption...\n");
     l = gen_simulated_gso(dim, dvol);
@@ -70,7 +73,9 @@ void test_lwechal_from_gsa_and_original_instance(int n, double alpha, vector<tup
 int main(){
     int n = 40;
     double alpha = 0.025;
-    vector<tuple<int,int,int>> strategy = {{ 79,  8,  1},{ 91,  8,  1},{112,  8,  1}};
+    vector<tuple<int,int,int>> strategy = {};//{{ 79,  8,  1},{ 91,  8,  1},{112,  8,  1}};
+    for(int i = 10; i < 50; i++)
+        strategy.insert(strategy.end(),{i,1,1});
     test_lwechal_from_gsa_and_original_instance(n, alpha, strategy);
 
 

@@ -84,9 +84,9 @@ struct Params{
     int J_gap = 1; //J_gap -- gap of each jump value;
     //cost_model: 1: gate model; 2: sec model with threads=32, gpus = 2 
     int cost_model = 1; 
-    bool verbose = true; //print logging or not
+    bool verbose = false; //print logging or not
     //progressieve_sieve: True: progressieve sieve; False: normal sieve
-    bool progressive_sieve =  true; 
+    
     int threads = 1;
     int max_dim = MAX_DIM; //set the maximal blocksize to find the optimal strategy
     double max_num = 1e3;
@@ -110,6 +110,14 @@ struct Params{
     //bssa params
     bool mul_node  = true;
 
+    //params for pnj-bkz
+    int theo_pnjbkz_d4f = 1; //the dim4free function for pnjbkz in theoretical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
+    int practical_pnjbkz_d4f = 3; //the dim4free function for pnjbkz in prectical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
+
+    //params for last pump
+    bool progressive_sieve =  true; 
+    int theo_pump_d4f = 1; //the dim4free function for last pump in theoretical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
+    int practical_pump_d4f = 1; //the dim4free function for last pump in prectical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
 };
 
 

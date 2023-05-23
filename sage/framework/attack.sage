@@ -5,7 +5,7 @@ load("../framework/est/progressive_bkz_only_est.sage")
 load("../framework/est/default_g6k_est.sage")
 load("../framework/est/two_step_mode_est.sage")
 
-def estimate_attack(silent=False, method=1, worst_case = False, progressive_sieve = True,parallel_ = False, l = None, dvol = None, dim_ = None, J=1, gap=1, J_gap = 1, cost_model = 1, gen_GSA_gso = True,print_l = False, b = None):
+def estimate_attack(silent=False, method=1, worst_case = False, progressive_sieve = True,parallel_ = False, l = None, dvol = None, dim_ = None, J=1, gap=1, J_gap = 1, cost_model = 1, gen_GSA_gso = True,print_l = False, b = None, sigma = 0.):
     """ Assesses the complexity of the lattice attack on the instance.
     Return value in Bikz
 
@@ -15,6 +15,8 @@ def estimate_attack(silent=False, method=1, worst_case = False, progressive_siev
              4: default g6k 
     progressive_sieve = True:  progressive sieve
     """
+
+    
 
     if l == None or gen_GSA_gso:
         print("Generate gs-lengths by GSA assumption.")
@@ -53,7 +55,7 @@ def estimate_attack(silent=False, method=1, worst_case = False, progressive_siev
         
     if(method==4):
         print(" Attack Estimation via simulation + probabilistic model (default g6k)")
-        betamin, G, B = default_g6k_est(dim_, dvol, b, l, verbose=not silent, progressive_sieve = progressive_sieve,cost_model=cost_model, worst_case = worst_case)
+        betamin, G, B = default_g6k_est(dim_, dvol, b, l, verbose=not silent, progressive_sieve = progressive_sieve,cost_model=cost_model, worst_case = worst_case, sigma = sigma)
         print("Cost in default g6k: %.3f s" %(time.time()-T0))
         
 

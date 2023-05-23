@@ -116,7 +116,12 @@ def theo_bkz_cost(n, beta,J=1):
     if(beta_prime < 64 or beta < beta_prime):
         return (0,0)
     elif(beta_prime > 1024):
-        return (float("inf"),float("inf"))
+        #return (float("inf"),float("inf"))
+        #beta_prime = 1024
+        #gates = log2((1.*(n+2*f-beta)/J)*C) + agps20_gates(beta_prime)
+        #bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
+        #return (gates, bits)
+        return (1000,1000)
     else:
         gates = log2((1.*(n+2*f-beta)/J)*C) + agps20_gates(beta_prime)
         bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
@@ -131,7 +136,8 @@ def pro_theo_bkz_cost(n, beta,J=1):
     if(beta_prime < 64 or beta < beta_prime):
         return (0,0)
     elif(beta_prime > 1024):
-        return (float("inf"),float("inf"))
+        #return (float("inf"),float("inf"))
+        return (1000,1000)
     else:
         gates = log2((1.*(n-beta)/J)*C*C) + agps20_gates(beta_prime)
         bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
@@ -145,7 +151,12 @@ def theo_pump_cost(beta):
     if(beta_prime < 64 or beta < beta_prime):
         return (0,0)
     elif(beta_prime > 1024):
-        return (float("inf"),float("inf"))
+        #return (float("inf"),float("inf"))
+        return (1000,1000)
+        #beta_prime = 1024
+        #gates = log2(C) + agps20_gates(beta_prime)
+        #bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
+        #return (gates, bits)
     else:
         gates = log2(C) + agps20_gates(beta_prime)
         bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
@@ -243,14 +254,15 @@ def get_k1_k2_pump(beta):
 
 #get pump time test in threads = 20
 def practical_pump_cost(beta):
-     #make sure not use the enum cost 
-    f = dim4free_wrapper(default_dim4free_fun,beta)
+    #make sure not use the enum cost 
+    #f = dim4free_wrapper(default_dim4free_fun,beta)
+    #f = dim4free_wrapper(theo_dim4free_fun1,beta)
+    f = dim4free_wrapper(theo_dim4free_fun2,beta)
     beta_prime = beta - f
     k1, k2 = get_k1_k2_pump(beta_prime) # threads = 20
     # k = (1/71.)*((1.33)**(beta/10.))
     secs = k1*beta_prime+k2
 
-    
 
     #unit: GB
     if( beta_prime <= 56):
@@ -279,10 +291,10 @@ def practical_bkz_cost(d,beta,jump):
     k1,k2 = get_k1_k2_pnj(beta-f,sieve)
     c3, c4 = 0.018, -2.24
     T_pnj = 2**(k1*(beta-f)+k2)
-    if(beta - f <= 60):
-        pre_pnj_time = T_pnj/jump
-    else:
-        pre_pnj_time = T_pnj*(c3*d+c4)/jump
+    #if(beta - f <= 60):
+    #    pre_pnj_time = T_pnj/jump
+    #else:
+    pre_pnj_time = T_pnj*(c3*d+c4)/jump
     
     return round(pre_pnj_time,4)
  

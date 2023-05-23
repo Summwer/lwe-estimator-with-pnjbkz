@@ -4,7 +4,7 @@ load("../framework/simulator/pump_simulator.sage")
 load("../framework/cost.sage")
 
 
-def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_model=1, worst_case = False):
+def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_model=1, worst_case = False, sigma = 0.):
     l0 = deepcopy(l)
     d = len(l)
     remaining_proba = 1. - cumulated_proba
@@ -17,7 +17,7 @@ def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_mode
             #2**(2 * l1[d-dsvp])==2**(2 * l1d_dsvp)==gh
 
             l_ = pump_simulator(l0,d,d-dsvp)
-            psvp *= chisquared_table[dsvp].cum_distribution_function(2**(2 * l_[d-dsvp]))
+            psvp *= chisquared_table[dsvp].cum_distribution_function(2**(2 * (l_[d-dsvp]- log(sigma)/log(2))))
             
             p = cumulated_proba + remaining_proba * psvp
             rp = 1 - p
@@ -42,7 +42,7 @@ def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_mode
             psvp = 1.
             #2**(2 * l1[d-dsvp])==2**(2 * l1d_dsvp)==gh
             l_ = pump_simulator(l0,d,d-dsvp)
-            psvp *= chisquared_table[dsvp].cum_distribution_function(2**(2 * l_[d-dsvp]))
+            psvp *= chisquared_table[dsvp].cum_distribution_function(2**(2 * (l_[d-dsvp]- log(sigma)/log(2))))
 
             
         
@@ -76,7 +76,7 @@ def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_mode
     return (Gpump,Bpump,avg_d_svp,dsvp,p,l_)
 
 #LWE estimation: Simplified progressive BKZs + Pump
-def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, cost_model=1, worst_case = False):
+def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, cost_model=1, worst_case = False,threads = 32, sigma = sigma):
     """
     Computes the beta value for given dimension and volumes
     It is assumed that the instance has been normalized and sphericized, 
@@ -84,6 +84,7 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
     :d: integer
     :vol: float
     """
+    
 
 
     if(b == None):
@@ -121,11 +122,8 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
 
         b = ceil(bbeta)
 
-
     goal_margin = 1.5
-    target_norm = d * goal_margin
-
-
+    target_norm = goal_margin * (sigma**2) * (d-1) + 1
     
     DDGR20 = False
     bbeta = None
@@ -138,61 +136,71 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
         average_beta = 0.
         cumulated_proba = 0.
         Gcum,Bcum = 0.,0.
-        G = 0.
+        G,B = 0.,0.
         
         betamin = []
 
         blocksizes = list(range(10, 50)) + [b-20, b-17] + list(range(b - 14, b + 25, 2))
-        blocksizes = [_ for _ in blocksizes if _ <= d and _ >=50]
+
         for beta in blocksizes:
-
             l = simulate_pnjBKZ(l, beta, 1, 1)
-
             proba = 1.
             
             i = d - beta
             proba *= chisquared_table[beta].cum_distribution_function(
-                2**(2 * l[i]))
+                2**(2 * (l[i]- log(sigma)/log(2))))
             
             average_beta += beta * remaining_proba * proba
 
             G1, B1 = bkz_cost(d,beta,1,cost_model=cost_model)
 
+
+            G = log2(2**G +2**G1)
             if(not worst_case):
-                G = log2(2**G +2**G1)
                 Gcum = log2(2**Gcum + ((2**G) * remaining_proba * proba))
             else:
-                Gcum = log2(2**Gcum + 2**G1)
+                Gcum = G
             
             Bcum = max(Bcum,B1)
 
             cumulated_proba += remaining_proba * proba
             remaining_proba = 1. - cumulated_proba
 
+            if verbose:
+                if(cost_model == 1):
+                    print("β= %d, slope=%f,  G=%3.2f log2(gate),  B=%3.2f bit"%
+                        (beta, get_current_slope(l,0,d),  Gcum, Bcum))
+                if(cost_model == 2):
+                    print("β= %d, slope=%f,  G=%3.2f log2(sec), walltime = %3.2f sec, B=%3.2f bit"%
+                        (beta, get_current_slope(l,0,d),  Gcum, 2**Gcum, Bcum))
+                
+
             if remaining_proba < .001:
                 average_beta += beta * remaining_proba 
                 if(not worst_case):
-                    G = log2(2**Gcum + ((2**G) * remaining_proba))
+                    Gcum  = log2(2**Gcum + ((2**G) * remaining_proba))
                 break
 
             #d_svp prediction
             
             Gpump,Bpump = 0., 0.
             
-            n_max = int(58 + 2.85 * G) #G_BKZ
+            n_max = int(58 + 2.85 * (Gcum + log(threads,2))) #32: threads number
             #n_max = int(53 + 2.85 * Gcum)
-
+            
             for n_expected in range(2, d-2):
                 x = target_norm / goal_margin * n_expected/(1.*d)
                 l_ = [2*_*log(2.) for _ in l]
                 if 4./3 * gaussian_heuristic(l_[d-n_expected:]) > x:
                     break
-                   
+        
 
             print("Without otf, would expect solution at pump-%d. n_max=%d in the given time." % (n_expected, n_max)) # noqa
             flag = true
             if n_expected >= n_max - 1:
-                flag = false
+                continue
+
+            n_max += 1
 
             llb = d - beta
             l_ = [2*_*log(2.) for _ in l]
@@ -200,32 +208,37 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
                 llb -= 1
                 if llb < 0:
                     break
-            
+        
             if(flag):
-                f = d - llb - n_expected
-                print("Starting svp pump_{%d, %d, %d}, n_max = %d, Tmax= %.2f sec" % (llb, d-llb, f, n_max, G1))
-                dsvp = get_beta_from_sieve_dim(n_expected,d,dims4free)
-                (Gpump,Bpump,avg_d_svp,dsvp,cumulated_proba,l) = simulate_pump(l,dsvp, cumulated_proba,progressive_sieve = progressive_sieve ,cost_model=cost_model)
+                f = d - llb - n_max
+                print("Starting svp pump_{%d, %d, %d}, n_max = %d, Tmax= %.2f sec" % (llb, d-llb, f, n_max, log2(G1)))
+                dsvp = get_beta_from_sieve_dim(n_max,d,dims4free)
+                (Gpump,Bpump,avg_d_svp,dsvp,cumulated_proba,l) = simulate_pump(l,dsvp, cumulated_proba,progressive_sieve = progressive_sieve ,cost_model=cost_model, sigma = sigma)
                 remaining_proba = 1. - cumulated_proba
-      
+                
+                Gcum = log2(2**Gcum + 2**Gpump)
+                Bcum = max(Bcum, Bpump)
 
-            G = log2(2**Gcum + 2**Gpump)
-            B = max(Bcum, Bpump)
 
-            if verbose:
-                print("β= %d, cum-pr=%.2e,  G=%3.2f gate,  B=%3.2f bit"%
-                        (beta, cumulated_proba,  G, B), 
-                        end="\n")
+                if verbose:
+                    if(cost_model == 1):
+                        print("slope=%f,  G=%3.2f log2(gate),  B=%3.2f bit"%
+                        (get_current_slope(l,0,d),  Gcum, Bcum))
+                    if(cost_model == 2):
+                        print("slope=%f,  G=%3.2f log2(sec), walltime = %3.2f sec, B=%3.2f bit"%
+                        (get_current_slope(l,0,d),  Gcum, 2**Gcum, Bcum))
     
+      
+            
             if remaining_proba < .001:
                 average_beta += beta * remaining_proba 
                 if(not worst_case):
-                    G = log2(2**Gcum + ((2**G) * remaining_proba))
+                    Gcum = log2(2**Gcum + ((2**G) * remaining_proba))
                 break
         
         if remaining_proba > .01:
-            raise ValueError("This instance may be unsolvable")
+            print("This instance may be unsolvable.")
     
         betamin = list(range(50,beta+1))
 
-        return betamin, G, B
+        return betamin, Gcum, Bcum

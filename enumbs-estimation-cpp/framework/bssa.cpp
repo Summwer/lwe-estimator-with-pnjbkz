@@ -109,7 +109,7 @@ tuple<double,int,double,double> BSSA::max_tour_for_pnjbkz_beta(BSSA::blocksize_s
 
     // cout<<slope1<<", "<<slope0<<endl;
     
-    while( (slope1 - slope0) > 0 && loop < params->max_loop){
+    while( (slope1 - slope0) > 0 && loop < max(params->max_loop,5)){
 
         loop +=1;
         slope0 = slope1;
@@ -476,7 +476,7 @@ pair<double,double> BSSA::strategy_verification(vector<double> l,vector<strategy
 
     int d = l.size();
     double cum_pr = 0., rem_pr = 1., proba, G1cum=0., B1cum = 0.;
-    // BKZJSim* sim = new BKZJSim();
+    // BKZJSim* sim = new BKZJSim(params);
     // COST* cost = new COST();
     for(int i = 0; i< int(S.size()); i++){
         BSSA::strategy bs = S[i];

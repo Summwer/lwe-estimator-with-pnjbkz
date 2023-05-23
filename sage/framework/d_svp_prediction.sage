@@ -65,6 +65,7 @@ def d_svp_prediction(l, cumulated_proba,cost_model, progressive_sieve, worst_cas
             else:
                 avgG_sieve = log2(2**avgG_sieve+(2**Gpump) * (psvp-pre_psvp))
             avgB_sieve = max(Bpump,avgB_sieve)
+        
 
             p += rp * psvp
             rp = 1. - p

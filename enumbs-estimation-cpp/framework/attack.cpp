@@ -22,6 +22,13 @@ void call_enumbs(vector<double> l, Params* params){
         printf("worst_case, ");
     else
         printf("average_case, ");
+
+    if(params->cost_model == 1){
+        printf("theo_pnjbkz_d4f = %d, theo_pump_d4f = %d, ", params->theo_pnjbkz_d4f, params->theo_pump_d4f);
+    }
+    if(params->cost_model == 2){
+        printf("practical_pnjbkz_d4f = %d, practical_pump_d4f = %d, ", params->practical_pnjbkz_d4f, params->practical_pump_d4f);
+    }
     
     if(params->enum_add_G2)
         printf("Min G2 Strategy. \n");

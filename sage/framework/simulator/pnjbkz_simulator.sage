@@ -5,6 +5,7 @@ from collections import OrderedDict # noqa
 from math import pi,exp,log,sqrt
 
 load("../framework/utils.sage")
+#load("../framework/simulator/CN11.sage")
 
 '''BKZ simulator with pump and jump.'''
 
@@ -171,7 +172,7 @@ def simulate_pnjBKZ_above_45(l,beta,jump=1,N=1,cd=cd):
     return l
 
 
-
+#Implement the simulator in beta below 45 as CN11
 def simulate_pnjBKZ_below_45(l,beta,N=1,cd=cd):
     """
     BKZ simulator with pump and jump: block size less than 45
@@ -190,7 +191,7 @@ def simulate_pnjBKZ_below_45(l,beta,N=1,cd=cd):
     if N == 0 or beta == 0:
         return l
 
-    l_ = [0 for _ in range(d)]
+    l_ = deepcopy(l)
     k_ = min (len(rk), beta)
     
     for j in range(N):
@@ -198,9 +199,9 @@ def simulate_pnjBKZ_below_45(l,beta,N=1,cd=cd):
         sumf=0.
         sumk=0.
         ff = 0
-        for k in range(d):
+        for k in range(d-beta):
             beta_ = min(beta, d - k)
-            f = min(k+beta, d)
+            f = k+beta_
             sumf += sum(l[ff:f])
             if(k!=0):
                 sumk += l_[k-1]
@@ -211,14 +212,24 @@ def simulate_pnjBKZ_below_45(l,beta,N=1,cd=cd):
                 if l_k < l[k]:
                     l_[k] = l_k
                     flag = False
-                else:
-                    l_[k] = l[k]
             else:
                 l_[k] = l_k
- 
-        #Set l[i] as l_[i]         
-        l = deepcopy(l_)
-        l_ = [0 for _ in range(d)]
+        # early termination
+        if flag or l_ == l:
+            break
+        else:
+            #last beta elements
+            sumf += l[d-1]
+            sumk += l_[d-beta-1]
+            logV = sumf - sumk
+            tmp = sum(rk[-beta:]) / beta
+            rk1 = [r_ - tmp for r_ in rk[-beta :]]
+            for k in range(d - beta, d):
+                l_[k] = logV/beta + rk1[k + beta - d]
+
+            #Set l[i] as l_[i]         
+            l = deepcopy(l_)
+            l_ = [0 for _ in range(d)]
     return l
 
 def show_gs_slope_figure(dir,log_gs_length,sim_log_gs_lengths,n,dimension,alpha_,square_error,beta,N):

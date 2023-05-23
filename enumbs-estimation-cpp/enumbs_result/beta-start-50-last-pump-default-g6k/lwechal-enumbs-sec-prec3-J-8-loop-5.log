@@ -8,13 +8,13 @@ dim = 172, dvol = 331.97353385059
 After a sigma normalization,Slope = -0.066598
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
-beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, Min G2 Strategy. 
+beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3, Min G2 Strategy. 
 
 Find the optimal Strategy through EumBS!!
 bs = (slope = -4.295226e-02, G_BKZ = 1.008979e+01 sec, B_BKZ = 3.425320e+01 bit cum-pr = 3.873029e-04, dsvp = 0.000000e+00, dsvp_r = 139, G_dsvp = 9.592886e+00 sec, B_dsvp = 3.789370e+01 bit, G = 1.086262e+01 sec, B = 3.789370e+01 bit,  min_GB.first = 1.086262e+01 gate)
 S(beta,jump,tours):{( 91,  8,  1),(104,  8,  1)}
 Min Cost = 10.86 log2(sec) = 0.52 h, Memory Cost = 37.89 log2(bit) = 0.03 TB 
-EnumBS cost:6s.
+EnumBS cost:6.5s.
 
 
 
@@ -28,13 +28,13 @@ dim = 185, dvol = 373.46589773268
 After a sigma normalization,Slope = -0.065691
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
-beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, Min G2 Strategy. 
+beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3, Min G2 Strategy. 
 
 Find the optimal Strategy through EumBS!!
 bs = (slope = -4.146452e-02, G_BKZ = 1.087595e+01 sec, B_BKZ = 3.436141e+01 bit cum-pr = 8.965574e-04, dsvp = 0.000000e+00, dsvp_r = 142, G_dsvp = 1.012415e+01 sec, B_dsvp = 3.826812e+01 bit, G = 1.154848e+01 sec, B = 3.826812e+01 bit,  min_GB.first = 1.154848e+01 gate)
 S(beta,jump,tours):{( 79,  8,  1),( 91,  8,  1),(108,  8,  1)}
 Min Cost = 11.55 log2(sec) = 0.83 h, Memory Cost = 38.27 log2(bit) = 0.04 TB 
-EnumBS cost:14s.
+EnumBS cost:18s.
 
 
 
@@ -48,13 +48,13 @@ dim = 194, dvol = 415.65527573918
 After a sigma normalization,Slope = -0.068032
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
-beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, Min G2 Strategy. 
+beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3, Min G2 Strategy. 
 
 Find the optimal Strategy through EumBS!!
 bs = (slope = -4.258836e-02, G_BKZ = 1.101755e+01 sec, B_BKZ = 3.430045e+01 bit cum-pr = 5.199726e-04, dsvp = 0.000000e+00, dsvp_r = 141, G_dsvp = 9.918054e+00 sec, B_dsvp = 3.808013e+01 bit, G = 1.157010e+01 sec, B = 3.808013e+01 bit,  min_GB.first = 1.157010e+01 gate)
 S(beta,jump,tours):{( 79,  8,  1),( 91,  8,  1),(106,  8,  1)}
 Min Cost = 11.57 log2(sec) = 0.84 h, Memory Cost = 38.08 log2(bit) = 0.03 TB 
-EnumBS cost:18s.
+EnumBS cost:20s.
 
 
 
@@ -68,13 +68,13 @@ dim = 205, dvol = 495.01685533394
 After a sigma normalization,Slope = -0.068057
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
-beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, Min G2 Strategy. 
+beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3, Min G2 Strategy. 
 
 Find the optimal Strategy through EumBS!!
 bs = (slope = -4.746781e-02, G_BKZ = 1.063217e+01 sec, B_BKZ = 3.412668e+01 bit cum-pr = 1.224847e-06, dsvp = 0.000000e+00, dsvp_r = 136, G_dsvp = 8.973034e+00 sec, B_dsvp = 3.734582e+01 bit, G = 1.102902e+01 sec, B = 3.734582e+01 bit,  min_GB.first = 1.102902e+01 gate)
 S(beta,jump,tours):{( 79,  8,  2),( 89,  8,  1)}
 Min Cost = 11.03 log2(sec) = 0.58 h, Memory Cost = 37.35 log2(bit) = 0.02 TB 
-EnumBS cost:13s.
+EnumBS cost:16s.
 
 
 
@@ -88,13 +88,13 @@ dim = 222, dvol = 522.71923621791
 After a sigma normalization,Slope = -0.065713
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
-beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, Min G2 Strategy. 
+beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3, Min G2 Strategy. 
 
 Find the optimal Strategy through EumBS!!
 bs = (slope = -4.036812e-02, G_BKZ = 1.216867e+01 sec, B_BKZ = 3.453165e+01 bit cum-pr = 2.340269e-03, dsvp = 0.000000e+00, dsvp_r = 144, G_dsvp = 1.053160e+01 sec, B_dsvp = 3.864805e+01 bit, G = 1.257086e+01 sec, B = 3.864805e+01 bit,  min_GB.first = 1.257086e+01 gate)
 S(beta,jump,tours):{( 79,  8,  1),( 89,  8,  1),(104,  8,  1),(112,  8,  1)}
 Min Cost = 12.57 log2(sec) = 1.69 h, Memory Cost = 38.65 log2(bit) = 0.05 TB 
-EnumBS cost:53s.
+EnumBS cost:57s.
 
 
 
@@ -108,13 +108,13 @@ dim = 235, dvol = 641.77463704427
 After a sigma normalization,Slope = -0.070160
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
-beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, Min G2 Strategy. 
+beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3, Min G2 Strategy. 
 
 Find the optimal Strategy through EumBS!!
 bs = (slope = -4.722151e-02, G_BKZ = 1.151958e+01 sec, B_BKZ = 3.417080e+01 bit cum-pr = 1.646286e-05, dsvp = 0.000000e+00, dsvp_r = 138, G_dsvp = 9.493919e+00 sec, B_dsvp = 3.770902e+01 bit, G = 1.183641e+01 sec, B = 3.770902e+01 bit,  min_GB.first = 1.183641e+01 gate)
 S(beta,jump,tours):{( 81,  8,  1),( 92,  8,  1),( 97,  8,  1)}
 Min Cost = 11.84 log2(sec) = 1.02 h, Memory Cost = 37.71 log2(bit) = 0.03 TB 
-EnumBS cost:28s.
+EnumBS cost:33s.
 
 
 
@@ -128,13 +128,13 @@ dim = 252, dvol = 678.72747085249
 After a sigma normalization,Slope = -0.066672
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
-beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, Min G2 Strategy. 
+beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3, Min G2 Strategy. 
 
 Find the optimal Strategy through EumBS!!
 bs = (slope = -4.165489e-02, G_BKZ = 1.263219e+01 sec, B_BKZ = 3.443803e+01 bit cum-pr = 9.861158e-04, dsvp = 0.000000e+00, dsvp_r = 144, G_dsvp = 1.055309e+01 sec, B_dsvp = 3.864805e+01 bit, G = 1.293864e+01 sec, B = 3.864805e+01 bit,  min_GB.first = 1.293864e+01 gate)
 S(beta,jump,tours):{( 79,  8,  1),( 90,  8,  1),(110,  8,  2)}
 Min Cost = 12.94 log2(sec) = 2.18 h, Memory Cost = 38.65 log2(bit) = 0.05 TB 
-EnumBS cost:81s.
+EnumBS cost:97s.
 
 
 
@@ -148,13 +148,13 @@ dim = 188, dvol = 327.73882468246
 After a sigma normalization,Slope = -0.059717
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
-beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, Min G2 Strategy. 
+beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3, Min G2 Strategy. 
 
 Find the optimal Strategy through EumBS!!
 bs = (slope = -3.531970e-02, G_BKZ = 1.460154e+01 sec, B_BKZ = 3.648645e+01 bit cum-pr = 1.070787e-02, dsvp = 0.000000e+00, dsvp_r = 167, G_dsvp = 1.677881e+01 sec, B_dsvp = 4.277495e+01 bit, G = 1.706698e+01 sec, B = 4.277495e+01 bit,  min_GB.first = 1.706698e+01 gate)
 S(beta,jump,tours):{( 80,  8,  1),( 91,  8,  1),(117,  8,  1),(118,  4,  1),(131,  4,  1)}
 Min Cost = 17.07 log2(sec) = 38.14 h, Memory Cost = 42.77 log2(bit) = 0.86 TB 
-EnumBS cost:86s.
+EnumBS cost:96s.
 
 
 
@@ -168,13 +168,13 @@ dim = 195, dvol = 302.19936168844
 After a sigma normalization,Slope = -0.056677
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
-beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, Min G2 Strategy. 
+beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3, Min G2 Strategy. 
 
 Find the optimal Strategy through EumBS!!
 bs = (slope = -3.271026e-02, G_BKZ = 2.156359e+01 sec, B_BKZ = 4.039867e+01 bit cum-pr = 4.065874e-03, dsvp = 0.000000e+00, dsvp_r = 195, G_dsvp = 2.636812e+01 sec, B_dsvp = 4.795089e+01 bit, G = 2.641884e+01 sec, B = 4.795089e+01 bit,  min_GB.first = 2.641884e+01 gate)
 S(beta,jump,tours):{( 82,  8,  1),( 93,  8,  1),(111,  8,  1),(117,  4,  1),(122,  4,  1),(136,  4,  1),(146,  4,  1),(154,  2,  1)}
 Min Cost = 26.42 log2(sec) = 24920.82 h, Memory Cost = 47.95 log2(bit) = 30.93 TB 
-EnumBS cost:1.8e+02s.
+EnumBS cost:1.9e+02s.
 
 
 
@@ -188,13 +188,13 @@ dim = 211, dvol = 357.09956384954
 After a sigma normalization,Slope = -0.056187
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
-beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, Min G2 Strategy. 
+beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3, Min G2 Strategy. 
 
 Find the optimal Strategy through EumBS!!
 bs = (slope = -3.224369e-02, G_BKZ = 2.225961e+01 sec, B_BKZ = 4.059563e+01 bit cum-pr = 1.393751e-02, dsvp = 0.000000e+00, dsvp_r = 193, G_dsvp = 2.550206e+01 sec, B_dsvp = 4.775171e+01 bit, G = 2.564698e+01 sec, B = 4.775171e+01 bit,  min_GB.first = 2.564698e+01 gate)
 S(beta,jump,tours):{( 82,  8,  1),( 90,  8,  1),(102,  8,  1),(118,  4,  2),(130,  4,  1),(140,  4,  1),(148,  4,  1),(155,  2,  1)}
 Min Cost = 25.65 log2(sec) = 14595.09 h, Memory Cost = 47.75 log2(bit) = 26.94 TB 
-EnumBS cost:2.4e+02s.
+EnumBS cost:2.6e+02s.
 
 
 
@@ -208,13 +208,13 @@ dim = 228, dvol = 400.40769158427
 After a sigma normalization,Slope = -0.055556
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
-beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, Min G2 Strategy. 
+beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3, Min G2 Strategy. 
 
 Find the optimal Strategy through EumBS!!
 bs = (slope = -3.133536e-02, G_BKZ = 2.510457e+01 sec, B_BKZ = 4.198061e+01 bit cum-pr = 1.180912e-02, dsvp = 0.000000e+00, dsvp_r = 201, G_dsvp = 2.811756e+01 sec, B_dsvp = 4.914604e+01 bit, G = 2.828605e+01 sec, B = 4.914604e+01 bit,  min_GB.first = 2.828605e+01 gate)
 S(beta,jump,tours):{( 87,  8,  2),(117,  8,  2),(117,  4,  1),(124,  4,  1),(133,  4,  1),(141,  4,  1),(147,  4,  1),(154,  2,  1),(162,  2,  1)}
 Min Cost = 28.29 log2(sec) = 90917.39 h, Memory Cost = 49.15 log2(bit) = 70.82 TB 
-EnumBS cost:4e+02s.
+EnumBS cost:4.5e+02s.
 
 
 
@@ -228,13 +228,13 @@ dim = 241, dvol = 439.97692024407
 After a sigma normalization,Slope = -0.056477
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
-beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, Min G2 Strategy. 
+beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3, Min G2 Strategy. 
 
 Find the optimal Strategy through EumBS!!
 bs = (slope = -3.073274e-02, G_BKZ = 2.670780e+01 sec, B_BKZ = 4.277495e+01 bit cum-pr = 2.291065e-02, dsvp = 0.000000e+00, dsvp_r = 204, G_dsvp = 2.910112e+01 sec, B_dsvp = 4.974363e+01 bit, G = 2.935250e+01 sec, B = 4.974363e+01 bit,  min_GB.first = 2.935250e+01 gate)
 S(beta,jump,tours):{( 80,  8,  2),(107,  8,  2),(117,  4,  2),(128,  4,  1),(135,  4,  1),(141,  4,  1),(145,  4,  1),(151,  4,  1),(157,  2,  1),(167,  2,  1)}
 Min Cost = 29.35 log2(sec) = 190405.27 h, Memory Cost = 49.74 log2(bit) = 107.16 TB 
-EnumBS cost:6.3e+02s.
+EnumBS cost:7e+02s.
 
 
 
@@ -248,13 +248,13 @@ dim = 254, dvol = 494.02531552183
 After a sigma normalization,Slope = -0.056398
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
-beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, Min G2 Strategy. 
+beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3, Min G2 Strategy. 
 
 Find the optimal Strategy through EumBS!!
 bs = (slope = -3.081776e-02, G_BKZ = 2.585685e+01 sec, B_BKZ = 4.217906e+01 bit cum-pr = 1.449312e-02, dsvp = 0.000000e+00, dsvp_r = 201, G_dsvp = 2.824629e+01 sec, B_dsvp = 4.914604e+01 bit, G = 2.849829e+01 sec, B = 4.914604e+01 bit,  min_GB.first = 2.849829e+01 gate)
 S(beta,jump,tours):{( 80,  8,  1),( 92,  8,  1),(117,  8,  2),(117,  4,  1),(121,  4,  1),(130,  4,  1),(141,  4,  1),(144,  4,  1),(150,  4,  1),(156,  2,  1),(163,  2,  1)}
 Min Cost = 28.50 log2(sec) = 105326.47 h, Memory Cost = 49.15 log2(bit) = 70.82 TB 
-EnumBS cost:8.1e+02s.
+EnumBS cost:9.2e+02s.
 
 
 
@@ -268,3 +268,53 @@ dim = 262, dvol = 549.24128135648
 After a sigma normalization,Slope = -0.057532
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3, Min G2 Strategy. 
+
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.147032e-02, G_BKZ = 2.279412e+01 sec, B_BKZ = 4.039867e+01 bit cum-pr = 1.811132e-02, dsvp = 0.000000e+00, dsvp_r = 191, G_dsvp = 2.489537e+01 sec, B_dsvp = 4.735334e+01 bit, G = 2.519761e+01 sec, B = 4.735334e+01 bit,  min_GB.first = 2.519761e+01 gate)
+S(beta,jump,tours):{( 80,  8,  1),( 91,  8,  1),(111,  8,  2),(117,  4,  2),(128,  4,  1),(132,  4,  1),(141,  4,  1),(144,  4,  1),(150,  4,  1),(154,  2,  1)}
+Min Cost = 25.20 log2(sec) = 10688.93 h, Memory Cost = 47.35 log2(bit) = 20.44 TB 
+EnumBS cost:9.2e+02s.
+
+
+
+"lwechallenge/75-010.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=75, m=5625, alpha=0.010, q=5639 
+Chose 280 samples. Predict solution at bkz-137 + svp-170. 
+Initial slope = -0.059
+dim = 281, dvol = 637.60574731214
+
+After a sigma normalization,Slope = -0.058740
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3, Min G2 Strategy. 
+
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.142072e-02, G_BKZ = 2.245534e+01 sec, B_BKZ = 4.059563e+01 bit cum-pr = 3.211681e-02, dsvp = 0.000000e+00, dsvp_r = 188, G_dsvp = 2.385960e+01 sec, B_dsvp = 4.675581e+01 bit, G = 2.432198e+01 sec, B = 4.675581e+01 bit,  min_GB.first = 2.432198e+01 gate)
+S(beta,jump,tours):{( 80,  8,  1),( 89,  8,  1),( 91,  8,  1),(108,  8,  1),(117,  8,  1),(117,  4,  2),(119,  4,  1),(128,  4,  1),(132,  4,  1),(141,  4,  1),(143,  4,  1),(149,  4,  1),(155,  4,  1)}
+Min Cost = 24.32 log2(sec) = 5825.63 h, Memory Cost = 46.76 log2(bit) = 13.51 TB 
+EnumBS cost:1.1e+03s.
+
+
+
+"lwechallenge/95-005.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=95, m=9025, alpha=0.005, q=9029 
+Chose 322 samples. Predict solution at bkz-140 + svp-169. 
+Initial slope = -0.059
+dim = 323, dvol = 836.94876527566
+
+After a sigma normalization,Slope = -0.059469
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3, Min G2 Strategy. 
+
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.110733e-02, G_BKZ = 2.293516e+01 sec, B_BKZ = 4.059563e+01 bit cum-pr = 3.460896e-02, dsvp = 0.000000e+00, dsvp_r = 188, G_dsvp = 2.379628e+01 sec, B_dsvp = 4.675581e+01 bit, G = 2.442904e+01 sec, B = 4.675581e+01 bit,  min_GB.first = 2.442904e+01 gate)
+S(beta,jump,tours):{( 80,  8,  1),( 89,  8,  2),( 91,  8,  1),(117,  8,  3),(117,  4,  2),(120,  4,  1),(128,  4,  1),(132,  4,  1),(137,  4,  1),(141,  4,  1),(145,  4,  1),(150,  4,  1),(155,  4,  1)}
+Min Cost = 24.43 log2(sec) = 6274.38 h, Memory Cost = 46.76 log2(bit) = 13.51 TB 
+EnumBS cost:1.7e+03s.
+
+
+

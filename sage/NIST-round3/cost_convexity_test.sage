@@ -35,16 +35,19 @@ def cost_convexity_test(l,strategy,cost_model,progressive_sieve, worst_case):
             else:
                 G1cum = log2(2**G1cum + 2**G1)
             B1cum = max(B1cum,B1)
+            
 
             cum_pr += rem_pr * proba
             rem_pr *= 1. - proba
 
             (G_sieve,B_sieve,dsvp,dsvp_max) = d_svp_prediction(l,cum_pr,cost_model, progressive_sieve, worst_case)
+
+            #print(beta,jump,tours+1,G1cum,G_sieve)
             costs.append(log2(2**G1cum+2**G_sieve))
             #print(beta)
             if(cum_pr > 0.999):
                 return costs
-   
+    
 
 
 
@@ -66,7 +69,7 @@ def random_gen_blocksize_strategy(betamin_, J, loop, dim):
 
 
 worst_case = True
-cost_model = 2
+cost_model = 1
 progressive_sieve = True
 path = "cost_convexity_test/randomly/"
 
@@ -95,12 +98,16 @@ betamin = 50
 J = 8
 loop = 5
 
+mincost = (213.95,0)
 
-
-for (n,alpha) in lwechals:
+while(mincost[0] >= 213.95):
     plt.cla()
     plt.close("all")
-    dim,dvol = gen_lwechal_instance(n, alpha)
+    #dim,dvol = gen_lwechal_instance(n, alpha)
+    #dilithium1
+    print("============= Dilithium-I")
+    dim = 2049
+    dvol = 15614.2193172
     delta = compute_delta(2)
     l = [log(bkzgsa_gso_len(dvol, i, dim, delta=delta)) / log(2) for i in range(dim)]
     blocksize_strategy = random_gen_blocksize_strategy(betamin, J, loop, dim)
@@ -122,7 +129,7 @@ for (n,alpha) in lwechals:
     print("convexity = ", convexity, ", number of convexity = ", len(convexity)," (should <= 1)") 
     print("mincost = %f, index = %d" %(mincost[0],mincost[1]))
     print()
-    alpha = int(round(alpha * 1000))
+    #alpha = int(round(alpha * 1000))
     #
     plt.figure(figsize=(20,5))
     
@@ -133,14 +140,14 @@ for (n,alpha) in lwechals:
     print("[", ",".join(xs[:len(costs)]),"]")
 
     fig = plt.gcf()
-    plt.scatter(xs[:len(costs)],costs, marker=".") #, label="{n:03d}_{alpha:03d}".format(n=n, alpha=alpha)
+    plt.scatter(xs[:len(costs)],costs, marker=".") #, label="dilithium1"
     #plt.legend()
     plt.xticks(rotation=45, fontsize=14)
     plt.subplots_adjust(bottom=0.3)
-    Title = "{n:03d}-{alpha:03d}".format(n=n, alpha=alpha) 
+    Title = "dilithium1"
     #Title += ": ["+ ",".join(xs[:len(costs)])+"]"
     plt.title(Title)
-    plt.savefig(path+"{n:03d}_{alpha:03d}.png".format(n=n, alpha=alpha))
+    plt.savefig(path+"dilithium1.png")
     plt.close(fig)
 
     #assert(len(convexity)<=1)

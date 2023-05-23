@@ -13,8 +13,8 @@ void BKZJSim::init(){
             for(int j = 45-beta; j < 45; j++){
                 tmp_sum += rk[j];
             }
-            cd[i] = (rk[45-beta] -  tmp_sum)/beta;
-
+            cd[i] = rk[45-beta] -  tmp_sum/beta;
+            // cd[i] = (rk[45-beta] -  tmp_sum)/beta;
         }
         else{
             cd[i] = (lgamma( beta / 2.0 + 1)*(1./beta) - log(sqrt(M_PI)))/log(2.);
@@ -30,9 +30,23 @@ void BKZJSim::init(){
 void BKZJSim::simulate(vector<double> &l_,vector<double> l,int beta, int jump, int N){
 
     //simulate pnj-bkz more precisely
-    int f, beta_, d = l.size();
-    
-    f = default_dim4free_fun(beta);
+    int f = 0, beta_, d = l.size();
+    if(params->cost_model == 1){
+        if(params->theo_pnjbkz_d4f == 1)
+            f = max(0,theo_dim4free_fun1(beta));
+        if(params->theo_pnjbkz_d4f == 2)
+            f = max(0,theo_dim4free_fun2(beta));
+        if(params->theo_pnjbkz_d4f == 3)
+            f = max(0,default_dim4free_fun(beta));
+    }
+    if(params->cost_model == 2){
+        if(params->practical_pnjbkz_d4f == 1)
+            f = max(0,theo_dim4free_fun1(beta));
+        if(params->practical_pnjbkz_d4f == 2)
+            f = max(0,theo_dim4free_fun2(beta));
+        if(params->practical_pnjbkz_d4f == 3)
+            f = max(0,default_dim4free_fun(beta));
+    }
     if(jump <= 2)
         beta_ = beta;
     else if(jump >=3 && jump <=4)
@@ -67,14 +81,14 @@ void BKZJSim::sim_below_45(vector<FP_NR<FT>> &l_,vector<FP_NR<FT>> l, int beta, 
     bool flag;
     int beta_,f=0,ff=0;
     FP_NR<FT> sumf=0., sumk=0., logV, l_k;
-    l_.resize(d);
+    l_ = l;
 
     for(int tours = 0; tours < N; tours ++){
         flag = true;
         sumf=0.;
         sumk=0.;
         ff = 0;
-        for(int k = 0; k < d; k++){
+        for(int k = 0; k < d - beta; k++){
             beta_ = min(beta, d - k);
             f = min(k + beta, d);
             for(int i = ff; i<f; i++)
@@ -82,21 +96,42 @@ void BKZJSim::sim_below_45(vector<FP_NR<FT>> &l_,vector<FP_NR<FT>> l, int beta, 
             if(k!=0)
                 sumk += l_[k-1];
             logV = sumf - sumk;
-            l_k = logV / beta_ + cd[beta_-1];
+            l_k = logV / beta_ + cd[beta_-1]; //  +  rk[45-beta].get_d() *(beta - 1)/beta
             ff = f;
             if(flag){
                 if(l_k < l[k]){
                     l_[k] = l_k;
                     flag = false;
                 }
-                else
-                    l_[k] = l[k];  
             }
             else{
                 l_[k] = l_k;
             }           
         }
-        l = l_;
+        // early termination
+        if(flag or l_ == l)
+            break;
+        else{
+            //last beta elements
+            sumf += l[d-1];
+            sumk += l_[d-beta-1];
+            logV = sumf - sumk;
+            FP_NR<FT> tmp = 0.;
+            for(int i = 45-beta; i < 45; i++){
+                tmp += rk[i];
+            }
+            tmp /= beta;
+            vector<FP_NR<FT>> rk1;
+            rk1.resize(beta);
+            for(int i = 0; i < beta; i++){
+                rk1[i] = rk[i + 45 - beta] - tmp;
+            }
+            for(int k=d-beta; k < d; k++)
+                l_[k] = logV/beta + rk1[k + beta - d];
+
+            //Set l[i] as l_[i]         
+            l = l_;
+        }
     }            
 }
 
@@ -123,7 +158,7 @@ void BKZJSim::sim_below_45(vector<double> &l_,vector<double> l, int beta, int N)
         sumf=0.;
         sumk=0.;
         ff = 0;
-        for(int k = 0; k < d; k++){
+        for(int k = 0; k < d - beta; k++){
             beta_ = min(beta, d - k);
             f = min(k + beta, d);
             for(int i = ff; i<f; i++)
@@ -131,22 +166,43 @@ void BKZJSim::sim_below_45(vector<double> &l_,vector<double> l, int beta, int N)
             if(k!=0)
                 sumk += l_[k-1];
             logV = sumf - sumk;
-            l_k = logV / beta_ + cd[beta_-1];
+            l_k = logV / beta_ + cd[beta_-1]; //+  rk[45-beta].get_d() *(beta - 1)/beta;
             ff = f;
             if(flag){
                 if(l_k < l[k]){
                     l_[k] = l_k.get_d();
                     flag = false;
                 }
-                else
-                    l_[k] = l[k];  
             }
             else{
                 l_[k] = l_k.get_d();
             }           
         }
-        
-        l = l_;
+        // early termination
+        if(flag or l_ == l)
+            break;
+        else{
+            //last beta elements
+            sumf += l[d-1];
+            sumk += l_[d-beta-1];
+            logV = sumf - sumk;
+            
+            FP_NR<FT> tmp = 0.;
+            for(int i = 45-beta; i < 45; i++){
+                tmp += rk[i];
+            }
+            tmp /= beta;
+            vector<FP_NR<FT>> rk1;
+            rk1.resize(beta);
+            for(int i = 0; i < beta; i++){
+                rk1[i] = rk[i + 45 - beta] - tmp;
+            }
+            for(int k= d-beta; k < d; k++){
+                l_[k] = (logV/beta + rk1[k + beta - d]).get_d();
+            }
+            //Set l[i] as l_[i]         
+            l = l_;
+        }
     }            
 }
 

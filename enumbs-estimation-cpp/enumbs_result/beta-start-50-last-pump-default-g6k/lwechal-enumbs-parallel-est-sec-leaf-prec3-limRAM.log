@@ -14,7 +14,7 @@ Find the optimal Strategy through EumBS!!
 bs = (slope = -4.295226e-02, G_BKZ = 1.008979e+01 sec, B_BKZ = 3.425320e+01 bit cum-pr = 3.873029e-04, dsvp = 0.000000e+00, dsvp_r = 139, G_dsvp = 9.592886e+00 sec, B_dsvp = 3.789370e+01 bit, G = 1.086262e+01 sec, B = 3.789370e+01 bit,  min_GB.first = 1.086262e+01 gate)
 S(beta,jump,tours):{( 91,  8,  1),(104,  8,  1)}
 Min Cost = 10.86 log2(sec) = 0.52 h, Memory Cost = 37.89 log2(bit) = 0.03 TB 
-EnumBS cost:36s.
+EnumBS cost:27s.
 
 
 
@@ -34,7 +34,7 @@ Find the optimal Strategy through EumBS!!
 bs = (slope = -4.146452e-02, G_BKZ = 1.087595e+01 sec, B_BKZ = 3.436141e+01 bit cum-pr = 8.965574e-04, dsvp = 0.000000e+00, dsvp_r = 142, G_dsvp = 1.012415e+01 sec, B_dsvp = 3.826812e+01 bit, G = 1.154848e+01 sec, B = 3.826812e+01 bit,  min_GB.first = 1.154848e+01 gate)
 S(beta,jump,tours):{( 79,  8,  1),( 91,  8,  1),(108,  8,  1)}
 Min Cost = 11.55 log2(sec) = 0.83 h, Memory Cost = 38.27 log2(bit) = 0.04 TB 
-EnumBS cost:62s.
+EnumBS cost:46s.
 
 
 
@@ -54,7 +54,7 @@ Find the optimal Strategy through EumBS!!
 bs = (slope = -4.258836e-02, G_BKZ = 1.101755e+01 sec, B_BKZ = 3.430045e+01 bit cum-pr = 5.199726e-04, dsvp = 0.000000e+00, dsvp_r = 141, G_dsvp = 9.918054e+00 sec, B_dsvp = 3.808013e+01 bit, G = 1.157010e+01 sec, B = 3.808013e+01 bit,  min_GB.first = 1.157010e+01 gate)
 S(beta,jump,tours):{( 79,  8,  1),( 91,  8,  1),(106,  8,  1)}
 Min Cost = 11.57 log2(sec) = 0.84 h, Memory Cost = 38.08 log2(bit) = 0.03 TB 
-EnumBS cost:74s.
+EnumBS cost:49s.
 
 
 
@@ -74,7 +74,7 @@ Find the optimal Strategy through EumBS!!
 bs = (slope = -4.746781e-02, G_BKZ = 1.063217e+01 sec, B_BKZ = 3.412668e+01 bit cum-pr = 1.224847e-06, dsvp = 0.000000e+00, dsvp_r = 136, G_dsvp = 8.973034e+00 sec, B_dsvp = 3.734582e+01 bit, G = 1.102902e+01 sec, B = 3.734582e+01 bit,  min_GB.first = 1.102902e+01 gate)
 S(beta,jump,tours):{( 79,  8,  2),( 89,  8,  1)}
 Min Cost = 11.03 log2(sec) = 0.58 h, Memory Cost = 37.35 log2(bit) = 0.02 TB 
-EnumBS cost:49s.
+EnumBS cost:35s.
 
 
 

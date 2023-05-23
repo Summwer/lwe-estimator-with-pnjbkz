@@ -41,35 +41,49 @@ pair<double,double> COST::theo_bkz_cost(int n, int beta,int J){
     /*Return cost of bkz-beta in theoretical Gate: T/G -- time cost, B -- memory cost*/
     if(beta <=10)
         return make_pair(0.,0.);
-    int beta_prime = floor(beta - dims4free(beta));
+    int f = 0;
+    if(params->theo_pnjbkz_d4f == 1)
+        f = max(0,theo_dim4free_fun1(beta));
+    if(params->theo_pnjbkz_d4f == 2)
+        f = max(0,theo_dim4free_fun2(beta));
+    if(params->theo_pnjbkz_d4f == 3)
+        f = max(0,default_dim4free_fun(beta));
+    int beta_prime = floor(beta - f);
     if(beta_prime < 64 or beta < beta_prime)
         return make_pair(0.,0.);
     else if(beta_prime > 1024)
+        // beta_prime = 1024;
         return make_pair(params->max_num,params->max_num);
-    else{
         //double gates = log2((((double)n-beta)/J)*COST::C*COST::C) + agps20_gates(beta_prime).get_d();
-        double gates = log2((((double)n-beta)/J)*COST::C) + agps20_gates(beta_prime).get_d();
-        double bits = log2(8*beta_prime) + agps20_vectors(beta_prime);
-        return make_pair(gates, bits);
-    }
+    double gates = log2((((double)n-beta)/J)*COST::C) + agps20_gates(beta_prime).get_d();
+    double bits = log2(8*beta_prime) + agps20_vectors(beta_prime);
+    return make_pair(gates, bits);
+    
 }
 
 pair<double,double> COST::theo_pump_cost(int beta){
     /*Return cost of pump-beta in theoretical Gate: T/G -- time cost, B -- memory cost*/
     if(beta <=10)
         return make_pair(0.,0.);
-    int beta_prime = floor(beta - dims4free(beta));
+    int f = 0;
+    if(params->theo_pump_d4f == 1)
+        f = max(0,theo_dim4free_fun1(beta));
+    if(params->theo_pump_d4f == 2)
+        f = max(0,theo_dim4free_fun2(beta));
+    if(params->theo_pump_d4f == 3)
+        f = max(0,default_dim4free_fun(beta));
+    int beta_prime = floor(beta - f);
     if(beta_prime < 64 or beta < beta_prime)
         return make_pair(0.,0.);
     else if(beta_prime > 1024)
+        // beta_prime = 1024;
         return make_pair(params->max_num,params->max_num);
-    else{
-        double gates = log2(COST::C) + agps20_gates(beta_prime).get_d();
-        // double gates = agps20_gates(beta_prime).get_d();
-        double bits = log2(8.*beta_prime) + agps20_vectors(beta_prime);
-        return make_pair(gates, bits);
-        
-    }
+    
+    double gates = log2(COST::C) + agps20_gates(beta_prime).get_d();
+    // double gates = agps20_gates(beta_prime).get_d();
+    double bits = log2(8.*beta_prime) + agps20_vectors(beta_prime);
+    return make_pair(gates, bits);
+    
 }
 
 
@@ -147,7 +161,13 @@ pair<double,double> COST::get_k1_k2_pump(int beta){
 //get pump cost in threads = 20
 pair<double,double> COST::practical_pump_cost(int beta){
     //make sure not use the enum cost 
-    int f = max(0,default_dim4free_fun(beta));
+    int f = 0;
+    if(params->practical_pump_d4f == 1)
+        f = max(0,theo_dim4free_fun1(beta));
+    if(params->practical_pump_d4f == 2)
+        f = max(0,theo_dim4free_fun2(beta));
+    if(params->practical_pump_d4f == 3)
+        f = max(0,default_dim4free_fun(beta));
     // f = dims4free(beta);
     int beta_prime = beta - f;
     double secs, bits;
@@ -178,7 +198,7 @@ double COST::practical_bkz_cost(int d,int beta,int jump){
     // int extra_dim4free = 12;
     // beta = beta + extra_dim4free;
     // f = f + extra_dim4free;
-    int f;
+    int f = 0;
     bool sieve;
     if(beta < 50){
         sieve = false;
@@ -186,7 +206,12 @@ double COST::practical_bkz_cost(int d,int beta,int jump){
     }
     else{
         sieve = true;  
-        f = default_dim4free_fun(beta);
+        if(params->practical_pnjbkz_d4f == 1)
+            f = max(0,theo_dim4free_fun1(beta));
+        if(params->practical_pnjbkz_d4f == 2)
+            f = max(0,theo_dim4free_fun2(beta));
+        if(params->practical_pnjbkz_d4f == 3)
+            f = max(0,default_dim4free_fun(beta));
     }
     pair<double,double> k = get_k1_k2_pnj(beta-f,sieve); // threads = 20
     double k1 = k.first, k2 = k.second;

@@ -23,10 +23,14 @@ load("../framework/load_lwechal.sage")
 
 
 
-lwechals = [(40,0.025), (45,0.020), (50,0.015), (55,0.010), (60,0.010), (70,0.005), (75,0.005), (40,0.035), (40,0.045), (45,0.035), (50,0.030), (55,0.025), (60,0.020), (65,0.015), (75,0.010), (95,0.005)]
+#lwechals = [(40,0.025), (45,0.020), (50,0.015), (55,0.010)]
+#lwechals = [(60,0.010), (70,0.005), (75,0.005), (40,0.035)]
+#lwechals = [(40,0.045), (45,0.035), (50,0.030), (55,0.025)]
+lwechals = [(60,0.020), (65,0.015), (75,0.010), (95,0.005)]
 
-def lwechal_est(method,  cost_model, worst_case, J=1, gap=1, J_gap=1, parallel_ = False, progressive_sieve = True, print_l = False, lwechals = lwechals):
+
+def lwechal_est(method,  cost_model, worst_case,J=1, gap=1, J_gap=1, parallel_ = False, progressive_sieve = True, print_l = False, lwechals = lwechals, default_g6k=False):
     for (n,alpha) in lwechals:
-        (l,dim,dvol) = gen_lwechal_instance(n, alpha)
-        estimate_attack( silent=False, method = method, progressive_sieve = progressive_sieve, parallel_ = parallel_, l = l, dim_ = dim, dvol =dvol, J=J,gap =gap,J_gap = J_gap, cost_model=cost_model,gen_GSA_gso = False, print_l = print_l, worst_case = worst_case)
+        (l,dim,dvol,b,sigma) = gen_lwechal_instance(n, alpha,default_g6k)
+        estimate_attack( silent=False, method = method, progressive_sieve = progressive_sieve, parallel_ = parallel_, l = l, dim_ = dim, dvol =dvol, J=J,gap =gap,J_gap = J_gap, cost_model=cost_model,gen_GSA_gso = False, print_l = print_l, worst_case = worst_case,b = b, sigma = sigma)
 
