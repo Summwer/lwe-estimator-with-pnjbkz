@@ -188,7 +188,7 @@ double COST::practical_bkz_cost(int d,int beta,int jump){
     }
     else{
         sieve = true;  
-        int f = get_f_for_pnjbkz(params, beta);
+        f = get_f_for_pnjbkz(params, beta);
     }
     pair<double,double> k = get_k1_k2_pnj(beta-f,sieve); // threads = 20
     double k1 = k.first, k2 = k.second;
