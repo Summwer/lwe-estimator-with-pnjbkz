@@ -21,7 +21,7 @@ g++ -O3 -funroll-loops -o lwechal-bssa-est ./NIST-round3/lwechal-bssa-est.cpp -L
 # cd ..
 
 
-# ./lwechal-bssa-est 8 5 2 300 1 0 1 | tee bssa_result/beta-start-50-last-pump-theod4f1/lwechal-bssa-est-sec-J-8-loop-5.log
+./lwechal-bssa-est 8 5 2 300 1 0 1 #| tee bssa_result/beta-start-50-last-pump-theod4f1/lwechal-bssa-est-sec-J-8-loop-5.log
 
 # ./lwechal-bssa-est 8 5 2 300 0 44 1 | tee bssa_result/beta-start-50-last-pump-theod4f1/lwechal-bssa-est-sec-J-8-loop-5-limRAM.log
 
@@ -31,36 +31,36 @@ g++ -O3 -funroll-loops -o lwechal-bssa-est ./NIST-round3/lwechal-bssa-est.cpp -L
 
 # ./lwechal-bssa-est 1 1 2 300 1 0 1 | tee bssa_result/beta-start-50-last-pump-theod4f1/lwechal-bssa-est-sec-J-1-loop-1.log
 
-cd "bssa_result"
-mkdir "beta-start-50-last-pump-theod4f2"
-cd ..
+# cd "bssa_result"
+# mkdir "beta-start-50-last-pump-theod4f2"
+# cd ..
 
 
-./lwechal-bssa-est 8 5 2 300 1 0 2 | tee bssa_result/beta-start-50-last-pump-theod4f2/lwechal-bssa-est-sec-J-8-loop-5.log
+./lwechal-bssa-est 8 5 2 300 1 0 2 #| tee bssa_result/beta-start-50-last-pump-theod4f2/lwechal-bssa-est-sec-J-8-loop-5.log
 
-./lwechal-bssa-est 8 5 2 300 0 44 2 | tee bssa_result/beta-start-50-last-pump-theod4f2/lwechal-bssa-est-sec-J-8-loop-5-limRAM.log
+# ./lwechal-bssa-est 8 5 2 300 0 44 2 | tee bssa_result/beta-start-50-last-pump-theod4f2/lwechal-bssa-est-sec-J-8-loop-5-limRAM.log
 
-# ./lwechal-bssa-est 8 1 2 300 1 0 2 | tee bssa_result/beta-start-50-last-pump-theod4f2/lwechal-bssa-est-sec-J-8-loop-1.log
+# # ./lwechal-bssa-est 8 1 2 300 1 0 2 | tee bssa_result/beta-start-50-last-pump-theod4f2/lwechal-bssa-est-sec-J-8-loop-1.log
 
-./lwechal-bssa-est 1 5 2 300 1 0 2 | tee bssa_result/beta-start-50-last-pump-theod4f2/lwechal-bssa-est-sec-J-1-loop-5.log
+# ./lwechal-bssa-est 1 5 2 300 1 0 2 | tee bssa_result/beta-start-50-last-pump-theod4f2/lwechal-bssa-est-sec-J-1-loop-5.log
 
-# ./lwechal-bssa-est 1 1 2 300 1 0 2 | tee bssa_result/beta-start-50-last-pump-theod4f2/lwechal-bssa-est-sec-J-1-loop-1.log
-
-
-
-cd "bssa_result"
-mkdir "beta-start-50-last-pump-default-g6k"
-cd ..
+# # ./lwechal-bssa-est 1 1 2 300 1 0 2 | tee bssa_result/beta-start-50-last-pump-theod4f2/lwechal-bssa-est-sec-J-1-loop-1.log
 
 
 
+# cd "bssa_result"
+# mkdir "beta-start-50-last-pump-default-g6k"
+# cd ..
 
-# ./lwechal-bssa-est 8 5 2 300 1 0 3 | tee bssa_result/beta-start-50-last-pump-default-g6k/lwechal-bssa-est-sec-J-8-loop-5.log
+
+
+
+./lwechal-bssa-est 8 5 2 300 1 0 3 #| tee bssa_result/beta-start-50-last-pump-default-g6k/lwechal-bssa-est-sec-J-8-loop-5.log
 
 # ./lwechal-bssa-est 8 5 2 300 0 44 3 | tee bssa_result/beta-start-50-last-pump-default-g6k/lwechal-bssa-est-sec-J-8-loop-5-limRAM.log
 
 # ./lwechal-bssa-est 8 1 2 300 1 0 3 | tee bssa_result/beta-start-50-last-pump-default-g6k/lwechal-bssa-est-sec-J-8-loop-1.log
 
-./lwechal-bssa-est 1 5 2 300 1 0 3 | tee bssa_result/beta-start-50-last-pump-default-g6k/lwechal-bssa-est-sec-J-1-loop-5.log
+# ./lwechal-bssa-est 1 5 2 300 1 0 3 | tee bssa_result/beta-start-50-last-pump-default-g6k/lwechal-bssa-est-sec-J-1-loop-5.log
 
 # ./lwechal-bssa-est 1 1 2 300 1 0 3 | tee bssa_result/beta-start-50-last-pump-default-g6k/lwechal-bssa-est-sec-J-1-loop-1.log

@@ -111,7 +111,7 @@ def dims4free(beta):
 def theo_bkz_cost(n, beta,J=1):
     if(beta <=10):
         return (0,0)
-    f = dim4free_wrapper(default_dim4free_fun,beta)
+    f = dim4free_wrapper(theo_dim4free_fun2,beta)
     beta_prime = floor(beta - f)
     if(beta_prime < 64 or beta < beta_prime):
         return (0,0)
@@ -132,7 +132,7 @@ def theo_bkz_cost(n, beta,J=1):
 def pro_theo_bkz_cost(n, beta,J=1):
     if(beta <=10):
         return (0,0)
-    beta_prime = floor(beta - dim4free_wrapper(default_dim4free_fun,beta))
+    beta_prime = floor(beta - dim4free_wrapper(theo_dim4free_fun2,beta))
     if(beta_prime < 64 or beta < beta_prime):
         return (0,0)
     elif(beta_prime > 1024):
@@ -147,7 +147,7 @@ def pro_theo_bkz_cost(n, beta,J=1):
 def theo_pump_cost(beta):
     if(beta <=10):
         return (0,0)
-    beta_prime = floor(beta -  dim4free_wrapper(theo_dim4free_fun1,beta))
+    beta_prime = floor(beta -  dim4free_wrapper(theo_dim4free_fun2,beta))
     #beta_prime = floor(beta -  dim4free_wrapper(default_g6k,beta))
     if(beta_prime < 64 or beta < beta_prime):
         return (0,0)
@@ -256,9 +256,9 @@ def get_k1_k2_pump(beta):
 #get pump time test in threads = 20
 def practical_pump_cost(beta):
     #make sure not use the enum cost 
-    #f = dim4free_wrapper(default_dim4free_fun,beta)
+    f = dim4free_wrapper(default_dim4free_fun,beta)
     #f = dim4free_wrapper(theo_dim4free_fun1,beta)
-    f = dim4free_wrapper(theo_dim4free_fun2,beta)
+    #f = dim4free_wrapper(theo_dim4free_fun2,beta)
     beta_prime = beta - f
     k1, k2 = get_k1_k2_pump(beta_prime) # threads = 20
     # k = (1/71.)*((1.33)**(beta/10.))

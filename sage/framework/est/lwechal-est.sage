@@ -26,8 +26,8 @@ load("../framework/load_lwechal.sage")
 #lwechals = [(40,0.025), (45,0.020), (50,0.015), (55,0.010)]
 #lwechals = [(60,0.010), (70,0.005), (75,0.005), (40,0.035)]
 #lwechals = [(40,0.045), (45,0.035), (50,0.030), (55,0.025)]
-lwechals = [(60,0.020), (65,0.015), (75,0.010), (95,0.005)]
-
+#lwechals = [(60,0.020), (65,0.015), (75,0.010), (95,0.005)]
+lwechals = [(80,0.005)]
 
 def lwechal_est(method,  cost_model, worst_case,J=1, gap=1, J_gap=1, parallel_ = False, progressive_sieve = True, print_l = False, lwechals = lwechals, default_g6k=False):
     for (n,alpha) in lwechals:

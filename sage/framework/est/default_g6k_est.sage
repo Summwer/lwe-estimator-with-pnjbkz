@@ -213,8 +213,9 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
             if(flag):
                 f = d - llb - n_max
                 print("Starting svp pump_{%d, %d, %d}, n_max = %d, Tmax= %.2f sec" % (llb, d-llb, f, n_max, log2(G1)))
-                #dsvp = get_beta_from_sieve_dim(n_max,d,dims4free)
                 dsvp = get_beta_from_sieve_dim(n_max,d,default_dim4free_fun)
+                #dsvp = get_beta_from_sieve_dim(n_max,d,theo_dim4free_fun1)
+                #dsvp = get_beta_from_sieve_dim(n_max,d,theo_dim4free_fun2)
                 (Gpump,Bpump,avg_d_svp,dsvp,cumulated_proba,l) = simulate_pump(l,dsvp, cumulated_proba,progressive_sieve = progressive_sieve ,cost_model=cost_model, sigma = sigma)
                 remaining_proba = 1. - cumulated_proba
                 

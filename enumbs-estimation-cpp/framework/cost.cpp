@@ -149,13 +149,7 @@ pair<double,double> COST::get_k1_k2_pump(int beta){
 //get pump cost in threads = 20
 pair<double,double> COST::practical_pump_cost(int beta){
     //make sure not use the enum cost 
-    int f = 0;
-    if(params->practical_pump_d4f == 1)
-        f = max(0,theo_dim4free_fun1(beta));
-    if(params->practical_pump_d4f == 2)
-        f = max(0,theo_dim4free_fun2(beta));
-    if(params->practical_pump_d4f == 3)
-        f = max(0,default_dim4free_fun(beta));
+    int f = get_f_for_pump(params, beta);
     // f = dims4free(beta);
     int beta_prime = beta - f;
     double secs, bits;
@@ -194,12 +188,7 @@ double COST::practical_bkz_cost(int d,int beta,int jump){
     }
     else{
         sieve = true;  
-        if(params->practical_pnjbkz_d4f == 1)
-            f = max(0,theo_dim4free_fun1(beta));
-        if(params->practical_pnjbkz_d4f == 2)
-            f = max(0,theo_dim4free_fun2(beta));
-        if(params->practical_pnjbkz_d4f == 3)
-            f = max(0,default_dim4free_fun(beta));
+        int f = get_f_for_pnjbkz(params, beta);
     }
     pair<double,double> k = get_k1_k2_pnj(beta-f,sieve); // threads = 20
     double k1 = k.first, k2 = k.second;

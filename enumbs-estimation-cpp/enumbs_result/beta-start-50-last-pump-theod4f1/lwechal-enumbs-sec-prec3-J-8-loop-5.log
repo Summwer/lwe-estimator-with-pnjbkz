@@ -137,6 +137,23 @@ Min Cost = 13.34 log2(sec) = 2.88 h, Memory Cost = 39.23 log2(bit) = 0.07 TB
 EnumBS cost:1.9e+02s.
 
 
+"lwechallenge/80-005.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=80, m=6400, alpha=0.005, q=6421 
+Chose 270 samples. Predict solution at bkz-100 + svp-132. 
+Initial slope = -0.0653337
+dim = 271, dvol = 725.69003801176
+
+After a sigma normalization,Slope = -0.065334
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 8, J_gap = 1, cost_model = 2, max_loop = 5, threads = 10, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = 1, Find minimal time cost strategy, worst_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 1, 
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.614103e-02, G_BKZ = 1.465523e+01 sec, B_BKZ = 3.601715e+01 bit cum-pr = 8.549782e-02, dsvp = 0.000000e+00, dsvp_r = 147, G_dsvp = 1.365291e+01 sec, B_dsvp = 4.099037e+01 bit, G = 1.523942e+01 sec, B = 4.099037e+01 bit,  min_GB.first = 1.523942e+01 gate)
+S(beta,jump,tours):{( 79,  8,  1),( 84,  8,  1),( 92,  8,  1),(105,  8,  1),(116,  8,  1),(117,  8,  1),(117,  4,  1),(118,  4,  1)}
+Min Cost = 15.24 log2(sec) = 10.75 h, Memory Cost = 40.99 log2(bit) = 0.25 TB 
+EnumBS cost:4.8e+02s.
+
 
 "lwechallenge/40-035.txt" exists.
 -------------------------

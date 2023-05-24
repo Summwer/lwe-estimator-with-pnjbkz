@@ -21,7 +21,7 @@ load("../framework/est/NIST-est.sage")
 method = 2
 progressive_sieve = True
 cost_model = 1
-worst_case = True
+worst_case = False
 #------------------------------------
 
 

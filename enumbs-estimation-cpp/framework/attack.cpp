@@ -91,9 +91,16 @@ void call_bssa(vector<double> l, Params* params, int sbeta, int gbeta){
     else
         printf("Find a strategy below the maximal RAM = %f log2(bit), ", params->max_RAM);
     if(params->worst_case)
-        printf("worst_case. \n");
+        printf("worst_case, ");
     else
-        printf("average_case. \n");
+        printf("average_case, ");
+    if(params->cost_model == 1){
+        printf("theo_pnjbkz_d4f = %d, theo_pump_d4f = %d, ", params->theo_pnjbkz_d4f, params->theo_pump_d4f);
+    }
+    if(params->cost_model == 2){
+        printf("practical_pnjbkz_d4f = %d, practical_pump_d4f = %d, ", params->practical_pnjbkz_d4f, params->practical_pump_d4f);
+    }
+    
     if(params->mul_node)
         bssa->bssa_est_mul_node(l, sbeta, gbeta);
     else
