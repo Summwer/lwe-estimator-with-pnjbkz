@@ -479,7 +479,7 @@ int get_beta_from_sieve_dim(int sieve_dim, int d, int choose_dims4f_fun){
 }
 
 
-int get_f(Params* params, int beta){
+int get_f_for_pnjbkz(Params* params, int beta){
     if(params->cost_model == 1){
         if(params->theo_pnjbkz_d4f == 1)
             return max(0,theo_dim4free_fun1(beta));
@@ -499,9 +499,29 @@ int get_f(Params* params, int beta){
     return 0;
 }
 
+int get_f_for_pump(Params* params, int beta){
+    if(params->cost_model == 1){
+        if(params->theo_pump_d4f == 1)
+            return max(0,theo_dim4free_fun1(beta));
+        if(params->theo_pump_d4f == 2)
+            return max(0,theo_dim4free_fun2(beta));
+        if(params->theo_pump_d4f == 3)
+            return max(0,default_dim4free_fun(beta));
+    }
+    if(params->cost_model == 2){
+        if(params->practical_pump_d4f == 1)
+            return max(0,theo_dim4free_fun1(beta));
+        if(params->practical_pump_d4f == 2)
+            return max(0,theo_dim4free_fun2(beta));
+        if(params->practical_pump_d4f == 3)
+            return max(0,default_dim4free_fun(beta));
+    }
+    return 0;
+}
+
 
 int get_beta_(Params* params, int beta, int jump, int d){
-    int f = get_f(params, beta);
+    int f = get_f_for_pnjbkz(params, beta);
     if(jump <= 2)
         return beta;
     else if(jump >=3 && jump <=4){

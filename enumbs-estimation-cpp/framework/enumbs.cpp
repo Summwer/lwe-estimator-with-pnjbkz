@@ -1044,7 +1044,7 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
 
         int beta = beta_j_tid[i].first, jump = beta_j_tid[i].second;
         
-        int f = get_f(params,beta);
+        int f = get_f_for_pnjbkz(params,beta);
         if( (f == 0 or beta < 79) && jump > 1)
             continue;
         if(f!=0 && jump >= f)
@@ -1242,7 +1242,7 @@ void EnumBS::enumbs_est(vector<double> l0){
                 // k_flag = EnumBS::max_tour_for_pnjbkz_beta_G2(k,beta,j); 
                 // EnumBS::max_tour_for_pnjbkz_beta_G2(k,beta,j); 
 
-                int f = get_f(params,beta);
+                int f = get_f_for_pnjbkz(params,beta);
                 if((f == 0 && j > 1) or (f!=0 && j >= f))
                     continue;
 

@@ -41,13 +41,7 @@ pair<double,double> COST::theo_bkz_cost(int n, int beta,int J){
     /*Return cost of bkz-beta in theoretical Gate: T/G -- time cost, B -- memory cost*/
     if(beta <=10)
         return make_pair(0.,0.);
-    int f = 0;
-    if(params->theo_pnjbkz_d4f == 1)
-        f = max(0,theo_dim4free_fun1(beta));
-    if(params->theo_pnjbkz_d4f == 2)
-        f = max(0,theo_dim4free_fun2(beta));
-    if(params->theo_pnjbkz_d4f == 3)
-        f = max(0,default_dim4free_fun(beta));
+    int f = get_f_for_pnjbkz(params,beta);
     int beta_prime = floor(beta - f);
     if(beta_prime < 64 or beta < beta_prime)
         return make_pair(0.,0.);
@@ -65,13 +59,7 @@ pair<double,double> COST::theo_pump_cost(int beta){
     /*Return cost of pump-beta in theoretical Gate: T/G -- time cost, B -- memory cost*/
     if(beta <=10)
         return make_pair(0.,0.);
-    int f = 0;
-    if(params->theo_pump_d4f == 1)
-        f = max(0,theo_dim4free_fun1(beta));
-    if(params->theo_pump_d4f == 2)
-        f = max(0,theo_dim4free_fun2(beta));
-    if(params->theo_pump_d4f == 3)
-        f = max(0,default_dim4free_fun(beta));
+    int f = get_f_for_pump(params, beta);
     int beta_prime = floor(beta - f);
     if(beta_prime < 64 or beta < beta_prime)
         return make_pair(0.,0.);

@@ -259,7 +259,7 @@ void BSSA::bssa_est_mul_node(vector<double> l0, int sbeta, int gbeta){
 
                     if(GB_alg.first > G_tmp_min)
                         break;
-                    int f = get_f(params,beta_alg);
+                    int f = get_f_for_pnjbkz(params,beta_alg);
                     if(((f == 0 or beta_alg < 79 )&& j > 1) || (f!=0 && j >= f))
                         continue;
                     
@@ -402,7 +402,7 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
                     if(GB_alg.first > G_tmp_min)
                         break;
 
-                    int f = get_f(params,beta_alg);
+                    int f = get_f_for_pnjbkz(params,beta_alg);
                     if(((f == 0 or beta_alg < 79 )&& j > 1) || (f!=0 && j >= f))
                         continue;
                     

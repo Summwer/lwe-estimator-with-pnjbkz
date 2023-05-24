@@ -12,18 +12,21 @@ g++ -O3 -funroll-loops -o lwechal-enumbs-parallel-est ./NIST-round3/lwechal-enum
 # argv[6]: practical_pump_d4f
 
 
-# cd "enumbs_result"
-# mkdir "beta-start-50-last-pump-theod4f1"
-# cd ..
+cd "enumbs_result"
+mkdir "fixed_pump_cost"
+cd "fixed_pump_cost"
+mkdir "beta-start-50-last-pump-theod4f1"
+cd ..
+cd ..
 
 
-# ./lwechal-enumbs-parallel-est 8 5 2 300 10 1 | tee enumbs_result/beta-start-50-last-pump-theod4f1/lwechal-enumbs-sec-prec3-J-8-loop-5.log
+./lwechal-enumbs-parallel-est 8 5 2 300 10 1 | tee enumbs_result/beta-start-50-last-pump-theod4f1/fixed_pump_cost/lwechal-enumbs-sec-prec3-J-8-loop-5.log
 
-# ./lwechal-enumbs-parallel-est 8 1 2 300 10 1 | tee enumbs_result/beta-start-50-last-pump-theod4f1/lwechal-enumbs-sec-prec3-J-8-loop-1.log
+# ./lwechal-enumbs-parallel-est 8 1 2 300 10 1 | tee enumbs_result/beta-start-50-last-pump-theod4f1/fixed_pump_cost/lwechal-enumbs-sec-prec3-J-8-loop-1.log
 
-# ./lwechal-enumbs-parallel-est 1 5 2 300 10 1 | tee enumbs_result/beta-start-50-last-pump-theod4f1/lwechal-enumbs-sec-prec3-J-1-loop-5.log
+./lwechal-enumbs-parallel-est 1 5 2 300 10 1 | tee enumbs_result/beta-start-50-last-pump-theod4f1/fixed_pump_cost/lwechal-enumbs-sec-prec3-J-1-loop-5.log
 
-# ./lwechal-enumbs-parallel-est 1 1 2 300 10 1 | tee enumbs_result/beta-start-50-last-pump-theod4f1/lwechal-enumbs-sec-prec3-J-1-loop-1.log
+# ./lwechal-enumbs-parallel-est 1 1 2 300 10 1 | tee enumbs_result/beta-start-50-last-pump-theod4f1/fixed_pump_cost/lwechal-enumbs-sec-prec3-J-1-loop-1.log
 
 # cd "enumbs_result"
 # mkdir "beta-start-50-last-pump-theod4f2"

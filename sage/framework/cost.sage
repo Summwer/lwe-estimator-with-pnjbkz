@@ -147,7 +147,8 @@ def pro_theo_bkz_cost(n, beta,J=1):
 def theo_pump_cost(beta):
     if(beta <=10):
         return (0,0)
-    beta_prime = floor(beta -  dim4free_wrapper(dims4free,beta))
+    beta_prime = floor(beta -  dim4free_wrapper(theo_dim4free_fun1,beta))
+    #beta_prime = floor(beta -  dim4free_wrapper(default_g6k,beta))
     if(beta_prime < 64 or beta < beta_prime):
         return (0,0)
     elif(beta_prime > 1024):

@@ -140,7 +140,8 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
         
         betamin = []
 
-        blocksizes = list(range(10, 50)) + [b-20, b-17] + list(range(b - 14, b + 25, 2))
+        #blocksizes = list(range(10, 50)) + [b-20, b-17] + list(range(b - 14, b + 25, 2))
+        blocksizes = list(range(10, 50)) + [b-20, b-17] + list(range(b - 14, d, 2))
 
         for beta in blocksizes:
             l = simulate_pnjBKZ(l, beta, 1, 1)
@@ -206,13 +207,14 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
             l_ = [2*_*log(2.) for _ in l]
             while gaussian_heuristic(l_[llb:]) < target_norm * (d - llb)/(1.*d): # noqa
                 llb -= 1
-                if llb < 0:
+                if llb <= 0:
                     break
         
             if(flag):
                 f = d - llb - n_max
                 print("Starting svp pump_{%d, %d, %d}, n_max = %d, Tmax= %.2f sec" % (llb, d-llb, f, n_max, log2(G1)))
-                dsvp = get_beta_from_sieve_dim(n_max,d,dims4free)
+                #dsvp = get_beta_from_sieve_dim(n_max,d,dims4free)
+                dsvp = get_beta_from_sieve_dim(n_max,d,default_dim4free_fun)
                 (Gpump,Bpump,avg_d_svp,dsvp,cumulated_proba,l) = simulate_pump(l,dsvp, cumulated_proba,progressive_sieve = progressive_sieve ,cost_model=cost_model, sigma = sigma)
                 remaining_proba = 1. - cumulated_proba
                 

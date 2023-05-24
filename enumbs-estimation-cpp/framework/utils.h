@@ -68,12 +68,12 @@ struct Params{
     bool mul_node  = true;
 
     //params for pnj-bkz
-    int theo_pnjbkz_d4f = 1; //the dim4free function for pnjbkz in theoretical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
+    int theo_pnjbkz_d4f = 2; //the dim4free function for pnjbkz in theoretical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
     int practical_pnjbkz_d4f = 3; //the dim4free function for pnjbkz in prectical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
 
     //params for last pump
     bool progressive_sieve =  true; 
-    int theo_pump_d4f = 1; //the dim4free function for last pump in theoretical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
+    int theo_pump_d4f = 2; //the dim4free function for last pump in theoretical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
     int practical_pump_d4f = 1; //the dim4free function for last pump in prectical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
 };
 
@@ -139,6 +139,7 @@ int default_dim4free_fun(int beta);
 int theo_dim4free_fun1(int beta);
 int theo_dim4free_fun2(int beta);
 int get_beta_from_sieve_dim(int sieve_dim, int d, int choose_dims4f_fun);
-int get_f(Params* params, int beta); 
+int get_f_for_pnjbkz(Params* params, int beta); 
+int get_f_for_pump(Params* params, int beta);
 int get_beta_(Params* params,int beta, int jump, int d);
 

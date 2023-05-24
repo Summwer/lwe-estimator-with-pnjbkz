@@ -22,15 +22,11 @@ int main(){
     FP_NR<FT> dvol;
 
     // Kyber-I(Kyber-512) round-3 parameters
-    // printf("============= Kyber-I\n");
-    //eta1 = eta2 = 3
-    // dim = 1025;
-    // dvol = 3944.9406103;
-
+    printf("============= Kyber-I\n");
     //eta1 = 3, eta2 = 2
-    // dim = 1004;
-    // dvol = 3882.6780896;
-    // gsa_est(dim, dvol, params);
+    dim = 1004;
+    dvol = 3882.6780896;
+    gsa_est(dim, dvol, params);
     
 
     // Kyber-II(Kyber-768) round-3 parameters
