@@ -1,14 +1,11 @@
 # Data for the cost of sieving from:
 # Estimating quantum speedups for lattice sieves
 # Martin R. Albrecht and Vlad Gheorghiu and Eamonn W. Postlethwaite and John M. Schanck
-
-# data file "cost-estimate-list_decoding-classical.csv"
-# The data used below is from the version of May 2020, available at 
-# https://eprint.iacr.org/eprint-bin/getfile.pl?entry=2019/1161&version=20200520:144757&file=1161.pdf
+# The data used is from the following article:
+# https://eprint.iacr.org/2019/1161 
 # This datafile can be extracted from the pdf via the linux tool `pdfdetach'.
-# Another version of that datafile is more easily accessible at 
+# We use the version of Sep 2020
 # https://github.com/jschanck/eprint-2019-1161/blob/main/data/cost-estimate-list_decoding-classical.csv
-# and differ from the one we used by less than a bit at dim 376.
 
 from mpmath import mp
 from math import ceil, floor, exp, pi, pow
@@ -45,6 +42,10 @@ agps20_gate_data = {
           984 :318.095719047813,   992 :320.454114674691, 1000:322.8123488175,   1008:325.170423403542,1016:327.52834033558, 
           1024:329.886101492934
           }
+"""
+agps20_gate_data = {64: 43.211883,80: 48.457505,96: 53.596866,112: 58.664746,128: 63.676389,144: 68.179263,160: 73.941003,176: 78.495338,192: 83.386586,208: 87.765161,224: 92.619433,240: 97.461642,256: 102.293241,272: 107.630129,288: 112.447623,304: 117.257149,320: 122.059455,336: 126.855209,352: 131.645008,368: 136.429391,384: 141.208847,400: 145.983818,416: 150.754701,432: 155.521855,448: 160.285602,464: 165.046233,480: 169.804005,496: 174.559148,512: 179.311870,528: 184.489459,544: 189.238986,560: 193.986524,576: 198.732208,592: 203.476157,608: 208.218480,624: 212.959270,640: 217.698612,656: 222.436582,672: 227.173249,688: 231.908671,704: 236.642905,720: 241.375999,736: 246.107999,752: 250.838945,768: 255.568875,784: 260.297823,800: 265.025820,816: 269.752895,832: 274.479077,848: 279.204391,864: 283.928860,880: 288.652508,896: 293.375355,912: 298.097424,928: 302.818732,944: 307.539300,960: 312.259145,976: 316.978285,992: 321.696736,1008: 326.414517,1024: 331.131641,1040: 336.355357,1056: 341.071849,1072: 345.787718,1088: 350.502979,1104: 355.217645,1120: 359.931730,1136: 364.645249,1152: 369.358216,1168: 374.070643,1184: 378.782544,1200: 383.493932,1216: 388.204818,1232: 392.915217,1248: 397.625139,1264: 402.334597,1280: 407.043602,1296: 411.752167,1312: 416.460301,1328: 421.168016,1344: 425.875324,1360: 430.582234,1376: 435.288756,1392: 439.994902,1408: 444.700680,1424: 449.406100,1440: 454.111173,1456: 458.815905,1472: 463.520308,1488: 468.224390,1504: 472.928159,1520: 477.631623,1536: 482.334791,1552: 487.037671,1568: 491.740270,1584: 496.442595,1600: 501.144654,1616: 505.846455,1632: 510.548003,1648: 515.249306,1664: 519.950370,1680: 524.651202,1696: 529.351807,1712: 534.052192,1728: 538.752362,1744: 543.452323,1760: 548.152080,1776: 552.851639,1792: 557.551004,1808: 562.250182,1824: 566.949176,1840: 571.647992,1856: 576.346633,1872: 581.045105,1888: 585.743410,1904: 590.441555,1920: 595.139542,1936: 599.837375,1952: 604.535058,1968: 609.232595,1984: 613.929990,2000: 618.627244,2016: 623.324363,2032: 628.021349,2048: 632.718205}
+
+"""
 
 
 # Function C from AGPS20 source code
@@ -90,6 +91,19 @@ def agps20_gates(beta_prime):
         return x * d2 + (1 - x) * d1
     return agps20_gate_data[beta_prime]
 
+
+
+# Return log2 of the number of gates for FindAllPairs according to AGPS20
+def agps20_gates(beta_prime):
+    k = beta_prime / 16
+    if k != round(k):
+        x = k - floor(k)
+        d1 = agps20_gates(16*floor(k))
+        d2 = agps20_gates(16*(floor(k) + 1))
+        return x * d2 + (1 - x) * d1
+    return agps20_gate_data[beta_prime]
+
+
 # Return log2 of the number of vectors for sieving according to AGPS20
 def agps20_vectors(beta_prime):
     k = round(beta_prime)
@@ -100,6 +114,9 @@ def agps20_vectors(beta_prime):
 # Progressivity Overhead Factor
 C = 1./(1.- 2**(-.292))
 
+# List decoding parameter, theoretical sieve cost = 2**(a*beta_prime+b)
+
+list_decoding_classical = {"MATZOV22": (0.29613500308205365,20.387885985467914), "AGPS20": (0.2988026130564745, 26.011121212891872)}
 
 
 #theo d4f 2
@@ -108,92 +125,49 @@ def dims4free(beta):
 
 
 #cost of bkz with progressive sieve
-def theo_bkz_cost(n, beta,J=1):
+def theo_bkz_cost(n, beta,ldc_param = "AGPS20"):
     if(beta <=10):
         return (0,0)
     f = dim4free_wrapper(theo_dim4free_fun2,beta)
     beta_prime = floor(beta - f)
-    if(beta_prime < 64 or beta < beta_prime):
-        return (0,0)
-    elif(beta_prime > 1024):
-        #return (float("inf"),float("inf"))
-        #beta_prime = 1024
-        #gates = log2((1.*(n+2*f-beta)/J)*C) + agps20_gates(beta_prime)
-        #bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
-        #return (gates, bits)
-        return (1000,1000)
+    
+    if(ldc_param == "AGPS20"):
+        gates = log2(1.*(n-beta)*C) + (list_decoding_classical[ldc_param][0] * beta_prime + list_decoding_classical[ldc_param][1]) #agps20_gates(beta_prime) #
     else:
-        gates = log2((1.*(n+2*f-beta)/J)*C) + agps20_gates(beta_prime)
-        bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
-        return (gates, bits)
+        gates = log2(1.*(n-beta)*C) + (list_decoding_classical[ldc_param][0] * beta_prime + list_decoding_classical[ldc_param][1])
+    bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
+    return (gates, bits)
 
 
-#cost of progressive bkz with progressive sieve
-def pro_theo_bkz_cost(n, beta,J=1):
+
+def theo_pump_cost(beta,ldc_param = "AGPS20"):
     if(beta <=10):
         return (0,0)
-    beta_prime = floor(beta - dim4free_wrapper(theo_dim4free_fun2,beta))
-    if(beta_prime < 64 or beta < beta_prime):
-        return (0,0)
-    elif(beta_prime > 1024):
-        #return (float("inf"),float("inf"))
-        return (1000,1000)
+    if(ldc_param == "AGPS20"):
+        gates = log2(1.*C) + (list_decoding_classical[ldc_param][0] * beta + list_decoding_classical[ldc_param][1]) #agps20_gates(beta) #
     else:
-        gates = log2((1.*(n-beta)/J)*C*C) + agps20_gates(beta_prime)
-        bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
-        return (gates, bits)
+        gates = log2(1.*C) + (list_decoding_classical[ldc_param][0] * beta + list_decoding_classical[ldc_param][1])
 
-
-def theo_pump_cost(beta):
-    if(beta <=10):
-        return (0,0)
-    beta_prime = floor(beta -  dim4free_wrapper(theo_dim4free_fun2,beta))
-    #beta_prime = floor(beta -  dim4free_wrapper(default_g6k,beta))
-    if(beta_prime < 64 or beta < beta_prime):
-        return (0,0)
-    elif(beta_prime > 1024):
-        #return (float("inf"),float("inf"))
-        return (1000,1000)
-        #beta_prime = 1024
-        #gates = log2(C) + agps20_gates(beta_prime)
-        #bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
-        #return (gates, bits)
-    else:
-        gates = log2(C) + agps20_gates(beta_prime)
-        bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
-
-        return (gates, bits)
+    bits = log2(8*beta) + agps20_vectors(beta)
+    return (gates, bits)
 
     
 #Return progressive sieve cost
-def pump_cost(d,beta,cost_model = 1):
+def pump_cost(d,beta,cost_model = 1,ldc_param = "AGPS20"):
     if(cost_model == 1):
-        return theo_pump_cost(beta)
+        return theo_pump_cost(beta,ldc_param = ldc_param)
     elif(cost_model == 2):
         return practical_pump_cost(beta)
 
 
-def pro_bkz_cost(d, beta,J=1,cost_model=1):
-    if(cost_model == 1):
-        return pro_theo_bkz_cost(d, beta,J)
-    elif(cost_model == 2):
-        return log2(practical_bkz_cost(d,beta,J)),practical_pump_cost(beta)[1]
 
-def bkz_cost(d, beta,J=1,cost_model=1):
+def bkz_cost(d, beta,cost_model=1,ldc_param = "AGPS20"):
     if(cost_model == 1):
-        return theo_bkz_cost(d, beta,J)
+        return theo_bkz_cost(d, beta,ldc_param = ldc_param)
     elif(cost_model == 2):
-        return log2(practical_bkz_cost(d,beta,J)),practical_pump_cost(beta)[1]
+        beta_prime = beta - dim4free_wrapper(default_dim4free_fun,beta)
+        return log2(practical_bkz_cost(d,beta,1)),practical_pump_cost(beta_prime)[1]
     
-
-def summary(n, beta):
-    beta_prime = floor(beta -  dim4free_wrapper(dims4free,beta))  
-    gates1, bits1 = bkz_cost(n, beta)
-    gates2, bits2 = pump_cost(beta)
-    print(gates1,gates2)
-    gates = log2(2**gates1+2**gates2)
-    bits = max(bits1,bits2)
-    return(n, beta, beta_prime, gates, bits)
 
 
 ###########################
@@ -256,10 +230,11 @@ def get_k1_k2_pump(beta):
 #get pump time test in threads = 20
 def practical_pump_cost(beta):
     #make sure not use the enum cost 
-    f = dim4free_wrapper(default_dim4free_fun,beta)
+    #f = dim4free_wrapper(default_dim4free_fun,beta)
     #f = dim4free_wrapper(theo_dim4free_fun1,beta)
     #f = dim4free_wrapper(theo_dim4free_fun2,beta)
-    beta_prime = beta - f
+    #beta_prime = beta - f
+    beta_prime = beta
     k1, k2 = get_k1_k2_pump(beta_prime) # threads = 20
     # k = (1/71.)*((1.33)**(beta/10.))
     secs = k1*beta_prime+k2
@@ -299,19 +274,3 @@ def practical_bkz_cost(d,beta,jump):
     
     return round(pre_pnj_time,4)
  
-
-
-
-'''
-dim = 323
-for beta in range(70,100):
-    for J in range(1,2):
-        print("dim = %d, beta = %d, jump = %d" %(dim, beta, J) )
-        f = dim4free_wrapper(default_dim4free_fun,beta)
-
-        print(2**pump_cost(dim,beta,cost_model = 2)[0]*(dim+2*f-beta)*C, 2**bkz_cost(dim, beta,J,cost_model=2)[0])
-        print(2**pump_cost(dim,beta,cost_model = 1)[0] *(dim+2*f-beta) * C, 2**bkz_cost(dim, beta,J,cost_model=1)[0])
-
-'''
-
-#print(practical_pump_cost(138))

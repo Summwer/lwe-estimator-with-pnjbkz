@@ -22,7 +22,7 @@ def dim4free_wrapper(dim4free_fun, blocksize):
     if blocksize < 40:
         return 0
     dim4free = dim4free_fun(blocksize)
-    return int(min((blocksize - 40)/2, dim4free))
+    return min(ceil((blocksize - 40)/2), dim4free)
 
 
 def default_dim4free_fun(blocksize):
@@ -32,7 +32,7 @@ def default_dim4free_fun(blocksize):
     :param blocksize: the BKZ blocksize
 
     """
-    return int(11.5 + 0.075*blocksize)
+    return ceil(11.5 + 0.075*blocksize)
 
 
 def theo_dim4free_fun1(blocksize):
@@ -40,7 +40,7 @@ def theo_dim4free_fun1(blocksize):
     Theoretical Dimension-for-free function 1 without e in [Duc18]
     """
 
-    return int(blocksize*log(4/3.)/log(blocksize/2./pi)) 
+    return ceil(blocksize*log(4/3.)/log(blocksize/2./pi)) 
 
 
 def theo_dim4free_fun2(blocksize):
@@ -48,7 +48,7 @@ def theo_dim4free_fun2(blocksize):
     Theoretical Dimension-for-free function 2 with e in [Duc18]
     """
 
-    return int(blocksize*log(4/3.)/log(blocksize/2./pi/e)) 
+    return ceil(blocksize*log(4/3.)/log(blocksize/2./pi/e)) 
 
 
 
@@ -62,8 +62,6 @@ def get_beta_from_sieve_dim(sieve_dim,d,dim4free_fun):
             return beta
 
         
-
-
 
 
 def simulate_pnjBKZ(l0, beta, jump, loop):

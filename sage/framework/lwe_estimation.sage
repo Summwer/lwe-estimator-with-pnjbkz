@@ -266,9 +266,9 @@ def gen_lwechal_instance(n=40, alpha=0.005, default_g6k = False):
     M.update_gso()
     rr = [M.get_r(i,i) for i in range(d)]
     if(default_g6k):
-        log_rr = [log(rr[i])/log(2)/2 for i in range(d)]
+        log_rr = [log(rr[i],2)/2. for i in range(d)]
     else:
-        log_rr = [log(rr[i])/log(2)/2 - log(sigma)/log(2) for i in range(d)]
+        log_rr = [log(rr[i],2)/2. - log(sigma,2) for i in range(d)]
         sigma = 0.
     print("Initial slope: ", get_current_slope(log_rr,0,d))
     

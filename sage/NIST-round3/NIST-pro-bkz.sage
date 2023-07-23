@@ -1,4 +1,5 @@
 import time
+
 load("../framework/est/NIST-est.sage")
 
 ######################################
@@ -18,25 +19,11 @@ load("../framework/est/NIST-est.sage")
 #######################################
 #Fixed parameters
 
-method = 2
+method = 1
+#ldc_param = "MATZOV22" #change list decoding parameters
 
-#estimator in [DDGR20]
-ldc_param = "AGPS20"
-cal_ee = "chi" #chi-square + probabilistic + two-step
-
-
-#Martin's primal usvp + our two-step mode
-#ldc_param = "MATZOV22"
-#cal_ee = "avg_sigma" #primal-martin-usvp + two-step
 #------------------------------------
-
-kyber_est(method,  ldc_param =  ldc_param, cal_ee = cal_ee)
-dilithium_est(method, ldc_param =  ldc_param, cal_ee = cal_ee)
-frodo_est(method, ldc_param =  ldc_param, cal_ee = cal_ee)
-
-
-
-
-
-
-
+#The original leaky lwe estimator
+kyber_est(method)
+dilithium_est(method)
+frodo_est(method)

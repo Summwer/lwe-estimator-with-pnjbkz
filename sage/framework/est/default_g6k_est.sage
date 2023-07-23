@@ -4,7 +4,7 @@ load("../framework/simulator/pump_simulator.sage")
 load("../framework/cost.sage")
 
 
-def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_model=1, worst_case = False, sigma = 0.):
+def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_model=1, worst_case = False, sigma = 0., ldc_param = "AGPS20"):
     l0 = deepcopy(l)
     d = len(l)
     remaining_proba = 1. - cumulated_proba
@@ -23,9 +23,9 @@ def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_mode
             rp = 1 - p
 
             if rp < 0.001:
-                Gpump, Bpump = pump_cost(d,dsvp,cost_model=cost_model)
+                Gpump, Bpump = pump_cost(d,dsvp,cost_model=cost_model,ldc_param = ldc_param)
                 return (Gpump,Bpump,dsvp+dsvp*rp,dsvp,1.,l_)
-        Gpump, Bpump = pump_cost(d,dsvp,cost_model=cost_model)
+        Gpump, Bpump = pump_cost(d,dsvp,cost_model=cost_model,ldc_param = ldc_param)
         return (Gpump,Bpump,dvsp,dsvp,p,l_)    
        
         
@@ -47,7 +47,7 @@ def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_mode
             
         
             avg_d_svp += dsvp * rp * psvp
-            Gpump, Bpump = pump_cost(d,dsvp,cost_model=cost_model)
+            Gpump, Bpump = pump_cost(d,dsvp,cost_model=cost_model,ldc_param = ldc_param)
             Gpump = log2(2**Gpump+2**Gpump)
             if(not worst_case):
                 avgG2 = log2(2**avgG2+(2**Gpump) * rp * psvp)
@@ -76,7 +76,7 @@ def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_mode
     return (Gpump,Bpump,avg_d_svp,dsvp,p,l_)
 
 #LWE estimation: Simplified progressive BKZs + Pump
-def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, cost_model=1, worst_case = False,threads = 32, sigma = sigma):
+def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, cost_model=1, worst_case = False,threads = 32, sigma = sigma,ldc_param = "AGPS20"):
     """
     Computes the beta value for given dimension and volumes
     It is assumed that the instance has been normalized and sphericized, 
@@ -125,7 +125,6 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
     goal_margin = 1.5
     target_norm = goal_margin * (sigma**2) * (d-1) + 1
     
-    DDGR20 = False
     bbeta = None
     pprev_margin = None
     Gmin, Bmin, avgbetamin, dsvpmin = float("inf"), float("inf"), d, d
@@ -145,6 +144,7 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
 
         for beta in blocksizes:
             l = simulate_pnjBKZ(l, beta, 1, 1)
+
             proba = 1.
             
             i = d - beta
@@ -153,26 +153,26 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
             
             average_beta += beta * remaining_proba * proba
 
-            G1, B1 = bkz_cost(d,beta,1,cost_model=cost_model)
+            G1, B1 = bkz_cost(d,beta,cost_model=cost_model,ldc_param = ldc_param)
 
 
             G = log2(2**G +2**G1)
             if(not worst_case):
                 Gcum = log2(2**Gcum + ((2**G) * remaining_proba * proba))
+                Bcum = log2(2**Bcum + ((2**B1) * remaining_proba * proba))
             else:
                 Gcum = G
-            
-            Bcum = max(Bcum,B1)
+                Bcum = max(Bcum,B1)
 
             cumulated_proba += remaining_proba * proba
             remaining_proba = 1. - cumulated_proba
 
             if verbose:
                 if(cost_model == 1):
-                    print("β= %d, slope=%f,  G=%3.2f log2(gate),  B=%3.2f bit"%
+                    print("β= %d, slope=%f,  G=%3.2f log2(gate),  B=%3.2f lo2(bit)"%
                         (beta, get_current_slope(l,0,d),  Gcum, Bcum))
                 if(cost_model == 2):
-                    print("β= %d, slope=%f,  G=%3.2f log2(sec), walltime = %3.2f sec, B=%3.2f bit"%
+                    print("β= %d, slope=%f,  G=%3.2f log2(sec), walltime = %3.2f sec, B=%3.2f log2(bit)"%
                         (beta, get_current_slope(l,0,d),  Gcum, 2**Gcum, Bcum))
                 
 
@@ -187,11 +187,12 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
             Gpump,Bpump = 0., 0.
             
             n_max = int(58 + 2.85 * (Gcum + log(threads,2))) #32: threads number
-            #n_max = int(53 + 2.85 * Gcum)
             
+            l_ = [2.*_*log(2.) for _ in l]
             for n_expected in range(2, d-2):
-                x = target_norm / goal_margin * n_expected/(1.*d)
-                l_ = [2*_*log(2.) for _ in l]
+                x = (target_norm / goal_margin) * n_expected/(1.*d)
+                #if(beta == 112):
+                #    print(n_expected,x,4./3 * gaussian_heuristic(l_[d-n_expected:]))
                 if 4./3 * gaussian_heuristic(l_[d-n_expected:]) > x:
                     break
         
@@ -204,7 +205,6 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
             n_max += 1
 
             llb = d - beta
-            l_ = [2*_*log(2.) for _ in l]
             while gaussian_heuristic(l_[llb:]) < target_norm * (d - llb)/(1.*d): # noqa
                 llb -= 1
                 if llb <= 0:
@@ -216,7 +216,7 @@ def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, c
                 dsvp = get_beta_from_sieve_dim(n_max,d,default_dim4free_fun)
                 #dsvp = get_beta_from_sieve_dim(n_max,d,theo_dim4free_fun1)
                 #dsvp = get_beta_from_sieve_dim(n_max,d,theo_dim4free_fun2)
-                (Gpump,Bpump,avg_d_svp,dsvp,cumulated_proba,l) = simulate_pump(l,dsvp, cumulated_proba,progressive_sieve = progressive_sieve ,cost_model=cost_model, sigma = sigma)
+                (Gpump,Bpump,avg_d_svp,dsvp,cumulated_proba,l) = simulate_pump(l,dsvp, cumulated_proba,progressive_sieve = progressive_sieve ,cost_model=cost_model, sigma = sigma,ldc_param = ldc_param)
                 remaining_proba = 1. - cumulated_proba
                 
                 Gcum = log2(2**Gcum + 2**Gpump)

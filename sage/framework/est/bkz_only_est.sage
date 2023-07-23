@@ -2,7 +2,7 @@
 load("../framework/utils.sage")
 
 
-def bkz_only(d, logvol, l, verbose=False, cost_model = 1, worst_case = False):
+def bkz_only(d, logvol, l, verbose=False, cost_model = 1, worst_case = False, ldc_param = "AGPS20"):
     """
     Computes the beta value for given dimension and volumes
     It is assumed that the instance has been normalized and sphericized, 
@@ -65,13 +65,14 @@ def bkz_only(d, logvol, l, verbose=False, cost_model = 1, worst_case = False):
             2**(2 * l[i]))
 
         average_beta += beta * remaining_proba * proba
-        G1, B1 = bkz_cost(d,beta,cost_model=cost_model)
+        G1, B1 = bkz_cost(d,beta,cost_model=cost_model,ldc_param = ldc_param)
         if(not worst_case):
             GBKZ = log2(2**GBKZ + 2**G1)
             G1cum = log2(2**G1cum + ((2**GBKZ) * remaining_proba * proba))
+            B1cum = log2(2**B1cum + ((2**B1) * remaining_proba * proba))
         else:
             G1cum = log2(2**G1cum + 2**G1)
-        B1cum = max(B1cum,B1)
+            B1cum = max(B1cum,B1)
 
         cumulated_proba += remaining_proba * proba
         remaining_proba = 1. - cumulated_proba
@@ -81,7 +82,7 @@ def bkz_only(d, logvol, l, verbose=False, cost_model = 1, worst_case = False):
 
         if remaining_proba < .001:
             average_beta += beta * remaining_proba * proba
-            G1, B1 = bkz_cost(d,beta,cost_model=cost_model)
+            G1, B1 = bkz_cost(d,beta,cost_model=cost_model,ldc_param = ldc_param)
             if(not worst_case):
                 G1cum = log2(2**G1cum + ((2**GBKZ) * remaining_proba))
             B1cum = max(B1cum,B1)
