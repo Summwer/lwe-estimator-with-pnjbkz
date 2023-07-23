@@ -1,0 +1,6 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/cryptothesis/summer/debug/slicer'
+make: Leaving directory '/home/cryptothesis/summer/debug/slicer'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+
