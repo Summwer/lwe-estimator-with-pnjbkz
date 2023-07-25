@@ -4,79 +4,56 @@ load("../framework/simulator/pump_simulator.sage")
 load("../framework/cost.sage")
 
 
-def simulate_pump(l,up_dsvp, cumulated_proba,progressive_sieve = False,cost_model=1, worst_case = False, sigma = 0., ldc_param = "AGPS20"):
+def simulate_pump(l,up_dsvp, cumulated_proba,cost_model=1, worst_case = False, sigma = 0., ldc_param = "AGPS20"):
     l0 = deepcopy(l)
     d = len(l)
     remaining_proba = 1. - cumulated_proba
     if(cumulated_proba>= 1. or up_dsvp < 50):
         return (0.,0,0.,0,0,l)
-    if not progressive_sieve:
-        Gpump, Bpump = float("inf"), float("inf")
-        for dsvp in range(50, up_dsvp+1):
-            psvp = 1.
-            #2**(2 * l1[d-dsvp])==2**(2 * l1d_dsvp)==gh
-
-            l_ = pump_simulator(l0,d,d-dsvp)
-            psvp *= chisquared_table[dsvp].cum_distribution_function(2**(2 * (l_[d-dsvp]- log(sigma)/log(2))))
-            
-            p = cumulated_proba + remaining_proba * psvp
-            rp = 1 - p
-
-            if rp < 0.001:
-                Gpump, Bpump = pump_cost(d,dsvp,cost_model=cost_model,ldc_param = ldc_param)
-                return (Gpump,Bpump,dsvp+dsvp*rp,dsvp,1.,l_)
+               
+    #predict dimension of last sieve: progressive sieve
+    p = deepcopy(cumulated_proba)
+    rp = 1. - p
+    avg_d_svp = 0.
+    avgG2,avgB2 = 0.,0.
+    Gpump = 0.
+    pre_psvp = 0.
+    for dsvp in range(50, up_dsvp+1):    
+        psvp = 1.
+        #2**(2 * l1[d-dsvp])==2**(2 * l1d_dsvp)==gh
+        l_ = pump_simulator(l0,d,d-dsvp)
+        psvp *= chisquared_table[dsvp].cum_distribution_function(2**(2 * (l_[d-dsvp]- log(sigma)/log(2))))
+        
+        avg_d_svp += dsvp * rp * psvp
         Gpump, Bpump = pump_cost(d,dsvp,cost_model=cost_model,ldc_param = ldc_param)
-        return (Gpump,Bpump,dvsp,dsvp,p,l_)    
-       
-        
-    else:           
-        #predict dimension of last sieve: progressive sieve
-        p = deepcopy(cumulated_proba)
+        if(not worst_case):
+            avgG2 = log2(2**avgG2+(2**Gpump) * rp * psvp)
+        else:
+            avgG2 = log2(2**avgG2+(2**Gpump) * (psvp - pre_psvp))
+            
+        avgB2 = max(Bpump,avgB2)
+
+        p += rp * psvp
         rp = 1. - p
-        avg_d_svp = 0.
-        avgG2,avgB2 = 0.,0.
-        Gpump = 0.
-        pre_psvp = 0.
-        for dsvp in range(50, up_dsvp+1):
-            
-            psvp = 1.
-            #2**(2 * l1[d-dsvp])==2**(2 * l1d_dsvp)==gh
-            l_ = pump_simulator(l0,d,d-dsvp)
-            psvp *= chisquared_table[dsvp].cum_distribution_function(2**(2 * (l_[d-dsvp]- log(sigma)/log(2))))
-
-            
+        #print(dsvp, gh)
         
-            avg_d_svp += dsvp * rp * psvp
-            Gpump, Bpump = pump_cost(d,dsvp,cost_model=cost_model,ldc_param = ldc_param)
-            Gpump = log2(2**Gpump+2**Gpump)
-            if(not worst_case):
-                avgG2 = log2(2**avgG2+(2**Gpump) * rp * psvp)
-            else:
-                avgG2 = log2(2**avgG2+(2**Gpump) * (psvp - pre_psvp))
+        if(not worst_case):
+            if rp < 0.001:
+                #raise ""
+                #print(rp,avg_d_svp,dsvp * rp)
+                avg_d_svp += dsvp * rp #Avoid too small of dsvp
+                avgG2 = log2(2**avgG2 + ((2**Gpump) * rp))
+                return (avgG2,avgB2,avg_d_svp,dsvp,1.,l_)
+        else:
+            if(1-psvp < 0.001):
+                return (avgGpump,avgBpump,avgdsvp,dsvp,1.,l_)
             
-            avgB2 = max(Bpump,avgB2)
-
-            p += rp * psvp
-            rp = 1. - p
-            #print(dsvp, gh)
-        
-            if(not worst_case):
-                if rp < 0.001:
-                    #raise ""
-                    #print(rp,avg_d_svp,dsvp * rp)
-                    avg_d_svp += dsvp * rp #Avoid too small of dsvp
-                    avgG2 = log2(2**avgG2 + ((2**Gpump) * rp))
-                    return (avgG2,avgB2,avg_d_svp,dsvp,1.,l_)
-            else:
-                if(1-psvp < 0.001):
-                    return (avgGpump,avgBpump,avgdsvp,dsvp,1.,l_)
-            
-            pre_psvp = psvp
+        pre_psvp = psvp
                 
     return (Gpump,Bpump,avg_d_svp,dsvp,p,l_)
 
 #LWE estimation: Simplified progressive BKZs + Pump
-def default_g6k_est( d, logvol, b, l, verbose=False, progressive_sieve = True, cost_model=1, worst_case = False,threads = 32, sigma = sigma,ldc_param = "AGPS20"):
+def default_g6k_est( d, logvol, b, l, verbose=False,  cost_model=1, worst_case = False,threads = 32, sigma = sigma,ldc_param = "AGPS20"):
     """
     Computes the beta value for given dimension and volumes
     It is assumed that the instance has been normalized and sphericized, 

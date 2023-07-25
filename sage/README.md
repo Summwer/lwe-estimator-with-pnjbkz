@@ -5,7 +5,7 @@ All of the estimators are implemented according to the  (nist)-bkz estimator imp
 
 
 ### Organization of the code
-There are 3 code folders in `sage`.  `framework` contains core code for the (nist)-bkz estimator implemented in leaky-lwe-estimator, default g6k estimator, BKZ-only estimator, simple progressive BKZ and two-step estimator in `est` sub-folder, pnj-BKZ simulator and pump simulator used for BKZ and pump simulation in `simulator` sub-folder. Besides, we also the implement the lwe instance geneneration from TU LWE challenge and the cost model in `framework` folder. 
+There are 3 code folders in `sage`.  `framework` contains core code for the (nist)-bkz estimator implemented in leaky-lwe-estimator(i.e. simple progressive BKZ estiamator, `progressive_bkz_est.sage`), default g6k estimator(`default_g6k_est.sage`), BKZ-only estimator(`bkz_only_est.sage`) and two-step estimator(`two_step_mode_est.sage`) in `est` sub-folder, pnj-BKZ simulator(`pnjbkz_simulator.sage`) and pump simulator(use for simulate default g6k process, `pump_simulator.sage`) used for BKZ and pump simulation in `simulator` sub-folder. Besides, we also the implement the lwe instance geneneration from TU LWE challenge and the cost model in `framework` folder. 
 
 There are 4 files in the folder `lwechal-est`, they give an estimation for the lwe instance from TU LWE challenge in default g6k, BKZ-only, simple progressive BKZ and two-step mode using practical cost model(32threads + 2 nvidia 3090 gpus) declared in https://eprint.iacr.org/2022/1343.pdf.
 - `lwechal-bkz-only.sage` is an executable file for BKZ-only estimation on TU LWE challenge. One can run it in sagemath:
@@ -50,8 +50,12 @@ load("NIST-two-step.sage")
 ```
 If let `ldc_param = "MATZOV22"`, then we can change the classical list decoding cost estimation from which given in [AGPS20] to [MATZOV22].
 
-
-
+LWE-estimator used some conservative assumptions in two-step mode please run the code 
+```
+sage
+cd NIST-round3
+load("NIST-two-step-martin-primal-usvp.sage")
+```
 
 
 

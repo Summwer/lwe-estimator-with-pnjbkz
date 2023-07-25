@@ -31,8 +31,9 @@ def stev_two_step_mode_estimation(dvol, d, verbose=False, cost_model=1,ldc_param
         delta = compute_delta(beta)
         #print(beta, delta, dvol, d)
         l = [log(bkzgsa_gso_len(dvol, i, d, delta=delta)) / log(2.) for i in range(d)]
-        G1, B1 = pro_theo_bkz_cost(d,beta,ldc_param = ldc_param)
-       
+        G1, B1 = bkz_cost(d,beta,ldc_param = ldc_param)
+        G1 += log2(C)
+
         #d_svp prediction
         (dsvp, dsvp_prime, Gpump, Bpump) = stev_d_svp_prediction(l,cost_model,ldc_param)
 
@@ -92,15 +93,17 @@ def proba_two_step_mode_estimation(l, verbose=False, cost_model=1,ldc_param = "A
             #G1cum = log2(2**G1cum + ((2**G1) * remaining_proba * proba))
             GBKZ = log2(2**GBKZ + 2**G1)
             G1cum = log2(2**G1cum + ((2**GBKZ) * remaining_proba * proba))
+            #B1cum = log2(2**B1cum + ((2**B1) * remaining_proba * proba))
+            B1cum = max(B1cum, B1)
         else:
             G1cum = log2(2**G1cum + 2**G1)
+            B1cum = max(B1cum, B1)
        
         cumulated_proba += remaining_proba * proba
         remaining_proba = 1. - cumulated_proba
-
         #d_svp prediction
-        (G_sieve,B_sieve,dsvp,dsvp_prime) = d_svp_prediction(l,cumulated_proba, cost_model,ldc_param)
 
+        (G_sieve,B_sieve,dsvp,dsvp_prime) = d_svp_prediction(l,cumulated_proba, cost_model,ldc_param,worst_case)
 
         #print(beta, proba, l[d-beta], cumulated_proba, G_sieve,  dsvp, dsvp_prime, dsvp-dsvp_prime, dim4free_wrapper(theo_dim4free_fun2,dsvp))
 
@@ -119,7 +122,7 @@ def proba_two_step_mode_estimation(l, verbose=False, cost_model=1,ldc_param = "A
            
 
         if verbose:
-            print("β= %d, cum-pr=%.2e, pump-{%d,%d,%d},  G=%3.2f gate,  B=%3.2f bit"%(beta, cumulated_proba, d-dsvp, dsvp, dsvp-dsvp_prime, Gmin, Bmin), end="\r" if cumulated_proba < 1e-4 else "\n")
+            print("β= %d, cum-pr=%.2e, dsvp_min=%d, G=%3.2f log2(gate),  B=%3.2f log2(bit)"%(beta, cumulated_proba, dsvp_prime_min, Gmin, Bmin), end="\r" if cumulated_proba < 1e-4 else "\n")
             
         if remaining_proba < .001:
             break
