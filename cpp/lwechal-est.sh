@@ -28,3 +28,7 @@ g++ -O3 -funroll-loops -o lwechal-enumbs-est ./lwe-est/lwechal-enumbs-parallel-e
 g++ -O3 -funroll-loops -o lwechal-bssa-est ./lwe-est/lwechal-bssa-est.cpp -L. -pthread -lfplll -lgmp -lmpfr -lest
 
 ./lwechal-bssa-est 100 10 2 300 1 0 3 1 | tee lwechal-est-result/bssa-est.log
+
+
+
+

@@ -54,11 +54,14 @@ struct Params{
     bool debug = false; //print debug logging or not.
     bool verification =false; //verify the correctness of strategy
 
+    //params for cost model;
+    string list_decoding = "apgs20"; //list_decoding = "apgs20" or "matzov22"
+    int est_model = 1; //1, cumulated pnj-BKZ + cumulated proba pump; 2, cumulated pnj-BKZ + succ-fail proba pump
 
     //enumbs params
     double enumbs_G_prec = 1e-3; //1e-5; //set the precision of enumbs
     double enumbs_slope_prec = 1e-4;//1e-6;
-    int beta_start = 50;  //79 for cost model 1, since gate cost of <=79  is 0.
+    int beta_start = 50; 
     bool worst_case = true;
     // bool enum_add_G2 = true;
     bool enumbs_min_G = true; //if enumbs_min_G = false, then call a min RAM enumbs

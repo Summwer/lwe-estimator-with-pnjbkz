@@ -40,12 +40,12 @@ void EnumBS::print_BS(vector<blocksize_strategy> BS){
 
 void EnumBS::print_bs(blocksize_strategy bs){
     cout<<"bs = ";
-    int d = int(bs.l.size());
+    // int d = int(bs.l.size());
     // double G1 = strategy_verification(l,BS[i].S).first;
     if(params->cost_model == 1)
-        printf("(slope = %e, G_BKZ = %e gate, B_BKZ = %e bit cum-pr = %e, pump-{%d,%d,%d}, G_dsvp = %e gate, B_dsvp = %e bit, G = %e gate, B = %e bit, min_GB.first = %e gate)\n",  bs.slope, bs.cum_avg_GB_BKZ.first, bs.cum_avg_GB_BKZ.second, bs.cum_pr, d - get<0>(bs.dsvp_t), get<0>(bs.dsvp_t), get<0>(bs.dsvp_t) -  get<1>(bs.dsvp_t), get<2>(bs.dsvp_t),get<3>(bs.dsvp_t), log2(pow(2,get<2>(bs.dsvp_t)) + pow(2,bs.cum_avg_GB_BKZ.first)), max(bs.cum_avg_GB_BKZ.second,get<3>(bs.dsvp_t)), bs.min_GB.first);  
+        printf("(slope = %e, G_BKZ = %e gate, B_BKZ = %e bit cum-pr = %e, G_dsvp = %e gate, B_dsvp = %e bit, G = %e gate, B = %e bit, min_GB.first = %e gate)\n",  bs.slope, bs.cum_avg_GB_BKZ.first, bs.cum_avg_GB_BKZ.second, bs.cum_pr, get<2>(bs.dsvp_t),get<3>(bs.dsvp_t), log2(pow(2,get<2>(bs.dsvp_t)) + pow(2,bs.cum_avg_GB_BKZ.first)), max(bs.cum_avg_GB_BKZ.second,get<3>(bs.dsvp_t)), bs.min_GB.first);  
     if(params->cost_model == 2)
-        printf("(slope = %e, G_BKZ = %e sec, B_BKZ = %e bit cum-pr = %e,  pump-{%d,%d,%d}, G_dsvp = %e sec, B_dsvp = %e bit, G = %e sec, B = %e bit,  min_GB.first = %e gate)\n",  bs.slope, bs.cum_avg_GB_BKZ.first, bs.cum_avg_GB_BKZ.second, bs.cum_pr, d - get<0>(bs.dsvp_t), get<0>(bs.dsvp_t), get<0>(bs.dsvp_t) -  get<1>(bs.dsvp_t), get<2>(bs.dsvp_t),get<3>(bs.dsvp_t), log2(pow(2,get<2>(bs.dsvp_t)) + pow(2,bs.cum_avg_GB_BKZ.first)), max(bs.cum_avg_GB_BKZ.second,get<3>(bs.dsvp_t)), bs.min_GB.first);  
+        printf("(slope = %e, G_BKZ = %e sec, B_BKZ = %e bit cum-pr = %e, G_dsvp = %e sec, B_dsvp = %e bit, G = %e sec, B = %e bit,  min_GB.first = %e gate)\n",  bs.slope, bs.cum_avg_GB_BKZ.first, bs.cum_avg_GB_BKZ.second, bs.cum_pr, get<2>(bs.dsvp_t),get<3>(bs.dsvp_t), log2(pow(2,get<2>(bs.dsvp_t)) + pow(2,bs.cum_avg_GB_BKZ.first)), max(bs.cum_avg_GB_BKZ.second,get<3>(bs.dsvp_t)), bs.min_GB.first);  
     print_strategy(bs.S);
 }
 
@@ -956,10 +956,9 @@ bool EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BK
     int d = l.size(), beta_ = get_beta_(params,beta,jump,d);
 
     sim -> simulate(l_,l,beta,jump,1);
-
    
     if(l_[d-beta_] == l[d-beta_]){
-        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
+        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
         slope = get_current_slope(l, 0, d);
         return false;
     }
@@ -968,18 +967,16 @@ bool EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BK
         slope = get_current_slope(l, 0, d);
         boost::math::chi_squared chisquare(beta_);
         double pr = boost::math::cdf(chisquare,pow(2,2.*l[d-beta_]));
-         
+        
         
         pair<double,double> GB_BKZ = cost->bkz_cost(d,beta,jump,params->cost_model);
-        // if(beta == 178)
-        //     printf("beta = %d, l[i]= %e, G = %e, rem_pr = %e, pr = %e\n", beta, pow(2,2.*l[d-beta]), GB.first, rem_pr, pr);
-
 
         cum_GB_BKZ.first = log2(pow(2,cum_GB_BKZ.first)+pow(2,GB_BKZ.first));
         cum_GB_BKZ.second = max(cum_GB_BKZ.second, GB_BKZ.second);
         if(not params->worst_case){
             cum_avg_GB_BKZ.first = log2(pow(2,cum_avg_GB_BKZ.first)+(pow(2,cum_GB_BKZ.first)*rem_pr*pr));
-            cum_avg_GB_BKZ.second = log2(pow(2,cum_avg_GB_BKZ.second)+(pow(2,cum_GB_BKZ.second)*rem_pr*pr));
+            // cum_avg_GB_BKZ.second = log2(pow(2,cum_avg_GB_BKZ.second)+(pow(2,cum_GB_BKZ.second)*rem_pr*pr));
+            cum_avg_GB_BKZ.second = max(cum_avg_GB_BKZ.second, cum_GB_BKZ.second);
         }
         else{
             cum_avg_GB_BKZ.first = cum_GB_BKZ.first;
@@ -991,7 +988,7 @@ bool EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BK
         cum_pr += rem_pr * pr;
         rem_pr = 1. - cum_pr;
 
-        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
+        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
 
         GB.first = log2(pow(2,cum_avg_GB_BKZ.first) + pow(2,get<2>(dsvp_t_)));
         GB.second = max(cum_avg_GB_BKZ.second, get<3>(dsvp_t_));
@@ -1221,7 +1218,7 @@ void EnumBS::enumbs_est(vector<double> l0){
     */
     int beta_start = params->beta_start, k = 0, d = l0.size(),j_start,len_S;
     
-    tuple<int,int,double,double>  dsvp0_t = dsvp_predict(l0, 0., cost, params->cost_model, params->progressive_sieve);
+    tuple<int,int,double,double>  dsvp0_t = dsvp_predict(l0, 0., cost, params->cost_model, params->progressive_sieve, params->worst_case);
     blocksize_strategy bs =  {dsvp0_t, {},l0,make_pair(0.,0.), make_pair(0.,0.), make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t)), 0., get_current_slope(l0,0,d), make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t))};
 
 
@@ -1360,7 +1357,7 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
     int k = 0, d = l0.size(), beta_start = params->beta_start;
     blocksize_strategy bs;
 
-    tuple<int,int,double,double>  dsvp0_t = dsvp_predict(l0, 0., cost,params->cost_model, params->progressive_sieve);
+    tuple<int,int,double,double>  dsvp0_t = dsvp_predict(l0, 0., cost,params->cost_model, params->progressive_sieve, params->worst_case);
 
     bs = {dsvp0_t, {},l0,make_pair(0.,0.), make_pair(0.,0.),make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t)), 0., get_current_slope(l0,0,d), make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t))};
 
@@ -1382,6 +1379,7 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
     for(int beta = beta_start;  beta < d; beta++){
         pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, beta, 1, dsvp_t1, slope1);
         S.insert(S.end(),{beta,1,1}); 
+        // cout<<"cum_pr = "<<cum_pr<<endl;
         if(params->enumbs_min_G){
             if(min_GB.first > GB.first){
                 min_GB = GB;
@@ -1593,7 +1591,7 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
 //         }
 //     }
 
-//     tuple<int,int,double,double> dsvp_t =  dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
+//     tuple<int,int,double,double> dsvp_t =  dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
 //     double G2 = get<2>(dsvp_t);
 //     double G = log2(pow(2,G1cum)+pow(2,G2));
 //     printf("Verified cum_pr = %e \n ", cum_pr);

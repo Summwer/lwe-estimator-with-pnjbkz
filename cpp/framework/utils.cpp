@@ -445,7 +445,7 @@ int dims4free(int beta){
 int default_dim4free_fun(int beta){
     if(beta < 40)
         return 0;
-    int f = int(11.5 + 0.075*beta);
+    int f = int(ceil(11.5 + 0.075*beta));
     return min(int(ceil(((double)beta - 40)/2.)), f);
 }
 

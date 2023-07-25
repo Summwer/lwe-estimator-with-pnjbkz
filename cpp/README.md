@@ -65,12 +65,12 @@ make install
 
 
 ### Organization of the code
-There are 3 code folders in `cpp`.  `framework` contains core code for EnumBS, BSSA, pnj-BKZ simulator and cost model implementations. If developers modify the codes in it, please run `./rebuild.sh` in the main direction. 
+There are 3 code folders in `cpp`.  `framework` contains core code for EnumBS(`enumbs.cpp`), BSSA(`bssa.cpp`), pnj-BKZ simulator(`bkz_with_jump_simulator.cpp`) and cost model(`cost.cpp`) implementations. If developers modify the codes in it, please run `./rebuild.sh` in the main direction. 
 
 There are two files in the folder `lwe-est`: 
 - `lwechal-bssa-est.cpp` is an executable file for generating blocksize strategy by BSSA algorithm and give a cost estimation for lwe instances provided in TU LWE challenge(https://www.latticechallenge.org/lwe_challenge/challenge.php). One can run it by running code 
 
-- `lwechal-bssa-est.cpp` is an executable file for generating blocksize strategy by EnumBS algorithm and give a cost estimation for lwe instances provided in TU LWE challenge(https://www.latticechallenge.org/lwe_challenge/challenge.php). 
+- `lwechal-enumbs-parallel-est.cpp` is an executable file for generating blocksize strategy by EnumBS algorithm and give a cost estimation for lwe instances provided in TU LWE challenge(https://www.latticechallenge.org/lwe_challenge/challenge.php). 
 
 One can test the blocksize strategy generation method in EnumBS and BSSA by running code 
 ```
@@ -79,9 +79,18 @@ One can test the blocksize strategy generation method in EnumBS and BSSA by runn
 in the main directory. It will return the blocksize strategy for some of LWE challenges in the folder `lwechal-est-result`.
 
 
+We can use the strategy generated in `lwechal-est-result` to solve the corresponding LWE problem by the progressive pnj-BKZ solver(https://github.com/Summwer/pro-pnj-bkz.git).
+
+
 The code file `NIST-round3-est-gate.cpp` in `NIST-round3-est` is used for estimating all the LWE-based NIST schemes(Kyber, Dilithium and Frodo) by EnumBS estimator. One can test it by running the code 
 ```
 ./implement_all_NIST_schemes.sh
 ```
-in the main directory. It will return the blocksize strategy for some of LWE challenges in the folder `lwechal-est-result`.
+in the main directory. It will return the blocksize strategy for some of LWE challenges in the folder `lwechal-est-result`, corresponding to the Table 3 in https://eprint.iacr.org/2022/1343.
 
+
+To simulate a LWE instance in detail and return the simulated basis quality(we regard "slope" as a basis quality representation) and simulated cost(in practical cost model with threads = 32 and gpus = 2 * 3039Ti GPUS (sec)) after each pnj-BKZ$(\beta,J, {\rm tours})$ reduction, please refer to the file `strategy_simulation.cpp` and one can run it by the following command
+```
+./strategy_simulation.sh
+```
+and get the 'Practical' column for LWE challenge ($40,0.035$) in Table 5 in https://eprint.iacr.org/2022/1343.

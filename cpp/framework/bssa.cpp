@@ -24,7 +24,7 @@ void BSSA::print_BS(map<int,BSSA::blocksize_strategy> BS){
 }
 
 void BSSA::print_bs(blocksize_strategy bs){
-    tuple<int,int,double,double> dsvp_t_ =  dsvp_predict(bs.l, bs.cum_pr, cost, params->cost_model, params->progressive_sieve);
+    tuple<int,int,double,double> dsvp_t_ =  dsvp_predict(bs.l, bs.cum_pr, cost, params->cost_model, params->progressive_sieve, params->worst_case);
     int d = int(bs.l.size());
     
     cout<<"bs = ";
@@ -47,7 +47,7 @@ bool BSSA::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, dou
     sim -> simulate(l_,l,beta,jump,1);
 
     if(l_[d-beta_] == l[d-beta_]){
-        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
+        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
         slope = get_current_slope(l, 0, d);
         return false;
     }
@@ -73,7 +73,7 @@ bool BSSA::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, dou
         rem_pr = 1. - cum_pr;
 
 
-        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
+        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
 
         return true;
 
@@ -358,7 +358,7 @@ BSSA::blocksize_strategy BSSA::min_tour_to_each_goal_beta(BSSA::blocksize_strate
 //     BSSA::blocksize_strategy bsmin;
 //     bool flag = false;
 //     for (map<int, BSSA::blocksize_strategy> ::iterator it = BS.begin(); it != BS.end(); it++) {
-//         tuple<int,int,double,double> dsvp_t0 = dsvp_predict(it->second.l, it->second.cum_pr, cost,params->cost_model, params->progressive_sieve);
+//         tuple<int,int,double,double> dsvp_t0 = dsvp_predict(it->second.l, it->second.cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
 //         G1 = it->second.GB_BKZ.first;
 //         G2 = get<2>(dsvp_t0);
 //         G = log2(pow(2,G1)+pow(2,G2));
@@ -376,7 +376,7 @@ BSSA::blocksize_strategy BSSA::min_tour_to_each_goal_beta(BSSA::blocksize_strate
 //     }
 //     else{
 //         for (map<int, BSSA::blocksize_strategy> ::iterator it = BS.begin(); it != BS.end(); it++) {
-//             tuple<int,int,double,double> dsvp_t0 = dsvp_predict(it->second.l, it->second.cum_pr, cost,params->cost_model, params->progressive_sieve);
+//             tuple<int,int,double,double> dsvp_t0 = dsvp_predict(it->second.l, it->second.cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
 //             G1 = it->second.GB_BKZ.first;
 //             G2 = get<2>(dsvp_t0);
 //             G = log2(pow(2,G1)+pow(2,G2));
@@ -505,7 +505,7 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
     double Gmin = params->max_num, Bmin  = params->max_num, G1, G2, G,  B;
     BSSA::blocksize_strategy bsmin;
     for (map<int, BSSA::blocksize_strategy> ::iterator it = BS.begin(); it != BS.end(); it++) {
-        tuple<int,int,double,double> dsvp_t0 = dsvp_predict(it->second.l, it->second.cum_pr, cost,params->cost_model, params->progressive_sieve);
+        tuple<int,int,double,double> dsvp_t0 = dsvp_predict(it->second.l, it->second.cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
         G1 = it->second.GB_BKZ.first;
         G2 = get<2>(dsvp_t0);
         G = log2(pow(2,G1)+pow(2,G2));
@@ -557,7 +557,7 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
 //         }
 //     }
 
-//     tuple<int,int,double,double> dsvp_t =  dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve);
+//     tuple<int,int,double,double> dsvp_t =  dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
 //     double G2 = get<2>(dsvp_t);
 //     double G = log2(pow(2,G1cum)+pow(2,G2));
 //     printf("Verified cum_pr = %e \n ", cum_pr);

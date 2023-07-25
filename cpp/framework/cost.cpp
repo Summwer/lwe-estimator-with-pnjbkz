@@ -53,17 +53,21 @@ double agps20_vectors(int beta_prime){
 //cost of bkz with progressive sieve
 pair<double,double> COST::theo_bkz_cost(int n, int beta,int J){
     /*Return cost of bkz-beta in theoretical Gate: T/G -- time cost, B -- memory cost*/
+    double gates = 0.;
     if(beta <=10)
         return make_pair(0.,0.);
     int f = get_f_for_pnjbkz(params,beta);
     int beta_prime = floor(beta - f);
-    // if(beta_prime < 64 or beta < beta_prime)
-    //     return make_pair(0.,0.);
-    // else if(beta_prime > 2048)
-    //     // beta_prime = 1024;
-    //     return make_pair(params->max_num,params->max_num);
-        //double gates = log2((((double)n-beta)/J)*COST::C*COST::C) + agps20_gates(beta_prime).get_d();
-    double gates = log2((((double)n + 2*f -beta)/J)*COST::C) +  list_decoding_classical_matzov22.first * beta_prime + list_decoding_classical_matzov22.second; //agps20_gates(beta_prime).get_d();
+    if(params->list_decoding == "matzov22")
+        gates = log2((((double)n -beta)/J)*COST::C) +  list_decoding_classical_matzov22.first * beta_prime + list_decoding_classical_matzov22.second; //agps20_gates(beta_prime).get_d();
+    if(params->list_decoding == "apgs20"){
+        if(beta_prime < 64 or beta < beta_prime)
+            return make_pair(0.,0.);
+        else if(beta_prime > 1024)
+            gates = log2((((double)n-beta)/J)*COST::C) +  list_decoding_classical_agps20.first * beta_prime + list_decoding_classical_agps20.second;
+        else
+            gates = log2((((double)n-beta)/J)*COST::C)  + agps20_gates(beta_prime).get_d();
+    }
     double bits = log2(8*beta_prime) + agps20_vectors(beta_prime);
     return make_pair(gates, bits);
     
@@ -91,18 +95,20 @@ pair<double,double> COST::theo_bkz_cost(int n, int beta,int J){
 
 pair<double,double> COST::theo_pump_cost(int beta){
     /*Return cost of pump-beta in theoretical Gate: T/G -- time cost, B -- memory cost*/
+    double gates = 0.;
     if(beta <=10)
         return make_pair(0.,0.);
-    // int f = get_f_for_pump(params, beta);
-    // int beta_prime = floor(beta - f);
-    // if(beta < 64)
-    //     return make_pair(0.,0.);
-    // else if(beta > 2048)
-    //     // beta_prime = 1024;
-    //     return make_pair(params->max_num,params->max_num);
     
-    double gates = log2(COST::C) +  list_decoding_classical_matzov22.first * beta + list_decoding_classical_matzov22.second; //agps20_gates(beta).get_d();
-    // double gates = agps20_gates(beta_prime).get_d();
+    if(params->list_decoding == "matzov22")
+        gates = log2(COST::C) +  list_decoding_classical_matzov22.first * beta + list_decoding_classical_matzov22.second; //agps20_gates(beta).get_d();
+    if(params->list_decoding == "apgs20"){
+        if(beta < 64)
+            return make_pair(0.,0.);
+        else if(beta > 1024)
+            gates = log2(COST::C) + list_decoding_classical_agps20.first * beta + list_decoding_classical_agps20.second;
+        else
+            gates = log2(COST::C) + agps20_gates(beta).get_d();
+    }
     double bits = log2(8.*beta) + agps20_vectors(beta);
     return make_pair(gates, bits);
     
