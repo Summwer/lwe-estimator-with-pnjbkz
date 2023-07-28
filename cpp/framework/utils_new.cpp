@@ -462,12 +462,12 @@ int default_dim4free_fun(int beta){
 int theo_dim4free_fun1(Params* params,int beta){
     if(beta < 40)
         return 0;
-    int f = 0;
-    if(params -> cost_model == 2 and params -> J == 100){
-        f = max(0,int((double)beta * log(4./3.) / log((double)beta/(2.*M_PI))));
-    }
-    else
-        f = max(0,int(ceil((double)beta * log(4./3.) / log((double)beta/(2.*M_PI)))));
+    // int f = 0;
+    // if(params -> cost_model == 2 and params -> J == 100){
+    //     f = max(0,int((double)beta * log(4./3.) / log((double)beta/(2.*M_PI))));
+    // }
+    // else
+    int f = max(0,int(ceil((double)beta * log(4./3.) / log((double)beta/(2.*M_PI)))));
     // return min(int(ceil(((double)beta - 40)/2.)), f);
     return min(int(((double)beta - 40)/2.), f);
 }

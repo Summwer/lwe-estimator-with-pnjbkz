@@ -9,6 +9,8 @@
 //argv[4]: maximal dimension in enumeration
 //argv[5]: threads number
 //argv[6]: practical_pump_d4f
+//argv[7]: start beta value.
+//argv[8]: est model in dsvp_prediction for last pump
 int main(int argc,char **argv){
     Params* params = new Params; //J, gap, J_gap, cost_model, verbose,
     params->J = atoi(argv[1]); 
@@ -19,11 +21,25 @@ int main(int argc,char **argv){
     params->practical_pump_d4f = atoi(argv[6]);
     // params->max_RAM = 43.58; //1.5T = 43.58
     // params->enumbs_min_G = false;
+    params->beta_start = atoi(argv[7]);
+    params->est_model = atoi(argv[8]);
+    params->worst_case = true;
 
     vector<pair<int,double>> lwes;
 
     //low_dim_lwechallenge_est. 
-    lwes = { {40, 0.025}, {45, 0.020}, {50, 0.015}, {60, 0.010}, {80, 0.005}, {40,0.035}, {40,0.040}, {50,0.025},{55,0.020},{90,0.005}};
+    if(params->practical_pump_d4f==3){
+        if(params->J == 8)
+            lwes= {{40, 0.025}, {45, 0.020}, {50, 0.015},{60, 0.010}};
+        else
+            lwes = {{80, 0.005}};
+    }
+    else {
+        if(params->practical_pump_d4f == 1)
+            lwes = {{40,0.040}, {50,0.025},{55,0.020},{90,0.005}};
+        else
+            lwes = {{40,0.030}};
+    }
     for(int i = 0; i < int(lwes.size());i++){
         int n = lwes[i].first;
         double alpha  = lwes[i].second;

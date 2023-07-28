@@ -16,7 +16,7 @@ int main(int argc,char **argv){
     params->worst_case = false;
     params->method = atoi(argv[1]); //1:enumbs;2:bssa
     params->gap = 1;
-    params->J = 20; 
+    params->J = 1; 
     params->J_gap = 1;
     params->enumbs_G_prec = 1./atoi(argv[2]);
     params->max_loop = 1;

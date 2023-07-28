@@ -103,6 +103,7 @@ def d_svp_prediction_model1(l, cumulated_proba,cost_model,ldc_param,worst_case):
     rp = 1. - p
     avgdsvp = 0.
     avgG_sieve,avgB_sieve = 0.,0.
+    pre_psvp = 0. 
     for dsvp in range(50, d):
         psvp = 1.
         #2**(2 * l1[d-dsvp])==2**(2 * l1d_dsvp)==gh
@@ -118,7 +119,7 @@ def d_svp_prediction_model1(l, cumulated_proba,cost_model,ldc_param,worst_case):
             #avgB_sieve = log2(2**avgB_sieve + (2**Bpump) * rp * psvp)
             avgB_sieve = max(Bpump,avgB_sieve)
         else:
-            avgG_sieve = Gpump
+            G_cum = log2(pow(2,G_cum)+pow(2,Gpump) * (psvp-pre_psvp))
             avgB_sieve = max(Bpump,avgB_sieve)
 
         p += rp * psvp
@@ -132,7 +133,7 @@ def d_svp_prediction_model1(l, cumulated_proba,cost_model,ldc_param,worst_case):
         else:
             if(1-psvp < 0.001):
                 return (avgG_sieve,avgB_sieve,dsvp,avgdsvp)
-        #pre_psvp = psvp
+        pre_psvp = psvp
             
     return (G_sieve,B_sieve,dsvp,dsvp)
 

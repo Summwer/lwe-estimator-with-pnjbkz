@@ -56,7 +56,7 @@ struct Params{
 
     //params for cost model;
     string list_decoding = "apgs20"; //list_decoding = "apgs20" or "matzov22"
-    int est_model = 1; //1, cumulated pnj-BKZ + cumulated proba pump; 2, cumulated pnj-BKZ + succ-fail proba pump
+    int est_model = 2; //1, cumulated pnj-BKZ + cumulated proba pump; 2, cumulated pnj-BKZ + succ-fail proba pump
 
     //enumbs params
     int delta_beta = -1;//10; //Ensure quality(beta,jump) >= quality(beta-delta_beta,1)

@@ -58,6 +58,16 @@ load("NIST-two-step-martin-primal-usvp.sage")
 ```
 
 
+We also implement the experiment about pnj-BKZ simulator in `sage/simulator-test` folder, the file `Pnj-BKZ_Simulator_Accuracy_Verification.py` is used to draw the figure about the comparison between actual reduced gs-lengths and our simulated gs-lengths. One can run 
+```
+python Pnj-BKZ_Simulator_Accuracy_Verification.py
+```
+in the folder `sage/simulator-test` and obtain the Figure 4 in  https://eprint.iacr.org/2022/1343.pdf. The `Pnj-BKZ_Simulator_HKZ_Reduction_Verification.py` shows that the actual reduced gs-lengths is HKZ-reduced and get the Figure 3 in  https://eprint.iacr.org/2022/1343.pdf. One can run it by 
+```
+python Pnj-BKZ_Simulator_HKZ_Reduction_Verification.py
+```
+
+
 
 More detail about the above estimators, please see the article https://eprint.iacr.org/2022/1343.pdf .
 

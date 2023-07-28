@@ -446,11 +446,12 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
                         printf("\r Blocksize strategy selection process: %4d --> %4d --> (%4d, %4d) --> %4d --> %4d", sbeta,ssbeta,beta_alg,j,beta,gbeta);
                     pair<double, double> GB_alg = cost->bkz_cost(d,beta_alg,j,params->cost_model);
 
+                    // int f = get_f_for_pnjbkz(params,beta_alg);
                     int f = get_f_for_pnjbkz(params,beta_alg);
-                    if(((f == 0 or beta_alg < 79 )&& j > 1) || (f!=0 && j > min(f,ceil(0.1* beta_alg))))
+                    if(((f == 0 or beta_alg < 79 )&& j > 1) || (f!=0 && j >= min(f,ceil(0.1* beta_alg))))
                         continue;
 
-                    if(GB_alg.first > G_tmp_min  and (j == params->J or j == min(f,ceil(0.1* beta_alg)))){
+                    if(GB_alg.first > G_tmp_min  and (j == params->J or j < min(f,ceil(0.1* beta_alg)))){
                         flag = false;
                         break;
                     }

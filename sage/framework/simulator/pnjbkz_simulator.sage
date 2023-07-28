@@ -22,7 +22,7 @@ def dim4free_wrapper(dim4free_fun, blocksize):
     if blocksize < 40:
         return 0
     dim4free = dim4free_fun(blocksize)
-    return min(ceil((blocksize - 40)/2), dim4free)
+    return min((blocksize - 40)/2., dim4free)
 
 
 def default_dim4free_fun(blocksize):

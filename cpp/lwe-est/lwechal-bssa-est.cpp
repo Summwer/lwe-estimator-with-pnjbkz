@@ -10,6 +10,9 @@
 // argv[5]: enumbs_min_G: 0-- false, find minimal RAM strategy; 1--true, find minimal time cost strategy
 // argv[6]: max_RAM
 // argv[7]: practical_pump_d4f
+// argv[8]: 1:tradional bssa; 2:improved bssa
+// argv[9]: start beta value.
+//argv[10]: est model in dsvp_prediction for last pump
 int main(int argc,char **argv){
     Params* params = new Params; //J, gap, J_gap, cost_model, verbose,
     params->method = 2; //bssa strategy
@@ -24,6 +27,10 @@ int main(int argc,char **argv){
         params->bssa_tradion = true;
     else if(atoi(argv[8]) == 0)
         params->bssa_tradion = false;
+
+    params->beta_start = atoi(argv[9]);
+    params->est_model = atoi(argv[10]);
+    params->worst_case = true;
 
     vector<pair<int,double>> lwes;
     lwes = { {40, 0.025}, {45, 0.020}, {50, 0.015}, {60, 0.010}, {80, 0.005}, {40,0.035}, {40,0.040}, {50,0.025},{55,0.020},{90,0.005}};

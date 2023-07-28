@@ -16,12 +16,12 @@
 
 // Return log2 of the number of gates for FindAllPairs according to AGPS20
 FP_NR<FT> COST::agps20_gates(int beta_prime){
-    FP_NR<FT> k = ((double)beta_prime) / 16.;
+    FP_NR<FT> k = ((double)beta_prime) / 8.;
     FP_NR<FT> d1,d2,x;
     if(k != round(k.get_d())){
         x = k - floor(k);
-        d1 = agps20_gates(16*(int)floor(k).get_d());
-        d2 = agps20_gates(16*((int)floor(k).get_d() + 1));
+        d1 = agps20_gates(8*(int)floor(k).get_d());
+        d2 = agps20_gates(8*((int)floor(k).get_d() + 1));
         return x * d2 + (1. - x) * d1;
     }
     return COST::agps20_gate_data[beta_prime];
@@ -56,6 +56,7 @@ pair<double,double> COST::theo_bkz_cost(int n, int beta,int J){
     double gates = 0.;
     if(beta <=10)
         return make_pair(0.,0.);
+    // int f = get_f_for_pnjbkz(params,beta);
     int f = get_f_for_pnjbkz(params,beta);
     int beta_prime = floor(beta - f);
     if(params->list_decoding == "matzov22")
@@ -73,24 +74,6 @@ pair<double,double> COST::theo_bkz_cost(int n, int beta,int J){
     
 }
 
-// pair<double,double> COST::theo_pump_cost(int beta){
-//     /*Return cost of pump-beta in theoretical Gate: T/G -- time cost, B -- memory cost*/
-//     if(beta <=10)
-//         return make_pair(0.,0.);
-//     int f = get_f_for_pump(params, beta);
-//     int beta_prime = floor(beta - f);
-//     if(beta_prime < 64 or beta < beta_prime)
-//         return make_pair(0.,0.);
-//     else if(beta_prime > 1024)
-//         // beta_prime = 1024;
-//         return make_pair(params->max_num,params->max_num);
-    
-//     double gates = log2(COST::C) + agps20_gates(beta_prime).get_d();
-//     // double gates = agps20_gates(beta_prime).get_d();
-//     double bits = log2(8.*beta_prime) + agps20_vectors(beta_prime);
-//     return make_pair(gates, bits);
-    
-// }
 
 
 pair<double,double> COST::theo_pump_cost(int beta){
@@ -260,6 +243,7 @@ double COST::practical_bkz_cost(int d,int beta,int jump){
     }
     else{
         sieve = true;  
+        // f = get_f_for_pnjbkz(params, beta);
         f = get_f_for_pnjbkz(params, beta);
     }
     pair<double,double> k = get_k1_k2_pnj(beta-f,sieve); // threads = 20

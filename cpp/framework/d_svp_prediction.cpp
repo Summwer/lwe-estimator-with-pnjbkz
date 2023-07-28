@@ -56,7 +56,7 @@ tuple<int,int,double,double> progressive_dsvp_predict1(vector<double> l, double 
     return dsvp, G, B. 
     */
     int d = l.size();
-    double psvp, p = cum_pr , rp = 1.-cum_pr, gh, avg_d_svp  = 0.;
+    double psvp, pre_psvp = 0., p = cum_pr , rp = 1.-cum_pr, gh, avg_d_svp  = 0.;
     pair<double,double> p_cost, p_cost_cum;
     double G_cum = 0., B_cum = 0.;
     
@@ -72,7 +72,13 @@ tuple<int,int,double,double> progressive_dsvp_predict1(vector<double> l, double 
         psvp = boost::math::cdf(chisquare,gh); //Compute chi-squared value
 
         int f = get_f_for_pump(cost->params,dsvp);
+
         int dsvp_prime = floor(dsvp - f);
+        // int dsvp_prime = dsvp;
+        // if(cost->params->cost_model == 2)
+        //     dsvp_prime = dsvp - f;
+        // if(cost->params->cost_model == 1)
+        //     dsvp_prime = floor(dsvp - f);
         p_cost = cost->pump_cost(dsvp_prime,cost_model);
         if(not worst_case){
             avg_d_svp += dsvp * rp * psvp;
@@ -80,10 +86,11 @@ tuple<int,int,double,double> progressive_dsvp_predict1(vector<double> l, double 
             // B_cum = log2(pow(2,B_cum)+pow(2,p_cost.second) * rp * psvp);
             B_cum = p_cost.second;
         }else{
-            G_cum = p_cost.first;
-            B_cum = p_cost.second;
+            // G_cum = p_cost.first;
+            // B_cum = p_cost.second;
+            G_cum = log2(pow(2,G_cum)+pow(2,p_cost.first) * (psvp-pre_psvp));
+            B_cum = max(B_cum,p_cost.second);
         }
-        
         p += rp * psvp;
         rp = 1. - p;
         // cerr<<"dsvp = "<<dsvp<<", rp = "<<rp<<endl;
@@ -100,6 +107,7 @@ tuple<int,int,double,double> progressive_dsvp_predict1(vector<double> l, double 
                 return  make_tuple(dsvp, dsvp, G_cum,B_cum); 
             }
         }
+        pre_psvp = psvp;
     }
     p_cost = cost->pump_cost(d,cost_model);
     return make_tuple(d,d, p_cost.first, p_cost.second);
