@@ -140,6 +140,7 @@ double gaussian_heuristic_log2(vector<FP_NR<FT>> l, int index_start);
 double gaussian_heuristic_log2(vector<double> l, int index_start);
 
 int dims4free(int beta); //leaky-lwe-estimator
+int wrapper_default_dim4free_fun(int beta);
 int default_dim4free_fun(int beta);
 int theo_dim4free_fun1(int beta);//Params* params,
 int theo_dim4free_fun2(int beta);

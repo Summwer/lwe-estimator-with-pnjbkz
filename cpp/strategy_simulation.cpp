@@ -51,7 +51,7 @@ void sim_strategy(Params* params, vector<double> l, vector<tuple<int,int,int>> s
     tuple<int,int,double,double> dsvp_t_ = dsvp_predict(l, 0., cost, params->cost_model, params->progressive_sieve, params->worst_case);
 
     int dsvp = get<1>(dsvp_t_);
-    // int f = default_dim4free_fun(dsvp);
+    // int f = wrapper_default_dim4free_fun(dsvp);
     int f = get_f_for_pump(params,dsvp);
     // int f = dims4free(dsvp);
     // printf("pump-{%d,%d,%d}, sim-pump cost = %3.7f sec\n",  dim - dsvp, dsvp, f,  pow(2,get<2>(dsvp_t_)));  

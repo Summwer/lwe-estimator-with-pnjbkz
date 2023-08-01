@@ -444,7 +444,7 @@ int dims4free(int beta){
 }
 
 
-int default_dim4free_fun(int beta){
+int wrapper_default_dim4free_fun(int beta){
     if(beta < 40)
         return 0;
     
@@ -503,7 +503,7 @@ int get_f_for_pnjbkz(Params* params, int beta){
         if(params->theo_pnjbkz_d4f == 2)
             return max(0,theo_dim4free_fun2(beta));
         if(params->theo_pnjbkz_d4f == 3)
-            return max(0,default_dim4free_fun(beta));
+            return max(0,wrapper_default_dim4free_fun(beta));
     }
     if(params->cost_model == 2){
         if(params->practical_pnjbkz_d4f == 1)
@@ -511,7 +511,7 @@ int get_f_for_pnjbkz(Params* params, int beta){
         if(params->practical_pnjbkz_d4f == 2)
             return max(0,theo_dim4free_fun2(beta));
         if(params->practical_pnjbkz_d4f == 3)
-            return max(0,default_dim4free_fun(beta));
+            return max(0,wrapper_default_dim4free_fun(beta));
     }
     return 0;
 }
@@ -523,7 +523,7 @@ int get_f_for_pump(Params* params, int beta){
         if(params->theo_pump_d4f == 2)
             return max(0,theo_dim4free_fun2(beta));
         if(params->theo_pump_d4f == 3)
-            return max(0,default_dim4free_fun(beta));
+            return max(0,wrapper_default_dim4free_fun(beta));
     }
     if(params->cost_model == 2){
         if(params->practical_pump_d4f == 1)
@@ -531,7 +531,7 @@ int get_f_for_pump(Params* params, int beta){
         if(params->practical_pump_d4f == 2)
             return max(0,theo_dim4free_fun2(beta));
         if(params->practical_pump_d4f == 3)
-            return max(0,default_dim4free_fun(beta));
+            return max(0,wrapper_default_dim4free_fun(beta));
     }
     return 0;
 }
