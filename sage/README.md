@@ -36,7 +36,7 @@ load("lwechal-two-step.sage")
 
 The code files in `NIST-round3` is used for estimating all the LWE-based NIST schemes(Kyber, Dilithium and Frodo) by EnumBS estimator. 
 
-- `NIST-pro-bkz.sage` calls a progressive BKZ and chi-squared distribution to estiamte NIST schemes, it is the estimation method mentioned in Kyber(round3), i.e. leaky-lwe-estimator. One can test it by running the code 
+- `NIST-pro-bkz.sage` calls a progressive BKZ and chi-squared distribution to estiamte NIST schemes, it is the adaptive estimation method mentioned in Kyber(round3), i.e. leaky-lwe-estimator[DDGR20] (We implement it in average cost, not average beta). One can test it by running the code 
 ```
 sage
 cd NIST-round3

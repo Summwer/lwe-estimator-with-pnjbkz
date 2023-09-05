@@ -28,7 +28,7 @@ vector<int> expand_samples(vector<int> samples,vector<double> probs,int sample_n
     int index = 0;
     int upper_index = 0;
 
-    for(int i=0; i< int(samples.size()); i++){
+    for(int i=0; i < int(samples.size()); i++){
         if(i < int(samples.size())-1)
             upper_index += sample_num*probs[i];
         else
@@ -335,10 +335,11 @@ double get_current_slope(vector<double> l, int start, int end){
 
 
 
-FP_NR<FT> bkzgsa_gso_len( FP_NR<FT> logvol, int i, int d, FP_NR<FT> delta, int beta){
+FP_NR<FT> bkzgsa_gso_len( FP_NR<FT> logvol, int i, int d,int beta){
     FP_NR<FT> gso_len;
-    if(delta >= 1000.)
-        delta = compute_delta(beta);
+    //  FP_NR<FT> delta, 
+    //if(delta >= 1000.)
+    FP_NR<FT> delta = compute_delta(beta);
     gso_len.pow_si(delta,(d-1-2*i));
     FP_NR<FT> tmp;
     tmp.exponential(logvol/(double(d)));
@@ -411,12 +412,12 @@ double gaussian_heuristic_log2(vector<double> l, int index_start){
 //Generate input simulated-gs-lengths
 vector<double> gen_simulated_gso(int d, FP_NR<FT> logvol){
     FP_NR<FT> delta, gso_len;
-    delta = compute_delta(2);
+    // delta = compute_delta(2);
     
     vector<FP_NR<FT>> l;
     l.resize(d);
     for(int i = 0; i<d; i++){
-        gso_len = bkzgsa_gso_len(logvol, i, d, delta);
+        gso_len = bkzgsa_gso_len(logvol, i, d, 2); // delta, beta = 2
         l[i].log(gso_len);
         l[i].div(l[i],log(2));
     }
@@ -440,26 +441,45 @@ int dims4free(int beta){
     if(beta < 40)
         return 0;
     return max(0,int(ceil((double)beta * log(4./3.) / log((double)beta/(2.*M_PI*exp(1.))))));
+    // return max(0,int(((double)beta * log(4./3.) / log((double)beta/(2.*M_PI*exp(1.))))));
 }
+
 
 int wrapper_default_dim4free_fun(int beta){
     if(beta < 40)
         return 0;
+    
+    // //For lwe-est
+    // // int f = int(11.5 + 0.075*beta);
+    // // return min(int(((double)beta - 40)/2.), f);
+
+    // //For nist-est
+    // int f = int(ceil(11.5 + 0.075*beta));
     int f = int(11.5 + 0.075*beta);
     return min(int(((double)beta - 40)/2.), f);
+}
+
+
+int default_dim4free_fun(int beta){
+    if(beta < 40)
+        return 0;
+    
+    int f = int(11.5 + 0.075*beta);
+    return f;
 }
 
 int theo_dim4free_fun1(int beta){
     if(beta < 40)
         return 0;
-    int f = max(0,int((double)beta * log(4./3.) / log((double)beta/(2.*M_PI))));
+    int f = max(0,int(ceil((double)beta * log(4./3.) / log((double)beta/(2.*M_PI)))));
     return min(int(((double)beta - 40)/2.), f);
-    
 }
+
 
 int theo_dim4free_fun2(int beta){
     if(beta < 40)
         return 0;
+    // return min(int(ceil(((double)beta - 40)/2.)), dims4free(beta));
     return min(int(((double)beta - 40)/2.), dims4free(beta));
 }
 
@@ -526,7 +546,7 @@ int get_beta_(Params* params, int beta, int jump, int d){
         return beta;
     else if(jump >=3 && jump <=4){
         if((params->cost_model == 2 and params->practical_pnjbkz_d4f == 3) or (params->cost_model == 1 and params->theo_pnjbkz_d4f == 3)){
-            return get_beta_from_sieve_dim(beta-f,d,2);
+            return get_beta_from_sieve_dim( beta-f,d,2);
         }else
             return beta;
     }
@@ -534,8 +554,50 @@ int get_beta_(Params* params, int beta, int jump, int d){
         if((params->cost_model == 2 and params->practical_pnjbkz_d4f == 1) or (params->cost_model == 1 and params->theo_pnjbkz_d4f == 1))
             return beta;
         else
-            return get_beta_from_sieve_dim(beta-f,d,1);
+            return get_beta_from_sieve_dim( beta-f,d,1);
     }
     return beta;
 }
 
+
+
+int factorial(int n) 
+{
+    if (n == 0)
+       return 1;
+    return n * factorial(n - 1);
+}
+
+//Implement centered_binomial distribution
+int binomial(int x, int y){
+    /*Binomial coefficient
+    :param x: (integer)
+    :param y: (integer)
+    :returns: y choose x
+    */
+    if(x<y)
+        return 0;
+    else
+        return factorial(x)/factorial(y)/factorial(x-y); 
+}
+
+
+
+double centered_binomial_pdf(int k, int x)
+    /* Probability density function of the centered binomial law of param k at x
+    :param k: (integer)
+    :param x: (integer)
+    :returns: p_k(x)
+    */
+    return (double) binomial(2 * k, x + k) / pow(2., 2 * k);
+
+std::map<int,double>  build_centered_binomial_law(int k){
+    /* Construct the binomial law as a dictionnary
+    :param k: (integer)
+    :returns: A dictionnary {x:p_k(x) for x in {-k..k}}
+    */
+    std::map<int,double> D = {};
+    for(int i=-k; i<=k; i++)
+        D[i] = centered_binomial_pdf(k, i);
+    return D;
+}

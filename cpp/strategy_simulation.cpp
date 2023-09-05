@@ -48,7 +48,7 @@ void sim_strategy(Params* params, vector<double> l, vector<tuple<int,int,int>> s
         l[i] -= log2(sigma);
     }
 
-    tuple<int,int,double,double> dsvp_t_ = dsvp_predict(l, 0., cost, params->cost_model, params->progressive_sieve, params->worst_case);
+    tuple<int,int,double,double> dsvp_t_ = dsvp_predict(l, 0., cost, params->cost_model, params->progressive_sieve, params->worst_case,make_pair(Gcum, Bcum));
 
     int dsvp = get<1>(dsvp_t_);
     // int f = wrapper_default_dim4free_fun(dsvp);

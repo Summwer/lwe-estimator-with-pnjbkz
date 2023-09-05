@@ -14,6 +14,12 @@ load("../framework/est/NIST-est.sage")
 
     cost_model = 1: theoretical cost estimation
                = 2: experimental cost estimation
+
+    ldc_param = "MATZOV22": list decoding method in [MATZOV22]
+                "AGPS20"(default): list decoding method in [AGPS20]
+    
+    cal_ee = "avg_sigma": martin's primal usvp + two step
+             "chi" #chi-square + probabilistic + two-step
 '''
 #######################################
 #Fixed parameters
@@ -21,18 +27,20 @@ load("../framework/est/NIST-est.sage")
 method = 2
 
 #estimator in [DDGR20]
-ldc_param = "AGPS20"
+#ldc_param = "AGPS20"
 cal_ee = "chi" #chi-square + probabilistic + two-step
-
+goal_min_cost = "gate_min" # "gate_min": find the minimal gates cost in two-step
+                           # "gate_RAM_min": find the minimal (gates+RAM) cost in two-step 
 
 #Martin's primal usvp + our two-step mode
-#ldc_param = "MATZOV22"
+ldc_param = "MATZOV22"
 #cal_ee = "avg_sigma" #primal-martin-usvp + two-step
 #------------------------------------
 
-kyber_est(method,  ldc_param =  ldc_param, cal_ee = cal_ee)
-dilithium_est(method, ldc_param =  ldc_param, cal_ee = cal_ee)
-frodo_est(method, ldc_param =  ldc_param, cal_ee = cal_ee)
+kyber_est(method,  ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost)
+#dilithium_est(method, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost)
+#hufu_est(method, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost)
+#eaglesign_est(method, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost)
 
 
 

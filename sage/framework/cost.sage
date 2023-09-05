@@ -132,7 +132,7 @@ def theo_bkz_cost(n, beta,ldc_param = "AGPS20"):
         return (0,0)
     if(ldc_param == "AGPS20"):
         if(beta_prime > 1024):    
-            gates = log2(1.*(n  -  beta)*C) + (list_decoding_classical[ldc_param][0] * beta_prime + list_decoding_classical[ldc_param][1])
+            gates = log2(1.*(n  -  beta)*C) + (list_decoding_classical[ldc_param][0] * beta_prime + list_decoding_classical[ldc_param][1]) # (n-beta) pump
         else:
             gates = log2(1.*(n  -  beta)*C) + agps20_gates(beta_prime)
     else:
@@ -142,27 +142,52 @@ def theo_bkz_cost(n, beta,ldc_param = "AGPS20"):
 
 
 
-def theo_pump_cost(beta,ldc_param = "AGPS20"):
-    if(beta <=64):
+def theo_pump_cost(dsvp_prime,ldc_param = "AGPS20"):
+    if(dsvp_prime <=64):
         return (0,0)
     if(ldc_param == "AGPS20"):
-        if(beta > 1024):    
-            gates = log2(1.*C) + (list_decoding_classical[ldc_param][0] * beta + list_decoding_classical[ldc_param][1])
+        if(dsvp_prime > 1024):    
+            gates = log2(1.*C) + (list_decoding_classical[ldc_param][0] * dsvp_prime + list_decoding_classical[ldc_param][1])
         else:
-            gates = log2(1.*C) + agps20_gates(beta)
+            gates = log2(1.*C) + agps20_gates(dsvp_prime)
     else:
-        gates = log2(1.*C) + (list_decoding_classical[ldc_param][0] * beta + list_decoding_classical[ldc_param][1])
+        gates = log2(1.*C) + (list_decoding_classical[ldc_param][0] * dsvp_prime + list_decoding_classical[ldc_param][1])
 
-    bits = log2(8*beta) + agps20_vectors(beta)
+    bits = log2(8*dsvp_prime) + agps20_vectors(dsvp_prime)
+    return (gates, bits)
+
+
+
+
+def theo_sieve_cost(dsvp_prime,ldc_param = "AGPS20"):
+    if(dsvp_prime <=64):
+        return (0,0)
+    if(ldc_param == "AGPS20"):
+        if(dsvp_prime > 1024):    
+            gates =  (list_decoding_classical[ldc_param][0] * dsvp_prime + list_decoding_classical[ldc_param][1])
+        else:
+            gates = agps20_gates(dsvp_prime)
+    else:
+        gates =  (list_decoding_classical[ldc_param][0] * dsvp_prime + list_decoding_classical[ldc_param][1])
+
+    bits = log2(8*dsvp_prime) + agps20_vectors(dsvp_prime)
     return (gates, bits)
 
     
 #Return progressive sieve cost
-def pump_cost(d,beta,cost_model = 1,ldc_param = "AGPS20"):
+def pump_cost(beta,cost_model = 1,ldc_param = "AGPS20"):
     if(cost_model == 1):
         return theo_pump_cost(beta,ldc_param = ldc_param)
     elif(cost_model == 2):
         return practical_pump_cost(beta)
+
+
+#Return sieve cost
+def sieve_cost(beta,cost_model = 1,ldc_param = "AGPS20"):
+    if(cost_model == 1):
+        return theo_sieve_cost(beta,ldc_param = ldc_param)
+    elif(cost_model == 2):
+        return practical_pump_cost(beta)[0] - log2(C), practical_pump_cost(beta)[1]
 
 
 

@@ -45,7 +45,7 @@ class COST{
         double practical_bkz_cost(int d,int beta,int jump); //pnj-bkz cost in experiment, threads = 32, gpus = 2 (time unit: log2(sec))
 
 
-        // pair<double,double> sieve_cost(int beta,int cost_model);
+        pair<double,double> sieve_cost(int beta,int cost_model = 1);
         pair<double,double> pump_cost(int beta,int cost_model = 1);
         pair<double,double> bkz_cost(int d, int beta,int jump,int cost_model=1);
 

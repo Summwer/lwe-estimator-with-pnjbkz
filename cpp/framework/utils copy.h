@@ -9,7 +9,6 @@
 
 
 
-
 using namespace std;
 using namespace boost;
 using namespace fplll;
@@ -36,7 +35,7 @@ using namespace std::chrono;
 
 
 struct Params{
-    int J =  5; //J -- maximal jump value;
+    int J =  100; //J -- maximal jump value;
     int gap = 1; //gap -- gap of each beta;
     int J_gap = 1; //J_gap -- gap of each jump value;
     //cost_model: 1: gate model; 2: sec model with threads=32, gpus = 2 
@@ -55,25 +54,31 @@ struct Params{
     bool debug = false; //print debug logging or not.
     bool verification =false; //verify the correctness of strategy
 
+    //params for cost model;
+    string list_decoding = "apgs20"; //list_decoding = "apgs20" or "matzov22"
+    int est_model = 2; //1, cumulated pnj-BKZ + cumulated proba pump; 2, cumulated pnj-BKZ + succ-fail proba pump
 
     //enumbs params
-    double enumbs_G_prec = 1e-3; //1e-5; //set the precision of enumbs
+    int delta_beta = -1;//10; //Ensure quality(beta,jump) >= quality(beta-delta_beta,1)
+    double enumbs_G_prec = 1e-3;//1e-3; //1e-5; //set the precision of enumbs
     double enumbs_slope_prec = 1e-4;//1e-6;
-    int beta_start = 50;  //79 for cost model 1, since gate cost of <=79  is 0.
+    int beta_start = 50; 
     bool worst_case = true;
     // bool enum_add_G2 = true;
     bool enumbs_min_G = true; //if enumbs_min_G = false, then call a min RAM enumbs
 
     //bssa params
-    bool mul_node  = true;
+    bool bssa_tradion = true;
+    // bool mul_node  = false;
+    // bool beta_gap = 1;
 
     //params for pnj-bkz
-    int theo_pnjbkz_d4f = 1; //the dim4free function for pnjbkz in theoretical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
+    int theo_pnjbkz_d4f = 2; //the dim4free function for pnjbkz in theoretical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
     int practical_pnjbkz_d4f = 3; //the dim4free function for pnjbkz in prectical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
 
     //params for last pump
     bool progressive_sieve =  true; 
-    int theo_pump_d4f = 1; //the dim4free function for last pump in theoretical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
+    int theo_pump_d4f = 2; //the dim4free function for last pump in theoretical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
     int practical_pump_d4f = 1; //the dim4free function for last pump in prectical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
 };
 
@@ -81,6 +86,7 @@ struct Params{
 struct LWEchal{
     int n;
     double alpha;
+    double sigma; //average variance for e
     vector<double> log_rr; //log2(||b_i^*||)
     int q;
     int m;
@@ -125,7 +131,7 @@ void kannan_embedding(ZZ_mat<ZT> &matrix, vector<Z_NR<ZT>> target, int factor=1)
 
 FP_NR<FT> compute_delta(int beta);
 double get_current_slope(vector<double> l, int start, int end);
-FP_NR<FT> bkzgsa_gso_len( FP_NR<FT> logvol, int i, int d, FP_NR<FT> delta, int beta=-1);
+FP_NR<FT> bkzgsa_gso_len( FP_NR<FT> logvol, int i, int d, int beta=-1);//FP_NR<FT> delta,
 vector<double> gen_simulated_gso(int d, FP_NR<FT> logvol);
 
 void simulator_test(int d, FP_NR<FT> logvol); //test simulator 
@@ -136,9 +142,13 @@ double gaussian_heuristic_log2(vector<double> l, int index_start);
 
 int dims4free(int beta); //leaky-lwe-estimator
 int wrapper_default_dim4free_fun(int beta);
-int theo_dim4free_fun1(int beta);
+int default_dim4free_fun(int beta);
+int theo_dim4free_fun1(int beta);//Params* params,
 int theo_dim4free_fun2(int beta);
 int get_beta_from_sieve_dim(int sieve_dim, int d, int choose_dims4f_fun);
-int get_f(Params* params, int beta); 
+int get_f_for_pnjbkz(Params* params, int beta);
+
+int get_f_for_pump(Params* params, int beta);
 int get_beta_(Params* params,int beta, int jump, int d);
 
+std::map<int,double>  build_centered_binomial_law(int k);

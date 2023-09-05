@@ -18,7 +18,7 @@ class EnumBS{
             vector<double> l;
             pair<double,double> cum_GB_BKZ;
             pair<double,double> cum_avg_GB_BKZ;
-            pair<double,double> GB;
+            pair<double,double> GB; //total cost.
             double cum_pr; //cumulated probability 
             double slope;
             pair<double,double> min_GB;
@@ -31,16 +31,16 @@ class EnumBS{
         COST* cost;
         vector<double> l0;
         bool verification = false;
-        double min_G_prec = 0.1;
+        
         thread_pool::thread_pool threadpool;
         Params* params;
+        double pre_pr = 0.;
         
-
         EnumBS(Params* params,int d){
             sim = new BKZJSim(params,d);
             cost = new COST(params);
             this->params = params;
-            cout<<"enumbs min_G_prec = "<< min_G_prec <<endl;
+            cout<<"enumbs min_G_prec = "<< params->min_G_prec <<endl;
         }
 
         void set_threads(int nr);

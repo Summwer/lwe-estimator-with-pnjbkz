@@ -101,6 +101,9 @@ pair<double,double> COST::theo_pump_cost(int beta){
 
 
 
+
+
+
 //threads = 32, gpus = 2,  pnj-bkz cost
 pair<double,double> COST::get_k1_k2_pnj(int beta,bool sieve){
     double k1,k2;
@@ -263,14 +266,14 @@ double COST::practical_bkz_cost(int d,int beta,int jump){
 //     return k1*((double)beta)+k2;
 // }
 
-// pair<double,double> COST::sieve_cost(int beta,int cost_model){
-//     if(cost_model == 1)
-//         return make_pair(theo_pump_cost(beta).first - log2(COST::C),  theo_pump_cost(beta).second) ;
-//     else if(cost_model == 2){
-//         return make_pair(practical_pump_cost(beta).first - log2(COST::C), practical_pump_cost(beta).second);
-//     }
-//     return make_pair(params->max_num,params->max_num);
-// }
+pair<double,double> COST::sieve_cost(int beta,int cost_model){
+    if(cost_model == 1)
+        return make_pair(theo_pump_cost(beta).first - log2(COST::C),  theo_pump_cost(beta).second) ;
+    else if(cost_model == 2){
+        return make_pair(practical_pump_cost(beta).first - log2(COST::C), practical_pump_cost(beta).second);
+    }
+    return make_pair(params->max_num,params->max_num);
+}
     
 pair<double,double> COST::pump_cost(int beta,int cost_model){
     if(cost_model == 1)

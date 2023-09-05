@@ -9,3 +9,5 @@ mkdir "nist-round3-est-result"
 g++ -O3 -funroll-loops -o nist-round3-est ./NIST-round3-est/NIST-round3-est-gate.cpp -L. -pthread -lfplll -lgmp -lmpfr -lest
 
 ./nist-round3-est 1 1000 | tee nist-round3-est-result/enumbs-est2-prec3.log
+
+

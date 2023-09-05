@@ -4,7 +4,7 @@
 
 Code in `cpp` implements the EnumBS algorithm, and the security estimation of NIST-round3 schemes and lwe challenges(https://www.latticechallenge.org/lwe_challenge/challenge.php) in EnumBS and BSSA. The guidance in implementing the code and the organization of the code please follows `README.md` in `cpp`.
 
-Code in `sage` implements default g6k estimation, bkz-only estimation, leaky-lwe-estimator and two-step estimation for NIST-round3 schemes(including Kyber, Dilithium and Frodo). It should be implemented in a sage 9.1+ environment. The guidance in implementing the code and the organization of the code please follows `README.md` in `sage`.
+Code in `sage` implements default g6k estimation, bkz-only estimation, leaky-lwe-estimator and two-step estimation for NIST-round3 schemes(including Kyber, Dilithium). It should be implemented in a sage 9.1+ environment. The guidance in implementing the code and the organization of the code please follows `README.md` in `sage`.
 
 
 All of the estimators are implemented according to the  (nist)-bkz estimator implemented in leaky-lwe-estimator regarding the norm of shortest vector (e,1) for LWE instance in primal attack as a chi-squared distribution, and computing a success probability in it. Besides, we also implement a variant based 2016 estimate for two-step mode in sage.

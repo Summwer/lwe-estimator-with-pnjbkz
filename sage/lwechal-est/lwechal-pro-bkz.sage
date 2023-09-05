@@ -13,6 +13,11 @@ load("../framework/est/lwechal-est.sage")
 
     cost_model = 1: theoretical cost estimation
                = 2: experimental cost estimation
+
+    :cumG : False: [PV21] estimate
+            True: cumulated gate estimate adaptive to [PV21]
+'''
+
 '''
 #######################################
 #Fixed parameters
@@ -22,3 +27,15 @@ worst_case = True
 #------------------------------------
 
 lwechal_est(method,  cost_model, worst_case)
+'''
+
+
+#######################################
+#Fixed parameters
+method = 1
+cost_model = 1
+worst_case = False
+cumG = True
+#------------------------------------
+
+lwechal_est(method,  cost_model, worst_case, cumG = cumG)

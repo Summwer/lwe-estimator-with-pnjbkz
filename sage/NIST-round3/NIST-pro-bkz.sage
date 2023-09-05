@@ -2,6 +2,7 @@ import time
 
 load("../framework/est/NIST-est.sage")
 
+
 ######################################
 #set method parameters
 '''
@@ -15,6 +16,8 @@ load("../framework/est/NIST-est.sage")
 
     cost_model = 1: theoretical cost estimation
                = 2: experimental cost estimation
+    :cumG : False: [PV21] estimate
+            True: cumulated gate estimate adaptive to [PV21]
 '''
 #######################################
 #Fixed parameters
@@ -22,8 +25,21 @@ load("../framework/est/NIST-est.sage")
 method = 1
 #ldc_param = "MATZOV22" #change list decoding parameters
 
+'''
 #------------------------------------
-#The original leaky lwe estimator
-kyber_est(method)
-dilithium_est(method)
-frodo_est(method)
+#[PV21] estimation
+cumG = False #false: average beta; true: average G
+kyber_est(method,cumG = cumG)
+#dilithium_est(method,cumG = cumG)
+#hufu_est(method,cumG = cumG)
+#eaglesign_est(method,cumG = cumG)
+#haetae_est(method,cumG = cumG)
+'''
+
+#cumulated gate estimate adaptive to [PV21]
+cumG = True #false: average beta; true: average G
+kyber_est(method,cumG = cumG)
+#dilithium_est(method,cumG = cumG)
+#hufu_est(method,cumG = cumG)
+#eaglesign_est(method,cumG = cumG)
+#haetae_est(method,cumG = cumG)

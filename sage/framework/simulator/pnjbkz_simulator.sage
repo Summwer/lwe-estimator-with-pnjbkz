@@ -51,6 +51,14 @@ def theo_dim4free_fun2(blocksize):
     return ceil(blocksize*log(4/3.)/log(blocksize/2./pi/e)) 
 
 
+#d4f according to specific lattice: ||pi_f(s)||<= sqrt(4/3) GH(L_f)
+#def accurate_d4f(l_, dsvp):
+#    for f in range(0, d - dsvp):
+#        gh = gaussian_heuristic(l_[d-dsvp - f:])
+#        psvp = 1. * chisquared_table[dsvp].cum_distribution_function(4/3. * gh)
+#        if()
+
+
 
 
 

@@ -23,20 +23,20 @@ int main(int argc,char **argv){
     // params->enumbs_min_G = false;
     params->beta_start = atoi(argv[7]);
     params->est_model = atoi(argv[8]);
-    params->worst_case = true;
+    if(params->est_model==2)
+        params->worst_case = true;
+    else
+        params->worst_case = false;
 
     vector<pair<int,double>> lwes;
 
     //low_dim_lwechallenge_est. 
     if(params->practical_pump_d4f==3){
-        if(params->J == 8)
-            lwes= {{40, 0.025}, {45, 0.020}, {50, 0.015},{60, 0.010}};
-        else
-            lwes = {{80, 0.005}};
+        lwes= {{40, 0.025}, {45, 0.020}, {50, 0.015},{60, 0.010}, {80, 0.005}};
     }
     else {
         if(params->practical_pump_d4f == 1)
-            lwes = {{40,0.040}, {50,0.025},{55,0.020},{90,0.005}};
+            lwes = {{40,0.040}, {50,0.025},{55,0.020},{90,0.005}, {95,0.005}};
         else
             lwes = {{40,0.030}};
     }

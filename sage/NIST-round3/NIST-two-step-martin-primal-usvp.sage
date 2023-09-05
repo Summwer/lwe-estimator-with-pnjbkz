@@ -32,7 +32,7 @@ cal_ee = "avg_sigma" #primal-martin-usvp + two-step
 
 kyber_est(method,  ldc_param =  ldc_param, cal_ee = cal_ee)
 dilithium_est(method, ldc_param =  ldc_param, cal_ee = cal_ee)
-frodo_est(method, ldc_param =  ldc_param, cal_ee = cal_ee)
+
 
 
 

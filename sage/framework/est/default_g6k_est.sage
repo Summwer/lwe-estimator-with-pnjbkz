@@ -25,7 +25,7 @@ def simulate_pump(l,up_dsvp, cumulated_proba,cost_model=1, worst_case = False, s
         psvp *= chisquared_table[dsvp].cum_distribution_function(2**(2 * (l_[d-dsvp]- log(sigma)/log(2))))
         
         avg_d_svp += dsvp * rp * psvp
-        Gpump, Bpump = pump_cost(d,dsvp,cost_model=cost_model,ldc_param = ldc_param)
+        Gpump, Bpump = pump_cost(dsvp,cost_model=cost_model,ldc_param = ldc_param)
         if(not worst_case):
             avgG2 = log2(2**avgG2+(2**Gpump) * rp * psvp)
         else:

@@ -1,15 +1,15 @@
 load("../framework/utils.sage")
 
-def pro_bkz_est(l, verbose=False, cost_model = 1, worst_case = False,  ldc_param = "AGPS20" ):
-    if(cost_model == 1):
+def pro_bkz_est(l, verbose=False, cost_model = 1, worst_case = False,  ldc_param = "AGPS20" , cumG = False):
+    if(not cumG):
         betamin = leaky_lwe_est(l, verbose=verbose)
         G, B = bkz_cost(len(l),betamin,ldc_param = ldc_param)
         G += log2(C)
         return betamin, G, B
-    if(cost_model == 2):
-        return pro_bkz_cumG(l, verbose=verbose, cost_model = cost_model, worst_case = worst_case)
+    if(cumG):
+        return pro_bkz_cumG(l, verbose=verbose, cost_model = cost_model, worst_case = worst_case,ldc_param = ldc_param)
 
-def pro_bkz_cumG(l, verbose=False, cost_model = 1, worst_case = False):
+def pro_bkz_cumG(l, verbose=False, cost_model = 1, worst_case = False,ldc_param = "AGPS20"):
     """
     LWE estimation: Simplified progressive BKZs + Pump, cumulate cost directly.
     Computes the probabilistic cumulated cost value for given gs-lengths.
@@ -47,6 +47,8 @@ def pro_bkz_cumG(l, verbose=False, cost_model = 1, worst_case = False):
             GBKZ = log2(2**GBKZ+ 2**G1)
             G1cum = log2(2**G1cum + ((2**GBKZ) * remaining_proba * proba))
             B1cum = log2(2**B1cum + ((2**B1) * remaining_proba * proba))
+            #G1cum = log2(2**G1cum * ((2**(GBKZ * remaining_proba * proba))))
+            #B1cum = log2(2**B1cum * ((2**(B1 * remaining_proba * proba))))
         else:
             G1cum = log2(2**G1cum + 2**G1)
             B1cum = max(B1cum,B1)
@@ -57,14 +59,18 @@ def pro_bkz_cumG(l, verbose=False, cost_model = 1, worst_case = False):
       
 
         if verbose:
-            print("β= %d,\t pr=%.4e, \t cum-pr=%.4e \t rem-pr=%.4e"%(beta, proba, cumulated_proba, remaining_proba), end="\r" if cumulated_proba < 1e-4 else "\n")
+            print("β= %d, G = %3.2f log2(gate), B =%3.2f log2(bit), cum-pr=%.4e"%
+                        (beta, G1cum, B1cum, cumulated_proba), 
+                        end="\r" if cumulated_proba < 1e-4 else "\n")
 
         if remaining_proba < .001:
             average_beta += beta * remaining_proba
-            G1, B1 = bkz_cost(d,beta,cost_model=cost_model)
+            #G1, B1 = bkz_cost(d,beta,cost_model=cost_model)
             if(not worst_case):
-                G1cum = log2(2**G1cum + ((2**GBKZ) * remaining_proba))
-            B1cum = max(B1cum,B1)
+                G1cum = log2(2**G1cum + ((2**GBKZ)) * remaining_proba)
+                B1cum = log2(2**B1cum + ((2**B1 * remaining_proba)))
+                #G1cum = log2(2**G1cum * ((2**(GBKZ * remaining_proba))))
+                #B1cum = log2(2**B1cum * ((2**(B1 * remaining_proba))))
             break
 
     if remaining_proba > .01:
@@ -104,7 +110,9 @@ def leaky_lwe_est(l, verbose=False):
       
 
         if verbose:
-            print("β= %d,\t pr=%.4e, \t cum-pr=%.4e \t rem-pr=%.4e"%(beta, proba, cumulated_proba, remaining_proba), end="\r" if cumulated_proba < 1e-4 else "\n")
+            print("β= %d, G = %3.2f log2(gate), B =%3.2f log2(bit), cum-pr=%.4e"%
+                        (beta, bkz_cost(d, average_beta)[0], bkz_cost(d, average_beta)[1], cumulated_proba), 
+                        end="\r" if cumulated_proba < 1e-4 else "\n")
 
         if remaining_proba < .001:
             average_beta += beta * remaining_proba

@@ -197,7 +197,7 @@ LWEchal* gen_lwechal_instance(int n, double alpha){
     // lwechal->B[0].print(os);
 	// cout<<os.str()<<endl;
 
-    double  sigma = alpha * q;
+    double  sigma = alpha * q; 
 
     ZZ_mat<ZT> U;
     ZZ_mat<ZT> UT;

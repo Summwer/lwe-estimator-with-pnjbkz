@@ -3,6 +3,8 @@
 
 
 
+
+
 // params input in main function
 // argv[0]: implemented file name
 // argv[1]: method -- 1:enumba; 2: bssa
@@ -16,104 +18,91 @@ int main(int argc,char **argv){
     params->worst_case = false;
     params->method = atoi(argv[1]); //1:enumbs;2:bssa
     params->gap = 1;
-    params->J = 1; 
+    params->J = 100; 
     params->J_gap = 1;
     params->enumbs_G_prec = 1./atoi(argv[2]);
-    params->max_loop = 1;
+    params->max_loop = 1; 
     params->max_dim = 1500; 
+    params->min_G_prec = 0.001;
     // params->bssa_tradion = true;  
 
-    //dim and dvol value is selected from leaky-lwe-estimator.
-    int dim;    
-    FP_NR<FT> dvol;
-
-    
-    
-    // Kyber-I(Kyber-512) round-3 parameters
-    printf("============= Kyber-I\n");
-    //eta1 = 3, eta2 = 2
-    dim = 1004;
-    dvol = 3882.6780896;
-    gsa_est(dim, dvol, params);
-
-    
-    // Kyber-II(Kyber-768) round-3 parameters
-    printf("============= Kyber-II\n");
-    dim =  1467;
-    dvol =  5661.0782118;
-    gsa_est(dim, dvol, params);
-
-
-
-    // kyber-III(Kyber-1024) round-3 parameters
-    printf("============= Kyber-III\n");
-    dim =  1918;
-    dvol = 7242.6115232;
-    gsa_est(dim, dvol, params);
-    
-
-
-
-    // Dilithium-I round-3 parameters 
+    /*----------------Instance Generation-----------------*/
+    //Dilithium-I round-3 parameters
     printf("============= Dilithium-I\n");
-    dim =  2049;
-    dvol = 15614.219317244602;
-    gsa_est(dim, dvol, params);
+    int n = 4*256, m = 4*256, q = 8380417, eta = 2;
+    // map<int,rational<int>> D_s,D_e;
+    // rational<int> one(1);
+    // for(int x=-eta; x<=eta; x++){
+    //     D_s[x] = one/(2*eta+1);
+    //     D_e[x] = one/(2*eta+1);
+    // }
+    map<int,double> D_s={},D_e={};
+    for(int x=-eta; x<=eta; x++){
+        D_s[x] = 1./(2*eta+1);
+        D_e[x] = 1./(2*eta+1);
+    }
+    LWEchal* lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
+    gsa_est(lwechal->dim, lwechal->dvol, params);
 
 
 
-    // Dilithium-II round-3 parameters
+    //Dilithium-II round-3 parameters
     printf("============= Dilithium-II\n");
-    // dim =  2817;
-    // dvol = 21814.858106487554;
-    dim = 2654;
-    dvol = 19371.0238433;
-    gsa_est(dim, dvol, params);
-    
+    n = 5*256, m = 6*256, q = 8380417, eta = 4;
+    D_s={},D_e={};
+    // for(int x=-eta; x<=eta; x++){
+    //     D_s[x] = one/(2*eta+1);
+    //     D_e[x] = one/(2*eta+1);
+    // }
+    for(int x=-eta; x<=eta; x++){
+        D_s[x] = 1./(2*eta+1);
+        D_e[x] = 1./(2*eta+1);
+    }
+    lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
+    gsa_est(lwechal->dim, lwechal->dvol, params);
 
-    // Dilithium-III round-3 parameters
+
+    //Dilithium-III round-3 parameters
     printf("============= Dilithium-III\n");
-    //dim =  3841;
-    //dvol = 31317.16147360077;
-
-    dim = 3540;
-    dvol = 26623.1162463;
-    gsa_est(dim, dvol, params);
-
-
-
-    // Frodo-I round-3 parameters 
-    printf("============= Frodo-I\n");
-    dim =  1297;
-    dvol = 5479.4593497;
-    gsa_est(dim, dvol, params);
+    n = 7*256, m = 8*256, q = 8380417, eta = 2;
+    D_s={},D_e={};
+    // for(int x=-eta; x<=eta; x++){
+    //     D_s[x] = one/(2*eta+1);
+    //     D_e[x] = one/(2*eta+1);
+    // }
+    for(int x=-eta; x<=eta; x++){
+        D_s[x] = 1./(2*eta+1);
+        D_e[x] = 1./(2*eta+1);
+    }
+    lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
+    gsa_est(lwechal->dim, lwechal->dvol, params);
 
 
+    // Kyber-512 round-3 parameters
+    printf("============= Kyber-512\n");
+    n = 512, m = 512, q = 3329;
+    D_s = build_centered_binomial_law(3);
+    D_e = D_s;
+    lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
+    gsa_est(lwechal->dim, lwechal->dvol, params);
 
-    // Frodo-II round-3 parameters
-    printf("============= Frodo-II\n");
-    dim = 1969;
-    dvol = 9347.2957371;
-    gsa_est(dim, dvol, params);
-    
+    // Kyber-768 round-3 parameters
+    printf("============= Kyber-768\n");
+    n = 768, m = 768, q = 3329;
+    D_s = build_centered_binomial_law(2);
+    D_e = D_s;
+    lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
+    gsa_est(lwechal->dim, lwechal->dvol, params);
 
-    // Frodo-III round-3 parameters
-    printf("============= Frodo-III\n");
-    dim = 2634;
-    dvol = 13355.2889193;
-    gsa_est(dim, dvol, params);
+    // Kyber-1024 round-3 parameters
+    printf("============= Kyber-1024\n");
+    n = 1024, m = 1024, q = 3329;
+    D_s = build_centered_binomial_law(2);
+    D_e = D_s;
+    lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
+    gsa_est(lwechal->dim, lwechal->dvol, params);
 
-
-
-    
-    
-
-    
-    
     return 1;
-
-
-
 }
 
 

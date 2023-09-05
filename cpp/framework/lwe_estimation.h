@@ -11,3 +11,6 @@ tuple<int,int,int> gsa_params(LWEchal* lwechal);
 void primal_lattice_basis(LWEchal* lwechal);
 
 LWEchal* gen_lwechal_instance(int n, double alpha);
+
+
+

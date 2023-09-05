@@ -18,23 +18,23 @@ void BSSA::print_BS(map<int,BSSA::blocksize_strategy> BS){
     for (map<int, BSSA::blocksize_strategy> ::iterator it = BS.begin(); it != BS.end(); it++) {
         cout<<it-> first<<" : ";
         print_strategy(it->second.S);
-        printf("(GB_BKZ = %3.2f gate, B_BKZ = %3.2f bit cum-pr = %3.2f)\n", it->second.GB_BKZ.first, it->second.GB_BKZ.second, it->second.cum_pr); 
+        printf("(cum_avg_GB_BKZ = %3.2f gate, B_BKZ = %3.2f bit cum-pr = %3.2f)\n", it->second.cum_avg_GB_BKZ.first, it->second.cum_avg_GB_BKZ.second, it->second.cum_pr); 
 	}
     cout<<"}"<<endl;
 }
 
 void BSSA::print_bs(blocksize_strategy bs){
-    tuple<int,int,double,double> dsvp_t_ =  dsvp_predict(bs.l, bs.cum_pr, cost, params->cost_model, params->progressive_sieve, params->worst_case);
+    tuple<int,int,double,double> dsvp_t_ =  dsvp_predict(bs.l, bs.cum_pr, cost, params->cost_model, params->progressive_sieve, params->worst_case,bs.cum_avg_GB_BKZ);
     int d = int(bs.l.size());
     
     cout<<"bs = ";
 
-    printf("(slope = %3.5f, G_BKZ = %3.2f gate, B_BKZ = %3.2f bit cum-pr = %3.2f,  pump-{%d,%d,%d}, G_dsvp = %3.2f gate, B_dsvp = %3.2f bit, G = %3.2f gate, B = %3.2f bit)\n", get_current_slope(bs.l,0,int(bs.l.size())), bs.GB_BKZ.first, bs.GB_BKZ.second, bs.cum_pr, d - get<0>(dsvp_t_), get<0>(dsvp_t_), get<0>(dsvp_t_) -  get<1>(dsvp_t_), get<2>(dsvp_t_),get<3>(dsvp_t_), log2(pow(2,get<2>(dsvp_t_)) + pow(2,bs.GB_BKZ.first)), max(bs.GB_BKZ.second,get<3>(dsvp_t_)) );   
+    printf("(slope = %3.5f, G_BKZ = %3.2f gate, B_BKZ = %3.2f bit cum-pr = %3.2f,  pump-{%d,%d,%d}, G_dsvp = %3.2f gate, B_dsvp = %3.2f bit, G = %3.2f gate, B = %3.2f bit)\n", get_current_slope(bs.l,0,int(bs.l.size())), bs.cum_avg_GB_BKZ.first, bs.cum_avg_GB_BKZ.second, bs.cum_pr, d - get<0>(dsvp_t_), get<0>(dsvp_t_), get<0>(dsvp_t_) -  get<1>(dsvp_t_), get<2>(dsvp_t_),get<3>(dsvp_t_), log2(pow(2,get<2>(dsvp_t_)) + pow(2,bs.cum_avg_GB_BKZ.first)), max(bs.cum_avg_GB_BKZ.second,get<3>(dsvp_t_)) );   
 
     print_strategy(bs.S);
 }
 
-bool BSSA::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, double &cum_pr, int beta, int jump, tuple<int,int,double,double> &dsvp_t_, double &slope){
+bool BSSA::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, pair<double,double> &cum_avg_GB,  double &cum_pr, int beta, int jump, tuple<int,int,double,double> &dsvp_t_, double &slope){
 
     //simulate pnj-bkz more precisely
     int d = l.size(),beta_ = get_beta_(params,beta,jump,d);
@@ -47,7 +47,7 @@ bool BSSA::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, dou
     sim -> simulate(l_,l,beta,jump,1);
 
     if(l_[d-beta_] == l[d-beta_]){
-        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
+        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case, cum_GB);
         slope = get_current_slope(l, 0, d);
         return false;
     }
@@ -58,27 +58,25 @@ bool BSSA::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, dou
         double pr = boost::math::cdf(chisquare,pow(2,2.*l[d-beta_]));
 
         pair<double,double> GB = cost->bkz_cost(d,beta,jump,params->cost_model);
-
-
+        cum_GB.first = log2(pow(2,cum_GB.first)+pow(2,GB.first));
+        cum_GB.second = GB.second;
         if(not params->worst_case){
-            cum_GB.first = log2(pow(2,cum_GB.first)+(pow(2,GB.first)*rem_pr*pr));
-            cum_GB.second = log2(pow(2,cum_GB.second)+(pow(2,GB.second)*rem_pr*pr));
+            cum_avg_GB.first = log2(pow(2,cum_avg_GB.first)+(pow(2,cum_GB.first)*rem_pr*pr));
+            cum_avg_GB.second = log2(pow(2,cum_avg_GB.second)+(pow(2,cum_GB.second)*rem_pr*pr));
         }
         else{
-            cum_GB.first = log2(pow(2,cum_GB.first)+pow(2,GB.first));
-            cum_GB.second = max(cum_GB.second, GB.second);
+            //cum_avg_GB = cum_GB;
+            cum_avg_GB.first = log2(pow(2,cum_avg_GB.first)+(pow(2,cum_GB.first)*(pr-pre_pr)));
+            cum_avg_GB.second = log2(pow(2,cum_avg_GB.second)+pow(2,cum_GB.second) * (pr-pre_pr));
         }
 
         cum_pr += rem_pr * pr;
         rem_pr = 1. - cum_pr;
 
-
-        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
+        dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case, cum_GB);
 
         return true;
-
     }
-
 }
 
 
@@ -89,11 +87,11 @@ pair<double,double> BSSA::max_tour_for_pnjbkz_beta(vector<double> l, int beta){
    
     // vector<strategy> S = bs.S;
     double cum_pr = 0.;
-    pair<double,double> cum_GB= make_pair(0.,0.);
+    pair<double,double> cum_GB= make_pair(0.,0.), cum_avg_GB= make_pair(0.,0.);
     int  loop = 0;
     
     double slope0  = get_current_slope(l, 0, l.size()), slope1;
-    bool sim_term = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, 1,dsvp_t1, slope1);
+    bool sim_term = pnjbkz_beta_loop(l, cum_GB, cum_avg_GB, cum_pr, beta, 1,dsvp_t1, slope1);
 
     G21 = get<2>(dsvp_t1);
 
@@ -111,7 +109,7 @@ pair<double,double> BSSA::max_tour_for_pnjbkz_beta(vector<double> l, int beta){
         if(cum_pr >= 0.999 or not sim_term)
             break;
     
-        sim_term = pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, 1, dsvp_t1, slope1);
+        sim_term = pnjbkz_beta_loop( l, cum_GB, cum_avg_GB, cum_pr, beta, 1, dsvp_t1, slope1);
         G21 = get<2>(dsvp_t1);
         assert(G21 >= 0.);
     }
@@ -132,11 +130,11 @@ pair<double,double> BSSA::max_tour_for_pnjbkz_beta(blocksize_strategy bs, int be
    
     // vector<strategy> S = bs.S;
     double cum_pr = bs.cum_pr;
-    pair<double,double> cum_GB= bs.GB_BKZ;
+    pair<double,double> cum_GB= bs.cum_GB_BKZ, cum_avg_GB= bs.cum_avg_GB_BKZ;
     int  loop = 0;
     
     double slope0  = get_current_slope(l, 0, l.size()), slope1;
-    bool sim_term = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, 1,dsvp_t1, slope1);
+    bool sim_term = pnjbkz_beta_loop(l, cum_GB, cum_avg_GB, cum_pr, beta, 1,dsvp_t1, slope1);
 
     G21 = get<2>(dsvp_t1);
 
@@ -154,7 +152,7 @@ pair<double,double> BSSA::max_tour_for_pnjbkz_beta(blocksize_strategy bs, int be
         if(cum_pr >= 0.999 or not sim_term)
             break;
     
-        sim_term = pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, 1, dsvp_t1, slope1);
+        sim_term = pnjbkz_beta_loop( l, cum_GB, cum_avg_GB, cum_pr, beta, 1, dsvp_t1, slope1);
         G21 = get<2>(dsvp_t1);
         assert(G21 >= 0.);
     }
@@ -178,13 +176,13 @@ BSSA::blocksize_strategy BSSA::min_tour_to_each_goal_beta(BSSA::blocksize_strate
     vector<double> l = bs.l; 
     
     double cum_pr = bs.cum_pr;
-    pair<double,double> cum_GB=bs.GB_BKZ;
+    pair<double,double> cum_GB= bs.cum_GB_BKZ, cum_avg_GB= bs.cum_avg_GB_BKZ;
 
     int  loop = 0;
     
     
     double slope0 = get_current_slope(l, 0, l.size()), slope1;
-    bool sim_term = pnjbkz_beta_loop(l, cum_GB, cum_pr, beta, jump, dsvp_t1, slope1);
+    bool sim_term = pnjbkz_beta_loop(l, cum_GB, cum_avg_GB, cum_pr, beta, jump, dsvp_t1, slope1);
     
     if(not sim_term)
         return {};
@@ -200,7 +198,7 @@ BSSA::blocksize_strategy BSSA::min_tour_to_each_goal_beta(BSSA::blocksize_strate
         if(G20 <= goal_G2 and slope0 >= goal_slope)
             break;
     
-        sim_term = pnjbkz_beta_loop( l, cum_GB, cum_pr, beta, jump, dsvp_t1, slope1);
+        sim_term = pnjbkz_beta_loop( l, cum_GB, cum_avg_GB, cum_pr, beta, jump, dsvp_t1, slope1);
         G21 = get<2>(dsvp_t1);
         assert(G21 >= 0.);
 
@@ -209,7 +207,7 @@ BSSA::blocksize_strategy BSSA::min_tour_to_each_goal_beta(BSSA::blocksize_strate
     if(loop>=1 and G20 <= goal_G2 and slope0 >= goal_slope ){
         vector<BSSA::strategy> S = bs.S;
         S.insert(S.end(),{beta, jump, loop});
-        return {S, l, cum_GB, cum_pr};
+        return {S, l, cum_GB, cum_avg_GB, cum_pr};
     }
     else
         return {};
@@ -323,8 +321,8 @@ BSSA::blocksize_strategy BSSA::min_tour_to_each_goal_beta(BSSA::blocksize_strate
 //                     // 
 //                     // printf("----------------------\n");
                     
-//                     if(len_S > 0 && G_tmp_min > bs_tmp.GB_BKZ.first){
-//                         G_tmp_min = bs_tmp.GB_BKZ.first;
+//                     if(len_S > 0 && G_tmp_min > bs_tmp.cum_avg_GB_BKZ.first){
+//                         G_tmp_min = bs_tmp.cum_avg_GB_BKZ.first;
 //                         bs_min = bs_tmp;
 //                     }
                     
@@ -359,10 +357,10 @@ BSSA::blocksize_strategy BSSA::min_tour_to_each_goal_beta(BSSA::blocksize_strate
 //     bool flag = false;
 //     for (map<int, BSSA::blocksize_strategy> ::iterator it = BS.begin(); it != BS.end(); it++) {
 //         tuple<int,int,double,double> dsvp_t0 = dsvp_predict(it->second.l, it->second.cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
-//         G1 = it->second.GB_BKZ.first;
+//         G1 = it->second.cum_avg_GB_BKZ.first;
 //         G2 = get<2>(dsvp_t0);
 //         G = log2(pow(2,G1)+pow(2,G2));
-//         B = max(get<3>(dsvp_t0),it->second.GB_BKZ.second);
+//         B = max(get<3>(dsvp_t0),it->second.cum_avg_GB_BKZ.second);
 //         // print_bs(it->second);
 //         if(G<Gmin and B < params->max_RAM){
 //             bsmin = it->second;
@@ -377,10 +375,10 @@ BSSA::blocksize_strategy BSSA::min_tour_to_each_goal_beta(BSSA::blocksize_strate
 //     else{
 //         for (map<int, BSSA::blocksize_strategy> ::iterator it = BS.begin(); it != BS.end(); it++) {
 //             tuple<int,int,double,double> dsvp_t0 = dsvp_predict(it->second.l, it->second.cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
-//             G1 = it->second.GB_BKZ.first;
+//             G1 = it->second.cum_avg_GB_BKZ.first;
 //             G2 = get<2>(dsvp_t0);
 //             G = log2(pow(2,G1)+pow(2,G2));
-//             B = max(get<3>(dsvp_t0),it->second.GB_BKZ.second);
+//             B = max(get<3>(dsvp_t0),it->second.cum_avg_GB_BKZ.second);
 //             if( B < Bmin ){
 //                 bsmin = it->second;
 //                 Gmin = G;
@@ -410,7 +408,7 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
     int d= l0.size(), len_S = 0;
     pair<double,double> goal_quality;
 
-    BS.insert(pair<int,BSSA::blocksize_strategy>(sbeta,{{}, l0, make_pair(0.,0.), 0.}));
+    BS.insert(pair<int,BSSA::blocksize_strategy>(sbeta,{{}, l0, make_pair(0.,0.), make_pair(0.,0.), 0.}));
 
     params->J = floor((params->J-1)/params->J_gap) * params->J_gap+1;
 
@@ -431,7 +429,6 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
                 
             double G_tmp_min = params->max_num; 
 
-            
             if(not params->bssa_tradion)
                 goal_quality = max_tour_for_pnjbkz_beta(bs, beta);//1: G2, 2: slope
             
@@ -471,8 +468,8 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
                     // 
                     // printf("----------------------\n");
 
-                    if(len_S > 0 && G_tmp_min > bs_tmp.GB_BKZ.first){
-                        G_tmp_min = bs_tmp.GB_BKZ.first;
+                    if(len_S > 0 && G_tmp_min > bs_tmp.cum_avg_GB_BKZ.first){
+                        G_tmp_min = bs_tmp.cum_avg_GB_BKZ.first;
                         bs_min = bs_tmp;
                     }
 
@@ -507,10 +504,10 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
     BSSA::blocksize_strategy bsmin;
     for (map<int, BSSA::blocksize_strategy> ::iterator it = BS.begin(); it != BS.end(); it++) {
         tuple<int,int,double,double> dsvp_t0 = dsvp_predict(it->second.l, it->second.cum_pr, cost,params->cost_model, params->progressive_sieve, params->worst_case);
-        G1 = it->second.GB_BKZ.first;
+        G1 = it->second.cum_avg_GB_BKZ.first;
         G2 = get<2>(dsvp_t0);
         G = log2(pow(2,G1)+pow(2,G2));
-        B = max(get<3>(dsvp_t0),it->second.GB_BKZ.second);
+        B = max(get<3>(dsvp_t0),it->second.cum_avg_GB_BKZ.second);
         if(G < Gmin and B < params->max_RAM){
             bsmin = it->second;
             Gmin = G;

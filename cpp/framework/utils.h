@@ -56,7 +56,7 @@ struct Params{
 
     //params for cost model;
     string list_decoding = "apgs20"; //list_decoding = "apgs20" or "matzov22"
-    int est_model = 1; //1, cumulated pnj-BKZ + cumulated proba pump; 2, cumulated pnj-BKZ + succ-fail proba pump
+    int est_model = 3; //1, cumulated pnj-BKZ + cumulated proba pump; 2, cumulated pnj-BKZ + succ-fail proba pump; 3. cumulated pnj-BKZ + cumulated proba pump with d4f: ||pi_f(s)||<= sqrt(4/3) GH(L_f)
 
     //enumbs params
     int delta_beta = -1;//10; //Ensure quality(beta,jump) >= quality(beta-delta_beta,1)
@@ -66,6 +66,7 @@ struct Params{
     bool worst_case = true;
     // bool enum_add_G2 = true;
     bool enumbs_min_G = true; //if enumbs_min_G = false, then call a min RAM enumbs
+    double min_G_prec = 0.1;
 
     //bssa params
     bool bssa_tradion = true;
@@ -86,6 +87,7 @@ struct Params{
 struct LWEchal{
     int n;
     double alpha;
+    double sigma; //average variance for e
     vector<double> log_rr; //log2(||b_i^*||)
     int q;
     int m;
@@ -101,7 +103,7 @@ struct LWEchal{
 
 
 
-void print_map(map<int, rational<int>> mp);
+void print_map(map<int, double> mp);
 void print_map(map<int, FP_NR<FT>>  mp);
 void printf_red(const char *s);
 void printf_input(int d, FP_NR<FT> dvol);
@@ -117,10 +119,10 @@ void print_vector(vector<tuple<int,int,int>> v,int index_start=0, int index_end=
 
 //void print_matrix(ZZ_mat<ZT> matrix);
 
-pair<rational<int>,rational<int>> average_variance(std::map<int,rational<int>> D);
-vector<int> KeySet(map<int, rational<int>> mp);
-vector<double> ValueSet(map<int, rational<int>> mp);
-int draw_from_distribution(std::map<int,rational<int>> D, int sample_num=1000);
+pair<double,double> average_variance(std::map<int,double> D);
+vector<int> KeySet(map<int, double> mp);
+vector<double> ValueSet(map<int, double> mp);
+int draw_from_distribution(std::map<int,double> D, int sample_num=1000);
 vector<int> expand_samples(vector<int> samples,vector<double> prob,int sample_num);
 
 
@@ -130,7 +132,7 @@ void kannan_embedding(ZZ_mat<ZT> &matrix, vector<Z_NR<ZT>> target, int factor=1)
 
 FP_NR<FT> compute_delta(int beta);
 double get_current_slope(vector<double> l, int start, int end);
-FP_NR<FT> bkzgsa_gso_len( FP_NR<FT> logvol, int i, int d, FP_NR<FT> delta, int beta=-1);
+FP_NR<FT> bkzgsa_gso_len( FP_NR<FT> logvol, int i, int d, int beta=-1);//FP_NR<FT> delta,
 vector<double> gen_simulated_gso(int d, FP_NR<FT> logvol);
 
 void simulator_test(int d, FP_NR<FT> logvol); //test simulator 
@@ -144,9 +146,10 @@ int wrapper_default_dim4free_fun(int beta);
 int default_dim4free_fun(int beta);
 int theo_dim4free_fun1(int beta);//Params* params,
 int theo_dim4free_fun2(int beta);
-int get_beta_from_sieve_dim(Params* params, int sieve_dim, int d, int choose_dims4f_fun);
+int get_beta_from_sieve_dim(int sieve_dim, int d, int choose_dims4f_fun);
 int get_f_for_pnjbkz(Params* params, int beta);
 
 int get_f_for_pump(Params* params, int beta);
 int get_beta_(Params* params,int beta, int jump, int d);
 
+std::map<int,double>  build_centered_binomial_law(int k);

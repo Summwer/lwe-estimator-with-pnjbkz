@@ -1,22 +1,23 @@
 #include "utils.h"
 
 // return all keys in map
-vector<int> KeySet(map<int, rational<int>> mp)
+vector<int> KeySet(map<int, double> mp)
 {
     vector<int> keys;
-    for(map<int, rational<int>>::iterator it = mp.begin(); it != mp.end(); ++it){
+    for(map<int, double>::iterator it = mp.begin(); it != mp.end(); ++it){
         keys.push_back(it->first);
     }
     return keys;
 }
 
 // return all values in map
-vector<double> ValueSet(map<int, rational<int>> mp)
+vector<double> ValueSet(map<int, double> mp)
 {
     vector<double> values;
 
-    for(map<int, rational<int>>::iterator it = mp.begin(); it != mp.end(); ++it){
-        values.push_back(rational_cast<double>(it->second));
+    for(map<int, double>::iterator it = mp.begin(); it != mp.end(); ++it){
+        // values.push_back(rational_cast<double>(it->second));
+        values.push_back(it->second);
     }
     return values;
 }
@@ -28,7 +29,7 @@ vector<int> expand_samples(vector<int> samples,vector<double> probs,int sample_n
     int index = 0;
     int upper_index = 0;
 
-    for(int i=0; i< int(samples.size()); i++){
+    for(int i=0; i < int(samples.size()); i++){
         if(i < int(samples.size())-1)
             upper_index += sample_num*probs[i];
         else
@@ -41,9 +42,9 @@ vector<int> expand_samples(vector<int> samples,vector<double> probs,int sample_n
 }
 
 
-void print_map(map<int, rational<int>>  mp){
+void print_map(map<int, double>  mp){
     cout<<"{\t";
-    for (map<int, rational<int>> ::iterator it = mp.begin();
+    for (map<int, double> ::iterator it = mp.begin();
 		it != mp.end(); it++) {
             cout<<it-> first<<","<<it->second<<"\t";
 	}
@@ -174,11 +175,11 @@ void printf_red(const char *s)
     printf("\033[0m\033[1;31m%s\033[0m\n", s);
 }
 
-pair<rational<int>,rational<int>> average_variance(std::map<int,rational<int>> D){
-    rational<int> mu,s;
+pair<double,double> average_variance(std::map<int,double> D){
+    double mu = 0.,s = 0.;
 
     int v;
-    rational<int> p;
+    double p;
     
     for(auto it : D){
         v = it.first;
@@ -193,7 +194,7 @@ pair<rational<int>,rational<int>> average_variance(std::map<int,rational<int>> D
 }
 
 
-int draw_from_distribution(std::map<int,rational<int>> D, int sample_num){
+int draw_from_distribution(std::map<int,double> D, int sample_num){
     /*draw an element from the distribution D
     ,D, distribution in a dictionnary form
     */
@@ -335,14 +336,16 @@ double get_current_slope(vector<double> l, int start, int end){
 
 
 
-FP_NR<FT> bkzgsa_gso_len( FP_NR<FT> logvol, int i, int d, FP_NR<FT> delta, int beta){
+FP_NR<FT> bkzgsa_gso_len( FP_NR<FT> logvol, int i, int d,int beta){
     FP_NR<FT> gso_len;
-    if(delta >= 1000.)
-        delta = compute_delta(beta);
+    //  FP_NR<FT> delta, 
+    //if(delta >= 1000.)
+    FP_NR<FT> delta = compute_delta(beta);
     gso_len.pow_si(delta,(d-1-2*i));
     FP_NR<FT> tmp;
-    tmp.exponential(logvol/(double(d)));
+    tmp.exponential(logvol.get_d()/(double)(d));
     gso_len.mul(gso_len,tmp);
+    // cout<<"delta:"<<delta<<", "<<"exp(logvol / d)): "<<tmp<<endl;
 
     return gso_len;
 }
@@ -411,12 +414,12 @@ double gaussian_heuristic_log2(vector<double> l, int index_start){
 //Generate input simulated-gs-lengths
 vector<double> gen_simulated_gso(int d, FP_NR<FT> logvol){
     FP_NR<FT> delta, gso_len;
-    delta = compute_delta(2);
+    // delta = compute_delta(2);
     
     vector<FP_NR<FT>> l;
     l.resize(d);
     for(int i = 0; i<d; i++){
-        gso_len = bkzgsa_gso_len(logvol, i, d, delta);
+        gso_len = bkzgsa_gso_len(logvol, i, d, 2); // delta, beta = 2
         l[i].log(gso_len);
         l[i].div(l[i],log(2));
     }
@@ -460,20 +463,17 @@ int wrapper_default_dim4free_fun(int beta){
 
 
 int default_dim4free_fun(int beta){
-    return int(11.5 + 0.075*beta);
-}
-
-
-int theo_dim4free_fun1(Params* params,int beta){
     if(beta < 40)
         return 0;
-    int f = 0;
-    if(params -> cost_model == 2 and params -> J == 100){
-        f = max(0,int((double)beta * log(4./3.) / log((double)beta/(2.*M_PI))));
-    }
-    else
-        f = max(0,int(ceil((double)beta * log(4./3.) / log((double)beta/(2.*M_PI)))));
-    // return min(int(ceil(((double)beta - 40)/2.)), f);
+    
+    int f = int(11.5 + 0.075*beta);
+    return f;
+}
+
+int theo_dim4free_fun1(int beta){
+    if(beta < 40)
+        return 0;
+    int f = max(0,int(ceil((double)beta * log(4./3.) / log((double)beta/(2.*M_PI)))));
     return min(int(((double)beta - 40)/2.), f);
 }
 
@@ -486,12 +486,12 @@ int theo_dim4free_fun2(int beta){
 }
 
 
-int get_beta_from_sieve_dim(Params* params, int sieve_dim, int d, int choose_dims4f_fun){
+int get_beta_from_sieve_dim(int sieve_dim, int d, int choose_dims4f_fun){
     int f = 0;
 
     for(int beta = sieve_dim; beta < d; beta++){
         if(choose_dims4f_fun == 1 )
-            f = theo_dim4free_fun1(params,beta);
+            f = theo_dim4free_fun1(beta);
         else if(choose_dims4f_fun == 2)
             f = theo_dim4free_fun2(beta);
         if(beta - f >= sieve_dim)
@@ -504,7 +504,7 @@ int get_beta_from_sieve_dim(Params* params, int sieve_dim, int d, int choose_dim
 int get_f_for_pnjbkz(Params* params, int beta){
     if(params->cost_model == 1){
         if(params->theo_pnjbkz_d4f == 1)
-            return max(0,theo_dim4free_fun1(params,beta));
+            return max(0,theo_dim4free_fun1(beta));
         if(params->theo_pnjbkz_d4f == 2)
             return max(0,theo_dim4free_fun2(beta));
         if(params->theo_pnjbkz_d4f == 3)
@@ -512,7 +512,7 @@ int get_f_for_pnjbkz(Params* params, int beta){
     }
     if(params->cost_model == 2){
         if(params->practical_pnjbkz_d4f == 1)
-            return max(0,theo_dim4free_fun1(params, beta));
+            return max(0,theo_dim4free_fun1(beta));
         if(params->practical_pnjbkz_d4f == 2)
             return max(0,theo_dim4free_fun2(beta));
         if(params->practical_pnjbkz_d4f == 3)
@@ -524,7 +524,7 @@ int get_f_for_pnjbkz(Params* params, int beta){
 int get_f_for_pump(Params* params, int beta){
     if(params->cost_model == 1){
         if(params->theo_pump_d4f == 1)
-            return max(0,theo_dim4free_fun1(params,beta));
+            return max(0,theo_dim4free_fun1(beta));
         if(params->theo_pump_d4f == 2)
             return max(0,theo_dim4free_fun2(beta));
         if(params->theo_pump_d4f == 3)
@@ -532,7 +532,7 @@ int get_f_for_pump(Params* params, int beta){
     }
     if(params->cost_model == 2){
         if(params->practical_pump_d4f == 1)
-            return max(0,theo_dim4free_fun1(params,beta));
+            return max(0,theo_dim4free_fun1(beta));
         if(params->practical_pump_d4f == 2)
             return max(0,theo_dim4free_fun2(beta));
         if(params->practical_pump_d4f == 3)
@@ -548,7 +548,7 @@ int get_beta_(Params* params, int beta, int jump, int d){
         return beta;
     else if(jump >=3 && jump <=4){
         if((params->cost_model == 2 and params->practical_pnjbkz_d4f == 3) or (params->cost_model == 1 and params->theo_pnjbkz_d4f == 3)){
-            return get_beta_from_sieve_dim(params, beta-f,d,2);
+            return get_beta_from_sieve_dim( beta-f,d,2);
         }else
             return beta;
     }
@@ -556,8 +556,51 @@ int get_beta_(Params* params, int beta, int jump, int d){
         if((params->cost_model == 2 and params->practical_pnjbkz_d4f == 1) or (params->cost_model == 1 and params->theo_pnjbkz_d4f == 1))
             return beta;
         else
-            return get_beta_from_sieve_dim(params, beta-f,d,1);
+            return get_beta_from_sieve_dim( beta-f,d,1);
     }
     return beta;
 }
 
+
+
+int factorial(int n) 
+{
+    if (n == 0)
+       return 1;
+    return n * factorial(n - 1);
+}
+
+//Implement centered_binomial distribution
+int binomial(int x, int y){
+    /*Binomial coefficient
+    :param x: (integer)
+    :param y: (integer)
+    :returns: y choose x
+    */
+    if(x<y)
+        return 0;
+    else
+        return factorial(x)/factorial(y)/factorial(x-y); 
+}
+
+
+
+double centered_binomial_pdf(int k, int x){
+    /* Probability density function of the centered binomial law of param k at x
+    :param k: (integer)
+    :param x: (integer)
+    :returns: p_k(x)
+    */
+    return (double) binomial(2 * k, x + k) / pow(2., 2 * k);
+}
+
+std::map<int,double>  build_centered_binomial_law(int k){
+    /* Construct the binomial law as a dictionnary
+    :param k: (integer)
+    :returns: A dictionnary {x:p_k(x) for x in {-k..k}}
+    */
+    std::map<int,double> D = {};
+    for(int i=-k; i<=k; i++)
+        D[i] = centered_binomial_pdf(k, i);
+    return D;
+}
