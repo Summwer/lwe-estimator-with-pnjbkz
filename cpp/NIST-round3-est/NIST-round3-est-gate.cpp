@@ -19,11 +19,12 @@ int main(int argc,char **argv){
     params->method = atoi(argv[1]); //1:enumbs;2:bssa
     params->gap = 1;
     params->J = 100; 
-    params->J_gap = 1;
+    params->J_gap = 5;
     params->enumbs_G_prec = 1./atoi(argv[2]);
     params->max_loop = 1; 
     params->max_dim = 1500; 
     params->min_G_prec = 0.001;
+    params->list_decoding = "matzov22";
     // params->bssa_tradion = true;  
 
     /*----------------Instance Generation-----------------*/
