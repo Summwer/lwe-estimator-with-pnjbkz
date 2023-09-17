@@ -94,9 +94,9 @@ def estimate_attack(silent=False, method=1, worst_case = False, parallel_ = Fals
             logging("dim=%3d \t ln(dvol) = %4.7f \t beta=%d \t %s " % (dim_, dvol, round(betamin), time_unit), style="VALUE")
         elif method == 2:
             if(cost_model == 1):
-                logging("dim=%3d \t ln(dvol) = %4.7f \t β_strategy=[%s,...,%s] \t dsvp = %d \t dsvp_prime = %d \t G1=%3.2f log2(gate) \t %s " %(dim_, dvol, str(betamin[0]), str(betamin[-1]), dsvp, dsvp_prime, G1, time_unit), style="VALUE")
+                logging("dim=%3d \t ln(dvol) = %4.7f \t β_strategy=[%s,...,%s] \t dsvp = %d \t dsvp_prime = %d \t %s " %(dim_, dvol, str(betamin[0]), str(betamin[-1]), dsvp, dsvp_prime, time_unit), style="VALUE")
             if(cost_model == 2):
-                logging("dim=%3d \t ln(dvol) = %4.7f \t β_strategy=[%s,...,%s] \t dsvp = %d \t dsvp_prime = %d \t G1=%3.2f sec \t %s " %(dim_, dvol, str(betamin[0]), str(betamin[-1]), dsvp, dsvp_prime, 2**G1, time_unit), style="VALUE")
+                logging("dim=%3d \t ln(dvol) = %4.7f \t β_strategy=[%s,...,%s] \t dsvp = %d \t dsvp_prime = %d \t %s " %(dim_, dvol, str(betamin[0]), str(betamin[-1]), dsvp, dsvp_prime, time_unit), style="VALUE")
         elif method == 4:
             logging("dim=%3d \t ln(dvol) = %4.7f \t β_strategy=[%s,...,%s] \t %s " % (dim_, dvol, str(betamin[0]), str(betamin[-1]), time_unit), style="VALUE")
         logging("\n")

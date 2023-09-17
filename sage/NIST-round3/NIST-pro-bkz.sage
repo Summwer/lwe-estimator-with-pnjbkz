@@ -30,7 +30,7 @@ method = 1
 #[PV21] estimation
 cumG = False #false: average beta; true: average G
 kyber_est(method,cumG = cumG)
-#dilithium_est(method,cumG = cumG)
+dilithium_est(method,cumG = cumG)
 #hufu_est(method,cumG = cumG)
 #eaglesign_est(method,cumG = cumG)
 #haetae_est(method,cumG = cumG)
@@ -38,8 +38,8 @@ kyber_est(method,cumG = cumG)
 
 #cumulated gate estimate adaptive to [PV21]
 cumG = True #false: average beta; true: average G
-kyber_est(method,cumG = cumG)
-#dilithium_est(method,cumG = cumG)
+#kyber_est(method,cumG = cumG)
+dilithium_est(method,cumG = cumG)
 #hufu_est(method,cumG = cumG)
 #eaglesign_est(method,cumG = cumG)
 #haetae_est(method,cumG = cumG)

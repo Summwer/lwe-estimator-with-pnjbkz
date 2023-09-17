@@ -64,15 +64,15 @@ bool BSSA::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, pai
         pair<double,double> GB = cost->bkz_cost(d,beta,jump,params->cost_model);
         cum_GB.first = log2(pow(2,cum_GB.first)+pow(2,GB.first));
         cum_GB.second = GB.second;
-        // if(not params->worst_case){
-        cum_avg_GB.first = log2(pow(2,cum_avg_GB.first)+(pow(2,cum_GB.first)*rem_pr*pr));
-        cum_avg_GB.second = log2(pow(2,cum_avg_GB.second)+(pow(2,cum_GB.second)*rem_pr*pr));
-        // }
-        // else{
-        //     //cum_avg_GB = cum_GB;
-        //     cum_avg_GB.first = log2(pow(2,cum_avg_GB.first)+(pow(2,cum_GB.first)*(pr-pre_pr)));
-        //     cum_avg_GB.second = log2(pow(2,cum_avg_GB.second)+pow(2,cum_GB.second) * (pr-pre_pr));
-        // }
+        if(not params->worst_case){
+            cum_avg_GB.first = log2(pow(2,cum_avg_GB.first)+(pow(2,cum_GB.first)*rem_pr*pr));
+            cum_avg_GB.second = log2(pow(2,cum_avg_GB.second)+(pow(2,cum_GB.second)*rem_pr*pr));
+        }
+        else{
+            //cum_avg_GB = cum_GB;
+            cum_avg_GB.first = log2(pow(2,cum_avg_GB.first)+(pow(2,cum_GB.first)*(pr-pre_pr)));
+            cum_avg_GB.second = log2(pow(2,cum_avg_GB.second)+pow(2,cum_GB.second) * (pr-pre_pr));
+        }
 
         cum_pr += rem_pr * pr;
         rem_pr = 1. - cum_pr;
@@ -97,12 +97,12 @@ pair<double,double> BSSA::max_tour_for_pnjbkz_beta(vector<double> l, int beta){
     double slope0  = get_current_slope(l, 0, l.size()), slope1;
     bool sim_term = pnjbkz_beta_loop(l, cum_GB, cum_avg_GB, cum_pr, beta, 1,dsvp_t1, slope1);
 
-    G21 = get<4>(dsvp_t1);
+    G21 = get<2>(dsvp_t1);
 
     if(not sim_term)
         return make_pair(G21, slope1);
     
-    // assert(G21 >= 0.);
+    assert(G21 >= 0.);
 
     // cout<<slope1<<", "<<slope0<<endl;
     
@@ -114,8 +114,8 @@ pair<double,double> BSSA::max_tour_for_pnjbkz_beta(vector<double> l, int beta){
             break;
     
         sim_term = pnjbkz_beta_loop( l, cum_GB, cum_avg_GB, cum_pr, beta, 1, dsvp_t1, slope1);
-        G21 = get<4>(dsvp_t1);
-        // assert(G21 >= 0.);
+        G21 = get<2>(dsvp_t1);
+        assert(G21 >= 0.);
     }
     // assert(loop>=1);
     // if(loop == 0)
@@ -140,12 +140,12 @@ pair<double,double> BSSA::max_tour_for_pnjbkz_beta(blocksize_strategy bs, int be
     double slope0  = get_current_slope(l, 0, l.size()), slope1;
     bool sim_term = pnjbkz_beta_loop(l, cum_GB, cum_avg_GB, cum_pr, beta, 1,dsvp_t1, slope1);
 
-    G21 = get<4>(dsvp_t1);
+    G21 = get<2>(dsvp_t1);
 
     if(not sim_term)
         return make_pair(G21, slope1);
     
-    // assert(G21 >= 0.);
+    assert(G21 >= 0.);
 
     // cout<<slope1<<", "<<slope0<<endl;
     
@@ -157,8 +157,8 @@ pair<double,double> BSSA::max_tour_for_pnjbkz_beta(blocksize_strategy bs, int be
             break;
     
         sim_term = pnjbkz_beta_loop( l, cum_GB, cum_avg_GB, cum_pr, beta, 1, dsvp_t1, slope1);
-        G21 = get<4>(dsvp_t1);
-        // assert(G21 >= 0.);
+        G21 = get<2>(dsvp_t1);
+        assert(G21 >= 0.);
     }
     // assert(loop>=1);
     // if(loop == 0)
@@ -193,10 +193,9 @@ BSSA::blocksize_strategy BSSA::min_tour_to_each_goal_beta(BSSA::blocksize_strate
     if(not sim_term)
         return {};
     
-    G21 = get<4>(dsvp_t1);
-    // if(G21<0)
-    //     cout<<"G21: "<<G21<<endl;
-    // assert(G21 >= 0.);
+    G21 = get<2>(dsvp_t1);
+
+    assert(G21 >= 0.);
     
     while( (slope1 - slope0) > params->enumbs_slope_prec && loop < params->max_loop){
         loop +=1;
@@ -206,8 +205,8 @@ BSSA::blocksize_strategy BSSA::min_tour_to_each_goal_beta(BSSA::blocksize_strate
             break;
     
         sim_term = pnjbkz_beta_loop( l, cum_GB, cum_avg_GB, cum_pr, beta, jump, dsvp_t1, slope1);
-        G21 = get<4>(dsvp_t1);
-        // assert(G21 >= 0.);
+        G21 = get<2>(dsvp_t1);
+        assert(G21 >= 0.);
 
     }
 
@@ -477,8 +476,8 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
                     // 
                     // printf("----------------------\n");
 
-                    if(len_S > 0 && G_tmp_min > bs_tmp.cum_GB_BKZ.first){
-                        G_tmp_min = bs_tmp.cum_GB_BKZ.first;
+                    if(len_S > 0 && G_tmp_min > bs_tmp.cum_avg_GB_BKZ.first){
+                        G_tmp_min = bs_tmp.cum_avg_GB_BKZ.first;
                         bs_min = bs_tmp;
                     }
 

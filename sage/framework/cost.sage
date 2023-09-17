@@ -175,11 +175,11 @@ def theo_sieve_cost(dsvp_prime,ldc_param = "AGPS20"):
 
     
 #Return progressive sieve cost
-def pump_cost(beta,cost_model = 1,ldc_param = "AGPS20"):
+def pump_cost(beta_prime,cost_model = 1,ldc_param = "AGPS20"):
     if(cost_model == 1):
-        return theo_pump_cost(beta,ldc_param = ldc_param)
+        return theo_pump_cost(beta_prime,ldc_param = ldc_param)
     elif(cost_model == 2):
-        return practical_pump_cost(beta)
+        return practical_pump_cost(beta_prime)
 
 
 #Return sieve cost
@@ -196,6 +196,8 @@ def bkz_cost(d, beta,cost_model=1,ldc_param = "AGPS20"):
         return theo_bkz_cost(d, beta,ldc_param = ldc_param)
     elif(cost_model == 2):
         beta_prime = beta - dim4free_wrapper(default_dim4free_fun,beta)
+        if(practical_bkz_cost(d,beta,1)<=0):
+            return (-10, practical_pump_cost(beta_prime)[1])
         return log2(practical_bkz_cost(d,beta,1)),practical_pump_cost(beta_prime)[1]
     
 
@@ -207,14 +209,14 @@ def bkz_cost(d, beta,cost_model=1,ldc_param = "AGPS20"):
 # threads = 32, gpus = 2,  pnj-bkz cost
 def get_k1_k2_pnj(beta, sieve):
     if beta >=0 and beta <10 and not sieve:
-        k1 = 0 
-        k2 = 0
+        k1 = -1
+        k2 = -1
     elif beta>=10 and beta<=42 and not sieve:
         k1 = 0.03
-        k2 = 5.188
+        k2 = -2.317327
     elif beta < 50 and not sieve:
-        k1 = 0.19
-        k2 = -1.741
+        k1 = 0.202385
+        k2 = -9.340418
     elif beta <= 97 and sieve:
         k1 = 0.056
         k2 = 7.85
@@ -230,11 +232,17 @@ def get_k1_k2_pnj(beta, sieve):
     return k1,k2
 
 
-# threads = 32, gpus = 2, test pump
+# threads = 32, gpus = 2, test pump, down_sieve = True
 def get_k1_k2_pump(beta):
     if beta >=0 and beta <10:
-        k1 = 0 
-        k2 = 0
+        k1 = - 1
+        k2 = - 1
+    #elif beta>=10 and beta<=42:
+    #    k1 = 0.035657
+    #    k2 = -2.317327
+    #elif beta<=60:
+    #    k1 = 0.202385
+    #    k2 = -9.340418
     elif beta>=10 and beta<=60:
         k1 = 0.035657
         k2 = -2.317327
@@ -256,20 +264,40 @@ def get_k1_k2_pump(beta):
     return k1,k2
 
 
+'''
+# threads = 32, gpus = 2, test pump, down_sieve = False
+def get_k1_k2_pump(beta):
+    if beta >=0 and beta <10:
+        k1 = - 1
+        k2 = - 1
+    elif beta>=10 and beta<=60:
+        k1 = 0.035657
+        k2 = -2.317327
+    #elif beta<=60:
+    #    k1 = 0.202385
+    #    k2 = -9.340418
+    elif beta <= 108:
+        k1 = 0.059644
+        k2 = -0.199194
+    elif beta <= 128:
+        k1 = 0.147328
+        k2 = -9.296428
+    elif beta <= 140:
+        k1 = 0.240001
+        k2 = -21.121044
+    else:
+        k1 = 0.368
+        k2 = -31.12
 
-#get pump time test in threads = 20
-def practical_pump_cost(beta):
-    #make sure not use the enum cost 
-    #f = dim4free_wrapper(default_dim4free_fun,beta)
-    #f = dim4free_wrapper(theo_dim4free_fun1,beta)
-    #f = dim4free_wrapper(theo_dim4free_fun2,beta)
-    #beta_prime = beta - f
-    beta_prime = beta
-    k1, k2 = get_k1_k2_pump(beta_prime) # threads = 20
+    return k1,k2
+'''
+
+
+#get pump time test in threads = 32, gpus = 2
+def practical_pump_cost(beta_prime):
+    k1, k2 = get_k1_k2_pump(beta_prime) # threads = 32, gpus = 2
     # k = (1/71.)*((1.33)**(beta/10.))
     secs = k1*beta_prime+k2
-
-
     #unit: GB
     if( beta_prime <= 56):
     	bits = 2.0311
@@ -300,7 +328,7 @@ def practical_bkz_cost(d,beta,jump):
     #if(beta - f <= 60):
     #    pre_pnj_time = T_pnj/jump
     #else:
-    pre_pnj_time = T_pnj*(c3*d+c4)/jump
-    
-    return round(pre_pnj_time,4)
+    if(beta-f>=50):
+        T_pnj = T_pnj*(c3*d+c4)/jump
+    return round(T_pnj,4)
  

@@ -12,14 +12,14 @@ int main(int argc,char **argv){
     Params* params = new Params; //J, gap, J_gap, cost_model, verbose,
     params->threads = 4;
     params->cost_model = 1; //sec model;
-    params->progressive_sieve = true;
+    // params->progressive_sieve = true;
     params->verbose = true;
     params->debug = false;
     params->worst_case = false;
     params->method = atoi(argv[1]); //1:enumbs;2:bssa
     params->gap = 1;
     params->J = 100; 
-    params->J_gap = 5;
+    params->J_gap = 3;
     params->enumbs_G_prec = 1./atoi(argv[2]);
     params->max_loop = 1; 
     params->max_dim = 1500; 

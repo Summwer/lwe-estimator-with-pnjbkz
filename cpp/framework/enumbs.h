@@ -13,7 +13,7 @@ class EnumBS{
             int tours;
         };
         struct blocksize_strategy{
-            tuple<int,int,double,double> dsvp_t;
+            tuple<int,int,double,double,double> dsvp_t;
             vector<strategy> S; //pnj-BKZ strategy: 
             vector<double> l;
             pair<double,double> cum_GB_BKZ;
@@ -52,23 +52,24 @@ class EnumBS{
         int find_pos_for_dsvp(int cdsvp);
         int find_pos_for_dsvp(double dsvp);
         int binary_search_for_cdsvp(double cdsvp);
-        int binary_search_for_dsvp(double dsvp);
+        int binary_search_for_dsvp(int dsvp);
         int binary_search_for_G2(double G2);
         int binary_search_for_G(double G);
         int binary_search_for_slope(double slope);
         int binary_search_for_G2_slope(blocksize_strategy bs);
+        int binary_search_for_dsvp_slope(blocksize_strategy bs);
 
         pair<int,int> get_max_strategy(vector<EnumBS::strategy> S);
         bool compare_max_strategy(vector<EnumBS::strategy> S0, vector<EnumBS::strategy> S1);
 
         // int max_beta_in_S(vector<EnumBS::strategy> S);
-        vector<double> extract_cdsvp();
-        vector<double> extract_dsvp();
+        // vector<double> extract_cdsvp();
+        vector<int> extract_dsvp();
         vector<double> extract_G2();
-        vector<pair<double,double>> extract_G2G1();
-        vector<double> extract_slope();
-        vector<double> extract_cum_pr();
-        vector<tuple<double,double,double>> extract_G2_slope_cum_pr();
+        // vector<pair<double,double>> extract_G2G1();
+        // vector<double> extract_slope();
+        // vector<double> extract_cum_pr();
+        // vector<tuple<double,double,double>> extract_G2_slope_cum_pr();
         bool no_repeated_value_verification(vector<int> nums);
         bool no_repeated_value_verification(vector<double> nums);
 
@@ -76,12 +77,12 @@ class EnumBS{
         // void BS_add_G2(EnumBS::blocksize_strategy bs, int k);
 
 
-        bool pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BKZ,  pair<double,double> &cum_avg_GB_BKZ,  pair<double,double> &GB, double &cum_pr, int beta, int jump, tuple<int,int,double,double> &dsvp_t_, double &slope);
+        bool pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BKZ,  pair<double,double> &cum_avg_GB_BKZ,  pair<double,double> &GB, double &cum_pr, int beta, int jump, tuple<int,int,double,double,double> &dsvp_t_, double &slope);
 
 
         void max_tour_for_pnjbkz_beta(int k, int beta,int jump);
-        void max_tour_for_pnjbkz_beta_G2(int k, int beta,int jump);
-        pair<int,bool> max_tour_for_pnjbkz_beta_G2_backup(int k, int beta,int jump);
+        // void max_tour_for_pnjbkz_beta_G2(int k, int beta,int jump);
+        // pair<int,bool> max_tour_for_pnjbkz_beta_G2_backup(int k, int beta,int jump);
         void enumbs_est(vector<double> l0); //Generate strategy for enumbs
 
         void max_tour_for_pnjbkz_beta_in_parallel(int  beta_j_t_id_begin, vector<pair<int,int>> beta_j_tid,int k);

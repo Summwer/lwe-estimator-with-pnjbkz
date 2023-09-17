@@ -12,7 +12,7 @@ int main(int argc,char **argv){
     Params* params = new Params; //J, gap, J_gap, cost_model, verbose,
     params->threads = 4;
     params->cost_model = 1; //sec model;
-    params->progressive_sieve = true;
+    // params->progressive_sieve = true;
     params->verbose = false;
     params->debug = false;
     params->worst_case = false;

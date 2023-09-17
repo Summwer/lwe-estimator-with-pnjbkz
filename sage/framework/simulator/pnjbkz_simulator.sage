@@ -238,6 +238,8 @@ def simulate_pnjBKZ_below_45(l,beta,N=1,cd=cd):
             l_ = [0 for _ in range(d)]
     return l
 
+    
+
 def show_gs_slope_figure(dir,log_gs_length,sim_log_gs_lengths,n,dimension,alpha_,square_error,beta,N):
     plt.figure(figsize=(15, 10), dpi=100)
     # plt.ylim(4,17) #set range of y_ticks

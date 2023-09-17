@@ -33,7 +33,6 @@ def pro_bkz_cumG(l, verbose=False, cost_model = 1, worst_case = False,ldc_param 
         #l = simBKZ(l, beta, 1)   
         l = simulate_pnjBKZ(l, beta, 1, 1)#simulate_pnjBKZ(log_GS_lengths, beta, loop, jump)
             
-      
         proba = 1.
         i = d - beta
         proba *= chisquared_table[beta].cum_distribution_function(2**(2 * l[i]))
@@ -77,8 +76,6 @@ def pro_bkz_cumG(l, verbose=False, cost_model = 1, worst_case = False,ldc_param 
         raise ValueError("This instance may be unsolvable")
 
     return average_beta, G1cum, B1cum
-
-
 
 
 def leaky_lwe_est(l, verbose=False):

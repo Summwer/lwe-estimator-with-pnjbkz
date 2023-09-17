@@ -36,9 +36,10 @@ lwechal_est(method,  cost_model, worst_case)
 #######################################
 #Fixed parameters
 method = 2
-cost_model = 1
+#cost_model = 1
 ldc_param = "MATZOV22"
 worst_case = False
+cost_model = 2
 cal_ee = "chi"
 goal_min_cost = "gate_min"
 #------------------------------------

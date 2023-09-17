@@ -29,14 +29,15 @@ int main(int argc,char **argv){
         params->bssa_tradion = false;
 
     params->beta_start = atoi(argv[9]);
-    params->est_model = atoi(argv[10]);
-     if(params->est_model==2)
-        params->worst_case = true;
-    else
-        params->worst_case = false;
+    // params->est_model = atoi(argv[10]);
+    //  if(params->est_model==2)
+    //     params->worst_case = true;
+    // else
+    params->worst_case = false;
+    // params->verbose = true;
 
     vector<pair<int,double>> lwes;
-    lwes = { {40, 0.025}, {45, 0.020}, {50, 0.015}, {60, 0.010}, {80, 0.005}, {40,0.035}, {40,0.040}, {50,0.025},{55,0.020},{90,0.005}};
+    lwes = { {40, 0.025}, {40,0.030}, {45, 0.020}, {50, 0.015}, {60, 0.010}, {80, 0.005}, {40,0.035}, {40,0.040}, {50,0.025},{55,0.020},{90,0.005}};
     for(int i = 0; i < int(lwes.size());i++){
         int n = lwes[i].first;
         double alpha  = lwes[i].second;

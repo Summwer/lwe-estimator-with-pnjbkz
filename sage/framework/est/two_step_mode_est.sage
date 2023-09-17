@@ -3,7 +3,7 @@ load("../framework/d_svp_prediction.sage")
 
 
 
-def two_step_mode_estimation(l, dvol, dim_, verbose=False, cost_model=1,ldc_param = "APGS20", cal_ee = "chi", worst_case = False, goal_min_cost = "gate_min"):
+def two_step_mode_estimation(l, dvol, dim_, verbose=False, cost_model=1,ldc_param = "APGS20", cal_ee = "chi", worst_case = False, goal_min_cost = "gate_min", dsvp_model = 2):
     if(cal_ee == "chi"):
         return proba_two_step_mode_estimation(l, verbose=verbose, cost_model=cost_model, ldc_param = ldc_param, worst_case = worst_case, goal_min_cost = goal_min_cost )
     if(cal_ee == "avg_sigma"):
@@ -56,7 +56,7 @@ def stev_two_step_mode_estimation(dvol, d, verbose=False, cost_model=1,ldc_param
     return betamin, G1min, dsvpmin, dsvp_prime_min, Gmin, Bmin
 
 
-def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=1,ldc_param = "APGS20", worst_case = False, goal_min_cost = "gate_min"):
+def proba_two_step_mode_estimation(l, betastart = 10, verbose=False, cost_model=1,ldc_param = "APGS20", worst_case = False, goal_min_cost = "gate_min"):
     """
     LWE estimation: Simplified progressive BKZs + Pump throught chi_square distribution, cumulate cost directly.
     Computes the probabilistic cumulated cost value for given gs-lengths.
@@ -83,9 +83,9 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
     GBKZ = 0.
   
     betamin = []
-    Gcums = [0.]
-    cumulated_probas = [0.]
-
+    #Gcums = [0.]
+    #cumulated_probas = [0.]
+    #betas = [0]
     for beta in range(betastart, d):
         l = simulate_pnjBKZ(l, beta, 1, 1)
         
@@ -96,8 +96,9 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
                 2**(2 * l[i]))
         
         G1, B1 = bkz_cost(d,beta,cost_model=cost_model,ldc_param = ldc_param)
-
-        if(not worst_case):
+        
+       
+        if(not worst_case):   
             #G1cum = log2(2**G1cum + ((2**G1) * remaining_proba * proba))
             GBKZ = log2(2**GBKZ + 2**G1)
             G1cum = log2(2**G1cum + ((2**GBKZ) * remaining_proba * proba))
@@ -111,18 +112,24 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
         cumulated_proba += remaining_proba * proba
         remaining_proba = 1. - cumulated_proba
         
-        if(cumulated_proba > 1e-4):
-            Gcums.append(G1cum)
-            cumulated_probas.append(cumulated_proba)
+        #if(cumulated_proba>1e-4):
+        #    Gcums.append(G1cum)
+        #    cumulated_probas.append(cumulated_proba)
 
         #d_svp prediction
-        Gcums1 = deepcopy(Gcums)
-        cumulated_probas1 = deepcopy(cumulated_probas)
-        (G_sieve,B_sieve,dsvp,dsvp_prime, Gcums1, cumulated_probas1) = d_svp_prediction(l, cumulated_proba, cost_model,ldc_param,worst_case,GBKZ=GBKZ, Gcums = Gcums1, cumulated_probas= cumulated_probas1)
-        #print(beta, proba, l[d-beta], cumulated_proba, G_sieve,  dsvp, dsvp_prime, dsvp-dsvp_prime, dim4free_wrapper(theo_dim4free_fun2,dsvp))
+        #Gcums1 = deepcopy(Gcums)
+        #cumulated_probas1 = deepcopy(cumulated_probas)
 
+        (G_sieve,B_sieve,dsvp,dsvp_prime, Gcums1, cumulated_probas1) = d_svp_prediction(l, cumulated_proba, cost_model,ldc_param,worst_case,GBKZ=GBKZ, Gcums = [], cumulated_probas= [])
+        #print(beta, proba, l[d-beta], cumulated_proba, G_sieve,  dsvp, dsvp_prime, dsvp-dsvp_prime, dim4free_wrapper(theo_dim4free_fun2,dsvp))
+        
         G = log2(2**G1cum + 2**G_sieve)
-        B = log2(2**B1cum + 2**B_sieve)
+        
+    
+        if(worst_case):
+            B = max(B1cum, B_sieve)
+        else:
+            B = log2(2**B1cum + 2**B_sieve)
         
         if remaining_proba < .001:
             if(not worst_case):
@@ -131,10 +138,16 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
         if(G!= float("inf") and B!= float("inf")):
             if(goal_min_cost == "gate_min" and G < Gmin):
                 Gmin, Bmin, G1min, avgbetamin, dsvpmin, dsvp_prime_min, Gcumsmin,cumulated_probasmin = G, B, G1cum, average_beta, dsvp, dsvp_prime,Gcums1,cumulated_probas1
+                
                 betamin = list(range(betastart,beta+1))
                 if verbose:
-                    print("β= %d, G = %3.2f log2(gate), B =%3.2f log2(bit), cum-pr=%.4e"%(beta, G, B, cumulated_proba), 
+                    if(cost_model == 1):
+                        print("β= %d, G = %3.2f log2(gate), G1 = %3.2f log2(gate) B =%3.2f log2(bit), cum-pr=%.4e"%(beta, G, G1cum, B, cumulated_proba), 
                             end="\r" if cumulated_proba < 1e-5 else "\n")
+                    if(cost_model == 2): #G1 = %3.2f log2(sec), Gpump = %3.2f log2(sec), # G1cum, G_sieve
+                        print("β= %d, G = %3.2f log2(sec),  B =%3.2f log2(bit), cum-pr=%.4e"%(beta, G, B, cumulated_proba), 
+                                    end="\r" if cumulated_proba < 1e-5 else "\n")
+                    
             
             if(goal_min_cost == "gate_RAM_min" and G + B < Gmin + Bmin):
                 Gmin, Bmin, G1min, avgbetamin, dsvpmin, dsvp_prime_min, Gcumsmin,cumulated_probasmin= G, B, G1cum, average_beta, dsvp, dsvp_prime,Gcums1,cumulated_probas1
@@ -152,5 +165,5 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
     print()
     print("Gcumsmin: ", Gcumsmin)
     print("cumulated_probasmin: ", cumulated_probasmin)
-    
+
     return betamin,G1min, dsvpmin, dsvp_prime_min, Gmin, Bmin
