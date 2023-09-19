@@ -454,10 +454,10 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
                     int f = get_f_for_pnjbkz(params,beta_alg);
 
                     //((f == 0 or beta_alg < 79 )&& j > 1) ||
-                    if(f!=0 && j >= min(f,ceil(0.1* beta_alg)))
+                    if(f!=0 && j >= min((double) f,ceil(0.1* beta_alg)))
                         continue;
 
-                    if(GB_alg.first > G_tmp_min  and (j == params->J or j < min(f,ceil(0.1* beta_alg)))){
+                    if(GB_alg.first > G_tmp_min  and (j == params->J or j < min((double) f,ceil(0.1* beta_alg)))){
                         flag = false;
                         break;
                     }
@@ -482,7 +482,7 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
                         bs_min = bs_tmp;
                     }
 
-                    if(len_S > 0 and bs_tmp.S[len_S-1].tours == 1 and (j == params->J or j == min(f,ceil(0.1* beta_alg)))){
+                    if(len_S > 0 and bs_tmp.S[len_S-1].tours == 1 and (j == params->J or j == min((double) f,ceil(0.1* beta_alg)))){
                         flag = false;
                         break;
                     }

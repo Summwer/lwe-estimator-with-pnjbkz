@@ -742,7 +742,7 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         int f = get_f_for_pnjbkz(params,beta);
     
       
-        if(f!=0 && jump >= min(f,ceil(0.1*beta)))//ceil(0.1*beta)
+        if(f!=0 && jump >= min((double) f,ceil(0.1*beta)))//ceil(0.1*beta)
             continue;
     
 
@@ -962,7 +962,7 @@ void EnumBS::enumbs_est(vector<double> l0){
 
                 int f = get_f_for_pnjbkz(params,beta);
                 
-                if((f == 0 && j > 1) or (f!=0 && j >= min(f,ceil(0.1*beta))))//ceil(0.1*beta)
+                if((f == 0 && j > 1) or (f!=0 && j >= min((double)f,ceil(0.1*beta))))//ceil(0.1*beta)
                     // if((f == 0 && j > 1) or (f!=0 && j >= f))
                     continue;
         
