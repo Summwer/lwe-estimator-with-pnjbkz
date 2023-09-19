@@ -253,7 +253,7 @@ double COST::practical_bkz_cost(int d,int beta,int jump){
     double k1 = k.first, k2 = k.second;
     double c3= 0.018, c4 = -2.24;
 
-    if(beta - f < 50)
+    if(beta - f <= 60)
         return (k1*(beta-f)+k2) - log2(jump);
     else
         return (k1*(beta-f)+k2) + log2((c3*d+c4)/jump);

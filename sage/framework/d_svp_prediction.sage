@@ -38,9 +38,14 @@ def d_svp_prediction(l, cumulated_proba,cost_model,ldc_param,worst_case,GBKZ = 0
         
         #dsvp_prime = floor(dsvp - dim4free_wrapper(theo_dim4free_fun2,dsvp))
         dsvp_prime = floor(dsvp - dim4free_wrapper(default_dim4free_fun,dsvp))
-        Gsieve, Bsieve = sieve_cost(dsvp_prime,cost_model = cost_model, ldc_param=ldc_param)
-        #print(cost_model, Gpump,2**Gpump,Gsieve,2**Gsieve,dsvp,dsvp_prime)
-        Gpump = log2(2**Gpump + 2** Gsieve)
+
+        if(cost_model == 1):
+            Gsieve, Bsieve = sieve_cost(dsvp_prime,cost_model = cost_model, ldc_param=ldc_param)
+            #print(cost_model, Gpump,2**Gpump,Gsieve,2**Gsieve,dsvp,dsvp_prime)
+            Gpump = log2(2**Gpump + 2** Gsieve)
+        else:
+            Gpump, Bsieve = pump_cost(dsvp_prime,cost_model = cost_model,ldc_param=ldc_param)
+
 
         if(pre_psvp >= psvp):
             continue

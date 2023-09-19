@@ -20,7 +20,7 @@ mkdir "lwechal-est-result"
 #// argv[8]: est model in dsvp_prediction for last pump
 g++ -O3 -funroll-loops -o lwechal-enumbs-est ./lwe-est/lwechal-enumbs-parallel-est.cpp  -L. -pthread -lfplll -lgmp -lmpfr -lest
 
-# ./lwechal-enumbs-est 100 5 2 300 2 3 50 | tee lwechal-est-result/"enumbs(32+2gpus).log" #{{80, 0.005}}
+./lwechal-enumbs-est 100 5 2 300 2 3 50 | tee lwechal-est-result/"enumbs(32+2gpus).log" #{{80, 0.005}}
 
 #./lwechal-enumbs-est 8 5 2 300 2 3 50 1 | tee lwechal-est-result/"enumbs(32+2gpus)-d4f-default-g6k"/J=8,max_loop=5.log #{{40, 0.025}, {45, 0.020}, {50, 0.015},{60, 0.010}};
 

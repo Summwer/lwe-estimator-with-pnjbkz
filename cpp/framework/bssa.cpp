@@ -516,7 +516,7 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
         G1 = it->second.cum_avg_GB_BKZ.first;
         G2 = get<2>(dsvp_t0);
         G = log2(pow(2,G1)+pow(2,G2));
-        B = max(get<3>(dsvp_t0),it->second.cum_avg_GB_BKZ.second);
+        B = log2(pow(2,get<3>(dsvp_t0))+pow(2,it->second.cum_avg_GB_BKZ.second));
         if(G < Gmin and B < params->max_RAM){
             bsmin = it->second;
             Gmin = G;

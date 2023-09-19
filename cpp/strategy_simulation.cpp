@@ -54,10 +54,10 @@ void sim_strategy(Params* params, vector<double> l, vector<tuple<int,int,int>> s
     // int f = wrapper_default_dim4free_fun(dsvp);
     int f = get_f_for_pump(params,dsvp);
     // int f = dims4free(dsvp);
-    // printf("pump-{%d,%d,%d}, sim-pump cost = %3.7f sec\n",  dim - dsvp, dsvp, f,  pow(2,get<2>(dsvp_t_)));  
-    Gcum = log2(pow(2,Gcum)+pow(2,get<2>(dsvp_t_)));
+    printf("pump-{%d,%d,%d}, sim-pump cost = %3.7f sec\n",  dim - dsvp, dsvp, f,  pow(2,get<4>(dsvp_t_)));  
+    Gcum = log2(pow(2,Gcum)+pow(2,get<4>(dsvp_t_)));
     Bcum = max(Bcum, get<3>(dsvp_t_));
-    // cout<<"Gcum = "<<Gcum<<", Bcum = "<<Bcum<<endl;
+    cout<<"Gcum = "<<Gcum<<", Bcum = "<<Bcum<<endl;
     cout<<"============================="<<endl;
 }
 
@@ -95,8 +95,22 @@ void test_lwechal_from_gsa(Params* params, int dim, double dvol, vector<tuple<in
 
 int main(){
 
+    // int n = 40;
+    // double alpha = 0.035;
+    // Params* params = new Params;
+    // params->cost_model = 2;
+    // params->practical_pnjbkz_d4f = 3;
+    // params->practical_pump_d4f = 2;
+    // params->worst_case = true;
+    // params->verbose = true;
+
+    // vector<tuple<int,int,int>> strategy = {{83, 8, 1}, {93, 8, 1}, {108, 8, 1}, {117, 8, 1}, {119, 4, 1}, {133, 4, 1}};
+    // test_lwechal_from_original_instance(params, n, alpha, strategy);
+
+
+
     int n = 40;
-    double alpha = 0.035;
+    double alpha = 0.025;
     Params* params = new Params;
     params->cost_model = 2;
     params->practical_pnjbkz_d4f = 3;
@@ -104,6 +118,6 @@ int main(){
     params->worst_case = true;
     params->verbose = true;
 
-    vector<tuple<int,int,int>> strategy = {{83, 8, 1}, {93, 8, 1}, {108, 8, 1}, {117, 8, 1}, {119, 4, 1}, {133, 4, 1}};
+    vector<tuple<int,int,int>> strategy = {{ 91,  8,  1},{104,  8,  1}};
     test_lwechal_from_original_instance(params, n, alpha, strategy);
 }

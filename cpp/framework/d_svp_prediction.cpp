@@ -55,7 +55,7 @@ tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, d
     int d = l.size(); //, dsvp_prime_;
     double psvp, pre_psvp = 0.,  gh; //, avg_d_svp  = 0.; pre_psvp2 = 0., psvp2, 
     pair<double,double> p_cost ={0.,0.};
-    double G_cum = 0., B_cum = 0., PSC = -1.;
+    double G_cum = -1000., B_cum = -1000., PSC = -1000.;
     // bool flag = false;
     
     if(cum_pr >= 0.999){
@@ -75,9 +75,13 @@ tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, d
         int f = get_f_for_pump(cost->params,dsvp);
         int dsvp_prime = floor(dsvp - f);
         // int dsvp_prime = dsvp;
-        pair<double,double> sieve_cost = cost->sieve_cost(dsvp_prime,cost_model);
-        p_cost.first = log2(pow(2,p_cost.first) + pow(2,sieve_cost.first));
-        p_cost.second = sieve_cost.second;
+        if(cost_model==1){
+            pair<double,double> sieve_cost = cost->sieve_cost(dsvp_prime,cost_model);
+            p_cost.first = log2(pow(2,p_cost.first) + pow(2,sieve_cost.first));
+            p_cost.second = sieve_cost.second;
+        }
+        if(cost_model==2)
+            p_cost = cost->pump_cost(dsvp_prime,cost_model);
 
         if(pre_psvp >= psvp)
             continue;
@@ -105,6 +109,77 @@ tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, d
     return make_tuple(d,d,  log2(pow(2,p_cost.first) + pow(2,cum_GB_BKZ.first)), p_cost.second, PSC);
 }
 
+
+
+// //no cum G with model 1
+// tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, double cum_pr, COST* cost, int cost_model, pair<double,double> cum_GB_BKZ ){
+//     /*
+//     return dsvp, G, B. 
+//     */
+//     int d = l.size(); //, dsvp_prime_;
+//     double psvp, pre_psvp = 0.,  gh, pre_psvp2 = 0., psvp2; //, avg_d_svp  = 0.; pre_psvp2 = 0., psvp2, 
+//     pair<double,double> p_cost ={0.,0.};
+//     double G_cum = -1000., B_cum = -1000., PSC = -1000.; //pow(2,-1000)=0.
+//     // bool flag = false;
+    
+//     if(cum_pr >= 0.999){
+//         return make_tuple(0.,0,0.,0.,0.);
+//     }
+    
+//     for(int dsvp = 30; dsvp <= d; dsvp++ ){
+//         //2**(2 * l1[d-dsvp])==2**(2 * l1d_dsvp)==gh
+//         gh = gaussian_heuristic_log2(l,d-dsvp);
+        
+//         boost::math::chi_squared chisquare(dsvp);
+//         psvp = boost::math::cdf(chisquare,gh); //Compute chi-squared value
+
+//         psvp2 = boost::math::cdf(chisquare,4/3. * gh); //Compute chi-squared value
+        
+
+//         // int f = get_f_for_pump(cost->params,dsvp);
+//         // int dsvp_prime = floor(dsvp - f);
+
+//         int dsvp_prime = dsvp;
+//         // int dsvp_prime = dsvp;
+//         // pair<double,double> sieve_cost = cost->sieve_cost(dsvp_prime,cost_model);
+//         // p_cost.first = log2(pow(2,p_cost.first) + pow(2,sieve_cost.first));
+//         // p_cost.second = sieve_cost.second;
+
+
+//         if(pre_psvp2 >= psvp2)
+//             continue;
+
+
+//         // if(pre_psvp >= psvp)
+//         //     continue;
+        
+        
+//         // G_cum = log2(pow(2,G_cum)+(pow(2,p_cost.first) + pow(2,cum_GB_BKZ.first)) * (1- cum_pr) * (psvp-pre_psvp));
+//         // B_cum = log2(pow(2,B_cum)+pow(2,p_cost.second) * (1 - cum_pr) * (psvp-pre_psvp));
+//         // PSC = log2(pow(2,PSC)+pow(2,p_cost.first) * (psvp-pre_psvp));
+//         if(psvp2 < 0.999){
+//             pair<double,double> sieve_cost = cost->sieve_cost(dsvp_prime,cost_model);
+//             p_cost.first = log2(pow(2,p_cost.first) + pow(2,sieve_cost.first));
+//             p_cost.second = sieve_cost.second;
+//             G_cum = log2(pow(2,G_cum)+(pow(2,p_cost.first) + pow(2,cum_GB_BKZ.first)) * (1- cum_pr) * (psvp2-pre_psvp2));
+//             B_cum = log2(pow(2,B_cum)+pow(2,p_cost.second) * (1 - cum_pr) * (psvp2-pre_psvp2));
+//             PSC = log2(pow(2,PSC)+pow(2,p_cost.first) * (psvp2-pre_psvp2));
+//         }
+
+//         // if(psvp2 >= 0.999 and not flag){
+//         //     dsvp_prime_ = dsvp;
+//         //     flag = true;
+//         // }
+
+//         // if(cum_pr + (1-cum_pr) * psvp >= 0.999)
+//         if(cum_pr + (1-cum_pr) * psvp2 >= 0.999)
+//             return  make_tuple(dsvp_prime, dsvp, G_cum,B_cum, PSC); 
+//         pre_psvp = psvp;
+//         pre_psvp2 = psvp2;
+//     }
+//     p_cost = cost->pump_cost(d,cost_model);
+//     return make_tuple(d,d,  log2(pow(2,p_cost.first) + pow(2,cum_GB_BKZ.first)), p_cost.second, PSC);
+// }
 
 // //no cum G with model 2
 // tuple<int,int,double,double,double> progressive_dsvp_predict2(vector<double> l, double cum_pr, COST* cost, int cost_model, pair<double,double> cum_GB_BKZ ){ //, bool worst_case
