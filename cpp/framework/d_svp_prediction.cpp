@@ -75,13 +75,14 @@ tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, d
         int f = get_f_for_pump(cost->params,dsvp);
         int dsvp_prime = floor(dsvp - f);
         // int dsvp_prime = dsvp;
-        if(cost_model==1){
-            pair<double,double> sieve_cost = cost->sieve_cost(dsvp_prime,cost_model);
-            p_cost.first = log2(pow(2,p_cost.first) + pow(2,sieve_cost.first));
-            p_cost.second = sieve_cost.second;
-        }
-        if(cost_model==2)
-            p_cost = cost->pump_cost(dsvp_prime,cost_model);
+        // if(cost_model==1){
+        //     pair<double,double> sieve_cost = cost->sieve_cost(dsvp_prime,cost_model);
+        //     p_cost.first = log2(pow(2,p_cost.first) + pow(2,sieve_cost.first));
+        //     p_cost.second = sieve_cost.second;
+        // }
+        // if(cost_model==2)
+        
+        p_cost = cost->pump_cost(dsvp_prime,cost_model);
 
         if(pre_psvp >= psvp)
             continue;

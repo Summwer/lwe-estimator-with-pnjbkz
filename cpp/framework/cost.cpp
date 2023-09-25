@@ -108,14 +108,14 @@ pair<double,double> COST::theo_pump_cost(int beta){
 pair<double,double> COST::get_k1_k2_pnj(int beta,bool sieve){
     double k1,k2;
     if(beta >=0 and beta <10 and not sieve){
-        k1 = 0;
-        k2 = 0;
+        k1 = -1;
+        k2 = -1;
     }
     else if(beta>=10 and beta<=42 and not sieve){
         k1 = 0.03;
         k2 = -2.317327;
     }
-    else if(beta< 50 and not sieve){
+    else if(beta < 50 and not sieve){
         k1 = 0.202385;
         k2 = -9.340418;
     }
@@ -253,10 +253,14 @@ double COST::practical_bkz_cost(int d,int beta,int jump){
     double k1 = k.first, k2 = k.second;
     double c3= 0.018, c4 = -2.24;
 
-    if(beta - f <= 60)
-        return (k1*(beta-f)+k2) - log2(jump);
+    // if(beta - f <= 60)
+    //     return (k1*(beta-f)+k2) - log2(jump);
+    // else
+    //if(c3*d+c4 > 1)
+    if(c3*d+c4>=1)
+        return (k1*(beta-f)+k2) + log2(c3*d+c4) - log2(jump);
     else
-        return (k1*(beta-f)+k2) + log2((c3*d+c4)/jump);
+        return (k1*(beta-f)+k2) - log2(jump);
 }
 
 

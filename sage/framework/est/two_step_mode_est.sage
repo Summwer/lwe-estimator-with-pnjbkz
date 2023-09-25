@@ -86,6 +86,8 @@ def proba_two_step_mode_estimation(l, betastart = 10, verbose=False, cost_model=
     #Gcums = [0.]
     #cumulated_probas = [0.]
     #betas = [0]
+    if(cost_model==1):
+        betastart = 50
     for beta in range(betastart, d):
         l = simulate_pnjBKZ(l, beta, 1, 1)
         
@@ -154,8 +156,9 @@ def proba_two_step_mode_estimation(l, betastart = 10, verbose=False, cost_model=
                 betamin = list(range(betastart,beta+1))
                 #if verbose:
                 #    print("β= %d, G = %3.2f log2(gate), B =%3.2f log2(bit), cum-pr=%.4e"%(beta, G1cum, B1cum, cumulated_proba), end="\r" if cumulated_proba < 1e-4 else "\n")
-            
-            
+        if(beta == 628):
+            print("β= %d, G = %3.2f log2(gate), G1 = %3.2f log2(gate) B =%3.2f log2(bit), cum-pr=%.4e"%(beta, G, G1cum, B, cumulated_proba), 
+                            end="\r" if cumulated_proba < 1e-5 else "\n")
         if remaining_proba < .001:
             break
         

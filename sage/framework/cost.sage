@@ -328,7 +328,10 @@ def practical_bkz_cost(d,beta,jump):
     #if(beta - f <= 60):
     #    pre_pnj_time = T_pnj/jump
     #else:
-    if(beta-f>=50):
+    #if(beta-f>=50):
+    if(c3*d+c4>=1):
         T_pnj = T_pnj*(c3*d+c4)/jump
+    else:
+        T_pnj = T_pnj/jump
     return round(T_pnj,4)
  

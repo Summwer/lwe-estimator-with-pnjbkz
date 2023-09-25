@@ -8,7 +8,7 @@ void EnumBS::set_threads(int nr)
 }
 
 void EnumBS::print_strategy(vector<EnumBS::strategy> S){
-    cout<<"S(beta,jump,tours):{";
+    cout<<"S(beta,jump,tours):[";
     // if(int(S.size()) > 50){
     //     for(int i = max(0,int(S.size()) - 10); i < int(S.size()); i ++){
     //         printf("(%4d,%4d,%4d)",S[i].beta,S[i].jump,S[i].tours);
@@ -21,11 +21,11 @@ void EnumBS::print_strategy(vector<EnumBS::strategy> S){
         
     // }
     for(int i = 0; i < int(S.size()); i ++){
-        printf("(%4d,%4d,%4d)",S[i].beta,S[i].jump,S[i].tours);
+        printf("(%d,%d,%d)",S[i].beta,S[i].jump,S[i].tours);
         if(i!=int(S.size()) - 1)
             printf(",");
     }
-    cout<<"}"<<endl;
+    cout<<"]"<<endl;
 }
 
 void EnumBS::print_BS(vector<blocksize_strategy> BS){
@@ -741,8 +741,9 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         
         int f = get_f_for_pnjbkz(params,beta);
     
-      
-        if(f!=0 && jump >= min((double) f,ceil(0.1*beta)))//ceil(0.1*beta)
+        //((f == 0 or beta < 79 )&& jump > 1) or
+        if( (f!=0 && jump > floor((double) f/2.)))
+        // if( ((f == 0 or beta < 79 )&& jump > 1) or (f!=0 && jump >= min((double) f,ceil(0.1*beta))))//ceil(0.1*beta)
             continue;
     
 
@@ -962,8 +963,9 @@ void EnumBS::enumbs_est(vector<double> l0){
 
                 int f = get_f_for_pnjbkz(params,beta);
                 
-                if((f == 0 && j > 1) or (f!=0 && j >= min((double)f,ceil(0.1*beta))))//ceil(0.1*beta)
-                    // if((f == 0 && j > 1) or (f!=0 && j >= f))
+                //((f == 0 or beta < 79 )&& j > 1) or
+                if((f!=0 && j > floor((double) f/2.)))
+                // if(( (f == 0 or beta < 79 )&& j > 1) or (f!=0 && j >= min((double)f,ceil(0.1*beta))))
                     continue;
         
 

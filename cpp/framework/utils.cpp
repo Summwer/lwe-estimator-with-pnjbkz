@@ -458,7 +458,7 @@ int wrapper_default_dim4free_fun(int beta){
     // //For nist-est
     // int f = int(ceil(11.5 + 0.075*beta));
     int f = int(11.5 + 0.075*beta);
-    return min(int(((double)beta - 40)/2.), f);
+    return int(min(((double)beta - 40)/2., (double) f));
 }
 
 
@@ -474,7 +474,8 @@ int theo_dim4free_fun1(int beta){
     if(beta < 40)
         return 0;
     int f = max(0,int(ceil((double)beta * log(4./3.) / log((double)beta/(2.*M_PI)))));
-    return min(int(((double)beta - 40)/2.), f);
+    // return int(min(((double)beta - 40)/2., (double) f));
+    return f; 
 }
 
 
@@ -482,7 +483,9 @@ int theo_dim4free_fun2(int beta){
     if(beta < 40)
         return 0;
     // return min(int(ceil(((double)beta - 40)/2.)), dims4free(beta));
-    return min(int(((double)beta - 40)/2.), dims4free(beta));
+    int f = max(0, dims4free(beta));
+    // return int(min((double)beta - 40)/2., (double) dims4free(beta));
+    return f;
 }
 
 
