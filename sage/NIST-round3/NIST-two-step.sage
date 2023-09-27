@@ -37,7 +37,7 @@ ldc_param = "MATZOV22"
 #cal_ee = "avg_sigma" #primal-martin-usvp + two-step
 #------------------------------------
 
-#kyber_est(method,  ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost, worst_case = worst_case)
+kyber_est(method,  ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost, worst_case = worst_case)
 dilithium_est(method, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost, worst_case = worst_case)
 #hufu_est(method, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost, worst_case = worst_case)
 #eaglesign_est(method, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost, worst_case = worst_case)

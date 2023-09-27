@@ -28,7 +28,7 @@ void sim_strategy(Params* params, vector<double> l, vector<tuple<int,int,int>> s
             G = cost->bkz_cost(dim,beta,jump,params->cost_model);
 
             if(params->verbose)
-                printf("Strategy (%d,%d,%d}, slope = %lf, sim-cost = %3.7f log(sec)\n", beta,jump,t+1,slope, G.first );
+                printf("Strategy (%d,%d,%d), slope = %lf, sim-cost = %3.7f log(sec)\n", beta,jump,t+1,slope, G.first );
             
             GBKZ = log2(pow(2,GBKZ)+pow(2,G.first));
             
@@ -84,16 +84,16 @@ void test_lwechal_from_original_instance(Params* params, int n, double alpha, ve
     FP_NR<FT> dvol = lwechal->dvol;
     vector<double> l = lwechal->log_rr, l_;
     double  sigma = lwechal->alpha * lwechal->q;
-    // printf("No sigma normalization,");
-    // sim_strategy(params, l, strategy,sigma);
+    printf("No sigma normalization,");
+    sim_strategy(params, l, strategy,sigma);
 
-    printf("After a sigma normalization,");
-    for(int i = 0; i < dim; i++){
-        l[i] -=  log2(sigma);
-    }
-    double slope = get_current_slope(l,0,dim);
-    printf("slope = %f\n", slope);
-    sim_strategy(params, l, strategy,1.);
+    // printf("After a sigma normalization,");
+    // for(int i = 0; i < dim; i++){
+    //     l[i] -=  log2(sigma);
+    // }
+    // double slope = get_current_slope(l,0,dim);
+    // printf("slope = %f\n", slope);
+    // sim_strategy(params, l, strategy,1.);
 }
 
 
@@ -140,7 +140,7 @@ int main(){
     Params* params = new Params;
     params->cost_model = 2;
     params->practical_pnjbkz_d4f = 3;
-    params->practical_pump_d4f = 2;
+    params->practical_pump_d4f = 3;
     params->worst_case = true;
     params->verbose = true;
 
@@ -165,11 +165,19 @@ int main(){
     // n = 40, alpha = 0.025;
     // // strategy = {{79, 8,1}, {91, 8,1}, {108, 8,1}};
     // strategy = {{79,8,3}};
+    // // strategy = {{91,9,1},{114,10,1}};
     // test_lwechal_from_original_instance(params, n, alpha, strategy);
 
 
+    n = 80, alpha = 0.005;
+
+    // strategy = {{89,9,1},{90,9,1},{117,10,3},{119,10,1}};
+    // strategy = {{91, 9, 1}, {111, 11, 2}, {117, 11, 2}, {120, 11, 1}};
+    strategy = {{73,8,1},{89,9,1},{90,9,1},{114,10,1},{116,10,1},{117,10,1},{119,10,1}};
+    test_lwechal_from_original_instance(params, n, alpha, strategy);
 
 
+    /*
     params->worst_case = false;
     params->cost_model = 1;
     params->theo_pnjbkz_d4f = 2;
@@ -196,6 +204,6 @@ int main(){
         // strategy.insert(strategy.end(),{i,1,1});
     // }
     test_nist_from_gsa(params, n, m, q, D_e, D_s,strategy);
-
+    */
 
 }

@@ -56,7 +56,7 @@ def stev_two_step_mode_estimation(dvol, d, verbose=False, cost_model=1,ldc_param
     return betamin, G1min, dsvpmin, dsvp_prime_min, Gmin, Bmin
 
 
-def proba_two_step_mode_estimation(l, betastart = 10, verbose=False, cost_model=1,ldc_param = "APGS20", worst_case = False, goal_min_cost = "gate_min"):
+def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=1,ldc_param = "APGS20", worst_case = False, goal_min_cost = "gate_min"):
     """
     LWE estimation: Simplified progressive BKZs + Pump throught chi_square distribution, cumulate cost directly.
     Computes the probabilistic cumulated cost value for given gs-lengths.
@@ -156,9 +156,7 @@ def proba_two_step_mode_estimation(l, betastart = 10, verbose=False, cost_model=
                 betamin = list(range(betastart,beta+1))
                 #if verbose:
                 #    print("β= %d, G = %3.2f log2(gate), B =%3.2f log2(bit), cum-pr=%.4e"%(beta, G1cum, B1cum, cumulated_proba), end="\r" if cumulated_proba < 1e-4 else "\n")
-        if(beta == 628):
-            print("β= %d, G = %3.2f log2(gate), G1 = %3.2f log2(gate) B =%3.2f log2(bit), cum-pr=%.4e"%(beta, G, G1cum, B, cumulated_proba), 
-                            end="\r" if cumulated_proba < 1e-5 else "\n")
+
         if remaining_proba < .001:
             break
         

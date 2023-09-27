@@ -208,3 +208,13 @@ dim = 307, dvol = 807.55779063989
 After a sigma normalization,Slope = -0.060246
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, Find minimal time cost strategy, average_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3.
+ 
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.268995e-02, G_BKZ = 1.385244e+01 log2(sec), B_BKZ = 3.721074e+01 log2(bit), cum-pr = 2.932993e-02, pump-{133,174,24}, G_dsvp = 2.010853e+01 log2(sec), B_dsvp = 4.112245e+01 bit, G = 2.012728e+01 log2(sec), B = 4.112245e+01 log2(bit),  min_GB.first = 2.012728e+01 log2(sec))
+S(beta,jump,tours):[(89,9,1),(92,9,1),(116,10,2),(117,10,2),(117,4,1),(118,4,1),(121,4,1),(128,4,1),(132,4,1),(138,4,1),(141,4,1)]
+Min Cost = 20.13 log2(sec) = 1145291.31 s, Memory Cost = 41.22 log2(bit) = 297.19 GB 
+EnumBS cost:9.3e+02s.
+
+
+
