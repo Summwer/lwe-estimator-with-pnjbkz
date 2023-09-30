@@ -79,15 +79,15 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
     remaining_proba = 1.
     average_beta = 0.
     cumulated_proba = 0.
-    G1cum,B1cum = 0.,0.
-    GBKZ = 0.
+    G1cum,B1cum = -1000., -1000.
+    GBKZ = -1000.
   
     betamin = []
     #Gcums = [0.]
     #cumulated_probas = [0.]
     #betas = [0]
-    if(cost_model==1):
-        betastart = 50
+    if(cost_model == 2):
+        betastart = 10
     for beta in range(betastart, d):
         l = simulate_pnjBKZ(l, beta, 1, 1)
         
@@ -99,13 +99,14 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
         
         G1, B1 = bkz_cost(d,beta,cost_model=cost_model,ldc_param = ldc_param)
         
-       
+
         if(not worst_case):   
             #G1cum = log2(2**G1cum + ((2**G1) * remaining_proba * proba))
             GBKZ = log2(2**GBKZ + 2**G1)
             G1cum = log2(2**G1cum + ((2**GBKZ) * remaining_proba * proba))
             B1cum = log2(2**B1cum + ((2**B1) * remaining_proba * proba))
             #B1cum = max(B1cum, B1)
+    
         else:
             G1cum = log2(2**G1cum + 2**G1)
             B1cum = max(B1cum, B1)
@@ -122,11 +123,11 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
         #Gcums1 = deepcopy(Gcums)
         #cumulated_probas1 = deepcopy(cumulated_probas)
 
+        
         (G_sieve,B_sieve,dsvp,dsvp_prime, Gcums1, cumulated_probas1) = d_svp_prediction(l, cumulated_proba, cost_model,ldc_param,worst_case,GBKZ=GBKZ, Gcums = [], cumulated_probas= [])
         #print(beta, proba, l[d-beta], cumulated_proba, G_sieve,  dsvp, dsvp_prime, dsvp-dsvp_prime, dim4free_wrapper(theo_dim4free_fun2,dsvp))
         
         G = log2(2**G1cum + 2**G_sieve)
-        
     
         if(worst_case):
             B = max(B1cum, B_sieve)

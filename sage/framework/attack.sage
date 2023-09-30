@@ -57,7 +57,7 @@ def estimate_attack(silent=False, method=1, worst_case = False, parallel_ = Fals
         if(cost_model == 1):
             print(", list_decoding_classical = ", ldc_param, end= ", ")
         if(cal_ee == "chi"):
-            print("cumulated probalistic estimator form in [DDGR20],", end="")
+            print("cumulated probalistic estimator proposed in the article `A refined hardness estimation of LWE`,", end="")
         if(cal_ee == "avg_sigma"):
             print("estimator form in [ADPS16],", end="")
         print("goal_min_cost = ", goal_min_cost)

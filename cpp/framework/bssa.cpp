@@ -111,7 +111,7 @@ pair<double,double> BSSA::max_tour_for_pnjbkz_beta(vector<double> l, int beta){
 
         loop +=1;
         slope0 = slope1;
-        if(cum_pr >= 0.999 or not sim_term)
+        if(cum_pr >= params->succ_prob or not sim_term)
             break;
     
         sim_term = pnjbkz_beta_loop( l, cum_GB, cum_avg_GB, cum_pr, beta, 1, dsvp_t1, slope1);
@@ -154,7 +154,7 @@ pair<double,double> BSSA::max_tour_for_pnjbkz_beta(blocksize_strategy bs, int be
 
         loop +=1;
         slope0 = slope1;
-        if(cum_pr >= 0.999 or not sim_term)
+        if(cum_pr >= params->succ_prob or not sim_term)
             break;
     
         sim_term = pnjbkz_beta_loop( l, cum_GB, cum_avg_GB, cum_pr, beta, 1, dsvp_t1, slope1);
@@ -428,7 +428,7 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
 
         for(int ssbeta = sbeta; ssbeta < beta; ssbeta+=params->gap){
             BSSA::blocksize_strategy bs = BS[ssbeta], bs_min = {}, bs_tmp = {};
-            if(bs.cum_pr >= 0.999){
+            if(bs.cum_pr >= params->succ_prob){
                 // cout<<"ssbeta = "<<ssbeta<<endl;
                 beta = ssbeta;
                 gbeta = ssbeta;

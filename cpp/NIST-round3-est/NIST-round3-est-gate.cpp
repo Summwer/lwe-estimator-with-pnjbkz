@@ -24,7 +24,7 @@ int main(int argc,char **argv){
     params->max_loop = 1; 
     params->max_dim = 1500; 
     params->min_G_prec = 0.001;
-    params->list_decoding = "matzov22";
+    params->list_decoding = "apgs20"; //"matzov22"
     // params->bssa_tradion = true;  
 
     /*----------------Instance Generation-----------------*/

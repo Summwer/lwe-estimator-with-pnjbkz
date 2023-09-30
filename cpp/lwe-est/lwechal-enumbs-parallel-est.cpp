@@ -24,6 +24,7 @@ int main(int argc,char **argv){
     params->beta_start = atoi(argv[7]);
     // params->est_model = atoi(argv[8]);
     params->worst_case = false;
+    params->succ_prob = 0.85;
 
     // params->debug = true;
     // params->verbose = true;
@@ -33,20 +34,12 @@ int main(int argc,char **argv){
 
     vector<pair<int,double>> lwes;
 
-    //low_dim_lwechallenge_est. 
-    // if(params->practical_pump_d4f==3){
-    //     lwes= {{40, 0.025}, {45, 0.020}, {50, 0.015},{60, 0.010}, {80, 0.005}};
-    // }
-    // else {
-    //     if(params->practical_pump_d4f == 1)
-    //         lwes = {{40,0.040}, {50,0.025},{55,0.020},{90,0.005}, {95,0.005}};
-    //     else
-    //         lwes = {{40,0.030}};
-    // }
 
-    lwes = { {40, 0.025}, {40,0.030}, {45, 0.020}, {50, 0.015}, {60, 0.010}, {80, 0.005}, {40,0.035}, {40,0.040}, {50,0.025},{55,0.020},{90,0.005}};
-    // lwes = {{40, 0.025}, {40,0.030}, {45, 0.020}, {50, 0.015},{60, 0.010}, {80, 0.005}, {40,0.040}, {50,0.025},{55,0.020},{90,0.005}, {95,0.005}};
-    // }
+    // lwes = { {40, 0.025}, {40,0.030}, {45, 0.020}, {50, 0.015}, {60, 0.010}, {80, 0.005}, {40,0.035}, {40,0.040}, {50,0.025},{55,0.020},{90,0.005}};
+
+
+    lwes = { {40, 0.025}, {40,0.030}, {45, 0.020}, {50, 0.015},  {80, 0.005}};
+
     for(int i = 0; i < int(lwes.size());i++){
         int n = lwes[i].first;
         double alpha  = lwes[i].second;

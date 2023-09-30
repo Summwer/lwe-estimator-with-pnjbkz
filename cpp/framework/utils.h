@@ -35,6 +35,7 @@ using namespace std::chrono;
 
 
 struct Params{
+    double succ_prob = 0.999; //0.999(default)
     int J =  100; //J -- maximal jump value;
     int gap = 1; //gap -- gap of each beta;
     int J_gap = 1; //J_gap -- gap of each jump value;

@@ -1,0 +1,220 @@
+"lwechallenge/40-025.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=40, m=1600, alpha=0.025, q=1601 
+Chose 171 samples. Predict solution at bkz-89 + svp-117. 
+Initial slope = -0.0665978
+dim = 172, dvol = 331.97353385059
+
+After a sigma normalization,Slope = -0.066598
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, Find minimal time cost strategy, average_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3.
+ 
+Find the optimal Strategy through EumBS!!
+bs = (slope = -4.145422e-02, G_BKZ = 5.033363e+00 log2(sec), B_BKZ = 3.223167e+01 log2(bit), cum-pr = 2.887268e-02, pump-{34,138,21}, G_dsvp = 1.072025e+01 log2(sec), B_dsvp = 3.540060e+01 bit, G = 1.074799e+01 log2(sec), B = 3.540060e+01 log2(bit),  min_GB.first = 1.074799e+01 log2(sec))
+S(beta,jump,tours):[(89,9,1),(115,10,1)]
+Min Cost = 10.75 log2(sec) = 1719.76 s, Memory Cost = 35.55 log2(bit) = 5.87 GB 
+EnumBS cost:8.3s.
+
+
+
+"lwechallenge/40-030.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=40, m=1600, alpha=0.030, q=1601 
+Chose 178 samples. Predict solution at bkz-102 + svp-133. 
+Initial slope = -0.064
+dim = 179, dvol = 325.16013135542
+
+After a sigma normalization,Slope = -0.064016
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, Find minimal time cost strategy, average_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3.
+ 
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.815674e-02, G_BKZ = 2.426444e+00 log2(sec), B_BKZ = 2.908704e+01 log2(bit), cum-pr = 1.978296e-03, pump-{27,152,22}, G_dsvp = 1.304205e+01 log2(sec), B_dsvp = 3.741295e+01 bit, G = 1.304297e+01 log2(sec), B = 3.741295e+01 log2(bit),  min_GB.first = 1.304297e+01 log2(sec))
+S(beta,jump,tours):[(95,9,1),(117,10,1),(119,10,1)]
+Min Cost = 13.04 log2(sec) = 8439.68 s, Memory Cost = 37.42 log2(bit) = 21.37 GB 
+EnumBS cost:38s.
+
+
+
+"lwechallenge/45-020.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=45, m=2025, alpha=0.020, q=2027 
+Chose 184 samples. Predict solution at bkz-89 + svp-121. 
+Initial slope = -0.066
+dim = 185, dvol = 373.46589773268
+
+After a sigma normalization,Slope = -0.065691
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, Find minimal time cost strategy, average_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3.
+ 
+Find the optimal Strategy through EumBS!!
+bs = (slope = -4.052067e-02, G_BKZ = 5.428039e+00 log2(sec), B_BKZ = 3.231819e+01 log2(bit), cum-pr = 2.383398e-02, pump-{44,141,22}, G_dsvp = 1.137490e+01 log2(sec), B_dsvp = 3.575304e+01 bit, G = 1.139810e+01 log2(sec), B = 3.575304e+01 log2(bit),  min_GB.first = 1.139810e+01 log2(sec))
+S(beta,jump,tours):[(73,8,1),(90,9,1),(117,10,1)]
+Min Cost = 11.40 log2(sec) = 2698.80 s, Memory Cost = 35.88 log2(bit) = 7.36 GB 
+EnumBS cost:20s.
+
+
+
+"lwechallenge/50-015.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=50, m=2500, alpha=0.015, q=2503 
+Chose 193 samples. Predict solution at bkz-87 + svp-118. 
+Initial slope = -0.068
+dim = 194, dvol = 415.65527573918
+
+After a sigma normalization,Slope = -0.068032
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, Find minimal time cost strategy, average_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3.
+ 
+Find the optimal Strategy through EumBS!!
+bs = (slope = -4.186746e-02, G_BKZ = 4.795226e+00 log2(sec), B_BKZ = 3.123888e+01 log2(bit), cum-pr = 1.450864e-02, pump-{54,140,22}, G_dsvp = 1.139960e+01 log2(sec), B_dsvp = 3.568497e+01 bit, G = 1.141436e+01 log2(sec), B = 3.568497e+01 log2(bit),  min_GB.first = 1.141436e+01 log2(sec))
+S(beta,jump,tours):[(75,8,1),(88,9,1),(115,10,1)]
+Min Cost = 11.41 log2(sec) = 2729.38 s, Memory Cost = 35.75 log2(bit) = 6.73 GB 
+EnumBS cost:19s.
+
+
+
+"lwechallenge/60-010.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=60, m=3600, alpha=0.010, q=3607 
+Chose 221 samples. Predict solution at bkz-92 + svp-122. 
+Initial slope = -0.066
+dim = 222, dvol = 522.71923621791
+
+After a sigma normalization,Slope = -0.065713
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, Find minimal time cost strategy, average_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3.
+ 
+Find the optimal Strategy through EumBS!!
+bs = (slope = -4.016640e-02, G_BKZ = 3.897266e+00 log2(sec), B_BKZ = 2.921218e+01 log2(bit), cum-pr = 4.028263e-03, pump-{78,144,22}, G_dsvp = 1.230172e+01 log2(sec), B_dsvp = 3.613571e+01 bit, G = 1.230597e+01 log2(sec), B = 3.613571e+01 log2(bit),  min_GB.first = 1.230597e+01 log2(sec))
+S(beta,jump,tours):[(77,8,2),(114,10,2)]
+Min Cost = 12.31 log2(sec) = 5063.68 s, Memory Cost = 36.15 log2(bit) = 8.86 GB 
+EnumBS cost:51s.
+
+
+
+"lwechallenge/80-005.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=80, m=6400, alpha=0.005, q=6421 
+Chose 270 samples. Predict solution at bkz-100 + svp-132. 
+Initial slope = -0.065
+dim = 271, dvol = 725.69003801176
+
+After a sigma normalization,Slope = -0.065334
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, Find minimal time cost strategy, average_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3.
+ 
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.778970e-02, G_BKZ = 4.193960e+00 log2(sec), B_BKZ = 2.881297e+01 log2(bit), cum-pr = 1.634336e-03, pump-{118,153,22}, G_dsvp = 1.409265e+01 log2(sec), B_dsvp = 3.748545e+01 bit, G = 1.409417e+01 log2(sec), B = 3.748545e+01 log2(bit),  min_GB.first = 1.409417e+01 log2(sec))
+S(beta,jump,tours):[(73,8,2),(77,8,5),(77,4,1),(117,10,2),(119,10,1)]
+Min Cost = 14.09 log2(sec) = 17489.06 s, Memory Cost = 37.49 log2(bit) = 22.46 GB 
+EnumBS cost:2.2e+02s.
+
+
+
+"lwechallenge/40-035.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=40, m=1600, alpha=0.035, q=1601 
+Chose 187 samples. Predict solution at bkz-114 + svp-148. 
+Initial slope = -0.06
+dim = 188, dvol = 327.73882468246
+
+After a sigma normalization,Slope = -0.059717
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, Find minimal time cost strategy, average_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3.
+ 
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.523511e-02, G_BKZ = 8.686131e+00 log2(sec), B_BKZ = 3.455523e+01 log2(bit), cum-pr = 1.520419e-02, pump-{21,167,24}, G_dsvp = 1.704671e+01 log2(sec), B_dsvp = 3.979647e+01 bit, G = 1.705109e+01 log2(sec), B = 3.979647e+01 log2(bit),  min_GB.first = 1.705109e+01 log2(sec))
+S(beta,jump,tours):[(75,8,1),(90,9,1),(117,10,1),(117,4,1),(132,4,1)]
+Min Cost = 17.05 log2(sec) = 135796.69 s, Memory Cost = 39.83 log2(bit) = 114.10 GB 
+EnumBS cost:1.2e+02s.
+
+
+
+"lwechallenge/40-040.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=40, m=1600, alpha=0.040, q=1601 
+Chose 191 samples. Predict solution at bkz-128 + svp-162. 
+Initial slope = -0.057
+dim = 192, dvol = 315.51042609031
+
+After a sigma normalization,Slope = -0.056585
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, Find minimal time cost strategy, average_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3.
+ 
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.361523e-02, G_BKZ = 1.286402e+01 log2(sec), B_BKZ = 3.795800e+01 log2(bit), cum-pr = 2.054132e-02, pump-{11,181,25}, G_dsvp = 2.169289e+01 log2(sec), B_dsvp = 4.237203e+01 bit, G = 2.169606e+01 log2(sec), B = 4.237203e+01 log2(bit),  min_GB.first = 2.169606e+01 log2(sec))
+S(beta,jump,tours):[(77,8,1),(117,10,2),(119,4,1),(135,4,1),(147,4,1)]
+Min Cost = 21.70 log2(sec) = 3397546.12 s, Memory Cost = 42.44 log2(bit) = 693.70 GB 
+EnumBS cost:1.9e+02s.
+
+
+
+"lwechallenge/50-025.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=50, m=2500, alpha=0.025, q=2503 
+Chose 219 samples. Predict solution at bkz-130 + svp-161. 
+Initial slope = -0.058
+dim = 220, dvol = 412.46597436512
+
+After a sigma normalization,Slope = -0.057964
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, Find minimal time cost strategy, average_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3.
+ 
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.301381e-02, G_BKZ = 1.408887e+01 log2(sec), B_BKZ = 3.847389e+01 log2(bit), cum-pr = 3.048224e-02, pump-{40,180,25}, G_dsvp = 2.147532e+01 log2(sec), B_dsvp = 4.215628e+01 bit, G = 2.148391e+01 log2(sec), B = 4.215628e+01 log2(bit),  min_GB.first = 2.148391e+01 log2(sec))
+S(beta,jump,tours):[(77,8,1),(77,7,2),(117,10,2),(118,4,1),(128,4,1),(141,4,1),(147,4,1)]
+Min Cost = 21.48 log2(sec) = 2932933.97 s, Memory Cost = 42.26 log2(bit) = 615.02 GB 
+EnumBS cost:4e+02s.
+
+
+
+"lwechallenge/55-020.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=55, m=3025, alpha=0.020, q=3037 
+Chose 230 samples. Predict solution at bkz-128 + svp-161. 
+Initial slope = -0.059
+dim = 231, dvol = 454.63428930493
+
+After a sigma normalization,Slope = -0.058674
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, Find minimal time cost strategy, average_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3.
+ 
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.282467e-02, G_BKZ = 1.464773e+01 log2(sec), B_BKZ = 3.879824e+01 log2(bit), cum-pr = 3.828167e-02, pump-{52,179,24}, G_dsvp = 2.130950e+01 log2(sec), B_dsvp = 4.199866e+01 bit, G = 2.132368e+01 log2(sec), B = 4.199866e+01 log2(bit),  min_GB.first = 2.132368e+01 log2(sec))
+S(beta,jump,tours):[(77,8,4),(117,10,2),(117,4,1),(124,4,1),(133,4,1),(141,4,1),(147,4,1)]
+Min Cost = 21.32 log2(sec) = 2624629.28 s, Memory Cost = 42.15 log2(bit) = 567.17 GB 
+EnumBS cost:4.6e+02s.
+
+
+
+"lwechallenge/90-005.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=90, m=8100, alpha=0.005, q=8101 
+Chose 306 samples. Predict solution at bkz-127 + svp-156. 
+Initial slope = -0.06
+dim = 307, dvol = 807.55779063989
+
+After a sigma normalization,Slope = -0.060246
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, Find minimal time cost strategy, average_case, practical_pnjbkz_d4f = 3, practical_pump_d4f = 3.
+ 
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.268983e-02, G_BKZ = 1.384457e+01 log2(sec), B_BKZ = 3.721102e+01 log2(bit), cum-pr = 2.933631e-02, pump-{133,174,24}, G_dsvp = 2.010496e+01 log2(sec), B_dsvp = 4.112235e+01 bit, G = 2.012366e+01 log2(sec), B = 4.112235e+01 log2(bit),  min_GB.first = 2.012366e+01 log2(sec))
+S(beta,jump,tours):[(76,8,1),(77,8,5),(77,7,2),(77,4,1),(117,10,3),(117,4,1),(118,4,1),(121,4,1),(128,4,1),(132,4,1),(138,4,1),(141,4,1)]
+Min Cost = 20.12 log2(sec) = 1142416.09 s, Memory Cost = 41.22 log2(bit) = 297.18 GB 
+EnumBS cost:1e+03s.
+
+
+

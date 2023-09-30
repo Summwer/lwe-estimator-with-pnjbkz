@@ -21,14 +21,13 @@ def d_svp_prediction(l, cumulated_proba,cost_model,ldc_param,worst_case,GBKZ = 0
     l_ = [2*_*log(2.) for _ in l]
     remaining_proba = 1. - cumulated_proba
     if(cumulated_proba >= 0.999):
-        return (0,0,0,0,Gcums,cumulated_probas)
+        return (-1000.,-1000.,0,0,Gcums,cumulated_probas)
            
     #predict dimension of last sieve: progressive sieve
     p = deepcopy(cumulated_proba)
     rp = 1. - p
     avgdsvp = 0.
-    G_cum, B_cum = 0.,0.
-    Gpump = deepcopy(GBKZ)
+    G_cum, B_cum = -1000.,-1000.
     pre_psvp = 0.
 
     for dsvp in range(30,d):
@@ -55,13 +54,19 @@ def d_svp_prediction(l, cumulated_proba,cost_model,ldc_param,worst_case,GBKZ = 0
         
         #print(dsvp, G_cum, rp, psvp, pre_psvp)
         
-        G_cum = log2(pow(2,G_cum)+pow(2,Gpump) * rp * (psvp-pre_psvp))
+        G_cum = log2(pow(2,G_cum)+ (pow(2,Gpump)+pow(2,GBKZ)) * rp * (psvp-pre_psvp))
         B_cum = log2(pow(2,B_cum)+pow(2,Bsieve) * rp * (psvp-pre_psvp))
        
-        if(p + rp * psvp > 1e-4):
+        if(p + rp * psvp > 1e-4 ):
             Gcums.append(G_cum)
             cumulated_probas.append(p + rp * psvp)
             #cumulated_probas.append(psvp)
+
+            #if(abs(Gcums[0] -131.4856784733793)<0.01):
+            #    print("GBKZ = ", GBKZ, end=",")
+            #    print("psvp = ", psvp, end=",")
+            #    print("p + rp * psvp = ", p + rp * psvp)
+            #    print("dsvp = ", dsvp)
 
         if(p + rp * psvp >= 0.999):
             break

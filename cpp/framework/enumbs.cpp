@@ -683,7 +683,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
         }
 
         if(params->enumbs_min_G){
-            if(cum_pr >= 0.999 or not sim_term or leaf)
+            if(cum_pr >= params->succ_prob or not sim_term or leaf)
                 break;
         }
 
@@ -706,7 +706,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
         BS_add(bs,k);
 
         if(not params->enumbs_min_G){
-            if(cum_pr >= 0.999 or not sim_term or leaf)
+            if(cum_pr >= params->succ_prob or not sim_term or leaf)
                 break;
         }
         
@@ -852,7 +852,7 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
             // }
 
             
-            if(cum_pr >= 0.999 or not sim_term)
+            if(cum_pr >= params->succ_prob or not sim_term)
                 break; //Cannot return, will omit the later blocksize strategy
             
             
@@ -873,8 +873,8 @@ void EnumBS::enumbs_est(vector<double> l0){
     */
     int beta_start = params->beta_start, k = 0, d = l0.size(),j_start,len_S;
     
-    tuple<int,int,double,double,double>  dsvp0_t = dsvp_predict(l0, 0., cost, params->cost_model);
-    blocksize_strategy bs =  {dsvp0_t, {},l0,make_pair(0.,0.), make_pair(0.,0.), make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t)), 0., get_current_slope(l0,0,d), make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t))};
+    tuple<int,int,double,double,double>  dsvp0_t = dsvp_predict(l0, -1000., cost, params->cost_model);
+    blocksize_strategy bs =  {dsvp0_t, {},l0,make_pair(-1000.,-1000.), make_pair(-1000.,-1000.), make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t)), 0., get_current_slope(l0,0,d), make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t))};
 
 
     BS.insert(BS.end(),bs);
@@ -914,7 +914,7 @@ void EnumBS::enumbs_est(vector<double> l0){
         }
 
         if(params->enumbs_min_G){
-            if(cum_pr >= 0.999 or leaf)
+            if(cum_pr >= params->succ_prob or leaf)
                 break;
         }
     
@@ -922,7 +922,7 @@ void EnumBS::enumbs_est(vector<double> l0){
         BS_add(bs,k);
 
         if(not params->enumbs_min_G){
-            if(cum_pr >= 0.999 or leaf)
+            if(cum_pr >= params->succ_prob or leaf)
                 break;
         }
         k++;
@@ -934,7 +934,7 @@ void EnumBS::enumbs_est(vector<double> l0){
 
         len_S = bs.S.size();
 
-        if(bs.cum_pr >= 0.999){
+        if(bs.cum_pr >= params->succ_prob){
             k++;
             continue;
         }
@@ -1016,9 +1016,9 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
     int k = 0, d = l0.size(), beta_start = params->beta_start;
     blocksize_strategy bs;
 
-    tuple<int,int,double,double,double>  dsvp0_t = dsvp_predict(l0, 0., cost,params->cost_model);
+    tuple<int,int,double,double,double>  dsvp0_t = dsvp_predict(l0, -1000., cost,params->cost_model);
 
-    bs = {dsvp0_t, {},l0,make_pair(0.,0.), make_pair(0.,0.),make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t)), 0., get_current_slope(l0,0,d), make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t))};
+    bs = {dsvp0_t, {},l0,make_pair(-1000.,-1000.), make_pair(-1000.,-1000.),make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t)), 0., get_current_slope(l0,0,d), make_pair(get<2>(dsvp0_t), get<3>(dsvp0_t))};
 
     BS.insert(BS.end(),bs);
 
@@ -1058,7 +1058,7 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
             else if(GB.second >= params->max_RAM and GB.first >= min_GB.first + params->min_G_prec)
                 leaf = true;
         }
-        if(params->enumbs_min_G and (cum_pr >= 0.999 or leaf))
+        if(params->enumbs_min_G and (cum_pr >= params->succ_prob or leaf))
             break;
 
     
@@ -1066,7 +1066,7 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
 
         BS_add(bs,k);
         
-        if(params->enumbs_min_G and (cum_pr >= 0.999 or leaf))
+        if(params->enumbs_min_G and (cum_pr >= params->succ_prob or leaf))
             break;
         k++;
     }
@@ -1086,7 +1086,7 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
             printf("======================\n");
             sleep(10);
         }
-        if(bs.cum_pr >= 0.999){
+        if(bs.cum_pr >= params->succ_prob){
             k++;
             continue;
         }

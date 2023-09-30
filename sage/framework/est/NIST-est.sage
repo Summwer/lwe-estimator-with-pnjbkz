@@ -194,8 +194,8 @@ def dilithium_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, par
     eta = 2
     D_s = {x : 1./(2*eta+1) for x in range(-eta, eta+1)}
     D_e = D_s
-    dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    #dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
+    #estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
     
     print("============= Dilithium-II")
@@ -209,8 +209,8 @@ def dilithium_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, par
     eta = 4
     D_s = {x : 1./(2*eta+1) for x in range(-eta, eta+1)}
     D_e = D_s
-    dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    #dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
+    #estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
     
 
     print("============= Dilithium-III")

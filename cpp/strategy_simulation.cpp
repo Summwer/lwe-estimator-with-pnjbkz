@@ -12,7 +12,7 @@ void sim_strategy(Params* params, vector<double> l, vector<tuple<int,int,int>> s
     int dim = int(l.size());
     BKZJSim* sim = new BKZJSim(params,dim);
     COST* cost = new COST(params);
-    double Gcum = 0., Bcum = 0., cum_pr = 0., rem_pr = 1., GBKZ = 0.;
+    double Gcum = -1000., Bcum = -1000., cum_pr = 0., rem_pr = 1., GBKZ = -1000.;
     pair<double,double> G;
     for(int i = 0; i<int(strategy.size()); i++){
         int beta = get<0>(strategy[i]), jump = get<1>(strategy[i]), tours = get<2>(strategy[i]);
@@ -26,18 +26,18 @@ void sim_strategy(Params* params, vector<double> l, vector<tuple<int,int,int>> s
             // FP_NR<FT> pr = boost::math::cdf(chisquare,pow(2,2.*l[dim-beta_]));
             
             G = cost->bkz_cost(dim,beta,jump,params->cost_model);
-
+            // cout<<"G.first"<<endl;
             if(params->verbose)
                 printf("Strategy (%d,%d,%d), slope = %lf, sim-cost = %3.7f log(sec)\n", beta,jump,t+1,slope, G.first );
             
             GBKZ = log2(pow(2,GBKZ)+pow(2,G.first));
-            
+            // cout<<"GBKZ = "<<GBKZ<<", beta = "<<beta<<endl;
             if(not params->worst_case){
                 Gcum = log2(pow(2,Gcum)+pow(2,GBKZ)*rem_pr*pr);
                 Bcum = log2(pow(2,Bcum)+pow(2,G.second)*rem_pr*pr);
             }
             else{
-                Gcum = log2(pow(2,Gcum)+pow(2,G.first));
+                Gcum = GBKZ;
                 Bcum = max(Bcum, G.second);
             }
 
@@ -63,11 +63,18 @@ void sim_strategy(Params* params, vector<double> l, vector<tuple<int,int,int>> s
     int f = get_f_for_pump(params,dsvp);
     // int f = dims4free(dsvp);
     if(params->cost_model==1)
-        printf("pump-{%d,%d,%d}, sim-pump cost = %3.7f sec\n",  dim - dsvp, dsvp, f,  get<4>(dsvp_t_)); 
+        printf("pump-{%d,%d,%d}, sim-pump cost = %3.7f sec\n",  dim - dsvp, dsvp, f,  get<2>(dsvp_t_)); 
+        
     if(params->cost_model==2)
-        printf("pump-{%d,%d,%d}, sim-pump cost = %3.7f sec\n",  dim - dsvp, dsvp, f,  pow(2,get<4>(dsvp_t_)));  
+        printf("pump-{%d,%d,%d}, sim-pump cost = %3.7f sec\n",  dim - dsvp, dsvp, f,  pow(2,get<4>(dsvp_t_))); 
+
+    if(not params->worst_case)
+        Gcum = log2(pow(2,Gcum)+pow(2,get<2>(dsvp_t_)));
+    else
+        Gcum = log2(pow(2,Gcum)+pow(2,get<4>(dsvp_t_)));
          
-    Gcum = log2(pow(2,Gcum)+pow(2,get<4>(dsvp_t_)));
+    // Gcum = log2(pow(2,Gcum)+pow(2,get<4>(dsvp_t_)));
+    
     Bcum = max(Bcum, get<3>(dsvp_t_));
     if(params->cost_model==2)
         cout<<"Gcum = "<<pow(2,Gcum)<<", Bcum = "<<pow(2,Bcum)<<endl;
@@ -162,19 +169,20 @@ int main(){
     // test_lwechal_from_original_instance(params, n, alpha, strategy);
 
 
-    // n = 40, alpha = 0.025;
-    // // strategy = {{79, 8,1}, {91, 8,1}, {108, 8,1}};
+    n = 40, alpha = 0.025;
+    // strategy = {{79, 8,1}, {91, 8,1}, {108, 8,1}};
     // strategy = {{79,8,3}};
-    // // strategy = {{91,9,1},{114,10,1}};
-    // test_lwechal_from_original_instance(params, n, alpha, strategy);
-
-
-    n = 80, alpha = 0.005;
-
-    // strategy = {{89,9,1},{90,9,1},{117,10,3},{119,10,1}};
-    // strategy = {{91, 9, 1}, {111, 11, 2}, {117, 11, 2}, {120, 11, 1}};
-    strategy = {{73,8,1},{89,9,1},{90,9,1},{114,10,1},{116,10,1},{117,10,1},{119,10,1}};
+    strategy = {{91, 8, 1}, {104, 8, 1}};
+    // strategy = {{91,9,1},{114,10,1}};
     test_lwechal_from_original_instance(params, n, alpha, strategy);
+
+
+    // n = 80, alpha = 0.005;
+
+    // // strategy = {{89,9,1},{90,9,1},{117,10,3},{119,10,1}};
+    // // strategy = {{91, 9, 1}, {111, 11, 2}, {117, 11, 2}, {120, 11, 1}};
+    // strategy = {{73,8,1},{89,9,1},{90,9,1},{114,10,1},{116,10,1},{117,10,1},{119,10,1}};
+    // test_lwechal_from_original_instance(params, n, alpha, strategy);
 
 
     /*
@@ -205,5 +213,41 @@ int main(){
     // }
     test_nist_from_gsa(params, n, m, q, D_e, D_s,strategy);
     */
+
+
+
+    params->worst_case = false;
+    params->cost_model = 1;
+    params->theo_pnjbkz_d4f = 2;
+    params->theo_pump_d4f = 2;
+
+    // printf("============= Dilithium-III\n");
+    // n = 7*256, m = 8*256, q = 8380417, eta = 2;
+    // D_s={},D_e={};
+    // // for(int x=-eta; x<=eta; x++){
+    // //     D_s[x] = one/(2*eta+1);
+    // //     D_e[x] = one/(2*eta+1);
+    // // }
+    // for(int x=-eta; x<=eta; x++){
+    //     D_s[x] = 1./(2*eta+1);
+    //     D_e[x] = 1./(2*eta+1);
+    // }
+
+    // strategy = {};
+    // for(int i = 50; i<= 866; i++){
+    //     strategy.insert(strategy.end(),{i,1,1});
+    // }
+    // test_nist_from_gsa(params, n, m, q, D_e, D_s,strategy);
+
+    params->list_decoding = "apgs20"; //"matzov22";
+    printf("============= Kyber-512\n");
+    n = 512, m = 512, q = 3329;
+    D_s = build_centered_binomial_law(3);
+    D_e = D_s;
+    strategy = {};
+    for(int i = 50; i<= 398; i++){
+        strategy.insert(strategy.end(),{i,1,1});
+    }
+    test_nist_from_gsa(params, n, m, q, D_e, D_s,strategy);
 
 }
