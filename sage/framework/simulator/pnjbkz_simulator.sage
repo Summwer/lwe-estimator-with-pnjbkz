@@ -97,8 +97,12 @@ def simulate_pnjBKZ(l0, beta, jump, loop):
     #    beta_ = get_beta_from_sieve_dim(beta-f,d,theo_dim4free_fun1)
 
 
-    if beta < 45:
-        return simulate_pnjBKZ_below_45(l, beta, loop)
+    if beta <=50 and jump ==1:
+        return simBKZ(l, beta, tours=loop) #bkz with enumeration oracle
+
+    #bkz with sieve oracle
+    else if beta < 45:
+        return simulate_pnjBKZ_below_45(l, beta, loop) 
     else:
         return simulate_pnjBKZ_above_45(l, beta, jump, loop)
         
@@ -239,6 +243,9 @@ def simulate_pnjBKZ_below_45(l,beta,N=1,cd=cd):
 
     
 
+
+
+
 def show_gs_slope_figure(dir,log_gs_length,sim_log_gs_lengths,n,dimension,alpha_,square_error,beta,N):
     plt.figure(figsize=(15, 10), dpi=100)
     # plt.ylim(4,17) #set range of y_ticks
@@ -301,3 +308,38 @@ def get_current_slope(r, start_row=0, stop_row=-1):
         v1 += (i - i_mean) * (x[i] - x_mean)
         v2 += (i - i_mean) * (i - i_mean)
     return v1 / v2
+
+
+
+
+
+rk = [0.789527997160000, 0.780003183804613, 0.750872218594458, 0.706520454592593, 0.696345241018901, 0.660533841808400, 0.626274718790505, 0.581480717333169, 0.553171463433503, 0.520811087419712, 0.487994338534253, 0.459541470573431, 0.414638319529319, 0.392811729940846, 0.339090376264829, 0.306561491936042, 0.276041187709516, 0.236698863270441, 0.196186341673080, 0.161214212092249, 0.110895134828114, 0.0678261623920553, 0.0272807162335610, -
+      0.0234609979600137, -0.0320527224746912, -0.0940331032784437, -0.129109087817554, -0.176965384290173, -0.209405754915959, -0.265867993276493, -0.299031324494802, -0.349338597048432, -0.380428160303508, -0.427399405474537, -0.474944677694975, -0.530140672818150, -0.561625221138784, -0.612008793872032, -0.669011014635905, -0.713766731570930, -0.754041787011810, -0.808609696192079, -0.859933249032210, -0.884479963601658, -0.886666930030433]
+simBKZ_c = [None] + [rk[-i] - sum(rk[-i:]) / i for i in range(1, 46)]
+
+pruning_proba = .5
+#simBKZ_c += [RR(log(GH_sv_factor_squared(d)) / 2. -
+#                log(pruning_proba) / d) / log(2.) for d in range(46, 1000)]
+simBKZ_c += [(lgamma(beta_ / 2.0 + 1) * (1.0 / beta_) - log(sqrt(pi))) / log(2.0) for beta_ in range(46, 1000)]
+
+def simBKZ(l, beta, tours=1, c=simBKZ_c):
+
+    n = len(l)
+    l2 = copy(vector(RR, l))
+
+    for k in range(n - 1):
+        d = min(beta, n - k)
+        f = k + d
+        logV = sum(l2[k:f])
+        lma = logV / d + c[d]
+    
+        if lma >= l2[k]:
+            continue
+
+        diff = l2[k] - lma
+        l2[k] -= diff
+        for a in range(k + 1, f):
+            l2[a] += diff / (f - k - 1)
+
+    return l2
+

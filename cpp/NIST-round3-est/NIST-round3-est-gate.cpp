@@ -10,7 +10,7 @@
 // argv[1]: method -- 1:enumba; 2: bssa
 int main(int argc,char **argv){
     Params* params = new Params; //J, gap, J_gap, cost_model, verbose,
-    params->threads = 4;
+    params->threads = 95;
     params->cost_model = 1; //sec model;
     // params->progressive_sieve = true;
     params->verbose = true;
