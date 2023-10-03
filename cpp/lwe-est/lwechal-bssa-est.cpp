@@ -34,7 +34,7 @@ int main(int argc,char **argv){
     //     params->worst_case = true;
     // else
     params->worst_case = false;
-    params->succ_prob = 0.85;
+    // params->succ_prob = 0.85;
     // params->verbose = true;
 
     vector<pair<int,double>> lwes;

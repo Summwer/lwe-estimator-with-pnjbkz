@@ -139,9 +139,9 @@ rk = [0.789527997160000, 0.780003183804613, 0.750872218594458, 0.706520454592593
 simBKZ_c = [None] + [rk[-i] - sum(rk[-i:]) / i for i in range(1, 46)]
 
 pruning_proba = .5
-#simBKZ_c += [RR(log(GH_sv_factor_squared(d)) / 2. -
-#                log(pruning_proba) / d) / log(2.) for d in range(46, 1000)]
-simBKZ_c += [(lgamma(beta_ / 2.0 + 1) * (1.0 / beta_) - log(sqrt(pi))) / log(2.0) for beta_ in range(46, 1000)]
+simBKZ_c += [RR(log(GH_sv_factor_squared(d)) / 2. -
+                log(pruning_proba) / d) / log(2.) for d in range(46, 1000)]
+#simBKZ_c += [(lgamma(beta_ / 2.0 + 1) * (1.0 / beta_) - log(sqrt(pi))) / log(2.0) for #beta_ in range(46, 1000)]
 
 def simBKZ(l, beta, tours=1, c=simBKZ_c):
 

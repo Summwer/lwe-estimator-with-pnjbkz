@@ -1,10 +1,0 @@
-============= Dilithium-I
-[0m[1;31m     LWE instance generation    [0m
-n=1024	m=1024	q=8380417
-dim = 2049, m = 1024, dvol = 15614.21931724470, β = 423.4283
-
-Generate gs-lengths by GSA assumption...enumbs min_G_prec = 0.001
- Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
-beta_start= 50, gap = 1, J = 100, J_gap = 3, cost_model = 1, max_loop = 1, threads = 4, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, succ_prob = 0.999, Find minimal time cost strategy, average_case, theo_pnjbkz_d4f = 2, theo_pump_d4f = 2, list_decoding = `apgs20`. 
-
- index:        2, (  50,   7): (  50,   4) --> (1499,   1), goal index:      647, cost = index:        3, (  51,   7): (  51,   4) --> (1499,   1), goal index:      652, cost = index:        4, (  52,   7): (  52,   4) --> (1499,   1), goal index:      656, cost = index:        5, (  78,   1): (  79, 100) --> (1499,   1), goal index:      657, cost = index:        6, (  63,   1): (  64, 100) --> (1499,   1), goal index:      659, cost = index:        7, (  78,   1): (  79, 100) --> (1499,   1), goal index:      659, cost = index:        8, (  65,   1): (  66, 100) --> (1499,   1), goal index:      659, cost = index:        9, (  78,   1): (  79, 100) --> (1499,   1), goal index:      659, cost = index:       10, (  67,   1): (  68, 100) --> (1499,   1), goal index:      659, cost = index:       11, (  78,   1): (  79, 100) --> (1499,   1), goal index:      659, cost = index:       12, (  69,   1): (  70, 100) --> (1499,   1), goal index:      659, cost = index:       13, (  78,   1): (  79, 100) --> (1499,   1), goal index:      659, cost = index:       14, (  71,   1): (  72, 100) --> (1499,   1), goal index:      659, cost = index:       15, (  78,   1): (  79, 100) --> (1499,   1), goal index:      660, cost = index:       16, (  73,   1): (  74, 100) --> (1499,   1), goal index:      661, cost = index:       17, (  78,   1): (  79, 100) --> (1499,   1), goal index:      662, cost =

@@ -161,8 +161,8 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
         if remaining_proba < .001:
             break
         
-    if remaining_proba > .01:
-        raise ValueError("This instance may be unsolvable")
+    #if remaining_proba > .01:
+    #    raise ValueError("This instance may be unsolvable")
        
     print()
     print("Gcumsmin: ", Gcumsmin)

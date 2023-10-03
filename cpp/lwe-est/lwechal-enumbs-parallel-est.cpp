@@ -24,7 +24,7 @@ int main(int argc,char **argv){
     params->beta_start = atoi(argv[7]);
     // params->est_model = atoi(argv[8]);
     params->worst_case = false;
-    params->succ_prob = 0.85;
+    // params->succ_prob = 0.85;
 
     // params->debug = true;
     // params->verbose = true;
