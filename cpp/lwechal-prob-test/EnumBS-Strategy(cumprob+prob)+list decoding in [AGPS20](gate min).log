@@ -8,15 +8,3 @@ dim = 172, dvol = 331.97353385059
 After a sigma normalization,Slope = -0.066598
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
-beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 1, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, succ_prob = 0.999, Find minimal time cost strategy, average_case, theo_pnjbkz_d4f = 2, theo_pump_d4f = 2, list_decoding = `agps20`. 
-
-
-Find the optimal Strategy through EumBS!!
-bs = (slope = -3.982828e-02, G_BKZ = 4.871325e+01 log2(gate), B_BKZ = 2.352565e+01 log2(bit), cum-pr = 1.934905e-02, pump-{39,133,19}, G_dsvp = 5.663642e+01 log2(gate), B_dsvp = 3.363128e+01 bit, G = 5.664235e+01 log2(gate), B = 3.363128e+01 log2(bit),  min_GB.first = 5.664235e+01 log2(gate))
-S(beta,jump,tours):[(53,7,1),(78,1,5),(89,4,1),(97,4,1)]
-Min Cost = 56.64 log2(gate), Memory Cost = 33.63 log(bit)
-EnumBS cost:12s.
-
-
-
-"lwechallenge/40-030.txt" exists.

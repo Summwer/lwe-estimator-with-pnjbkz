@@ -11,6 +11,7 @@
 int main(int argc,char **argv){
     Params* params = new Params; //J, gap, J_gap, cost_model, verbose,
     
+    params->beta_start = 55; //Not smaller than 55.
     params->threads = 95;
     params->cost_model = 1; //sec model;
     // params->progressive_sieve = true;
