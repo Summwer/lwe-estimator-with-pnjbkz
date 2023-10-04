@@ -72,7 +72,7 @@ tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, d
         
         boost::math::chi_squared chisquare(dsvp);
         psvp = boost::math::cdf(chisquare,gh); //Compute chi-squared value
-
+        // cout<<"dsvp = "<<dsvp <<", psvp = "<<psvp<<endl;
         if(pre_psvp >= psvp)
             continue;
 

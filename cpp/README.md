@@ -93,4 +93,4 @@ To simulate a LWE instance in detail and return the simulated basis quality(we r
 ```
 ./strategy_simulation.sh
 ```
-and get the 'Practical' column for LWE challenge ($40,0.035$) in Table 5 in https://eprint.iacr.org/2022/1343.
+The result will store in the file `lwechal-est-result/simulation.log`, it obtains the 'Simulation' column for LWE challenge ($40,0.030$) in Table 5 in https://eprint.iacr.org/2022/1343.
