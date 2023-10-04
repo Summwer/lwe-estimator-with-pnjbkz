@@ -459,6 +459,9 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
                         continue;
                     }
 
+                    if(beta < 55 and j > 1)
+                        continue;
+
                     // if(params->cost_model == 1 and j >= 0.1 * beta)
                     //     continue;
                     // else{
