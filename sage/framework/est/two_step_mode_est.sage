@@ -3,13 +3,13 @@ load("../framework/d_svp_prediction.sage")
 
 
 
-def two_step_mode_estimation(l, dvol, dim_, verbose=False, cost_model=1,ldc_param = "APGS20", cal_ee = "chi", worst_case = False, goal_min_cost = "gate_min", dsvp_model = 2):
+def two_step_mode_estimation(l, dvol, dim_, verbose=False, cost_model=1,ldc_param = "AGPS20", cal_ee = "chi", worst_case = False, goal_min_cost = "gate_min", dsvp_model = 2):
     if(cal_ee == "chi"):
         return proba_two_step_mode_estimation(l, verbose=verbose, cost_model=cost_model, ldc_param = ldc_param, worst_case = worst_case, goal_min_cost = goal_min_cost )
     if(cal_ee == "avg_sigma"):
         return stev_two_step_mode_estimation(dvol, dim_, verbose=verbose, cost_model=cost_model, ldc_param = ldc_param, goal_min_cost = goal_min_cost )
 
-def stev_two_step_mode_estimation(dvol, d, verbose=False, cost_model=1,ldc_param = "APGS20", goal_min_cost = "gate_min"):
+def stev_two_step_mode_estimation(dvol, d, verbose=False, cost_model=1,ldc_param = "AGPS20", goal_min_cost = "gate_min"):
     
     """
     LWE estimation: Simplified progressive BKZs + Pump through average sigma value, cumulate cost directly.
@@ -56,7 +56,7 @@ def stev_two_step_mode_estimation(dvol, d, verbose=False, cost_model=1,ldc_param
     return betamin, G1min, dsvpmin, dsvp_prime_min, Gmin, Bmin
 
 
-def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=1,ldc_param = "APGS20", worst_case = False, goal_min_cost = "gate_min"):
+def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=1,ldc_param = "AGPS20", worst_case = False, goal_min_cost = "gate_min"):
     """
     LWE estimation: Simplified progressive BKZs + Pump throught chi_square distribution, cumulate cost directly.
     Computes the probabilistic cumulated cost value for given gs-lengths.

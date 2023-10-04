@@ -161,11 +161,11 @@ int main(){
     params->print_Gcums = true;
     params->list_decoding = "agps20"; //"matzov22";
     
-    // n = 100, alpha = 0.005;
+    // n = 70, alpha = 0.005;
     // printf("Test jump = 4;\n");
     // strategy = {};
-    // for (int i = 50; i < 150; i ++)
-    //     strategy.insert(strategy.end(), {i,4,1});
+    // for (int i = 50; i < 100; i ++)
+    //     strategy.insert(strategy.end(), {i,10,1});
     // params->list_decoding = "agps20";
     // printf("n = %d, alpha = %1.3f, list_decoding = agps20\n", n, alpha);
     // test_lwechal_from_original_instance(params, n, alpha, strategy);
@@ -173,7 +173,7 @@ int main(){
 
     // printf("Test jump = 1;\n");
     // strategy = {};
-    // for (int i = 50; i < 150; i ++)
+    // for (int i = 50; i < 100; i ++)
     //     strategy.insert(strategy.end(), {i,1,1});
     // params->list_decoding = "agps20";
     // printf("n = %d, alpha = %1.3f, list_decoding = agps20\n", n, alpha);
@@ -197,13 +197,13 @@ int main(){
 
 
     params->list_decoding = "agps20";
-    printf("============= Kyber-1024, list-decoding = agps20\n");
+    printf("============= Kyber-1024, list-decoding = agps20, jump = 5\n");
     n = 1024, m = 1024, q = 3329;
     D_s = build_centered_binomial_law(2);
     D_e = D_s;
     strategy = {};
-    for (int i = 100; i <= 826; i ++)
-        strategy.insert(strategy.end(), {i,10,1});
+    for (int i = 50; i <= 826; i ++)
+        strategy.insert(strategy.end(), {i,4,1});
     test_nist_from_gsa(params, n, m, q, D_e, D_s,strategy);
 
     

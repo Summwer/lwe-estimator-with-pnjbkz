@@ -37,11 +37,21 @@ lwechal_est(method,  cost_model, worst_case)
 #Fixed parameters
 method = 2
 #cost_model = 1
-ldc_param = "MATZOV22"
 worst_case = False
 cost_model = 2
 cal_ee = "chi"
 goal_min_cost = "gate_min"
 #------------------------------------
 
-lwechal_est(method,  cost_model, worst_case, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost)
+
+#lwechals = [ (40,0.005),(45,0.005),(50,0.005), (55,0.005), (40,0.015), (45,0.010)] 
+#lwechal_est(lwechals, method,  cost_model, worst_case, cal_ee = cal_ee, goal_min_cost = goal_min_cost)
+
+
+cost_model = 1
+#ldc_param = "AGPS20"
+lwechals = [  (80,0.005)] #(40,0.025),
+#lwechal_est(lwechals, method,  cost_model, worst_case, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost)
+
+ldc_param = "MATZOV22"
+lwechal_est(lwechals, method,  cost_model, worst_case, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost)

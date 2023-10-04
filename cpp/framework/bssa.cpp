@@ -458,6 +458,9 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
                     if(((f == 0 or beta_alg < 79 )&& j > 1) || ( f!=0 && j > floor((double) f/2.))){ 
                         continue;
                     }
+
+                    if(params->cost_model == 1 and j >= 0.1 * beta)
+                        continue;
                     // else{
                     //     if(f==0 && j>1)
                     //         cout<<"f="<<f<<", j="<<j <<"beta_alg="<<beta_alg<<endl;
@@ -474,6 +477,7 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
                         flag = false;
                         break;
                     }
+                    
 
                     // if(GB_alg.first > G_tmp_min){
                     //     cout<<"beta_alg = "<< beta_alg << ", j = "<<j<<endl;
