@@ -745,6 +745,9 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         if( (f!=0 && jump > floor((double) f/2.)))
         // if( ((f == 0 or beta < 79 )&& jump > 1) or (f!=0 && jump >= min((double) f,ceil(0.1*beta))))//ceil(0.1*beta)
             continue;
+
+        if(params->cost_model == 1 and jump >= 0.1 * beta)
+            continue;
     
 
         int index = beta_j_t_id_begin + i;
@@ -966,6 +969,8 @@ void EnumBS::enumbs_est(vector<double> l0){
                 //((f == 0 or beta < 79 )&& j > 1) or
                 if((f!=0 && j > floor((double) f/2.)))
                 // if(( (f == 0 or beta < 79 )&& j > 1) or (f!=0 && j >= min((double)f,ceil(0.1*beta))))
+                    continue;
+                if(params->cost_model == 1 and j >= 0.1 * beta)
                     continue;
         
 

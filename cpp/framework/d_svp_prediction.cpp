@@ -63,7 +63,7 @@ tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, d
     }
 
     bool flag = false;
-
+    vector<double> Gcums = {} , pcums = {};
     // cout<<"cum_GB_BKZ.first = "<<cum_GB_BKZ.first <<endl;
     
     for(int dsvp = 30; dsvp <= d; dsvp++ ){
@@ -86,11 +86,24 @@ tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, d
             B_cum = log2(pow(2,B_cum)+pow(2,p_cost.second) * (1 - cum_pr) * (psvp-pre_psvp));
             PSC = log2(pow(2,PSC)+pow(2,p_cost.first) * (psvp-pre_psvp));
         }
+        if(cost->params->print_Gcums){
+            if(cum_pr + (1-cum_pr) * psvp> 1e-4){
+                Gcums.insert(Gcums.end(), G_cum);
+                pcums.insert(pcums.end(), cum_pr + (1-cum_pr) * psvp);
+            }
+        }
         if(cum_pr + (1-cum_pr) * psvp >= cost->params->succ_prob)
             flag = true;
         // if(cum_pr + (1-cum_pr) * psvp >= cost->params->succ_prob)
-        if(cum_pr + (1-cum_pr) * psvp >= 0.999)
+        if(cum_pr + (1-cum_pr) * psvp >= 0.999){
+            if(cost->params->print_Gcums){
+                printf("Pcums: ");
+                print_vector(pcums);
+                printf("Gcums: ");
+                print_vector(Gcums);
+            }
             return  make_tuple(dsvp_prime, dsvp, G_cum,B_cum, PSC); 
+        }
         pre_psvp = psvp;
         // pre_psvp2 = psvp2;
     }

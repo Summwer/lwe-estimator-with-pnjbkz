@@ -25,7 +25,7 @@ int main(int argc,char **argv){
     params->max_dim = 1500; 
     params->min_G_prec = 0.001;
     if(atoi(argv[2]) == 1)
-        params->list_decoding = "apgs20"; //"matzov22"
+        params->list_decoding = "agps20"; //"matzov22"
     if(atoi(argv[2]) == 2)
         params->list_decoding = "matzov22"; //"matzov22"
     // params->bssa_tradion = true;  

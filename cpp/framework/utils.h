@@ -56,7 +56,7 @@ struct Params{
     bool verification =false; //verify the correctness of strategy
 
     //params for cost model;
-    string list_decoding = "matzov22"; //list_decoding = "apgs20" or "matzov22"
+    string list_decoding = "matzov22"; //list_decoding = "agps20" or "matzov22"
     // int est_model = 2; //1, cumulated pnj-BKZ + cumulated proba pump; 2, cumulated pnj-BKZ + succ-fail proba pump;  (deleted)3. cumulated pnj-BKZ + cumulated proba pump with d4f: ||pi_f(s)||<= sqrt(4/3) GH(L_f)
 
     //enumbs params
@@ -68,6 +68,7 @@ struct Params{
     // bool enum_add_G2 = true;
     bool enumbs_min_G = true; //if enumbs_min_G = false, then call a min RAM enumbs
     double min_G_prec = 0.1;
+    bool print_Gcums = false; //The increased Gcum in pump
 
     //bssa params
     bool bssa_tradion = true;

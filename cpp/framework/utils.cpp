@@ -64,9 +64,10 @@ void print_vector(vector<double> v,int index_start, int index_end){
     cout<< "[";
     if(index_end == -1)
         index_end = v.size();
-    for(int i = index_start; i < index_end; i++) {
-        cout << v[i] << " ";
+    for(int i = index_start; i < index_end-1; i++) {
+        cout << v[i] << ", ";
     }
+    cout<<v[index_end-1];
     cout<<"]"<<endl;
 }
 
@@ -74,9 +75,10 @@ void print_vector(vector<int> v,int index_start, int index_end){
     cout<< "[";
     if(index_end == -1)
         index_end = v.size();
-    for(int i = index_start; i < index_end; i++) {
-        cout << v[i] << " ";
+    for(int i = index_start; i < index_end-1; i++) {
+        cout << v[i] << ", ";
     }
+    cout<<v[index_end-1];
     cout<<"]"<<endl;
 }
 
@@ -84,9 +86,10 @@ void print_vector(vector<Z_NR<ZT>> v,int index_start, int index_end){
     cout<< "[";
     if(index_end == -1)
         index_end = v.size();
-    for(int i = index_start; i < index_end; i++) {
-        cout << v[i] << " ";
+    for(int i = index_start; i < index_end-1; i++) {
+        cout << v[i] << ", ";
     }
+    cout<<v[index_end-1];
     cout<<"]"<<endl;
 }
 
@@ -94,9 +97,10 @@ void print_vector(vector<FP_NR<FT>> v, int index_start, int index_end){
     cout<< "[";
     if(index_end == -1)
         index_end = v.size();
-    for(int i = index_start; i < index_end; i++) {
+    for(int i = index_start; i < index_end-1; i++) {
         cout << v[i] << " ";
     }
+    cout<<v[index_end-1];
     cout<<"]"<<endl;
 }
 

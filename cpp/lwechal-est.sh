@@ -23,6 +23,8 @@ g++ -O3 -funroll-loops -o lwechal-enumbs-est ./lwe-est/lwechal-enumbs-parallel-e
 ./lwechal-enumbs-est 100 5 2 300 2 3 50 | tee lwechal-est-result/"enumbs(32+2gpus)-d4f-default-g6k-J=100-maxloop=5.log" #{{80, 0.005}}
 
 
+./lwechal-enumbs-est 100 5 2 300 2 3 50 | tee lwechal-est-result/"enumbs(32+2gpus)-d4f-default-g6k-J=100-maxloop=5.log" #{{80, 0.005}}
+
 # ./lwechal-enumbs-est 8 5 2 300 2 3 50 | tee lwechal-est-result/"enumbs(32+2gpus)-d4f-default-g6k-J=8-maxloop=5.log" #{{80, 0.005}}
 
 # params input in main function in bssa-est

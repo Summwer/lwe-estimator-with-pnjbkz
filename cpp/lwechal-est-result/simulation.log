@@ -1,17 +1,1 @@
 "lwechallenge/40-030.txt" exists.
--------------------------
-Primal attack, TU LWE challenge n=40, m=1600, alpha=0.030, q=1601 
-Chose 178 samples. Predict solution at bkz-102 + svp-133. 
-Initial slope = -0.0640157
-dim = 179, dvol = 325.16013135542
-
-After a sigma normalization,slope = -0.064016
-cost_model = 2
-Strategy (73,8,1), slope = -0.054655, sim-cost = 8.0420000 log(sec)
-Strategy (89,9,1), slope = -0.046929, sim-cost = 8.6560750 log(sec)
-Strategy (117,10,1), slope = -0.039995, sim-cost = 9.9600719 log(sec)
-Strategy (119,10,1), slope = -0.038076, sim-cost = 10.3530719 log(sec)
-cum_pr = 0.00215769
-pump-{27,152,22}, sim-pump cost = 5561.9962106 sec
-Gcum = 8532.94, Bcum = 2.90578e+11
-=============================

@@ -55,7 +55,7 @@ struct Params{
     bool verification =false; //verify the correctness of strategy
 
     //params for cost model;
-    string list_decoding = "apgs20"; //list_decoding = "apgs20" or "matzov22"
+    string list_decoding = "agps20"; //list_decoding = "agps20" or "matzov22"
     int est_model = 2; //1, cumulated pnj-BKZ + cumulated proba pump; 2, cumulated pnj-BKZ + succ-fail proba pump
 
     //enumbs params

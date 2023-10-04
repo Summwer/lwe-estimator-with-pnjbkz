@@ -14,7 +14,7 @@ Find the optimal Strategy through EumBS!!
 bs = (slope = -4.165278e-02, G_BKZ = 4.642258e+00 log2(sec), B_BKZ = 3.147695e+01 log2(bit), cum-pr = 1.935897e-02, pump-{33,139,21}, G_dsvp = 1.087770e+01 log2(sec), B_dsvp = 3.544804e+01 bit, G = 1.089672e+01 log2(sec), B = 3.544804e+01 log2(bit),  min_GB.first = 1.089672e+01 log2(sec))
 S(beta,jump,tours):[(89,9,1),(114,10,1)]
 Min Cost = 10.90 log2(sec) = 1906.52 s, Memory Cost = 35.54 log2(bit) = 5.80 GB 
-EnumBS cost:1e+02s.
+EnumBS cost:9.6s.
 
 
 
@@ -34,7 +34,7 @@ Find the optimal Strategy through EumBS!!
 bs = (slope = -3.807609e-02, G_BKZ = 2.645378e+00 log2(sec), B_BKZ = 2.920589e+01 log2(bit), cum-pr = 2.157689e-03, pump-{27,152,22}, G_dsvp = 1.305524e+01 log2(sec), B_dsvp = 3.739111e+01 bit, G = 1.305630e+01 log2(sec), B = 3.739111e+01 log2(bit),  min_GB.first = 1.305630e+01 log2(sec))
 S(beta,jump,tours):[(73,8,1),(89,9,1),(117,10,1),(119,10,1)]
 Min Cost = 13.06 log2(sec) = 8518.01 s, Memory Cost = 37.40 log2(bit) = 21.05 GB 
-EnumBS cost:4.6e+02s.
+EnumBS cost:39s.
 
 
 
@@ -54,7 +54,7 @@ Find the optimal Strategy through EumBS!!
 bs = (slope = -4.052067e-02, G_BKZ = 5.446861e+00 log2(sec), B_BKZ = 3.231819e+01 log2(bit), cum-pr = 2.383398e-02, pump-{44,141,22}, G_dsvp = 1.138741e+01 log2(sec), B_dsvp = 3.575304e+01 bit, G = 1.141071e+01 log2(sec), B = 3.575304e+01 log2(bit),  min_GB.first = 1.141071e+01 log2(sec))
 S(beta,jump,tours):[(73,8,1),(90,9,1),(117,10,1)]
 Min Cost = 11.41 log2(sec) = 2722.50 s, Memory Cost = 35.88 log2(bit) = 7.36 GB 
-EnumBS cost:2.2e+02s.
+EnumBS cost:18s.
 
 
 
@@ -74,7 +74,7 @@ Find the optimal Strategy through EumBS!!
 bs = (slope = -4.185209e-02, G_BKZ = 4.405054e+00 log2(sec), B_BKZ = 3.063254e+01 log2(bit), cum-pr = 1.078179e-02, pump-{54,140,22}, G_dsvp = 1.142579e+01 log2(sec), B_dsvp = 3.567853e+01 bit, G = 1.143685e+01 log2(sec), B = 3.567853e+01 log2(bit),  min_GB.first = 1.143685e+01 log2(sec))
 S(beta,jump,tours):[(73,8,1),(90,9,1),(114,10,1)]
 Min Cost = 11.44 log2(sec) = 2772.27 s, Memory Cost = 35.72 log2(bit) = 6.60 GB 
-EnumBS cost:2.8e+02s.
+EnumBS cost:22s.
 
 
 
@@ -94,7 +94,7 @@ Find the optimal Strategy through EumBS!!
 bs = (slope = -4.031013e-02, G_BKZ = 4.267483e+00 log2(sec), B_BKZ = 2.966837e+01 log2(bit), cum-pr = 4.884921e-03, pump-{78,144,22}, G_dsvp = 1.238989e+01 log2(sec), B_dsvp = 3.619041e+01 bit, G = 1.239505e+01 log2(sec), B = 3.619041e+01 log2(bit),  min_GB.first = 1.239505e+01 log2(sec))
 S(beta,jump,tours):[(89,9,1),(115,10,2)]
 Min Cost = 12.40 log2(sec) = 5386.20 s, Memory Cost = 36.21 log2(bit) = 9.23 GB 
-EnumBS cost:7.2e+02s.
+EnumBS cost:51s.
 
 
 
@@ -114,7 +114,7 @@ Find the optimal Strategy through EumBS!!
 bs = (slope = -3.766134e-02, G_BKZ = 4.737610e+00 log2(sec), B_BKZ = 2.909869e+01 log2(bit), cum-pr = 1.997412e-03, pump-{119,152,22}, G_dsvp = 1.422066e+01 log2(sec), B_dsvp = 3.740465e+01 bit, G = 1.422267e+01 log2(sec), B = 3.740465e+01 log2(bit),  min_GB.first = 1.422267e+01 log2(sec))
 S(beta,jump,tours):[(89,9,1),(90,9,1),(117,10,3),(119,10,1)]
 Min Cost = 14.22 log2(sec) = 19118.38 s, Memory Cost = 37.41 log2(bit) = 21.25 GB 
-EnumBS cost:2.9e+03s.
+EnumBS cost:1.9e+02s.
 
 
 
@@ -134,7 +134,7 @@ Find the optimal Strategy through EumBS!!
 bs = (slope = -3.523434e-02, G_BKZ = 8.690703e+00 log2(sec), B_BKZ = 3.455604e+01 log2(bit), cum-pr = 1.521277e-02, pump-{21,167,24}, G_dsvp = 1.704710e+01 log2(sec), B_dsvp = 3.979621e+01 bit, G = 1.705150e+01 log2(sec), B = 3.979621e+01 log2(bit),  min_GB.first = 1.705150e+01 log2(sec))
 S(beta,jump,tours):[(76,8,1),(91,9,1),(117,10,1),(117,4,1),(132,4,1)]
 Min Cost = 17.05 log2(sec) = 135835.06 s, Memory Cost = 39.83 log2(bit) = 114.08 GB 
-EnumBS cost:1.7e+03s.
+EnumBS cost:1.3e+02s.
 
 
 
@@ -154,7 +154,7 @@ Find the optimal Strategy through EumBS!!
 bs = (slope = -3.361525e-02, G_BKZ = 1.286410e+01 log2(sec), B_BKZ = 3.795798e+01 log2(bit), cum-pr = 2.054105e-02, pump-{11,181,25}, G_dsvp = 2.169291e+01 log2(sec), B_dsvp = 4.237204e+01 bit, G = 2.169608e+01 log2(sec), B = 4.237204e+01 log2(bit),  min_GB.first = 2.169608e+01 log2(sec))
 S(beta,jump,tours):[(73,8,1),(117,10,2),(119,4,1),(135,4,1),(147,4,1)]
 Min Cost = 21.70 log2(sec) = 3397588.01 s, Memory Cost = 42.44 log2(bit) = 693.70 GB 
-EnumBS cost:2.8e+03s.
+EnumBS cost:2e+02s.
 
 
 
@@ -174,7 +174,7 @@ Find the optimal Strategy through EumBS!!
 bs = (slope = -3.301420e-02, G_BKZ = 1.408708e+01 log2(sec), B_BKZ = 3.847325e+01 log2(bit), cum-pr = 3.046402e-02, pump-{40,180,25}, G_dsvp = 2.147536e+01 log2(sec), B_dsvp = 4.215649e+01 bit, G = 2.148394e+01 log2(sec), B = 4.215649e+01 log2(bit),  min_GB.first = 2.148394e+01 log2(sec))
 S(beta,jump,tours):[(76,8,1),(91,9,1),(114,10,1),(117,10,1),(117,4,1),(128,4,1),(141,4,1),(147,4,1)]
 Min Cost = 21.48 log2(sec) = 2932996.46 s, Memory Cost = 42.26 log2(bit) = 615.09 GB 
-EnumBS cost:5.2e+03s.
+EnumBS cost:3.8e+02s.
 
 
 
@@ -194,7 +194,7 @@ Find the optimal Strategy through EumBS!!
 bs = (slope = -3.282511e-02, G_BKZ = 1.464956e+01 log2(sec), B_BKZ = 3.879744e+01 log2(bit), cum-pr = 3.824491e-02, pump-{52,179,24}, G_dsvp = 2.131048e+01 log2(sec), B_dsvp = 4.199895e+01 bit, G = 2.132466e+01 log2(sec), B = 4.199895e+01 log2(bit),  min_GB.first = 2.132466e+01 log2(sec))
 S(beta,jump,tours):[(94,9,1),(117,10,2),(117,4,1),(128,4,1),(132,4,1),(141,4,1),(147,4,1)]
 Min Cost = 21.32 log2(sec) = 2626414.86 s, Memory Cost = 42.15 log2(bit) = 567.24 GB 
-EnumBS cost:6.5e+03s.
+EnumBS cost:4.6e+02s.
 
 
 
@@ -214,7 +214,7 @@ Find the optimal Strategy through EumBS!!
 bs = (slope = -3.268995e-02, G_BKZ = 1.385234e+01 log2(sec), B_BKZ = 3.721074e+01 log2(bit), cum-pr = 2.932993e-02, pump-{133,174,24}, G_dsvp = 2.010853e+01 log2(sec), B_dsvp = 4.112245e+01 bit, G = 2.012728e+01 log2(sec), B = 4.112245e+01 log2(bit),  min_GB.first = 2.012728e+01 log2(sec))
 S(beta,jump,tours):[(89,9,1),(92,9,1),(116,10,2),(117,10,2),(117,4,1),(118,4,1),(121,4,1),(128,4,1),(132,4,1),(138,4,1),(141,4,1)]
 Min Cost = 20.13 log2(sec) = 1145289.31 s, Memory Cost = 41.22 log2(bit) = 297.19 GB 
-EnumBS cost:1.2e+04s.
+EnumBS cost:8.9e+02s.
 
 
 

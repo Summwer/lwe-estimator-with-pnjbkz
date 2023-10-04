@@ -24,6 +24,15 @@ int main(int argc,char **argv){
     params->beta_start = atoi(argv[7]);
     // params->est_model = atoi(argv[8]);
     params->worst_case = false;
+    
+    if(params->cost_model == 1){
+        if(atoi(argv[8]) == 1)
+            params->list_decoding = "agps20"; //"matzov22"
+        if(atoi(argv[8]) == 2)
+            params->list_decoding = "matzov22"; //"matzov22"
+        // params->print_Gcums = true;
+    }
+    
     // params->succ_prob = 0.85;
 
     // params->debug = true;
