@@ -29,6 +29,11 @@ int main(int argc,char **argv){
     if(atoi(argv[2]) == 2)
         params->list_decoding = "matzov22"; //"matzov22"
     // params->bssa_tradion = true;  
+    
+
+    int n, m, q,eta;
+    map<int,double> D_s,D_e;
+    LWEchal* lwechal;
 
     // Kyber-1024 round-3 parameters
     printf("============= Kyber-1024\n");
@@ -59,19 +64,19 @@ int main(int argc,char **argv){
     /*----------------Instance Generation-----------------*/
     //Dilithium-I round-3 parameters
     printf("============= Dilithium-I\n");
-    int n = 4*256, m = 4*256, q = 8380417, eta = 2;
+    n = 4*256, m = 4*256, q = 8380417, eta = 2;
     // map<int,rational<int>> D_s,D_e;
     // rational<int> one(1);
     // for(int x=-eta; x<=eta; x++){
     //     D_s[x] = one/(2*eta+1);
     //     D_e[x] = one/(2*eta+1);
     // }
-    map<int,double> D_s={},D_e={};
+    D_s={},D_e={};
     for(int x=-eta; x<=eta; x++){
         D_s[x] = 1./(2*eta+1);
         D_e[x] = 1./(2*eta+1);
     }
-    LWEchal* lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
+    lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
     gsa_est(lwechal->dim, lwechal->dvol, params);
 
 

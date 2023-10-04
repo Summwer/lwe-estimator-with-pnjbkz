@@ -63,7 +63,7 @@ struct Params{
     int delta_beta = -1;//10; //Ensure quality(beta,jump) >= quality(beta-delta_beta,1)
     double enumbs_G_prec = 1e-3;//1e-3; //1e-5; //set the precision of enumbs
     double enumbs_slope_prec = 1e-4;//1e-6;
-    int beta_start = 55;  
+    int beta_start = 50;  
     bool worst_case = true;
     // bool enum_add_G2 = true;
     bool enumbs_min_G = true; //if enumbs_min_G = false, then call a min RAM enumbs
