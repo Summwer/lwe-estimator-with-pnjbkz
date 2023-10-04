@@ -202,8 +202,8 @@ int main(){
     D_s = build_centered_binomial_law(2);
     D_e = D_s;
     strategy = {};
-    for (int i = 50; i <= 826; i ++)
-        strategy.insert(strategy.end(), {i,4,1});
+    for (int i = 55; i <= 866; i ++)
+        strategy.insert(strategy.end(), {i,int(ceil((double)i * log(4./3.) / log((double)i/(2.*M_PI*exp(1.))))) / 2,1});
     test_nist_from_gsa(params, n, m, q, D_e, D_s,strategy);
 
     
@@ -212,7 +212,7 @@ int main(){
     D_s = build_centered_binomial_law(2);
     D_e = D_s;
     strategy = {};
-    for (int i = 50; i <= 826; i ++)
+    for (int i = 60; i <= 866; i ++)
         strategy.insert(strategy.end(), {i,1,1});
     test_nist_from_gsa(params, n, m, q, D_e, D_s,strategy);
 
