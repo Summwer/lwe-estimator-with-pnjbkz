@@ -12,10 +12,10 @@ beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 1, max_loop = 5, threa
 
 
 Find the optimal Strategy through EumBS!!
-bs = (slope = -4.052845e-02, G_BKZ = 4.248032e+01 log2(gate), B_BKZ = 2.046608e+01 log2(bit), cum-pr = 4.589611e-03, pump-{40,132,19}, G_dsvp = 5.262693e+01 log2(gate), B_dsvp = 3.358246e+01 bit, G = 5.262820e+01 log2(gate), B = 3.358246e+01 log2(bit),  min_GB.first = 5.262820e+01 log2(gate))
-S(beta,jump,tours):[(53,7,3),(53,4,3),(54,4,1),(55,4,1),(57,4,1),(61,4,1),(66,4,1),(69,4,1),(73,4,1),(82,4,1),(87,4,1),(92,4,1)]
-Min Cost = 52.63 log2(gate), Memory Cost = 33.58 log(bit)
-EnumBS cost:2.6e+02s.
+bs = (slope = -3.981242e-02, G_BKZ = 4.403156e+01 log2(gate), B_BKZ = 2.203032e+01 log2(bit), cum-pr = 6.838964e-03, pump-{36,136,19}, G_dsvp = 5.359031e+01 log2(gate), B_dsvp = 3.433192e+01 bit, G = 5.359222e+01 log2(gate), B = 3.433192e+01 log2(bit),  min_GB.first = 5.359222e+01 log2(gate))
+S(beta,jump,tours):[(55,7,3),(55,4,3),(56,4,1),(66,4,2),(69,4,1),(73,4,1),(77,4,1),(83,4,1),(89,4,1),(97,4,1)]
+Min Cost = 53.59 log2(gate), Memory Cost = 34.33 log(bit)
+EnumBS cost:3e+02s.
 
 
 
@@ -33,10 +33,10 @@ beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 1, max_loop = 5, threa
 
 
 Find the optimal Strategy through EumBS!!
-bs = (slope = -3.841222e-02, G_BKZ = 4.544024e+01 log2(gate), B_BKZ = 2.306896e+01 log2(bit), cum-pr = 3.856478e-03, pump-{34,145,20}, G_dsvp = 5.614023e+01 log2(gate), B_dsvp = 3.634187e+01 bit, G = 5.614110e+01 log2(gate), B = 3.634187e+01 log2(bit),  min_GB.first = 5.614110e+01 log2(gate))
-S(beta,jump,tours):[(53,7,5),(53,4,4),(56,4,1),(58,4,1),(61,4,1),(66,4,1),(68,4,1),(72,4,1),(76,4,1),(83,4,1),(89,4,1),(97,4,1),(105,4,1)]
-Min Cost = 56.14 log2(gate), Memory Cost = 36.34 log(bit)
-EnumBS cost:4e+02s.
+bs = (slope = -3.745717e-02, G_BKZ = 4.750675e+01 log2(gate), B_BKZ = 2.482456e+01 log2(bit), cum-pr = 4.985491e-03, pump-{27,152,21}, G_dsvp = 5.786088e+01 log2(gate), B_dsvp = 3.765053e+01 bit, G = 5.786198e+01 log2(gate), B = 3.765053e+01 log2(bit),  min_GB.first = 5.786198e+01 log2(gate))
+S(beta,jump,tours):[(55,7,2),(55,4,4),(56,4,1),(59,4,1),(66,4,2),(82,4,2),(87,4,1),(97,4,1),(104,4,1),(112,4,1)]
+Min Cost = 57.86 log2(gate), Memory Cost = 37.65 log(bit)
+EnumBS cost:5.3e+02s.
 
 
 
@@ -54,10 +54,10 @@ beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 1, max_loop = 5, threa
 
 
 Find the optimal Strategy through EumBS!!
-bs = (slope = -3.963744e-02, G_BKZ = 4.481392e+01 log2(gate), B_BKZ = 2.245957e+01 log2(bit), cum-pr = 9.281666e-03, pump-{50,135,19}, G_dsvp = 5.348291e+01 log2(gate), B_dsvp = 3.414175e+01 bit, G = 5.348645e+01 log2(gate), B = 3.414175e+01 log2(bit),  min_GB.first = 5.348645e+01 log2(gate))
-S(beta,jump,tours):[(52,7,4),(52,4,4),(53,4,1),(54,4,1),(57,4,1),(59,4,1),(66,4,1),(67,4,1),(70,4,1),(73,4,1),(82,4,1),(85,4,1),(90,4,1),(97,4,1)]
-Min Cost = 53.49 log2(gate), Memory Cost = 34.14 log(bit)
-EnumBS cost:3.7e+02s.
+bs = (slope = -3.911224e-02, G_BKZ = 4.494254e+01 log2(gate), B_BKZ = 2.230863e+01 log2(bit), cum-pr = 6.273636e-03, pump-{46,139,20}, G_dsvp = 5.447713e+01 log2(gate), B_dsvp = 3.494751e+01 bit, G = 5.447908e+01 log2(gate), B = 3.494751e+01 log2(bit),  min_GB.first = 5.447908e+01 log2(gate))
+S(beta,jump,tours):[(55,7,2),(55,4,4),(56,4,1),(57,4,1),(66,4,2),(69,4,1),(73,4,1),(75,4,1),(82,4,1),(86,4,1),(97,4,1),(99,4,1)]
+Min Cost = 54.48 log2(gate), Memory Cost = 34.95 log(bit)
+EnumBS cost:4.1e+02s.
 
 
 
@@ -75,10 +75,10 @@ beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 1, max_loop = 5, threa
 
 
 Find the optimal Strategy through EumBS!!
-bs = (slope = -4.010659e-02, G_BKZ = 4.372977e+01 log2(gate), B_BKZ = 2.109380e+01 log2(bit), cum-pr = 6.115235e-03, pump-{62,132,19}, G_dsvp = 5.289939e+01 log2(gate), B_dsvp = 3.364118e+01 bit, G = 5.290189e+01 log2(gate), B = 3.364118e+01 log2(bit),  min_GB.first = 5.290189e+01 log2(gate))
-S(beta,jump,tours):[(52,6,4),(52,4,5),(53,4,1),(54,4,1),(56,4,1),(58,4,1),(66,4,2),(69,4,1),(71,4,1),(74,4,1),(82,4,1),(85,4,1),(89,4,1),(93,4,1)]
-Min Cost = 52.90 log2(gate), Memory Cost = 33.64 log(bit)
-EnumBS cost:3.8e+02s.
+bs = (slope = -3.953807e-02, G_BKZ = 4.457782e+01 log2(gate), B_BKZ = 2.198484e+01 log2(bit), cum-pr = 6.704929e-03, pump-{58,136,19}, G_dsvp = 5.375554e+01 log2(gate), B_dsvp = 3.436149e+01 bit, G = 5.375802e+01 log2(gate), B = 3.436149e+01 log2(bit),  min_GB.first = 5.375802e+01 log2(gate))
+S(beta,jump,tours):[(55,7,3),(55,4,5),(56,4,1),(59,4,1),(61,4,1),(66,4,1),(67,4,1),(70,4,1),(73,4,1),(75,4,1),(82,4,1),(86,4,1),(91,4,1),(97,4,1)]
+Min Cost = 53.76 log2(gate), Memory Cost = 34.36 log(bit)
+EnumBS cost:4.4e+02s.
 
 
 
@@ -96,10 +96,10 @@ beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 1, max_loop = 5, threa
 
 
 Find the optimal Strategy through EumBS!!
-bs = (slope = -3.913080e-02, G_BKZ = 4.565261e+01 log2(gate), B_BKZ = 2.237007e+01 log2(bit), cum-pr = 8.517220e-03, pump-{86,136,19}, G_dsvp = 5.411658e+01 log2(gate), B_dsvp = 3.444101e+01 bit, G = 5.412066e+01 log2(gate), B = 3.444101e+01 log2(bit),  min_GB.first = 5.412066e+01 log2(gate))
-S(beta,jump,tours):[(50,6,4),(50,4,5),(51,4,3),(52,4,1),(53,4,1),(55,4,1),(57,4,1),(59,4,1),(61,4,1),(66,4,2),(69,4,1),(71,4,1),(73,4,1),(76,4,1),(82,4,1),(84,4,1),(87,4,1),(97,4,2)]
-Min Cost = 54.12 log2(gate), Memory Cost = 34.44 log(bit)
-EnumBS cost:7e+02s.
+bs = (slope = -3.871000e-02, G_BKZ = 4.536454e+01 log2(gate), B_BKZ = 2.200784e+01 log2(bit), cum-pr = 4.302020e-03, pump-{82,140,20}, G_dsvp = 5.506455e+01 log2(gate), B_dsvp = 3.531468e+01 bit, G = 5.506628e+01 log2(gate), B = 3.531468e+01 log2(bit),  min_GB.first = 5.506628e+01 log2(gate))
+S(beta,jump,tours):[(55,7,4),(55,4,5),(56,4,2),(58,4,1),(59,4,1),(66,4,2),(68,4,1),(71,4,1),(73,4,1),(76,4,1),(82,4,1),(84,4,1),(87,4,1),(91,4,1),(97,4,1),(100,4,1)]
+Min Cost = 55.07 log2(gate), Memory Cost = 35.31 log(bit)
+EnumBS cost:6.8e+02s.
 
 
 
@@ -117,10 +117,10 @@ beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 1, max_loop = 5, threa
 
 
 Find the optimal Strategy through EumBS!!
-bs = (slope = -3.809177e-02, G_BKZ = 4.688486e+01 log2(gate), B_BKZ = 2.263725e+01 log2(bit), cum-pr = 4.857838e-03, pump-{129,142,20}, G_dsvp = 5.589145e+01 log2(gate), B_dsvp = 3.570654e+01 bit, G = 5.589425e+01 log2(gate), B = 3.570654e+01 log2(bit),  min_GB.first = 5.589425e+01 log2(gate))
-S(beta,jump,tours):[(50,5,1),(51,6,5),(51,4,5),(52,4,5),(53,4,2),(55,4,1),(56,4,1),(57,4,1),(58,4,1),(66,4,3),(69,4,2),(71,4,1),(73,4,1),(75,4,1),(82,4,2),(84,4,1),(86,4,1),(89,4,1),(92,4,1),(97,4,1),(100,4,1),(102,4,1)]
-Min Cost = 55.89 log2(gate), Memory Cost = 35.71 log(bit)
-EnumBS cost:1.2e+03s.
+bs = (slope = -3.687213e-02, G_BKZ = 4.936342e+01 log2(gate), B_BKZ = 2.505740e+01 log2(bit), cum-pr = 6.903190e-03, pump-{121,150,20}, G_dsvp = 5.784394e+01 log2(gate), B_dsvp = 3.724265e+01 bit, G = 5.784797e+01 log2(gate), B = 3.724265e+01 log2(bit),  min_GB.first = 5.784797e+01 log2(gate))
+S(beta,jump,tours):[(55,7,5),(55,4,5),(56,4,5),(58,4,1),(59,4,1),(60,4,1),(66,4,3),(68,4,1),(70,4,1),(72,4,1),(74,4,1),(75,4,1),(82,4,2),(84,4,1),(87,4,1),(89,4,1),(92,4,1),(97,4,1),(98,4,1),(102,4,1),(105,4,1),(111,4,1)]
+Min Cost = 57.85 log2(gate), Memory Cost = 37.24 log(bit)
+EnumBS cost:1.4e+03s.
 
 
 
@@ -138,10 +138,10 @@ beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 1, max_loop = 5, threa
 
 
 Find the optimal Strategy through EumBS!!
-bs = (slope = -3.628658e-02, G_BKZ = 4.847102e+01 log2(gate), B_BKZ = 2.539779e+01 log2(bit), cum-pr = 2.432104e-03, pump-{27,161,21}, G_dsvp = 6.026422e+01 log2(gate), B_dsvp = 3.952572e+01 bit, G = 6.026462e+01 log2(gate), B = 3.952572e+01 log2(bit),  min_GB.first = 6.026462e+01 log2(gate))
-S(beta,jump,tours):[(52,6,5),(53,6,3),(53,4,3),(54,4,1),(57,4,1),(60,4,1),(66,4,1),(69,4,1),(72,4,1),(75,4,1),(82,4,1),(86,4,1),(92,4,1),(98,4,1),(111,4,1),(119,4,1)]
-Min Cost = 60.26 log2(gate), Memory Cost = 39.53 log(bit)
-EnumBS cost:6.6e+02s.
+bs = (slope = -3.550193e-02, G_BKZ = 5.136706e+01 log2(gate), B_BKZ = 2.806537e+01 log2(bit), cum-pr = 5.065051e-03, pump-{21,167,22}, G_dsvp = 6.193047e+01 log2(gate), B_dsvp = 4.076033e+01 bit, G = 6.193142e+01 log2(gate), B = 4.076033e+01 log2(bit),  min_GB.first = 6.193142e+01 log2(gate))
+S(beta,jump,tours):[(55,7,2),(55,4,5),(58,4,1),(66,4,2),(70,4,1),(73,4,1),(82,4,1),(84,4,1),(87,4,1),(92,4,1),(98,4,1),(106,4,1),(116,4,1),(127,4,1)]
+Min Cost = 61.93 log2(gate), Memory Cost = 40.76 log(bit)
+EnumBS cost:8e+02s.
 
 
 
@@ -159,10 +159,10 @@ beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 1, max_loop = 5, threa
 
 
 Find the optimal Strategy through EumBS!!
-bs = (slope = -3.503834e-02, G_BKZ = 5.087848e+01 log2(gate), B_BKZ = 2.748842e+01 log2(bit), cum-pr = 2.895869e-03, pump-{23,169,22}, G_dsvp = 6.258185e+01 log2(gate), B_dsvp = 4.128699e+01 bit, G = 6.258228e+01 log2(gate), B = 4.128699e+01 log2(bit),  min_GB.first = 6.258228e+01 log2(gate))
-S(beta,jump,tours):[(52,7,5),(53,7,5),(53,4,2),(54,4,1),(57,4,1),(66,4,2),(69,4,1),(73,4,1),(82,4,1),(84,4,1),(89,4,1),(97,4,1),(105,4,1),(116,4,1),(128,4,1)]
-Min Cost = 62.58 log2(gate), Memory Cost = 41.29 log(bit)
-EnumBS cost:8e+02s.
+bs = (slope = -3.397742e-02, G_BKZ = 5.484104e+01 log2(gate), B_BKZ = 3.091767e+01 log2(bit), cum-pr = 4.759610e-03, pump-{11,181,23}, G_dsvp = 6.582698e+01 log2(gate), B_dsvp = 4.372388e+01 bit, G = 6.582769e+01 log2(gate), B = 4.372388e+01 log2(bit),  min_GB.first = 6.582769e+01 log2(gate))
+S(beta,jump,tours):[(55,7,3),(55,4,4),(58,4,1),(66,4,2),(68,4,1),(72,4,1),(76,4,1),(82,4,1),(86,4,1),(89,4,1),(97,4,1),(101,4,1),(111,4,1),(120,4,1),(129,4,1),(141,4,1)]
+Min Cost = 65.83 log2(gate), Memory Cost = 43.72 log(bit)
+EnumBS cost:1e+03s.
 
 
 
@@ -176,3 +176,56 @@ dim = 220, dvol = 412.46597436512
 After a sigma normalization,Slope = -0.057964
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 1, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, succ_prob = 0.999, Find minimal time cost strategy, average_case, theo_pnjbkz_d4f = 2, theo_pump_d4f = 2, list_decoding = `matzov22`. 
+
+
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.353574e-02, G_BKZ = 5.504122e+01 log2(gate), B_BKZ = 3.038507e+01 log2(bit), cum-pr = 3.865273e-03, pump-{39,181,23}, G_dsvp = 6.579505e+01 log2(gate), B_dsvp = 4.364185e+01 bit, G = 6.579589e+01 log2(gate), B = 4.364185e+01 log2(bit),  min_GB.first = 6.579589e+01 log2(gate))
+S(beta,jump,tours):[(55,7,4),(55,4,4),(56,4,1),(57,4,1),(59,4,1),(66,4,2),(68,4,1),(71,4,1),(73,4,1),(77,4,1),(82,4,1),(84,4,1),(97,4,2),(102,4,1),(111,4,1),(112,4,1),(125,4,1),(131,4,1),(140,4,1)]
+Min Cost = 65.80 log2(gate), Memory Cost = 43.64 log(bit)
+EnumBS cost:1.7e+03s.
+
+
+
+"lwechallenge/55-020.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=55, m=3025, alpha=0.020, q=3037 
+Chose 230 samples. Predict solution at bkz-128 + svp-161. 
+Initial slope = -0.059
+dim = 231, dvol = 454.63428930493
+
+After a sigma normalization,Slope = -0.058674
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 1, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, succ_prob = 0.999, Find minimal time cost strategy, average_case, theo_pnjbkz_d4f = 2, theo_pump_d4f = 2, list_decoding = `matzov22`. 
+
+
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.335641e-02, G_BKZ = 5.559398e+01 log2(gate), B_BKZ = 3.068909e+01 log2(bit), cum-pr = 4.787996e-03, pump-{51,180,22}, G_dsvp = 6.570224e+01 log2(gate), B_dsvp = 4.352023e+01 bit, G = 6.570354e+01 log2(gate), B = 4.352023e+01 log2(bit),  min_GB.first = 6.570354e+01 log2(gate))
+S(beta,jump,tours):[(55,7,4),(55,4,4),(56,4,2),(57,4,1),(59,4,1),(66,4,2),(67,4,1),(69,4,1),(72,4,1),(74,4,1),(82,4,2),(85,4,1),(89,4,1),(92,4,1),(98,4,1),(101,4,1),(105,4,1),(112,4,1),(118,4,1),(125,4,1),(132,4,1),(140,4,1)]
+Min Cost = 65.70 log2(gate), Memory Cost = 43.52 log(bit)
+EnumBS cost:1.9e+03s.
+
+
+
+"lwechallenge/90-005.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=90, m=8100, alpha=0.005, q=8101 
+Chose 306 samples. Predict solution at bkz-127 + svp-156. 
+Initial slope = -0.06
+dim = 307, dvol = 807.55779063989
+
+After a sigma normalization,Slope = -0.060246
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 1, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, succ_prob = 0.999, Find minimal time cost strategy, average_case, theo_pnjbkz_d4f = 2, theo_pump_d4f = 2, list_decoding = `matzov22`. 
+
+
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.301999e-02, G_BKZ = 5.730967e+01 log2(gate), B_BKZ = 3.150096e+01 log2(bit), cum-pr = 1.144986e-02, pump-{131,176,22}, G_dsvp = 6.495216e+01 log2(gate), B_dsvp = 4.256154e+01 bit, G = 6.495936e+01 log2(gate), B = 4.256154e+01 log2(bit),  min_GB.first = 6.495936e+01 log2(gate))
+S(beta,jump,tours):[(55,7,5),(55,6,2),(55,4,5),(56,4,5),(57,4,2),(58,4,1),(60,4,2),(66,4,3),(67,4,1),(69,4,1),(70,4,1),(72,4,1),(73,4,1),(75,4,1),(82,4,3),(84,4,1),(86,4,1),(87,4,1),(90,4,1),(97,4,2),(99,4,1),(102,4,1),(105,4,1),(111,4,2),(114,4,1),(116,4,1),(125,4,1),(126,4,1),(130,4,1),(138,4,1)]
+Min Cost = 64.96 log2(gate), Memory Cost = 42.56 log(bit)
+EnumBS cost:3.4e+03s.
+
+
+

@@ -21,12 +21,13 @@ void sim_strategy(Params* params, vector<double> l, vector<tuple<int,int,int>> s
             // cout<<"beta = "<<beta <<", beta_ = "<< beta_<<". jump = "<< jump<<endl;
 
             // vector<double> l1, l2;
+            // jump = 1;
             sim -> simulate(l,l,beta,jump,1);
             double slope = get_current_slope(l,0,dim);
             boost::math::chi_squared chisquare(beta_);
             // cout<<beta_<<","<<beta<<endl;
             double pr = boost::math::cdf(chisquare,pow(2,2.*l[dim-beta_]));
-            // pr = 0.;
+            pr = 0.;
             // FP_NR<FT> pr = boost::math::cdf(chisquare,pow(2,2.*l[dim-beta_]));
             // printf("(beta,jump) = (%d,%d), pr = %e\n", beta, jump, pr);
             // vector<double> l_;
@@ -75,6 +76,7 @@ void sim_strategy(Params* params, vector<double> l, vector<tuple<int,int,int>> s
         dsvp_t_ = dsvp_predict(l, 0., cost, params->cost_model, make_pair(Gcum, Bcum));
     else
         dsvp_t_ = dsvp_predict(l, cum_pr, cost, params->cost_model, make_pair(GBKZ, G.second));
+        cout<<"slope = "<<get_current_slope(l,0,dim)<<endl;
         // cout<<"cum_pr = "<<cum_pr<<endl;
     int dsvp = get<1>(dsvp_t_);
     // int f = wrapper_default_dim4free_fun(dsvp);
@@ -158,66 +160,60 @@ int main(){
     params->theo_pump_d4f = 2;
     params->print_Gcums = true;
     params->list_decoding = "agps20"; //"matzov22";
+    
+    // n = 70, alpha = 0.005;
+    // printf("Test jump = 4;\n");
+    // strategy = {};
+    // for (int i = 50; i < 100; i ++)
+    //     strategy.insert(strategy.end(), {i,10,1});
+    // params->list_decoding = "agps20";
+    // printf("n = %d, alpha = %1.3f, list_decoding = agps20\n", n, alpha);
+    // test_lwechal_from_original_instance(params, n, alpha, strategy);
 
-    // Kyber-512 round-3 parameters
-    printf("============= Kyber-512, list_decoding = agps20\n");
-    n = 512, m = 512, q = 3329;
-    D_s = build_centered_binomial_law(3);
-    D_e = D_s;
-    strategy = {};
-    test_nist_from_gsa(params, n, m, q, D_e, D_s,strategy);
 
+    // printf("Test jump = 1;\n");
+    // strategy = {};
+    // for (int i = 50; i < 100; i ++)
+    //     strategy.insert(strategy.end(), {i,1,1});
+    // params->list_decoding = "agps20";
+    // printf("n = %d, alpha = %1.3f, list_decoding = agps20\n", n, alpha);
+    // test_lwechal_from_original_instance(params, n, alpha, strategy);
 
+    // // // params->list_decoding = "matzov22";
+    // // strategy = {{89,9,1},{114,10,1}};
+    // // printf("n = %d, alpha = %1.3f, list_decoding = matzov22\n", n, alpha);
+    // // test_lwechal_from_original_instance(params, n, alpha, strategy);
 
-    params->list_decoding = "matzov22";
-    // Kyber-512 round-3 parameters
-    printf("============= Kyber-512, list_decoding = matzov22\n");
-    strategy ={};
-    test_nist_from_gsa(params, n, m, q, D_e, D_s,strategy);
+    // n = 80, alpha = 0.005;
+    // strategy = {{51,6,1},{78,1,5},{82,4,2},{84,4,1},{86,4,1},{88,4,1},{91,4,1},{97,4,1},{98,4,1},{101,4,1},{104,4,1},{107,4,1}};
+    // params->list_decoding = "agps20";
+    // printf("n = %d, alpha = %1.3f, list_decoding = agps20\n", n, alpha);
+    // test_lwechal_from_original_instance(params, n, alpha, strategy);
 
+    // // params->list_decoding = "matzov22";
+    // // strategy = {{89,9,1},{114,10,1}};
+    // // printf("n = %d, alpha = %1.3f, list_decoding = matzov22\n", n, alpha);
+    // // test_lwechal_from_original_instance(params, n, alpha, strategy);
 
 
     params->list_decoding = "agps20";
-    printf("============= Kyber-1024, list-decoding = agps20\n");
+    printf("============= Kyber-1024, list-decoding = agps20, jump = 5\n");
     n = 1024, m = 1024, q = 3329;
     D_s = build_centered_binomial_law(2);
     D_e = D_s;
-
     strategy = {};
-    test_nist_from_gsa(params, n, m, q, D_e, D_s,strategy);
-    
-    params->list_decoding = "matzov22";
-    printf("============= Kyber-1024, list_decoding = matzov22\n");
-
-    strategy = {};
+    for (int i = 55; i <= 866; i ++)
+        strategy.insert(strategy.end(), {i,int(ceil((double)i * log(4./3.) / log((double)i/(2.*M_PI*exp(1.))))) / 2,1});
     test_nist_from_gsa(params, n, m, q, D_e, D_s,strategy);
 
-
-
     
-    n = 40, alpha = 0.025;
-    strategy = {{50,1,1},{51,1,1},{52,1,1},{53,1,1},{54,1,1},{55,1,1},{56,1,1},{57,1,1},{58,1,1},{59,1,1},{60,1,1},{61,1,1},{62,1,1},{63,1,1},{64,1,1},{65,1,1},{66,1,1},{67,1,1},{68,1,1},{69,1,1},{70,1,1},{71,1,1},{72,1,1},{73,1,1},{74,1,1},{75,1,1},{76,1,1},{77,1,1},{78,1,1},{87,4,1},{92,4,1},{98,4,1}};
-    params->list_decoding = "agps20";
-    printf("n = %d, alpha = %1.3f, lis_decoding = agps20\n", n, alpha);
-    test_lwechal_from_original_instance(params, n, alpha, strategy);
-
-    params->list_decoding = "matzov22";
-    strategy = {{55,7,3},{55,4,3},{56,4,1},{66,4,2},{69,4,1},{73,4,1},{77,4,1},{83,4,1},{89,4,1},{97,4,1}};
-    printf("n = %d, alpha = %1.3f, lis_decoding = matzov22\n", n, alpha);
-    test_lwechal_from_original_instance(params, n, alpha, strategy);
-
-    n = 80, alpha = 0.005;
-    strategy = {{50,1,1},{51,1,1},{52,1,1},{53,1,1},{54,1,1},{55,1,1},{56,1,1},{57,1,1},{58,1,1},{59,1,1},{60,1,1},{61,1,1},{62,1,1},{63,1,1},{64,1,1},{65,1,1},{66,1,1},{67,1,1},{78,1,5},{85,4,1},{88,4,1},{89,4,1},{97,4,2},{100,4,1},{103,4,1},{107,4,1},{111,4,1}};
-    params->list_decoding = "agps20";
-    printf("n = %d, alpha = %1.3f, lis_decoding = agps20\n", n, alpha);
-    test_lwechal_from_original_instance(params, n, alpha, strategy);
-
-    params->list_decoding = "matzov22";
-    strategy = {{55,7,5},{55,4,5},{56,4,5},{58,4,1},{59,4,1},{60,4,1},{66,4,3},{68,4,1},{70,4,1},{72,4,1},{74,4,1},{75,4,1},{82,4,2},{84,4,1},{87,4,1},{89,4,1},{92,4,1},{97,4,1},{98,4,1},{102,4,1},{105,4,1},{111,4,1}};
-    printf("n = %d, alpha = %1.3f, lis_decoding = matzov22\n", n, alpha);
-    test_lwechal_from_original_instance(params, n, alpha, strategy);
-
-
-
+    printf("============= Kyber-1024, list-decoding = agps20, jump = 1\n");
+    n = 1024, m = 1024, q = 3329;
+    D_s = build_centered_binomial_law(2);
+    D_e = D_s;
+    strategy = {};
+    for (int i = 60; i <= 866; i ++)
+        strategy.insert(strategy.end(), {i,1,1});
+    test_nist_from_gsa(params, n, m, q, D_e, D_s,strategy);
 
 }

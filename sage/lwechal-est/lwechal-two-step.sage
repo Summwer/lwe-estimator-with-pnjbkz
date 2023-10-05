@@ -44,14 +44,14 @@ goal_min_cost = "gate_min"
 #------------------------------------
 
 
-#lwechals = [ (40,0.005),(45,0.005),(50,0.005), (55,0.005), (40,0.015), (45,0.010)] 
-#lwechal_est(lwechals, method,  cost_model, worst_case, cal_ee = cal_ee, goal_min_cost = goal_min_cost)
+lwechals = [ (40,0.005),(45,0.005),(50,0.005), (55,0.005), (40,0.015), (45,0.010)] 
+lwechal_est(lwechals, method,  cost_model, worst_case, cal_ee = cal_ee, goal_min_cost = goal_min_cost)
 
 
 cost_model = 1
-#ldc_param = "AGPS20"
-lwechals = [  (80,0.005)] #(40,0.025),
-#lwechal_est(lwechals, method,  cost_model, worst_case, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost)
+ldc_param = "AGPS20"
+lwechals = [  (40,0.025),(80,0.005)]
+lwechal_est(lwechals, method,  cost_model, worst_case, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost)
 
 ldc_param = "MATZOV22"
 lwechal_est(lwechals, method,  cost_model, worst_case, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost)

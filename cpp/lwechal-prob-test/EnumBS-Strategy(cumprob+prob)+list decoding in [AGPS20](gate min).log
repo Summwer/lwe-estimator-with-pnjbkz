@@ -176,3 +176,56 @@ dim = 220, dvol = 412.46597436512
 After a sigma normalization,Slope = -0.057964
 enumbs min_G_prec = 0.1
  Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 1, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, succ_prob = 0.999, Find minimal time cost strategy, average_case, theo_pnjbkz_d4f = 2, theo_pump_d4f = 2, list_decoding = `agps20`. 
+
+
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.309617e-02, G_BKZ = 6.301881e+01 log2(gate), B_BKZ = 3.429326e+01 log2(bit), cum-pr = 2.646555e-02, pump-{40,180,22}, G_dsvp = 7.043552e+01 log2(gate), B_dsvp = 4.342986e+01 bit, G = 7.044394e+01 log2(gate), B = 4.342986e+01 log2(bit),  min_GB.first = 7.044394e+01 log2(gate))
+S(beta,jump,tours):[(50,1,1),(51,1,1),(52,1,1),(53,1,1),(54,1,1),(55,1,1),(56,1,1),(57,1,1),(58,1,1),(59,1,1),(60,1,1),(61,1,1),(62,1,1),(63,1,1),(64,1,1),(65,1,1),(66,1,1),(67,1,1),(68,1,1),(69,1,1),(70,1,1),(71,1,1),(72,1,1),(73,1,1),(74,1,1),(75,1,1),(76,1,1),(78,1,2),(86,4,1),(89,4,1),(97,4,1),(98,4,1),(101,4,1),(106,4,1),(112,4,1),(118,4,1),(125,4,1),(132,4,1),(145,4,1)]
+Min Cost = 70.44 log2(gate), Memory Cost = 43.43 log(bit)
+EnumBS cost:1e+03s.
+
+
+
+"lwechallenge/55-020.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=55, m=3025, alpha=0.020, q=3037 
+Chose 230 samples. Predict solution at bkz-128 + svp-161. 
+Initial slope = -0.059
+dim = 231, dvol = 454.63428930493
+
+After a sigma normalization,Slope = -0.058674
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 1, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, succ_prob = 0.999, Find minimal time cost strategy, average_case, theo_pnjbkz_d4f = 2, theo_pump_d4f = 2, list_decoding = `agps20`. 
+
+
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.301203e-02, G_BKZ = 6.282487e+01 log2(gate), B_BKZ = 3.385520e+01 log2(bit), cum-pr = 2.287860e-02, pump-{51,180,22}, G_dsvp = 7.034625e+01 log2(gate), B_dsvp = 4.333564e+01 bit, G = 7.035408e+01 log2(gate), B = 4.333564e+01 log2(bit),  min_GB.first = 7.035408e+01 log2(gate))
+S(beta,jump,tours):[(50,1,1),(51,1,1),(52,1,1),(53,1,1),(54,1,1),(55,1,1),(56,1,1),(57,1,1),(58,1,1),(59,1,1),(60,1,1),(61,1,1),(62,1,1),(63,1,1),(64,1,1),(65,1,1),(66,1,1),(67,1,1),(68,1,1),(69,1,1),(70,1,1),(71,1,1),(72,1,1),(73,1,1),(74,1,1),(75,1,1),(78,1,2),(86,4,1),(88,4,1),(91,4,1),(97,4,1),(100,4,1),(103,4,1),(111,4,1),(116,4,1),(125,4,1),(133,4,1),(144,4,1)]
+Min Cost = 70.35 log2(gate), Memory Cost = 43.34 log(bit)
+EnumBS cost:1.1e+03s.
+
+
+
+"lwechallenge/90-005.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=90, m=8100, alpha=0.005, q=8101 
+Chose 306 samples. Predict solution at bkz-127 + svp-156. 
+Initial slope = -0.06
+dim = 307, dvol = 807.55779063989
+
+After a sigma normalization,Slope = -0.060246
+enumbs min_G_prec = 0.1
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
+beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 1, max_loop = 5, threads = 2, G_prec = 1.000000e-03,  slope_prec = 1.000000e-04,  progressive_sieve = True, worst_case = 0, succ_prob = 0.999, Find minimal time cost strategy, average_case, theo_pnjbkz_d4f = 2, theo_pump_d4f = 2, list_decoding = `agps20`. 
+
+
+Find the optimal Strategy through EumBS!!
+bs = (slope = -3.291766e-02, G_BKZ = 6.184931e+01 log2(gate), B_BKZ = 3.174719e+01 log2(bit), cum-pr = 1.375231e-02, pump-{132,175,22}, G_dsvp = 6.946707e+01 log2(gate), B_dsvp = 4.245522e+01 bit, G = 6.947440e+01 log2(gate), B = 4.245522e+01 log2(bit),  min_GB.first = 6.947440e+01 log2(gate))
+S(beta,jump,tours):[(50,1,1),(51,1,1),(52,1,1),(53,1,1),(54,1,1),(55,1,1),(56,1,1),(57,1,1),(58,1,1),(59,1,1),(60,1,1),(61,1,1),(62,1,1),(63,1,1),(64,1,1),(65,1,1),(66,1,1),(67,1,1),(68,1,1),(69,1,1),(70,1,1),(71,1,1),(72,1,1),(73,1,1),(74,1,1),(75,1,1),(76,1,1),(77,1,1),(78,1,1),(84,4,1),(87,4,1),(88,4,1),(89,4,1),(91,4,1),(97,4,2),(99,4,1),(101,4,1),(103,4,1),(106,4,1),(111,4,1),(113,4,1),(115,4,1),(119,4,1),(125,4,1),(128,4,1),(132,4,1),(138,4,1)]
+Min Cost = 69.47 log2(gate), Memory Cost = 42.46 log(bit)
+EnumBS cost:1.8e+03s.
+
+
+

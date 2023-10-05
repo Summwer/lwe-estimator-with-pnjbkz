@@ -38,4 +38,5 @@ worst_case = False
 cumG = True
 #------------------------------------
 
-lwechal_est(method,  cost_model, worst_case, cumG = cumG)
+lwechals = [  (40,0.025),(80,0.005)]
+lwechal_est(lwechals, method,  cost_model, worst_case, cumG = cumG)

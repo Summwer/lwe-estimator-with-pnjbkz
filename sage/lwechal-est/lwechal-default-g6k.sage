@@ -22,5 +22,6 @@ worst_case = True
 default_g6k = True
 #------------------------------------
 
-lwechal_est(method,  cost_model, worst_case, default_g6k = default_g6k)
 
+lwechals = [  (40,0.025),(80,0.005)]
+lwechal_est(lwechals, method,  cost_model, worst_case,  default_g6k = default_g6k)
