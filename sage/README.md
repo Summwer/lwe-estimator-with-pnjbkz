@@ -74,3 +74,13 @@ More detail about the above estimators, please see the article https://eprint.ia
 
 Estimations for lwe challenge is in the path "sage/lwechal/"
 Estimations for NIST-round3 schemes is in the path "sage/NIST-round3/", the dimension and dvol(ln(vol(lattice))) for NIST-round3 schemes are selected from the open source https://github.com/lducas/leaky-LWE-Estimator.
+
+
+
+
+
+# The experiment in Refined-LWE-Estimator
+One can run the following command in the folder `sage/lwechal-est` and obatain the two-step estimation of LWE Challenge and its success probabibility during the process. It constructs the `this work(GSA for LLL)` in Fig.2. and the `Two-step + [AGPS20]`, `Two-step + [MATZOV22]` in Fig.2(a) and Fig.2(b).
+```
+load("lwechal-two-step.sage")    
+```

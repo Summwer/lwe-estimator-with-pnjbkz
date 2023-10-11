@@ -4,7 +4,7 @@ load("../framework/est/default_g6k_est.sage")
 load("../framework/est/progressive_bkz_est.sage")
 load("../framework/est/two_step_mode_est.sage")
 
-def estimate_attack(silent=False, method=1, worst_case = False, parallel_ = False, l = None, dvol = None, dim_ = None, J=1, gap=1, J_gap = 1, cost_model = 1, gen_GSA_gso = True,print_l = False, b = None, sigma = 0., ldc_param = "AGPS20", cal_ee = "chi", goal_min_cost = "gate_min", cumG = False):
+def estimate_attack(silent=False, method=1, worst_case = False, parallel_ = False, l = None, dvol = None, dim_ = None, cost_model = 1, gen_GSA_gso = True,print_l = False, b = None, sigma = 0., ldc_param = "AGPS20", cal_ee = "chi", goal_min_cost = "gate_min", cumG = False):
     """ Assesses the complexity of the lattice attack on the instance.
 
     method = 1: progressive bkz estimation.
@@ -101,6 +101,7 @@ def estimate_attack(silent=False, method=1, worst_case = False, parallel_ = Fals
             logging("dim=%3d \t ln(dvol) = %4.7f \t β_strategy=[%s,...,%s] \t %s " % (dim_, dvol, str(betamin[0]), str(betamin[-1]), time_unit), style="VALUE")
         logging("\n")
 
+    return G, B
 
 def div_sigma(l, sigma):
     """
