@@ -33,7 +33,7 @@ goal_min_cost = "gate_min" # "gate_min": find the minimal gates cost in two-step
                            # "gate_RAM_min": find the minimal (gates+RAM) cost in two-step 
 
 #Martin's primal usvp + our two-step mode
-#ldc_param = "MATZOV22" #list decoding complexity proposed in [MATZOV22]
+ldc_param = "MATZOV22" #list decoding complexity proposed in [MATZOV22]
 #cal_ee = "avg_sigma" #primal-martin-usvp + two-step
 #------------------------------------
 

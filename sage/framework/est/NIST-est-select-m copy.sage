@@ -136,7 +136,7 @@ def compute_beta(d, logvol):
     return bbeta - beta_low
 
 
-def initialize_from_LWE_instance_in_two_step(n, q, m, D_e, D_s, verbosity = True,   l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False, goal_min_cost = "gate_min", cumG = False):
+def initialize_from_LWE_instance_in_two_step(n, q, m, D_e, D_s, verbosity = True,  J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False, goal_min_cost = "gate_min", cumG = False):
     """
     constructor that builds a DBDD instance from a LWE instance
     :n: (integer) size of the secret s
@@ -192,7 +192,7 @@ def core_SVP_est(d, dvol):
 
 
 
-def dilithium_est1(method,  l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False, goal_min_cost = "gate_min", cumG = False):
+def dilithium_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False, goal_min_cost = "gate_min", cumG = False):
     
     # Dilithium-I round-3 parameters
     print("============= Dilithium-I")
@@ -206,7 +206,6 @@ def dilithium_est1(method,  l = None, gen_GSA_gso = True, parallel_ = False,  pr
     estimate_attack( silent=True, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
     
-def dilithium_est2(method,  l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False, goal_min_cost = "gate_min", cumG = False):
     print("============= Dilithium-II")
 
     # Dilithium-II round-3 parameters
@@ -220,9 +219,7 @@ def dilithium_est2(method,  l = None, gen_GSA_gso = True, parallel_ = False,  pr
     D_e = D_s
     dim_, dvol = initialize_from_LWE_instance_in_two_step(n, q, m, D_e, D_s)
     #estimate_attack( silent=True, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
-
-
-def dilithium_est3(method,  l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False, goal_min_cost = "gate_min", cumG = False):
+    
 
     print("============= Dilithium-III")
 
@@ -238,7 +235,7 @@ def dilithium_est3(method,  l = None, gen_GSA_gso = True, parallel_ = False,  pr
     dim_, dvol = initialize_from_LWE_instance_in_two_step(n, q, m, D_e, D_s)
     estimate_attack( silent=True, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l,  ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
-def kyber_est1(method,  l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
+def kyber_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
 
     # Kyber-512 round-3 parameters
     print("============= Kyber-512 with σs = 1.5 and σe = 1.5")
@@ -253,28 +250,28 @@ def kyber_est1(method,  l = None, gen_GSA_gso = True, parallel_ = False,  print_
     D_s = build_centered_binomial_law(3)
     D_e = D_s
     #D_e = build_centered_binomial_law(2)
-    dim_, dvol = initialize_from_LWE_instance_in_two_step(n, q, m, D_e, D_s, verbosity = True,   l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False, goal_min_cost = "gate_min", cumG = False)
+    dim_, dvol = initialize_from_LWE_instance_in_two_step(n, q, m, D_e, D_s, verbosity = True,  J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False, goal_min_cost = "gate_min", cumG = False)
     #estimate_attack( silent=True, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
 
     
-    #print("============= Kyber-512 with σs = 1.5 and σe = 1")
+    print("============= Kyber-512 with σs = 1.5 and σe = 1")
     #eta1 = eta2 = 3
     #dim_ = 1025
     #dvol = 3944.9406103
     #eta1 = 3, eta2 = 2
     #eta1 =3, eta2 =2
-    #n = 512
-    #m = 512
-    #q = 3329
-    #D_s = build_centered_binomial_law(3)
-    #D_e = build_centered_binomial_law(2)
-    #dim_, dvol = initialize_from_LWE_instance_in_two_step(n, q, m, D_e, D_s)
-    #estimate_attack( silent=True, method = method, parallel_ = parallel_, l = l, dvol #= dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  #ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = #goal_min_cost, cumG = cumG)
+    n = 512
+    m = 512
+    q = 3329
+    D_s = build_centered_binomial_law(3)
+    D_e = build_centered_binomial_law(2)
+    dim_, dvol = initialize_from_LWE_instance_in_two_step(n, q, m, D_e, D_s)
+    estimate_attack( silent=True, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
 
 
-def kyber_est2(method,  l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
+
     print("============= Kyber-768")
 
     # Kyber-768 round-3 parameters
@@ -289,8 +286,6 @@ def kyber_est2(method,  l = None, gen_GSA_gso = True, parallel_ = False,  print_
     estimate_attack( silent=True, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
 
-
-def kyber_est3(method,  l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
     print("============= Kyber-1024")
 
     # Kyber-1024 round-3 parameters
@@ -307,7 +302,7 @@ def kyber_est3(method,  l = None, gen_GSA_gso = True, parallel_ = False,  print_
 
 
 
-def hufu_est(method,  l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
+def hufu_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
 
     # HuFu-I parameters
     print("============= HuFu-I")
@@ -352,7 +347,7 @@ def hufu_est(method,  l = None, gen_GSA_gso = True, parallel_ = False,  print_l 
 
 
 
-def eaglesign_est(method,  l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
+def eaglesign_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
     
     q = 12289
 
@@ -427,7 +422,7 @@ def eaglesign_est(method,  l = None, gen_GSA_gso = True, parallel_ = False,  pri
 
 
 
-def haetae_est(method,  l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
+def haetae_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
 
     # HAETAE-II parameters
     print("============= HAETAE-II")
