@@ -1,5 +1,6 @@
 #include "utils.h"
 
+
 // return all keys in map
 vector<int> KeySet(map<int, double> mp)
 {
@@ -374,7 +375,8 @@ FP_NR<FT> bkzgsa_gso_len( FP_NR<FT> logvol, int i, int d,int beta){
 
 // }
 
-//Input: log2(gs-lengths)
+//Input: log2(square gs-lengths)
+//return: gh**2
 double gaussian_heuristic_log2(vector<FP_NR<FT>> l, int index_start){
     int d = l.size();
     int n = d - index_start;
@@ -392,7 +394,6 @@ double gaussian_heuristic_log2(vector<FP_NR<FT>> l, int index_start){
     gh = exp((log_lattice_square_vol - log_ball_square_vol) / (1.0 * n));
 
     return gh;
-
 
 }
 
@@ -493,6 +494,8 @@ int theo_dim4free_fun2(int beta){
 }
 
 
+
+
 int get_beta_from_sieve_dim(int sieve_dim, int d, int choose_dims4f_fun){
     int f = 0;
 
@@ -507,6 +510,58 @@ int get_beta_from_sieve_dim(int sieve_dim, int d, int choose_dims4f_fun){
     return d;
 }
 
+
+//d4f(B): pessimistic
+int theo_dim4free1_in_B(int beta,vector<double> l){
+    double gh = gaussian_heuristic_log2(l,0);
+    int d = l.size();
+    for(int f = d-1; f >= 0; f--){
+        double ghf = gaussian_heuristic_log2(l,f);
+        if(ghf + 1/2. * log2(4/3.) >=  gh){
+            cout<<"f = "<<f<<endl;
+            return f;
+        }
+    }
+    return 0;
+}
+
+//d4f(B): postive 
+int theo_dim4free2_in_B(int beta,vector<double> l){
+    double gh = gaussian_heuristic_log2(l,0);
+    int d = l.size();
+    for(int f = d-1; f >= 0; f--){
+        double ghf = gaussian_heuristic_log2(l,f);
+        // cout<<f<<","<<ghf + log2(4/3.)<<", "<< log2((double) (d-f)/d) + gh<<endl;
+        if(ghf * 4/3. >=  ((double) (d-f)/d) * gh){
+            // cout<<"f = "<<f<<endl;
+            return f;
+        }
+    }
+    return 0;
+}
+
+int jump_upper_bound(Params* params, int beta, vector<double> l){
+    int jub = 0;
+    // cout<<"params->compute_jub = "<<params->compute_jub<<endl;
+    switch(params->compute_jub){
+        case 1:
+            jub = theo_dim4free1_in_B(beta,l);
+            break;
+        case 2:
+            jub = theo_dim4free2_in_B(beta,l);
+            // cout<<"jub = "<<jub<<endl;
+            // cout<<"theo_f = "<< floor(get_f_for_pnjbkz(params,beta))<<endl; 
+            break;
+        case 3:
+            jub = floor(get_f_for_pnjbkz(params,beta)/2.);       
+            break;
+        default:
+            jub = 0;
+            break;
+    }
+    return jub;
+    
+}
 
 int get_f_for_pnjbkz(Params* params, int beta){
     if(params->cost_model == 1){

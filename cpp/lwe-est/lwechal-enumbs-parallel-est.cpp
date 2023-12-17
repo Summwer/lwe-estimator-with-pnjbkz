@@ -19,7 +19,7 @@ int main(int argc,char **argv){
     params->max_dim = atoi(argv[4]);
     params->threads = atoi(argv[5]);
     params->practical_pump_d4f = atoi(argv[6]);
-    // params->max_RAM = 43.58; //1.5T = 43.58
+    
     // params->enumbs_min_G = false;
     params->beta_start = atoi(argv[7]);
     // params->est_model = atoi(argv[8]);
@@ -32,7 +32,9 @@ int main(int argc,char **argv){
             params->list_decoding = "matzov22"; //"matzov22"
         // params->print_Gcums = true;
     }
-    
+    if(atoi(argv[8]) == 1)
+        params->max_RAM = 30; //1.5T = 43.58, 500G = 38.9
+
     // params->succ_prob = 0.85;
 
     // params->debug = true;
@@ -44,7 +46,7 @@ int main(int argc,char **argv){
     vector<pair<int,double>> lwes;
 
 
-    lwes = { {40, 0.025}, {40,0.030}, {45, 0.020}, {50, 0.015}, {60, 0.010}, {80, 0.005}, {40,0.035}, {40,0.040}, {50,0.025},{55,0.020},{90,0.005}};
+    lwes = { {40, 0.025}, {40,0.030}, {45, 0.020}, {50, 0.015}, {60, 0.010}, {80, 0.005}, {40,0.035}, {40,0.040}, {45,0.030}, {50,0.025},{55,0.020},{60,0.015}, {65,0.010}, {70,0.010}, {90,0.005}, {40,0.045}, {45,0.035}, {50,0.030}, {55,0.025}, {60,0.020}, {65,0.015}, {75,0.010}, {95,0.005}};
 
 
     // lwes = { {40, 0.025}, {40,0.030}, {45, 0.020}, {50, 0.015},  {80, 0.005}};

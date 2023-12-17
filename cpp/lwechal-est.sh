@@ -17,10 +17,18 @@ mkdir "lwechal-est-result"
 # argv[5]: threads number
 # argv[6]: practical_pump_d4f
 # argv[7]: start beta value.
-#// argv[8]: est model in dsvp_prediction for last pump
+# argv[8]: maximal RAM memory.
 g++ -O3 -funroll-loops -o lwechal-enumbs-est ./lwe-est/lwechal-enumbs-parallel-est.cpp  -L. -pthread -lfplll -lgmp -lmpfr -lest
 
-./lwechal-enumbs-est 100 5 2 300 2 3 50 | tee lwechal-est-result/"enumbs(32+2gpus)-d4f-default-g6k-J=100-maxloop=5.log" 
+./lwechal-enumbs-est 100 5 2 300 2 3 50 0 | tee lwechal-est-result/"enumbs(32+2gpus)-d4f-default-g6k-J=100-maxloop=5.log" 
+
+# ./lwechal-enumbs-est 100 5 2 300 2 3 50 1 | tee lwechal-est-result/"enumbs(32+2gpus)-d4f-default-g6k-J=100-maxloop=5-limmaxRAM.log" 
+
+# ./lwechal-enumbs-est 100 5 2 300 2 2 50 0 | tee lwechal-est-result/"enumbs(32+2gpus)-d4f-theo2-J=100-maxloop=5.log" 
+
+# ./lwechal-enumbs-est 100 5 2 300 2 1 50 0 | tee lwechal-est-result/"enumbs(32+2gpus)-d4f-theo1-J=100-maxloop=5.log"
+
+# ./lwechal-enumbs-est 100 5 1 300 2 1 50 0 | tee lwechal-est-result/"enumbs(32+2gpus)-d4f-theo1-J=100-maxloop=5-costmodel1.log"
 
 
 # ./lwechal-enumbs-est 100 5 2 300 2 3 50 | tee lwechal-est-result/"enumbs(32+2gpus)-d4f-default-g6k-J=100-maxloop=5-betastart-55.log" #{{80, 0.005}}

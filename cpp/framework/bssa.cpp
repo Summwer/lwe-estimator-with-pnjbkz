@@ -452,10 +452,10 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
                     pair<double, double> GB_alg = cost->bkz_cost(d,beta_alg,j,params->cost_model);
 
                     // int f = get_f_for_pnjbkz(params,beta_alg);
-                    int f = get_f_for_pnjbkz(params,beta_alg);
+                    int jub = jump_upper_bound(params,beta_alg,bs.l);
 
                     //((f == 0 or beta_alg < 79 )&& j > 1) ||
-                    if(((f == 0 or beta_alg < 79 )&& j > 1) || ( f!=0 && j > floor((double) f/2.))){ 
+                    if(((jub == 0 or beta_alg < 79 )&& j > 1) || ( jub!=0 && j > jub)){ 
                         continue;
                     }
 
@@ -476,7 +476,7 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
 
                     // if(GB_alg.first > G_tmp_min  and (j == params->J or j < min((double) f,ceil(0.1* beta_alg)))){
                     //If then, we don't need to check the larger beta_alg
-                    if(GB_alg.first > G_tmp_min  and (j == params->J or j <= floor((double) f/2.))){
+                    if(GB_alg.first > G_tmp_min  and (j == params->J or j <= jub)){
                         flag = false;
                         break;
                     }
@@ -506,7 +506,7 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
                     // if(len_S > 0 and bs_tmp.S[len_S-1].tours == 1 and (j == params->J or j == min((double) f,ceil(0.1* beta_alg)))){
                         
                     //If then, we don't need to check the larger beta_alg
-                    if(len_S > 0 and bs_tmp.S[len_S-1].tours == 1 and (j == params->J or j == floor((double) f/2.))){
+                    if(len_S > 0 and bs_tmp.S[len_S-1].tours == 1 and (j == params->J or j == jub)){
                         flag = false;
                         break;
                     }

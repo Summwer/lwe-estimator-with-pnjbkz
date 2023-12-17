@@ -44,7 +44,7 @@ struct Params{
     bool verbose = false; //print logging or not
     //progressieve_sieve: True: progressieve sieve; False: normal sieve
     
-    int threads = 1;
+    int threads = 2;
     int max_dim = MAX_DIM; //set the maximal blocksize to find the optimal strategy
     double max_num = 1e3;
     double max_RAM = 1000; //43.58; //=1.5TB , //no-limit, 300
@@ -77,7 +77,8 @@ struct Params{
 
     //params for pnj-bkz
     int theo_pnjbkz_d4f = 2; //the dim4free function for pnjbkz in theoretical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
-    int practical_pnjbkz_d4f = 3; //the dim4free function for pnjbkz in prectical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
+    int practical_pnjbkz_d4f = 3; //the dim4free function for pnjbkz in prectical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k; 
+    int compute_jub = 3; //Compute jump upper bound in 1:pessimistic d4f(B); 2: optimistic d4f(B); 3: d4f(beta)/2.
 
     //params for last pump
     // bool progressive_sieve =  true; 
@@ -150,6 +151,9 @@ int theo_dim4free_fun1(int beta);//Params* params,
 int theo_dim4free_fun2(int beta);
 int get_beta_from_sieve_dim(int sieve_dim, int d, int choose_dims4f_fun);
 int get_f_for_pnjbkz(Params* params, int beta);
+int theo_dim4free1_in_B(int beta,vector<double> l);
+int theo_dim4free2_in_B(int beta,vector<double> l);
+int jump_upper_bound(Params* params, int beta, vector<double> l);
 
 int get_f_for_pump(Params* params, int beta);
 int get_beta_(Params* params,int beta, int jump, int d);
