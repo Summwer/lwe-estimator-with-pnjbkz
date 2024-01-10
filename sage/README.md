@@ -48,7 +48,7 @@ sage
 cd NIST-round3
 load("NIST-two-step.sage")
 ```
-If let `ldc_param = "MATZOV22"`, then we can change the classical list decoding cost estimation from which given in [AGPS20] to [MATZOV22].
+If let `ldc_param = "MATZOV22"`, then we can change the classical list decoding cost estimation from which given in [AGPS20] to [MATZOV22].s
 
 LWE-estimator used some conservative assumptions in two-step mode please run the code 
 ```

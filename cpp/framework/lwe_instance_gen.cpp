@@ -57,8 +57,8 @@ int main(){
     // FP_NR<mpfr_t>::set_prec(32); 
     bool verbosity = true;
     /*----------------Instance Generation-----------------*/
-    //Dilithium-I round-3 parameters
-    printf("============= Dilithium-I\n");
+    //Dilithium-II round-3 parameters
+    printf("============= Dilithium-II\n");
     int n = 4*256, m = 4*256, q = 8380417, eta = 2;
     // map<int,rational<int>> D_s,D_e;
     // rational<int> one(1);
@@ -75,8 +75,8 @@ int main(){
 
 
 
-    //Dilithium-II round-3 parameters
-    printf("============= Dilithium-II\n");
+    //Dilithium-IIII round-3 parameters
+    printf("============= Dilithium-IIII\n");
     n = 5*256, m = 6*256, q = 8380417, eta = 4;
     D_s={},D_e={};
     // for(int x=-eta; x<=eta; x++){
@@ -91,8 +91,8 @@ int main(){
 
 
 
-    //Dilithium-III round-3 parameters
-    printf("============= Dilithium-III\n");
+    //Dilithium-V round-3 parameters
+    printf("============= Dilithium-V\n");
     n = 7*256, m = 8*256, q = 8380417, eta = 2;
     D_s={},D_e={};
     // for(int x=-eta; x<=eta; x++){

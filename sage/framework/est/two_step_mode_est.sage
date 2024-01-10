@@ -88,6 +88,7 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
     #betas = [0]
     if(cost_model == 2):
         betastart = 10
+    print_Gcums = []
     for beta in range(betastart, d):
         l = simulate_pnjBKZ(l, beta, 1, 1)
         
@@ -125,10 +126,12 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
 
         
         (G_sieve,B_sieve,dsvp,dsvp_prime, Gcums1, cumulated_probas1) = d_svp_prediction(l, cumulated_proba, cost_model,ldc_param,worst_case,GBKZ=GBKZ, Gcums = [], cumulated_probas= [])
+
+        
         #print(beta, proba, l[d-beta], cumulated_proba, G_sieve,  dsvp, dsvp_prime, dsvp-dsvp_prime, dim4free_wrapper(theo_dim4free_fun2,dsvp))
         
         G = log2(2**G1cum + 2**G_sieve)
-    
+       
         if(worst_case):
             B = max(B1cum, B_sieve)
         else:
@@ -137,6 +140,10 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
         if remaining_proba < .001:
             if(not worst_case):
                 G = log2(2**G + ((2**GBKZ) * remaining_proba))
+
+         
+        print_Gcums.append(G)
+
 
         if(G!= float("inf") and B!= float("inf")):
             if(goal_min_cost == "gate_min" and G < Gmin):
@@ -157,7 +164,7 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
                 betamin = list(range(betastart,beta+1))
                 #if verbose:
                 #    print("β= %d, G = %3.2f log2(gate), B =%3.2f log2(bit), cum-pr=%.4e"%(beta, G1cum, B1cum, cumulated_proba), end="\r" if cumulated_proba < 1e-4 else "\n")
-
+    
         if remaining_proba < .001:
             break
         
@@ -166,6 +173,7 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
        
     print()
     print("Gcumsmin: ", Gcumsmin)
+    print("Gcums: ", print_Gcums)
     print("cumulated_probasmin: ", cumulated_probasmin)
 
     return betamin,G1min, dsvpmin, dsvp_prime_min, Gmin, Bmin

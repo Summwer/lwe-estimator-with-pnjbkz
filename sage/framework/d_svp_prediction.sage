@@ -58,7 +58,9 @@ def d_svp_prediction(l, cumulated_proba,cost_model,ldc_param,worst_case,GBKZ = 0
         B_cum = log2(pow(2,B_cum)+pow(2,Bsieve) * rp * (psvp-pre_psvp))
        
         if(p + rp * psvp > 1e-4 ):
+        
             Gcums.append(G_cum)
+
             cumulated_probas.append(p + rp * psvp)
             #cumulated_probas.append(psvp)
 

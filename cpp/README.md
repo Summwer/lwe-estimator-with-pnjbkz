@@ -94,3 +94,6 @@ To simulate a LWE instance in detail and return the simulated basis quality(we r
 ./strategy_simulation.sh
 ```
 The result will store in the file `lwechal-est-result/simulation.log`, it obtains the 'Simulation' column for LWE challenge ($40,0.030$) in Table 5 in https://eprint.iacr.org/2022/1343.
+
+
+If one wants to run jump with an accurate upper bound, please set the parameter compute_jub = 1 for pessimistic d4f(B); 2 for optimistic d4f(B); 3 for d4f(beta)/2.

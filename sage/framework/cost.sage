@@ -137,6 +137,7 @@ def theo_bkz_cost(n, beta,ldc_param = "AGPS20"):
             gates = log2(1.*(n  -  beta)*C) + agps20_gates(beta_prime)
     if(ldc_param == "MATZOV22"):
         gates = log2(1.*(n  -  beta)*C) + (list_decoding_classical[ldc_param][0] * beta_prime + list_decoding_classical[ldc_param][1])
+
     bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
     return (gates, bits)
 

@@ -48,7 +48,7 @@ def estimate_attack(silent=False, method=1, worst_case = False, parallel_ = Fals
         if(cost_model == 1):
             print(", list_decoding_classical = ", ldc_param)
         print()
-        betamin, G, B = pro_bkz_est(l, verbose=not silent, cost_model = cost_model, worst_case = worst_case, cumG = cumG)
+        betamin, G, B = pro_bkz_est(l, verbose=not silent, cost_model = cost_model, worst_case = worst_case, cumG = cumG, ldc_param = ldc_param)
         
         print("Cost: %.3f s" %(time.time()-T0))
 

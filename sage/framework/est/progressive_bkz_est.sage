@@ -2,10 +2,10 @@ load("../framework/utils.sage")
 
 def pro_bkz_est(l, verbose=False, cost_model = 1, worst_case = False,  ldc_param = "AGPS20" , cumG = False):
     if(not cumG):
-        betamin = leaky_lwe_est(l, verbose=verbose)
-        G, B = bkz_cost(len(l),betamin,ldc_param = ldc_param)
+        avgbeta = leaky_lwe_est(l, verbose=verbose)
+        G, B = bkz_cost(len(l),avgbeta,ldc_param = ldc_param)
         G += log2(C)
-        return betamin, G, B
+        return avgbeta, G, B
     if(cumG):
         return pro_bkz_cumG(l, verbose=verbose, cost_model = cost_model, worst_case = worst_case,ldc_param = ldc_param)
 
@@ -27,7 +27,8 @@ def pro_bkz_cumG(l, verbose=False, cost_model = 1, worst_case = False,ldc_param 
     average_beta = 0.
     cumulated_proba = 0.
     
-    
+    prob_scumGs = []
+    probs = []
     for beta in [x  for x in range(50, d)]:
 
         #l = simBKZ(l, beta, 1)   
@@ -51,10 +52,15 @@ def pro_bkz_cumG(l, verbose=False, cost_model = 1, worst_case = False,ldc_param 
         else:
             G1cum = log2(2**G1cum + 2**G1)
             B1cum = max(B1cum,B1)
-
+        
 
         cumulated_proba += remaining_proba * proba
         remaining_proba = 1. - cumulated_proba 
+
+
+        if(cumulated_proba > 1e-4):
+            prob_scumGs.append(G1cum)
+            probs.append(cumulated_proba)
       
 
         if verbose:
@@ -75,6 +81,9 @@ def pro_bkz_cumG(l, verbose=False, cost_model = 1, worst_case = False,ldc_param 
     if remaining_proba > .01:
         raise ValueError("This instance may be unsolvable")
 
+
+    print("probG1cum: ", prob_scumGs)
+    print("cum_probs: ", probs)
     return average_beta, G1cum, B1cum
 
 

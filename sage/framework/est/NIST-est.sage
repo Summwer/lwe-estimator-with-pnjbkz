@@ -186,8 +186,8 @@ def core_SVP_est(d, dvol):
 
 def dilithium_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False, goal_min_cost = "gate_min", cumG = False):
     
-    # Dilithium-I round-3 parameters
-    print("============= Dilithium-I")
+    # Dilithium-II round-3 parameters
+    print("============= Dilithium-II")
     n = 4*256
     m = 4*256
     q = 8380417
@@ -198,9 +198,9 @@ def dilithium_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, par
     estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
     
-    print("============= Dilithium-II")
+    print("============= Dilithium-III")
 
-    # Dilithium-II round-3 parameters
+    # Dilithium-III round-3 parameters
     dim_ = 2654
     dvol = 19371.0238433
     n = 5*256
@@ -213,9 +213,9 @@ def dilithium_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, par
     estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
     
 
-    print("============= Dilithium-III")
+    print("============= Dilithium-V")
 
-    # Dilithium-III round-3 parameters
+    # Dilithium-V round-3 parameters
     dim_ = 3540
     dvol = 26623.1162463
     n = 7*256
