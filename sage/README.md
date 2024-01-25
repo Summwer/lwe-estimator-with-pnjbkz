@@ -80,7 +80,21 @@ Estimations for NIST-round3 schemes is in the path "sage/NIST-round3/", the dime
 
 
 # The experiment in Refined-LWE-Estimator
+## Figure 2
 One can run the following command in the folder `sage/lwechal-est` and obatain the two-step estimation of LWE Challenge and its success probabibility during the process. It constructs the `this work(GSA for LLL)` in Fig.2. and the `Two-step + [AGPS20]`, `Two-step + [MATZOV22]` in Fig.2(a) and Fig.2(b).
 ```
 load("lwechal-two-step.sage")    
 ```
+
+
+
+## Table 2
+
+To generate the data of Table 2, one can run the file `Lower_Bound_Estimation.py` in the folder `sage/NIST-round3/`. 
+
+
+## Column "Previous" and  $S_0$ of Table 1
+To obtain the result of column "Previous", one should run the file `NIST-pro-bkz.sage` in the folder `sage/NIST-round3` of [https://github.com/Summwer/lwe-estimator-with-pnjbkz/tree/refined-lwe-estimator](https://github.com/Summwer/lwe-estimator-with-pnjbkz/tree/refined-lwe-estimator). 
+
+To obtain the result of column $S_0$, one should run the file `NIST-two-step.sage` in the folder `sage/NIST-round3` of [https://github.com/Summwer/lwe-estimator-with-pnjbkz/tree/refined-lwe-estimator](https://github.com/Summwer/lwe-estimator-with-pnjbkz/tree/refined-lwe-estimator). 
+
