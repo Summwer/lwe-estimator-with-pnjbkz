@@ -23,7 +23,7 @@ load("../framework/est/NIST-est.sage")
 #Fixed parameters
 
 method = 1
-#ldc_param = "MATZOV22" #change list decoding parameters
+ldc_param = "MATZOV22" #change list decoding parameters
 
 '''
 #------------------------------------
