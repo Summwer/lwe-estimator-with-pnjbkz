@@ -12,7 +12,7 @@ We provide the experimental results, which display in form of figures or tables 
 
 ## Figure1
 
-We implement the test to verify the predicted success probability of each $d_{\rm svp}$ in solving an LWE instance. The test implemented code could be reproduced by [lwe_prob_test.py](https://github.com/Summwer/test-for-refined-lwe-estimator/blob/main/lwe_prob_test.py) in  [https://github.com/Summwer/test-for-refined-lwe-estimator](https://github.com/Summwer/test-for-refined-lwe-estimator). One can also see the test result in the folder `test_dsvps_prob` online. 
+We implement the test to verify the predicted success probability of each $d_{\rm svp}$ in solving an LWE instance. The test implemented code could be reproduced by [lwe_prob_test.py](https://github.com/Summwer/test-for-refined-lwe-estimator/blob/main/lwe_prob_test.py) in  [https://github.com/Summwer/test-for-refined-lwe-estimator](https://github.com/Summwer/test-for-refined-lwe-estimator). One can also see the test result in the folder `test_dsvps_prob`. 
 
 Besides the simulated success probability was implemented in the file `lwechal-two-step.sage` in the folder `sage/lwechal-est` of [https://github.com/Summwer/lwe-estimator-with-pnjbkz/tree/refined-lwe-estimator](https://github.com/Summwer/lwe-estimator-with-pnjbkz/tree/refined-lwe-estimator). 
 
@@ -39,6 +39,8 @@ To obtain the result of column $S_{\rm op}$ in Table1, one should run
  in the folder `cpp` of [https://github.com/Summwer/lwe-estimator-with-pnjbkz/tree/refined-lwe-estimator](https://github.com/Summwer/lwe-estimator-with-pnjbkz/tree/refined-lwe-estimator). We've uploaded the result both in the online folder `nist-round3-est-result` in  [https://github.com/Summwer/lwe-estimator-with-pnjbkz/tree/refined-lwe-estimator](https://github.com/Summwer/lwe-estimator-with-pnjbkz/tree/refined-lwe-estimator).
 
 To obtain the result of column $S_0$, one should run the file `NIST-two-step.sage` in the folder `sage/NIST-round3` of [https://github.com/Summwer/lwe-estimator-with-pnjbkz/tree/refined-lwe-estimator](https://github.com/Summwer/lwe-estimator-with-pnjbkz/tree/refined-lwe-estimator). 
+
+To obtain the result of column "Previous", one should run the file `NIST-pro-bkz.sage` in the folder `sage/NIST-round3` of [https://github.com/Summwer/lwe-estimator-with-pnjbkz/tree/refined-lwe-estimator](https://github.com/Summwer/lwe-estimator-with-pnjbkz/tree/refined-lwe-estimator). 
 
 
 
