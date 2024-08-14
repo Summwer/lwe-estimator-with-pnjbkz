@@ -6,7 +6,7 @@
 #include <fplll.h>
 #include <boost/math/distributions/chi_squared.hpp>
 #include <chrono>
-
+// #include <fplll/gso.h>
 
 
 using namespace std;
@@ -29,10 +29,6 @@ using namespace std::chrono;
 
 
 
-#ifndef PREC
-#define PREC 1e3
-#endif
-
 
 struct Params{
     double succ_prob = 0.999; //0.999(default)
@@ -52,7 +48,7 @@ struct Params{
 
     int method = 1; //1: enumbs estimation; 2: bssa estimation
 
-    bool debug = false; //print debug logging or not.
+    bool debug = false; //false; //print debug logging or not.
     bool verification =false; //verify the correctness of strategy
 
     //params for cost model;
@@ -61,7 +57,7 @@ struct Params{
 
     //enumbs params
     int delta_beta = -1;//10; //Ensure quality(beta,jump) >= quality(beta-delta_beta,1)
-    double enumbs_G_prec = 1e-3;//1e-3; //1e-5; //set the precision of enumbs
+    double enumbs_G_prec = 1e-3; //1e-5; //set the precision of enumbs
     double enumbs_slope_prec = 1e-4;//1e-6;
     int beta_start = 50;  
     bool worst_case = true;
