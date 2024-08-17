@@ -14,7 +14,7 @@ int main(int argc,char **argv){
     params->cost_model = 1; //sec model;
     // params->progressive_sieve = true;
     params->verbose = true;
-    params->debug = true;
+    params->debug = false;
     params->worst_case = false;
     params->method = atoi(argv[1]); //1:enumbs;2:bssa
     params->gap = 1;
@@ -40,10 +40,6 @@ int main(int argc,char **argv){
     //Dilithium-II round-3 parameters
     printf("============= Dilithium-II\n");
     n = 4*256, m = 4*256, q = 8380417, eta = 2;
-
-    n =256, m = 256, q = 8380417, eta = 2;
-
-
     // map<int,rational<int>> D_s,D_e;
     // rational<int> one(1);
     // for(int x=-eta; x<=eta; x++){
@@ -62,8 +58,8 @@ int main(int argc,char **argv){
 
 
 
-    //Dilithium-IIII round-3 parameters
-    printf("============= Dilithium-IIII\n");
+    //Dilithium-III round-3 parameters
+    printf("============= Dilithium-III\n");
     n = 5*256, m = 6*256, q = 8380417, eta = 4;
     D_s={},D_e={};
     // for(int x=-eta; x<=eta; x++){

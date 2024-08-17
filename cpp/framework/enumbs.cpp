@@ -340,6 +340,16 @@ vector<int> EnumBS::extract_dsvp(){
 }
 
 
+vector<double> EnumBS::extract_PSC(){
+    vector<double> PSCs;
+    PSCs.resize(0);
+    for(int i =0; i < int(BS.size()); i++){
+        PSCs.insert(PSCs.end(), get<4>(BS[i].dsvp_t));
+    }
+    return PSCs;
+}
+
+
 vector<double> EnumBS::extract_G2(){
     vector<double> G2s;
     G2s.resize(0);
@@ -464,16 +474,13 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
 
     // while(pos > 0 && pos < int(BS.size()) &&  (get<0>(bs.dsvp_t) < get<0>(BS[pos].dsvp_t) || (bs.slope > BS[pos].slope - params->enumbs_slope_prec && get<0>(bs.dsvp_t) == get<0>(BS[pos].dsvp_t)) ) && bs.cum_GB_BKZ.first < BS[pos].cum_GB_BKZ.first){
 
-        // if(params->debug){
-        //     if(bs.S[0].beta == 50){
-        //         printf("=======erase1=====\n");
-        //         // cout<<"k = "<<k<<endl;
-        //         print_bs(BS[pos]);
-        //         print_bs(bs);
-        //         printf("==================\n");
-        //         sleep(1);
-        //     }
-        // }
+        if(params->debug){
+                printf("=======erase1=====\n");
+                // cout<<"k = "<<k<<endl;
+                print_bs(BS[pos]);
+                print_bs(bs);
+                printf("==================\n");
+        }
         BS.erase(BS.begin()+pos);
         pos--;
         // if(BS[pos].cum_avg_GB_BKZ.first > 0.1){
@@ -485,15 +492,15 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
     }
 
 
-    // if(params->debug){
-    //     printf("=======add=====\n");
-    //     cout<<"k = "<<k<<endl;
-    //     // if( bs.S.size() <=1){
-    //     print_bs(bs);
-    //     // }    
-    //     printf("==================\n");
-    //     // sleep(1);
-    // }
+    if(params->debug){
+        printf("=======add=====\n");
+        cout<<"k = "<<k<<endl;
+        // if( bs.S.size() <=1){
+        print_bs(bs);
+        // }    
+        printf("==================\n");
+        // sleep(1);
+    }
     BS.insert(BS.begin()+pos+1,bs);
     
 
@@ -513,18 +520,16 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
     // while( pos+1<int(BS.size())-1 && ( get<0>(BS[pos+2].dsvp_t) < get<0>(BS[pos+1].dsvp_t) || (BS[pos+2].slope > BS[pos+1].slope - params->enumbs_slope_prec  and get<0>(BS[pos+2].dsvp_t) == get<0>(BS[pos+1].dsvp_t ) )) && BS[pos+2].cum_GB_BKZ.first < BS[pos+1].cum_GB_BKZ.first ){
     
       
-        // if(params->debug){
-        //     if(BS[pos+2].S[0].beta == 50 and BS[pos+2].S.size()>50 and BS[pos+1].S.size()>1){
-        //         printf("=======erase2=====\n");
-        //         // cout<<"k = "<<k<<endl;
-        //         cout<<"delete one: ";
-        //         print_bs(BS[pos+1]);
-        //         cout<<"The next one: ";
-        //         print_bs(BS[pos+2]);
-        //         printf("==================\n");
-        //         sleep(1);
-        //     }
-        // }
+        if(params->debug){
+            printf("=======erase2=====\n");
+            // cout<<"k = "<<k<<endl;
+            cout<<"delete one: ";
+            print_bs(BS[pos+1]);
+            cout<<"The next one: ";
+            print_bs(BS[pos+2]);
+            printf("==================\n");
+            // sleep(1);
+        }
 
         BS.erase(BS.begin()+pos+1);
         pos--;
@@ -545,16 +550,29 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
         k = -1;
 
     if(params->debug){
-        vector<int> dsvps = extract_dsvp();
-        vector<int> sorted_dsvps = dsvps;
-        sort(sorted_dsvps.rbegin(),sorted_dsvps.rend());
-        if(dsvps != sorted_dsvps){
-            printf("dsvps: \n");
-            print_vector(dsvps);
-            printf("sorted_dsvps: \n");
-            print_vector(sorted_dsvps);
+        // vector<int> dsvps = extract_dsvp();
+        // vector<int> sorted_dsvps = dsvps;
+        // sort(sorted_dsvps.rbegin(),sorted_dsvps.rend());
+        // if(dsvps != sorted_dsvps){
+        //     printf("dsvps: \n");
+        //     print_vector(dsvps);
+        //     printf("sorted_dsvps: \n");
+        //     print_vector(sorted_dsvps);
+        // }
+        // assert(dsvps == sorted_dsvps);
+
+
+
+        vector<double> PSCs = extract_PSC();
+        vector<double> sorted_PSCs = PSCs;
+        sort(sorted_PSCs.rbegin(),sorted_PSCs.rend());
+        if(PSCs != sorted_PSCs){
+            printf("PSCs: \n");
+            print_vector(PSCs);
+            printf("sorted_PSCs: \n");
+            print_vector(sorted_PSCs);
         }
-        assert(dsvps == sorted_dsvps);
+        assert(PSCs == PSCs);
         // print_vector(G2s);
         // assert(no_repeated_value_verification(G2s));
     }

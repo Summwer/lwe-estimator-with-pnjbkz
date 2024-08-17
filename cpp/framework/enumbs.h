@@ -65,6 +65,7 @@ class EnumBS{
         // int max_beta_in_S(vector<EnumBS::strategy> S);
         // vector<double> extract_cdsvp();
         vector<int> extract_dsvp();
+        vector<double> extract_PSC();
         vector<double> extract_G2();
         // vector<pair<double,double>> extract_G2G1();
         // vector<double> extract_slope();
