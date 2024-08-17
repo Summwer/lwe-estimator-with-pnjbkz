@@ -14,7 +14,7 @@ int main(int argc,char **argv){
     params->cost_model = 1; //sec model;
     // params->progressive_sieve = true;
     params->verbose = true;
-    params->debug = false;
+    params->debug = true;
     params->worst_case = false;
     params->method = atoi(argv[1]); //1:enumbs;2:bssa
     params->gap = 1;
@@ -35,36 +35,15 @@ int main(int argc,char **argv){
     map<int,double> D_s,D_e;
     LWEchal* lwechal;
 
-    // Kyber-1024 round-3 parameters
-    printf("============= Kyber-1024\n");
-    n = 1024, m = 1024, q = 3329;
-    D_s = build_centered_binomial_law(2);
-    D_e = D_s;
-    lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
-    gsa_est(lwechal->dim, lwechal->dvol, params);
-
     
-    // Kyber-512 round-3 parameters
-    printf("============= Kyber-512\n");
-    n = 512, m = 512, q = 3329;
-    D_s = build_centered_binomial_law(3);
-    D_e = D_s;
-    lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
-    gsa_est(lwechal->dim, lwechal->dvol, params);
-
-    // Kyber-768 round-3 parameters
-    printf("============= Kyber-768\n");
-    n = 768, m = 768, q = 3329;
-    D_s = build_centered_binomial_law(2);
-    D_e = D_s;
-    lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
-    gsa_est(lwechal->dim, lwechal->dvol, params);
-
-
     /*----------------Instance Generation-----------------*/
     //Dilithium-II round-3 parameters
     printf("============= Dilithium-II\n");
     n = 4*256, m = 4*256, q = 8380417, eta = 2;
+
+    n =256, m = 256, q = 8380417, eta = 2;
+
+
     // map<int,rational<int>> D_s,D_e;
     // rational<int> one(1);
     // for(int x=-eta; x<=eta; x++){
@@ -76,6 +55,8 @@ int main(int argc,char **argv){
         D_s[x] = 1./(2*eta+1);
         D_e[x] = 1./(2*eta+1);
     }
+
+    // params->max_dim = 1800; 
     lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
     gsa_est(lwechal->dim, lwechal->dvol, params);
 
@@ -110,6 +91,33 @@ int main(int argc,char **argv){
     }
     lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
     gsa_est(lwechal->dim, lwechal->dvol, params);
+
+
+    // Kyber-1024 round-3 parameters
+    printf("============= Kyber-1024\n");
+    n = 1024, m = 1024, q = 3329;
+    D_s = build_centered_binomial_law(2);
+    D_e = D_s;
+    lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
+    gsa_est(lwechal->dim, lwechal->dvol, params);
+
+    
+    // Kyber-512 round-3 parameters
+    printf("============= Kyber-512\n");
+    n = 512, m = 512, q = 3329;
+    D_s = build_centered_binomial_law(3);
+    D_e = D_s;
+    lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
+    gsa_est(lwechal->dim, lwechal->dvol, params);
+
+    // Kyber-768 round-3 parameters
+    printf("============= Kyber-768\n");
+    n = 768, m = 768, q = 3329;
+    D_s = build_centered_binomial_law(2);
+    D_e = D_s;
+    lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
+    gsa_est(lwechal->dim, lwechal->dvol, params);
+
 
 
 

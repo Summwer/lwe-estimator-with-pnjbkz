@@ -20,4 +20,4 @@ make check
 cd ..
 
 
-./compile-framework.sh
+./rebuild.sh

@@ -43,7 +43,7 @@ void lwechal_est(int n, double alpha, Params* params){
     for(int i = 0; i < dim; i++){
         l[i] -= log2(sigma);
     }
-
+    printf("dim = %d", dim);
     double slope = get_current_slope(l,0,dim);
     printf("Slope = %f\n", slope);
 

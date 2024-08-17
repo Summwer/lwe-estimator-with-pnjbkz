@@ -266,7 +266,7 @@ def core_SVP_est(d, dvol):
 
 
 
-def dilithium_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False, goal_min_cost = "gate_min", cumG = False):
+def dilithium_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False, goal_min_cost = "gate_min", cumG = False):
     
     # Dilithium-II round-3 parameters
     print("============= Dilithium-II")
@@ -309,7 +309,7 @@ def dilithium_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, par
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
     svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l,  ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
-def kyber_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
+def kyber_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
 
     # Kyber-512 round-3 parameters
     print("============= Kyber-512 with σs = 1.5 and σe = 1.5")
@@ -475,7 +475,7 @@ def hufu_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel
 
 
 
-def eaglesign_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
+def eaglesign_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
     
     q = 12289
 
@@ -512,7 +512,7 @@ def eaglesign_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, par
     D_s = {x : 1./(2*eta+1) for x in range(-eta, eta+1)} #uniformly random over {-1,1}
     D_e = D_s #uniformly random over {-1,1}
     #dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    #svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    #svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
     
     print("============= EagleSign3EPk: Ephemeral secret recovery")
     t = 140
@@ -550,7 +550,7 @@ def eaglesign_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, par
 
 
 
-def haetae_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
+def haetae_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
 
     # HAETAE-II parameters
     print("============= HAETAE-II")

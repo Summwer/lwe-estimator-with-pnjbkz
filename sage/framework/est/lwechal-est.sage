@@ -22,7 +22,7 @@ load("../framework/load_lwechal.sage")
 #######################################
 
 
-def lwechal_est(lwechals, method,  cost_model, worst_case,J=1, gap=1, J_gap=1, parallel_ = False,  print_l = False,  default_g6k=False, ldc_param = "AGPS20", cal_ee = "chi",goal_min_cost = "gate_min", cumG = False):
+def lwechal_est(lwechals, method,  cost_model, worst_case, parallel_ = False,  print_l = False,  default_g6k=False, ldc_param = "AGPS20", cal_ee = "chi",goal_min_cost = "gate_min", cumG = False):
     for (n,alpha) in lwechals:
         (l,dim,dvol,b,sigma) = gen_lwechal_instance(n, alpha,default_g6k)
         svp_estimate_attack( silent=False, method = method,  parallel_ = parallel_, l = l, dim_ = dim, dvol =dvol, J=J,gap =gap,J_gap = J_gap, cost_model=cost_model,gen_GSA_gso = True, print_l = print_l, worst_case = worst_case,b = b, sigma = sigma, ldc_param = ldc_param, cal_ee = cal_ee,goal_min_cost = goal_min_cost, cumG = cumG)

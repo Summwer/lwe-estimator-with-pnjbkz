@@ -1,5 +1,5 @@
 import time
-load("../framework/est/NIST-est.sage")
+load("../framework/est/NIST-est-select-m.sage")
 
 ######################################
 #set method parameters
@@ -33,12 +33,12 @@ goal_min_cost = "gate_min" # "gate_min": find the minimal gates cost in two-step
                            # "gate_RAM_min": find the minimal (gates+RAM) cost in two-step 
 
 #Martin's primal usvp + our two-step mode
-ldc_param = "MATZOV22" #list decoding complexity proposed in [MATZOV22]
+#ldc_param = "MATZOV22" #list decoding complexity proposed in [MATZOV22]
 #cal_ee = "avg_sigma" #primal-martin-usvp + two-step
 #------------------------------------
 
-kyber_est(method,  ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost, worst_case = worst_case)
-dilithium_est(method, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost, worst_case = worst_case)
+kyber_est2(method,  ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost, worst_case = worst_case)
+#dilithium_est(method, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost, worst_case = worst_case)
 #hufu_est(method, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost, worst_case = worst_case)
 #eaglesign_est(method, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost, worst_case = worst_case)
 

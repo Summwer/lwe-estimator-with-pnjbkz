@@ -82,8 +82,10 @@ pair<double,double> COST::theo_pump_cost(int beta){
     if(beta <=10)
         return make_pair(0.,0.);
     
-    if(params->list_decoding == "matzov22")
+    if(params->list_decoding == "matzov22"){
         gates = log2(COST::C) +  list_decoding_classical_matzov22.first * beta + list_decoding_classical_matzov22.second; //agps20_gates(beta).get_d();
+        // printf("beta= %d, gates =  %f\n ", beta, gates);
+    }
     if(params->list_decoding == "agps20"){
         if(beta < 64)
             return make_pair(0.,0.);

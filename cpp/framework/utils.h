@@ -6,7 +6,7 @@
 #include <fplll.h>
 #include <boost/math/distributions/chi_squared.hpp>
 #include <chrono>
-
+// #include <fplll/gso.h>
 
 
 using namespace std;
@@ -28,10 +28,6 @@ using namespace std::chrono;
 #endif
 
 
-
-#ifndef PREC
-#define PREC 1e3
-#endif
 
 
 struct Params{
@@ -61,7 +57,7 @@ struct Params{
 
     //enumbs params
     int delta_beta = -1;//10; //Ensure quality(beta,jump) >= quality(beta-delta_beta,1)
-    double enumbs_G_prec = 1e-3;//1e-3; //1e-5; //set the precision of enumbs
+    double enumbs_G_prec = 1e-3; //1e-5; //set the precision of enumbs
     double enumbs_slope_prec = 1e-4;//1e-6;
     int beta_start = 50;  
     bool worst_case = true;

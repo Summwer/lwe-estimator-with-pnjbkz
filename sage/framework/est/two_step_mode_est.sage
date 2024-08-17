@@ -86,6 +86,7 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
     #Gcums = [0.]
     #cumulated_probas = [0.]
     #betas = [0]
+    Gs = []
     if(cost_model == 2):
         betastart = 10
     print_Gcums = []
@@ -131,7 +132,7 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
         #print(beta, proba, l[d-beta], cumulated_proba, G_sieve,  dsvp, dsvp_prime, dsvp-dsvp_prime, dim4free_wrapper(theo_dim4free_fun2,dsvp))
         
         G = log2(2**G1cum + 2**G_sieve)
-       
+        Gs.append(G)
         if(worst_case):
             B = max(B1cum, B_sieve)
         else:
@@ -170,10 +171,12 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
         
     #if remaining_proba > .01:
     #    raise ValueError("This instance may be unsolvable")
-       
-    print()
-    print("Gcumsmin: ", Gcumsmin)
-    print("Gcums: ", print_Gcums)
-    print("cumulated_probasmin: ", cumulated_probasmin)
+    
+    if(verbose):
+        print()
+        print("Gcumsmin: ", Gcumsmin)
+        print("cumulated_probasmin: ", cumulated_probasmin)
+        print("betas: ", list(range(betastart, beta + 1)))
+        print("Gs: ", Gs )
 
     return betamin,G1min, dsvpmin, dsvp_prime_min, Gmin, Bmin
