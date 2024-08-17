@@ -1091,12 +1091,14 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
         bs = BS[k];
         len_S = bs.S.size();
         // cout<<"Current minG = "<<bs.min_GB.first<<endl;
-        if(params->debug){
-            printf("==========BS============\n");
-            print_BS(BS);
-            printf("======================\n");
-            sleep(10);
-        }
+        // if(params->debug){
+        //     printf("==========BS============\n");
+        //     print_BS(BS);
+        //     printf("======================\n");
+        //     sleep(10);
+        // }
+
+        // printf("debug = %d\n ", params->debug);
         if(bs.cum_pr >= params->succ_prob){
             k++;
             continue;

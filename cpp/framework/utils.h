@@ -52,7 +52,7 @@ struct Params{
 
     int method = 1; //1: enumbs estimation; 2: bssa estimation
 
-    bool debug = false; //print debug logging or not.
+    bool debug =  true; //false; //print debug logging or not.
     bool verification =false; //verify the correctness of strategy
 
     //params for cost model;
