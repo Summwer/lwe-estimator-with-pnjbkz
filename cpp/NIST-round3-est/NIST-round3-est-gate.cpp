@@ -40,6 +40,10 @@ int main(int argc,char **argv){
     //Dilithium-I round-3 parameters
     printf("============= Dilithium-I\n");
     n = 4*256, m = 4*256, q = 8380417, eta = 2;
+
+    n =256, m = 256, q = 8380417, eta = 2;
+
+
     // map<int,rational<int>> D_s,D_e;
     // rational<int> one(1);
     // for(int x=-eta; x<=eta; x++){

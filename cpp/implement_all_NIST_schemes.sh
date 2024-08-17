@@ -9,10 +9,12 @@ mkdir "nist-round3-est-result"
 # argv[3]: maxloop: >=1 and is an integer
 g++ -O3 -funroll-loops -o nist-round3-est ./NIST-round3-est/NIST-round3-est-gate.cpp -L. -pthread -lgmp -lmpfr -lest -lfplll 
 
-./nist-round3-est 1 1 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[AGPS20].log"
+# ./nist-round3-est 1 1 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[AGPS20].log"
 
-./nist-round3-est 1 2 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[MATZOV22].log"
+# ./nist-round3-est 1 2 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[MATZOV22].log"
 
+
+# ./nist-round3-est 1 2 3 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[MATZOV22]+max_loop=3.log"
 
 ./nist-round3-est 1 2 10 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[MATZOV22]+max_loop=10.log"
 
