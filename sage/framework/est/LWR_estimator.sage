@@ -9,10 +9,10 @@ type: 'uniform': both secret and error are uniform; 'gaussian': both secret and 
 
 """
 
-load("leaky-LWE-Estimator-master/framework/utils.sage")
+load("../utils.sage")
 
 def estimate_LWR_instance(n,m,q,p,sigma_s,min_beta,max_beta,sample_space=10,sample_vector=1000):
-
+    print("LWR estimator in two-step mode")
     logvol=m*log(q)-n*log(sigma_s)-m*log((q*q-gcd(p,q)*gcd(p,q))/(p*p*12))
     compute_uniform_twostep(n,m,logvol,min_beta,max_beta,sample_space,sample_vector)
 
@@ -118,3 +118,6 @@ def compute_uniform_twostep(n,m,logvol,min_beta,max_beta,sample_space,sample_vec
     print("two-step-LWR-estimator: average-d_svp:")
     print(log(cumulated_time)/log(sqrt(1.5)))
     print(remaining_proba)
+
+
+

@@ -212,7 +212,7 @@ def initialize_from_LWR_instance(n, q, p, m, D_s, verbosity = True):
 
 
     core_SVP_est(dim, dvol)
-    return dim, dvol
+    return dim, dvol, sigma_s
 
 
 
@@ -407,8 +407,14 @@ def saber_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, paralle
     p = 1024
     D_s = build_centered_binomial_law(8)
     dim_, dvol = initialize_from_LWR_instance(n, q, p, m, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
+
+
+    if(method == 5):
+        estimate_LWR_instance(n,m,q,p,sigma_s,min_beta,max_beta)
+    else:
+        svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    
 
     print("============= Saber-1024")
 

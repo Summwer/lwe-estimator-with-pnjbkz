@@ -76,13 +76,12 @@ def svp_estimate_attack(silent=False, method=1, worst_case = False, parallel_ = 
         print("Cost: %.3f s" %(time.time()-T0))
         
     if(method==4):
-        print(" Attack Estimation via defaul g6k mode  ", end="")
+        print(" Attack Estimation via default g6k mode  ", end="")
         if(cost_model == 1):
             print(", list_decoding_classical = ", ldc_param)
         print()
         betamin, G, B = default_g6k_est(dim_, dvol, b, l, verbose=not silent, cost_model=cost_model, worst_case = worst_case, sigma = sigma)
         print("Cost: %.3f s" %(time.time()-T0))
-    
     
 
     if not silent:
