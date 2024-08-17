@@ -336,3 +336,26 @@ def practical_bkz_cost(d,beta,jump):
         T_pnj = T_pnj/jump
     return round(T_pnj,4)
  
+
+
+
+def colattice_pump_cost(n, blocksizes, ldc_param = "AGPS20"):
+    gates = 0.
+    bits = 0.
+    for beta in blocksizes:
+        if(beta <=10):
+            return (0,0)
+        f = dim4free_wrapper(theo_dim4free_fun2,beta)
+        beta_prime = floor(beta - f)
+        if(beta_prime < 64 or beta < beta_prime):
+            return (0,0)
+        if(ldc_param == "AGPS20"):
+            if(beta_prime > 1024):
+                gates = log2( 2** gates + 2**(list_decoding_classical[ldc_param][0] * beta_prime + list_decoding_classical[ldc_param][1]) )
+            else:
+                gates = log2( 2** gates + 2**agps20_gates(beta_prime))
+        if(ldc_param == "MATZOV22"):
+            gates = log2( 2** gates + 2**(list_decoding_classical[ldc_param][0] * beta_prime + list_decoding_classical[ldc_param][1]) )
+
+        bits = max(log2(8*beta_prime) + agps20_vectors(beta_prime),bits)
+    return (gates, bits)

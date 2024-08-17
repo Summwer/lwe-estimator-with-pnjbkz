@@ -78,11 +78,11 @@ def build_uniform_law(p):
 
 
 
-#ROUNDING_FACTOR = 2**64
+ROUNDING_FACTOR = 2**64
 
-#def round_to_rational(x):
-#    A = ZZ(round(x * ROUNDING_FACTOR))
-#    return QQ(A) / QQ(ROUNDING_FACTOR)
+def round_to_rational(x):
+    A = ZZ(round(x * ROUNDING_FACTOR))
+    return QQ(A) / QQ(ROUNDING_FACTOR)
 
 def average_variance(D):
     mu = 0.
@@ -93,7 +93,7 @@ def average_variance(D):
         s += v * v * p
 
     s -= mu * mu
-    return mu, s
+    return round_to_rational(mu), round_to_rational(s)
     #return round_to_rational(mu), round_to_rational(s)
 
 
@@ -166,11 +166,93 @@ def initialize_from_LWE_instance(n, q, m, D_e, D_s, verbosity = True):
     m = best_m
     dvol = m * log(q) - (m*log(abs(s_e))+n*log(abs(s_s))) / 2.
     dim = m + n + 1
+   
     print("dim = %d, m = %d, dvol = %3.11f, β = %3.4f" %(dim, m, dvol, min_beta))
 
 
     core_SVP_est(dim, dvol)
     return dim, dvol
+
+
+
+
+def initialize_from_LWR_instance(n, q, p, m, D_s, verbosity = True):
+    """
+    constructor that builds a DBDD instance from a LWE instance
+    :n: (integer) size of the secret s
+    :q: (integer) modulus
+    :m: (integer) size of the error e
+    :D_s: distribution of the secret s (dictionnary form)
+    """
+    if verbosity:
+        logging("     Build DBDD from LWR     ", style="HEADER")
+        logging("n=%3d \t m=%3d \t q=%d \t p=%d" % (n, m, q, p), style="VALUE")
+    #Compute rounding error e 
+    D_e = build_mod_switching_error_law(q, p)
+    # define the mean and sigma of the instance
+    mu_e, s_e = average_variance(D_e)
+    mu_s, s_s = average_variance(D_s)
+    #Find the best m.
+    min_beta = -1
+    for test_m in range(m,0,-1):
+        dvol = test_m * log(q) - (test_m*log(abs(s_e))+n*log(abs(s_s))) / 2.
+        d = test_m+n+1
+        est_beta = compute_beta(d, dvol)
+        if(dvol <= 0 or est_beta is None):
+            break
+        if(min_beta == - 1 or min_beta > est_beta ):
+            min_beta = est_beta
+            best_m = test_m
+        
+    m = best_m
+    dvol = m * log(q) - (m*log(abs(s_e))+n*log(abs(s_s))) / 2.
+    dim = m + n + 1
+   
+    print("dim = %d, m = %d, dvol = %3.11f, β = %3.4f" %(dim, m, dvol, min_beta))
+
+
+    core_SVP_est(dim, dvol)
+    return dim, dvol
+
+
+
+def mod_switch(x, q, rq):
+    """ Modulus switching (rounding to a different discretization of the Torus)
+    :param x: value to round (integer)
+    :param q: input modulus (integer)
+    :param rq: output modulus (integer)
+    """
+    return int(round(1. * rq * x / q) % rq)
+
+
+def mod_centered(x, q):
+    """ reduction mod q, centered (ie represented in -q/2 .. q/2)
+    :param x: value to round (integer)
+    :param q: input modulus (integer)
+    """
+    a = x % q
+    if a < q / 2:
+        return a
+    return a - q
+
+
+def build_mod_switching_error_law(q, rq):
+    """ Construct Error law: law of the difference
+    introduced by switching from and back a uniform value mod q
+    :param q: original modulus (integer)
+    :param rq: intermediate modulus (integer)
+    """
+    D = {}
+    V = {}
+    for x in range(q):
+        y = mod_switch(x, q, rq)
+        z = mod_switch(y, rq, q)
+        d = mod_centered(x - z, q)
+        D[d] = D.get(d, 0) + 1. / q
+        V[y] = V.get(y, 0) + 1
+
+    return D
+
 
 
 def core_SVP_est(d, dvol):
@@ -290,6 +372,56 @@ def kyber_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, paralle
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
     svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
+
+
+
+def saber_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
+
+
+    
+    print("============= Saber-512")
+    #eta1 = eta2 = 3
+    #dim_ = 1025
+    #dvol = 3944.9406103
+    #eta1 = 3, eta2 = 2
+    #eta1 =3, eta2 =2
+    n = 512
+    m = 512
+    q = 8192
+    p = 1024
+    D_s = build_centered_binomial_law(10)
+    dim_, dvol = initialize_from_LWR_instance(n, q, p, m, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+
+
+
+    print("============= Saber-768")
+
+    # Saber-768 round-3 parameters
+    #dim_ = 1467
+    #dvol = 5661.0782118
+    n = 768
+    m = 768
+    q = 8192
+    p = 1024
+    D_s = build_centered_binomial_law(8)
+    dim_, dvol = initialize_from_LWR_instance(n, q, p, m, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+
+    print("============= Saber-1024")
+
+    # Saber-1024 round-3 parameters
+    #dim_ = 1918
+    #dvol = 7242.6115232 
+    n = 1024
+    m = 1024
+    q = 8192
+    p = 1024
+    D_s = build_centered_binomial_law(6)
+    dim_, dvol = initialize_from_LWR_instance(n, q, p, m, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
 
 

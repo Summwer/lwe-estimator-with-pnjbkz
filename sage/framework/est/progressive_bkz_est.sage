@@ -64,8 +64,8 @@ def pro_bkz_cumG(l, verbose=False, cost_model = 1, worst_case = False,ldc_param 
       
 
         if verbose:
-            print("β= %d, G = %3.2f log2(gate), B =%3.2f log2(bit), cum-pr=%.4e"%
-                        (beta, G1cum, B1cum, cumulated_proba), 
+            print("β= %d, G = %3.2f log2(gate), B =%3.2f log2(bit), cum-pr=%.4e, pr=%.4e"%
+                        (beta, G1cum, B1cum, cumulated_proba,proba), 
                         end="\r" if cumulated_proba < 1e-4 else "\n")
 
         if remaining_proba < .001:
@@ -116,8 +116,8 @@ def leaky_lwe_est(l, verbose=False):
       
 
         if verbose:
-            print("β= %d, G = %3.2f log2(gate), B =%3.2f log2(bit), cum-pr=%.4e"%
-                        (beta, bkz_cost(d, average_beta)[0], bkz_cost(d, average_beta)[1], cumulated_proba), 
+            print("β= %d, G = %3.2f log2(gate), B =%3.2f log2(bit), cum-pr=%.4e, pr=%.4e"%
+                        (beta, bkz_cost(d, average_beta)[0], bkz_cost(d, average_beta)[1], cumulated_proba, proba), 
                         end="\r" if cumulated_proba < 1e-4 else "\n")
 
         if remaining_proba < .001:

@@ -21,7 +21,7 @@ int main(int argc,char **argv){
     params->J = 100; 
     params->J_gap = 3;
     params->enumbs_G_prec = 0.001;
-    params->max_loop = 1; 
+    params->max_loop = atoi(argv[3]); 
     params->max_dim = 1500; 
     params->min_G_prec = 0.001;
     if(atoi(argv[2]) == 1)
