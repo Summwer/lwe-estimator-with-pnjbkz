@@ -61,9 +61,9 @@ bool BSSA::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB, pai
         boost::math::chi_squared chisquare(beta_);
         double pr = boost::math::cdf(chisquare,pow(2,2.*l[d-beta_]));
 
-        pair<double,double> GB = cost->bkz_cost(d,beta,jump,params->cost_model);
-        cum_GB.first = log2(pow(2,cum_GB.first)+pow(2,GB.first));
-        cum_GB.second = GB.second;
+        pair<double,double> avg_GB = cost->bkz_cost(d,beta,jump,params->cost_model);
+        cum_GB.first = log2(pow(2,cum_GB.first)+pow(2,avg_GB.first));
+        cum_GB.second = avg_GB.second;
         if(not params->worst_case){
             cum_avg_GB.first = log2(pow(2,cum_avg_GB.first)+(pow(2,cum_GB.first)*rem_pr*pr));
             cum_avg_GB.second = log2(pow(2,cum_avg_GB.second)+(pow(2,cum_GB.second)*rem_pr*pr));
@@ -345,7 +345,7 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
     if(params->cost_model == 1)
         printf("Min Cost = %3.2f log2(gate), Memory Cost = %3.2f log(bit)\n", Gmin, Bmin);
     if(params->cost_model == 2)
-        printf("Min Cost = %3.2f log2(sec) = %3.2f s, Memory Cost = %3.2f log2(bit) = %3.2f GB \n", Gmin, pow(2,Gmin), Bmin, pow(2,Bmin-33));
+        printf("Min Cost = %3.2f log2(sec) = %3.2f s, Memory Cost = %3.2f log2(bit) = %3.2f avg_GB \n", Gmin, pow(2,Gmin), Bmin, pow(2,Bmin-33));
 
 }
 
@@ -367,13 +367,13 @@ void BSSA::bssa_est(vector<double> l0, int sbeta, int gbeta){
 //             proba = boost::math::cdf(chisquare,pow(2,2.*l[d-beta]));
             
 
-//             pair<double,double> GB = cost -> bkz_cost(d,beta,jump,params->cost_model);
+//             pair<double,double> avg_GB = cost -> bkz_cost(d,beta,jump,params->cost_model);
 //             if(not params->worst_case)
-//                 G1cum = log2(pow(2,G1cum) + (pow(2,GB.first) * rem_pr * proba));
+//                 G1cum = log2(pow(2,G1cum) + (pow(2,avg_GB.first) * rem_pr * proba));
 //             else
-//                 G1cum = log2(pow(2,G1cum) + pow(2,GB.first));
+//                 G1cum = log2(pow(2,G1cum) + pow(2,avg_GB.first));
 
-//             B1cum = max(B1cum,GB.second);
+//             B1cum = max(B1cum,avg_GB.second);
 
 //             cum_pr += rem_pr * proba;
 //             rem_pr *= 1. - proba;

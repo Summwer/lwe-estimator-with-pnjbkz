@@ -299,7 +299,7 @@ def practical_pump_cost(beta_prime):
     k1, k2 = get_k1_k2_pump(beta_prime) # threads = 32, gpus = 2
     # k = (1/71.)*((1.33)**(beta/10.))
     secs = k1*beta_prime+k2
-    #unit: GB
+    #unit: avg_GB
     if( beta_prime <= 56):
     	bits = 2.0311
     elif( beta_prime >=57 and  beta_prime <=63):

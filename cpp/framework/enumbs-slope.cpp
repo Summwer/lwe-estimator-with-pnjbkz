@@ -180,7 +180,7 @@ int EnumBS::binary_search_for_G(double G){
     
     int len = int(BS.size());
     // double G_tmp = round(pow(2,get<2>(BS[len-1].dsvp_t))*params->enumbs_G_prec)/params->enumbs_G_prec;
-    double G_tmp = BS[len-1].GB.first;
+    double G_tmp = BS[len-1].avg_GB.first;
     if(G_tmp >= G)
         return len;
     
@@ -188,7 +188,7 @@ int EnumBS::binary_search_for_G(double G){
     int mid = floor((left+right)/2);
     while(left<right){
         // if(round(pow(2,get<2>(BS[mid].dsvp_t))*params->enumbs_G_prec)/params->enumbs_G_prec >= G2) left = mid + 1;
-        if(BS[mid].GB.first >= G) left = mid + 1;
+        if(BS[mid].avg_GB.first >= G) left = mid + 1;
         else right = mid;
         mid = floor((left+right)/2);
     }
@@ -432,7 +432,7 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
     //min avgGB
     // while(pos > 0 && pos < int(BS.size()) && ( get<2>(bs.dsvp_t) < get<2>(BS[pos].dsvp_t) + params->enumbs_G_prec || (bs.slope > BS[pos].slope - params->enumbs_slope_prec && get<2>(bs.dsvp_t) <= get<2>(BS[pos].dsvp_t)  + params->enumbs_G_prec && get<2>(bs.dsvp_t) >= get<2>(BS[pos].dsvp_t) )) && bs.cum_avg_GB_BKZ.first < BS[pos].cum_avg_GB_BKZ.first + params->enumbs_G_prec){
     //Consider min_GB
-    // while(pos > 0 && pos < int(BS.size()) && bs.GB.first < BS[pos].GB.first + params->enumbs_G_prec){
+    // while(pos > 0 && pos < int(BS.size()) && bs.avg_GB.first < BS[pos].avg_GB.first + params->enumbs_G_prec){
     
     //min cumGB
     // while(pos > 0 && pos < int(BS.size()) && ( get<2>(bs.dsvp_t) < get<2>(BS[pos].dsvp_t) + params->enumbs_G_prec || (bs.slope > BS[pos].slope - params->enumbs_slope_prec && get<2>(bs.dsvp_t) <= get<2>(BS[pos].dsvp_t)  + params->enumbs_G_prec && get<2>(bs.dsvp_t) >= get<2>(BS[pos].dsvp_t) )) && bs.cum_GB_BKZ.first < BS[pos].cum_GB_BKZ.first + params->enumbs_G_prec){
@@ -479,7 +479,7 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
 
 
     //Consider min_GB
-    // while( pos+1<int(BS.size())-1 && BS[pos+2].GB.first < BS[pos+1].GB.first + params->enumbs_G_prec){
+    // while( pos+1<int(BS.size())-1 && BS[pos+2].avg_GB.first < BS[pos+1].avg_GB.first + params->enumbs_G_prec){
     //min avgGBKZ
     // while( pos+1<int(BS.size())-1 && pos+1 > k && ( get<2>(BS[pos+2].dsvp_t) < get<2>(BS[pos+1].dsvp_t) + params->enumbs_G_prec || (BS[pos+2].slope > BS[pos+1].slope - params->enumbs_slope_prec  &&  get<2>(BS[pos+2].dsvp_t) == get<2>(BS[pos+1].dsvp_t) + params->enumbs_G_prec)) && BS[pos+2].cum_avg_GB_BKZ.first < BS[pos+1].cum_avg_GB_BKZ.first + params->enumbs_G_prec){
     
@@ -548,7 +548,7 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
 
 
 
-bool EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BKZ, pair<double,double> &cum_avg_GB_BKZ, pair<double,double> &GB, double &cum_pr, int beta, int jump, tuple<int,int,double,double,double> &dsvp_t_, double &slope){
+bool EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BKZ, pair<double,double> &cum_avg_GB_BKZ, pair<double,double> &avg_GB, double &cum_pr, int beta, int jump, tuple<int,int,double,double,double> &dsvp_t_, double &slope){
 
     double rem_pr = 1. - cum_pr;
 
@@ -593,8 +593,8 @@ bool EnumBS::pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BK
 
         dsvp_t_ = dsvp_predict(l, cum_pr, cost,params->cost_model,  cum_GB_BKZ);
         
-        GB.first = log2(pow(2,cum_avg_GB_BKZ.first) + pow(2,get<2>(dsvp_t_)));
-        GB.second = max(cum_avg_GB_BKZ.second, get<3>(dsvp_t_));
+        avg_GB.first = log2(pow(2,cum_avg_GB_BKZ.first) + pow(2,get<2>(dsvp_t_)));
+        avg_GB.second = max(cum_avg_GB_BKZ.second, get<3>(dsvp_t_));
 
         return true;
     }
@@ -611,12 +611,12 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
     vector<strategy> S = bs.S;
 
     double cum_pr = bs.cum_pr;
-    pair<double,double> cum_GB_BKZ = bs.cum_GB_BKZ, cum_avg_GB_BKZ=bs.cum_avg_GB_BKZ, GB = bs.GB, min_GB = bs.GB;
+    pair<double,double> cum_GB_BKZ = bs.cum_GB_BKZ, cum_avg_GB_BKZ=bs.cum_avg_GB_BKZ, avg_GB = bs.avg_GB, min_GB = bs.avg_GB;
 
     int  loop = 0;
     
     double slope0 = bs.slope, slope1;
-    bool sim_term = pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, beta, jump, dsvp_t1,slope1);
+    bool sim_term = pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, avg_GB, cum_pr, beta, jump, dsvp_t1,slope1);
 
     if(not sim_term)
         return;
@@ -639,19 +639,19 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
         }
         
         if(params->enumbs_min_G){
-            if(min_GB.first > GB.first){
-                min_GB = GB;
+            if(min_GB.first > avg_GB.first){
+                min_GB = avg_GB;
                 leaf = false;
             }
-            else if(GB.first >= min_GB.first + params->min_G_prec)
+            else if(avg_GB.first >= min_GB.first + params->min_G_prec)
                 leaf = true;
         }else{
             // or min_GB.second > params->max_RAM
-            if(min_GB.second > GB.second){
-                min_GB = GB;
+            if(min_GB.second > avg_GB.second){
+                min_GB = avg_GB;
                 leaf = false;
             }
-            else if(GB.second >= params->max_RAM and GB.first >= min_GB.first + params->min_G_prec)
+            else if(avg_GB.second >= params->max_RAM and avg_GB.first >= min_GB.first + params->min_G_prec)
                 leaf = true;
         }
 
@@ -660,7 +660,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
                 break;
         }
 
-        bs = {dsvp_t1, S, l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr,slope1,min_GB};
+        bs = {dsvp_t1, S, l, cum_GB_BKZ, cum_avg_GB_BKZ, avg_GB, cum_pr,slope1,min_GB};
 
         // if(params->verification){
             // pair<double,double> verified_cum_G_pr = strategy_verification(l0,S);
@@ -684,7 +684,7 @@ void EnumBS::max_tour_for_pnjbkz_beta(int k, int beta,int jump){
         }
         
     
-        sim_term = pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, beta, jump, dsvp_t1,slope1);
+        sim_term = pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, avg_GB, cum_pr, beta, jump, dsvp_t1,slope1);
         G21 = get<2>(dsvp_t1);
         assert(G21 >= 0.);
         // G21 = get<2>(dsvp_t1);
@@ -704,7 +704,7 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         vector<strategy> S = bs.S;
 
         double cum_pr = bs.cum_pr;
-        pair<double,double> cum_GB_BKZ = bs.cum_GB_BKZ, cum_avg_GB_BKZ = bs.cum_avg_GB_BKZ, GB = bs.GB, min_GB = bs.GB;
+        pair<double,double> cum_GB_BKZ = bs.cum_GB_BKZ, cum_avg_GB_BKZ = bs.cum_avg_GB_BKZ, avg_GB = bs.avg_GB, min_GB = bs.avg_GB;
 
         int beta = beta_j_tid[i].first, jump = beta_j_tid[i].second;
 
@@ -725,7 +725,7 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
 
         double slope0 = bs.slope, slope1;
 
-        bool sim_term = pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, beta, jump, dsvp_t1, slope1);
+        bool sim_term = pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, avg_GB, cum_pr, beta, jump, dsvp_t1, slope1);
 
         if(not sim_term)
             continue;
@@ -750,19 +750,19 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
                 throw "Error!";
             
             if(params->enumbs_min_G){
-                if(min_GB.first > GB.first){
-                    min_GB = GB;
+                if(min_GB.first > avg_GB.first){
+                    min_GB = avg_GB;
                     leaf = false;
                 }
-                else if(GB.first >= min_GB.first + params->min_G_prec)
+                else if(avg_GB.first >= min_GB.first + params->min_G_prec)
                     leaf = true;
             }else{
                 // or min_GB.second > params->max_RAM
-                if(min_GB.second > GB.second){
-                    min_GB = GB;
+                if(min_GB.second > avg_GB.second){
+                    min_GB = avg_GB;
                     leaf = false;
                 }
-                else if(GB.second >= params->max_RAM and GB.first >= min_GB.first + params->min_G_prec)
+                else if(avg_GB.second >= params->max_RAM and avg_GB.first >= min_GB.first + params->min_G_prec)
                     leaf = true;
             }
 
@@ -779,7 +779,7 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
                 S[S.size()-1].tours = loop;
 
     
-            bs = {dsvp_t1, S, l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, slope1, min_GB};
+            bs = {dsvp_t1, S, l, cum_GB_BKZ, cum_avg_GB_BKZ, avg_GB, cum_pr, slope1, min_GB};
 
 
 
@@ -829,7 +829,7 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
                 break; //Cannot return, will omit the later blocksize strategy
             
             
-            sim_term = pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, beta, jump, dsvp_t1, slope1);
+            sim_term = pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, avg_GB, cum_pr, beta, jump, dsvp_t1, slope1);
 
         
             // G21 = get<2>(dsvp_t1);
@@ -862,27 +862,27 @@ void EnumBS::enumbs_est(vector<double> l0){
     vector<double> l = bs.l; 
     vector<strategy> S = bs.S;
     double cum_pr = bs.cum_pr;
-    pair<double,double> cum_GB_BKZ = bs.cum_GB_BKZ, cum_avg_GB_BKZ = bs.cum_avg_GB_BKZ, GB = bs.GB, min_GB = bs.min_GB;
+    pair<double,double> cum_GB_BKZ = bs.cum_GB_BKZ, cum_avg_GB_BKZ = bs.cum_avg_GB_BKZ, avg_GB = bs.avg_GB, min_GB = bs.min_GB;
     double slope1;
     bool leaf = false;
     
     for(int beta = beta_start;  beta < d; beta++){
-        pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, beta, 1, dsvp_t1, slope1);
+        pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, avg_GB, cum_pr, beta, 1, dsvp_t1, slope1);
         S.insert(S.end(),{beta,1,1}); 
         if(params->enumbs_min_G){
-            if(min_GB.first > GB.first){
-                min_GB = GB;
+            if(min_GB.first > avg_GB.first){
+                min_GB = avg_GB;
                 leaf = false;
             }
-            else if(GB.first >= min_GB.first + params->min_G_prec)
+            else if(avg_GB.first >= min_GB.first + params->min_G_prec)
                 leaf = true;
         }else{
             // or min_GB.second > params->max_RAM
-            if(min_GB.second > GB.second){
-                min_GB = GB;
+            if(min_GB.second > avg_GB.second){
+                min_GB = avg_GB;
                 leaf = false;
             }
-            else if(GB.second >= params->max_RAM and GB.first >= min_GB.first + params->min_G_prec)
+            else if(avg_GB.second >= params->max_RAM and avg_GB.first >= min_GB.first + params->min_G_prec)
                 leaf = true;
         }
 
@@ -891,7 +891,7 @@ void EnumBS::enumbs_est(vector<double> l0){
                 break;
         }
     
-        bs = {dsvp_t1, S, l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, slope1, min_GB};
+        bs = {dsvp_t1, S, l, cum_GB_BKZ, cum_avg_GB_BKZ, avg_GB, cum_pr, slope1, min_GB};
         BS_add(bs,k);
 
         if(not params->enumbs_min_G){
@@ -962,10 +962,10 @@ void EnumBS::enumbs_est(vector<double> l0){
     EnumBS::blocksize_strategy bsmin;
     for(int i = 0; i<int(BS.size()); i++){
         
-        if(BS[i].GB.first<Gmin and BS[i].GB.second <= params->max_RAM){
+        if(BS[i].avg_GB.first<Gmin and BS[i].avg_GB.second <= params->max_RAM){
             bsmin = BS[i];
-            Gmin = BS[i].GB.first;
-            Bmin = BS[i].GB.second;
+            Gmin = BS[i].avg_GB.first;
+            Bmin = BS[i].avg_GB.second;
         }
     }
     printf("Find the optimal Strategy through EumBS!!\n");
@@ -973,7 +973,7 @@ void EnumBS::enumbs_est(vector<double> l0){
     if(params->cost_model == 1)
         printf("Min Cost = %3.2f log2(gate), Memory Cost = %3.2f log2(bit)\n", Gmin, Bmin);
     if(params->cost_model == 2)
-        printf("Min Cost = %3.2f log2(sec) = %3.2f s, Memory Cost = %3.2f log2(bit) = %3.2f GB \n", Gmin, pow(2,Gmin), Bmin, pow(2,Bmin-33));
+        printf("Min Cost = %3.2f log2(sec) = %3.2f s, Memory Cost = %3.2f log2(bit) = %3.2f avg_GB \n", Gmin, pow(2,Gmin), Bmin, pow(2,Bmin-33));
         // printf("Min Cost = %3.2f log2(sec) = %3.2f h, Memory Cost = %3.2f log2(bit) = %3.2f TB \n", Gmin, pow(2,Gmin)/3600, Bmin, pow(2,Bmin-43));
 }
 
@@ -1003,38 +1003,38 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
     vector<double> l = bs.l; 
     vector<strategy> S = bs.S;
     double cum_pr = bs.cum_pr;
-    pair<double,double> cum_GB_BKZ = bs.cum_GB_BKZ, cum_avg_GB_BKZ = bs.cum_avg_GB_BKZ, GB = bs.GB, min_GB = bs.min_GB;
+    pair<double,double> cum_GB_BKZ = bs.cum_GB_BKZ, cum_avg_GB_BKZ = bs.cum_avg_GB_BKZ, avg_GB = bs.avg_GB, min_GB = bs.min_GB;
     double slope1;
     bool leaf = false;
     for(int beta = beta_start;  beta < d; beta++){
-        pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, beta, 1, dsvp_t1, slope1);
+        pnjbkz_beta_loop(l, cum_GB_BKZ, cum_avg_GB_BKZ, avg_GB, cum_pr, beta, 1, dsvp_t1, slope1);
         S.insert(S.end(),{beta,1,1}); 
         // cout<<"cum_pr = "<<cum_pr<<endl;
         // cout<<"beta = "<<beta<<", enumbs_min_G: "<<params->enumbs_min_G<<endl;
         // cout<<get<0>(dsvp_t1)<<endl;
-        // cout<<"GB.first = "<<GB.first<<endl;
+        // cout<<"avg_GB.first = "<<avg_GB.first<<endl;
         // cout<<"min_GB.first = "<<min_GB.first<<endl;
         if(params->enumbs_min_G){
-            if(min_GB.first > GB.first){
-                min_GB = GB;
+            if(min_GB.first > avg_GB.first){
+                min_GB = avg_GB;
                 leaf = false;
             }
-            else if(GB.first >= min_GB.first + params->min_G_prec)
+            else if(avg_GB.first >= min_GB.first + params->min_G_prec)
                 leaf = true;
         }else{
             // or min_GB.second > params->max_RAM
-            if(min_GB.second > GB.second){
-                min_GB = GB;
+            if(min_GB.second > avg_GB.second){
+                min_GB = avg_GB;
                 leaf = false;
             }
-            else if(GB.second >= params->max_RAM and GB.first >= min_GB.first + params->min_G_prec)
+            else if(avg_GB.second >= params->max_RAM and avg_GB.first >= min_GB.first + params->min_G_prec)
                 leaf = true;
         }
         if(params->enumbs_min_G and (cum_pr >= 0.999 or leaf))
             break;
 
     
-        bs = {dsvp_t1, S, l, cum_GB_BKZ, cum_avg_GB_BKZ, GB, cum_pr, slope1, min_GB};
+        bs = {dsvp_t1, S, l, cum_GB_BKZ, cum_avg_GB_BKZ, avg_GB, cum_pr, slope1, min_GB};
 
         BS_add(bs,k);
         
@@ -1172,10 +1172,10 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
     bool flag = false;
     // print_BS(BS);
     for(int i = 0; i<int(BS.size()); i++){
-        if(BS[i].GB.first<Gmin  and BS[i].GB.second < params->max_RAM){
+        if(BS[i].avg_GB.first<Gmin  and BS[i].avg_GB.second < params->max_RAM){
             bsmin = BS[i];
-            Gmin = BS[i].GB.first;
-            Bmin = BS[i].GB.second;
+            Gmin = BS[i].avg_GB.first;
+            Bmin = BS[i].avg_GB.second;
             flag = true;
         }
     }
@@ -1184,10 +1184,10 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
     }
     else{
         for(int i = 0; i<int(BS.size()); i++){
-            if(BS[i].GB.second<Bmin){
+            if(BS[i].avg_GB.second<Bmin){
                 bsmin = BS[i];
-                Gmin = BS[i].GB.first;
-                Bmin = BS[i].GB.second;
+                Gmin = BS[i].avg_GB.first;
+                Bmin = BS[i].avg_GB.second;
             }
         }
         printf("There's no strategy whose memory cost (%lf log(bit)) is below %lf log(bit), the lowest memory cost strategy is:\n", Bmin, params->max_RAM);
@@ -1196,7 +1196,7 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
     if(params->cost_model == 1)
         printf("Min Cost = %3.2f log2(gate), Memory Cost = %3.2f log(bit)\n", Gmin, Bmin);
     if(params->cost_model == 2)
-        printf("Min Cost = %3.2f log2(sec) = %3.2f s, Memory Cost = %3.2f log2(bit) = %3.2f GB \n", Gmin, pow(2,Gmin), Bmin, pow(2,Bmin-33));
+        printf("Min Cost = %3.2f log2(sec) = %3.2f s, Memory Cost = %3.2f log2(bit) = %3.2f avg_GB \n", Gmin, pow(2,Gmin), Bmin, pow(2,Bmin-33));
         // printf("Min Cost = %3.2f log2(sec) = %3.2f h, Memory Cost = %3.2f log2(bit) = %3.2f TB \n", Gmin, pow(2,Gmin)/3600, Bmin, pow(2,Bmin-43));
 }
 
@@ -1219,9 +1219,9 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
 //             proba = boost::math::cdf(chisquare,pow(2,2.*l[d-beta]));
             
 
-//             pair<double,double> GB = cost -> bkz_cost(d,beta,jump,params->cost_model);
-//             G1cum = log2(pow(2,G1cum) + (pow(2,GB.first) * rem_pr * proba));
-//             B1cum = max(B1cum,GB.second);
+//             pair<double,double> avg_GB = cost -> bkz_cost(d,beta,jump,params->cost_model);
+//             G1cum = log2(pow(2,G1cum) + (pow(2,avg_GB.first) * rem_pr * proba));
+//             B1cum = max(B1cum,avg_GB.second);
 
 //             cum_pr += rem_pr * proba;
 //             rem_pr *= 1. - proba;

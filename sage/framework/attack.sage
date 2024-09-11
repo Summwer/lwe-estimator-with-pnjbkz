@@ -88,7 +88,7 @@ def svp_estimate_attack(silent=False, method=1, worst_case = False, parallel_ = 
         if cost_model == 1:
             time_unit = "G = %3.2f log2(gate) \t B = %3.2f log2(bit)" %(G,B)
         elif cost_model == 2:
-            time_unit = "G = %3.2f sec \t B = %3.2f GB" %((2**G), 2**(B-33))
+            time_unit = "G = %3.2f sec \t B = %3.2f avg_GB" %((2**G), 2**(B-33))
         if method == 1:
             logging("dim=%3d \t ln(dvol) = %4.7f \t avg_beta=%3.2f \t %s " % (dim_, dvol, betamin, time_unit), style="VALUE")
         if method ==3:
@@ -185,7 +185,7 @@ def cvp_estimate_attack(silent=False, method=1, worst_case = False, parallel_ = 
         if cost_model == 1:
             time_unit = "G = %3.2f log2(gate) \t B = %3.2f log2(bit)" %(G,B)
         elif cost_model == 2:
-            time_unit = "G = %3.2f sec \t B = %3.2f GB" %((2**G), 2**(B-33))
+            time_unit = "G = %3.2f sec \t B = %3.2f avg_GB" %((2**G), 2**(B-33))
         if method == 1:
             logging("dim=%3d \t ln(dvol) = %4.7f \t avg_beta=%3.2f \t %s " % (dim_, dvol, betamin, time_unit), style="VALUE")
         if method ==3:

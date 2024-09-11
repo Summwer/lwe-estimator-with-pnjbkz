@@ -189,7 +189,7 @@ pair<double,double> COST::get_k1_k2_pump(int beta){
     
 //     secs = k1*((double) beta_prime)+k2; 
 
-//     //unit: GB
+//     //unit: avg_GB
 //     if( beta_prime <= 56)
 //     	bits = 2.0311;
 //     else if( beta_prime >=57 and  beta_prime <=63)
@@ -219,7 +219,7 @@ pair<double,double> COST::practical_pump_cost(int beta){
     
     secs = k1*((double) beta_prime)+k2; 
 
-    //unit: GB
+    //unit: avg_GB
     if( beta_prime <= 56)
     	bits = 2.0311;
     else if( beta_prime >=57 and  beta_prime <=63)

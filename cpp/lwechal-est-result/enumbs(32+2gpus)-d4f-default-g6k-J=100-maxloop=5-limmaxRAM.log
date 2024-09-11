@@ -13,7 +13,7 @@ v1. beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, t
 Find the optimal Strategy through EumBS!!
 bs = (slope = -4.165278e-02, G_BKZ = 4.642258e+00 log2(sec), B_BKZ = 3.147695e+01 log2(bit), cum-pr = 1.935897e-02, pump-{33,139,21}, G_dsvp = 1.087770e+01 log2(sec), B_dsvp = 3.544804e+01 bit, G = 1.089672e+01 log2(sec), B = 3.544804e+01 log2(bit),  min_GB.first = 1.089672e+01 log2(sec))
 S(beta,jump,tours):[(89,9,1),(114,10,1)]
-Min Cost = 10.90 log2(sec) = 1906.52 s, Memory Cost = 35.54 log2(bit) = 5.80 GB 
+Min Cost = 10.90 log2(sec) = 1906.52 s, Memory Cost = 35.54 log2(bit) = 5.80 avg_GB 
 EnumBS cost:9.7s.
 
 
@@ -33,7 +33,7 @@ v1. beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, t
 Find the optimal Strategy through EumBS!!
 bs = (slope = -3.807609e-02, G_BKZ = 2.645378e+00 log2(sec), B_BKZ = 2.920589e+01 log2(bit), cum-pr = 2.157689e-03, pump-{27,152,22}, G_dsvp = 1.305524e+01 log2(sec), B_dsvp = 3.739111e+01 bit, G = 1.305630e+01 log2(sec), B = 3.739111e+01 log2(bit),  min_GB.first = 1.305630e+01 log2(sec))
 S(beta,jump,tours):[(73,8,1),(89,9,1),(117,10,1),(119,10,1)]
-Min Cost = 13.06 log2(sec) = 8518.01 s, Memory Cost = 37.40 log2(bit) = 21.05 GB 
+Min Cost = 13.06 log2(sec) = 8518.01 s, Memory Cost = 37.40 log2(bit) = 21.05 avg_GB 
 EnumBS cost:40s.
 
 
@@ -53,7 +53,7 @@ v1. beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, t
 Find the optimal Strategy through EumBS!!
 bs = (slope = -4.052067e-02, G_BKZ = 5.446861e+00 log2(sec), B_BKZ = 3.231819e+01 log2(bit), cum-pr = 2.383398e-02, pump-{44,141,22}, G_dsvp = 1.138741e+01 log2(sec), B_dsvp = 3.575304e+01 bit, G = 1.141071e+01 log2(sec), B = 3.575304e+01 log2(bit),  min_GB.first = 1.141071e+01 log2(sec))
 S(beta,jump,tours):[(73,8,1),(90,9,1),(117,10,1)]
-Min Cost = 11.41 log2(sec) = 2722.50 s, Memory Cost = 35.88 log2(bit) = 7.36 GB 
+Min Cost = 11.41 log2(sec) = 2722.50 s, Memory Cost = 35.88 log2(bit) = 7.36 avg_GB 
 EnumBS cost:19s.
 
 
@@ -73,7 +73,7 @@ v1. beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, t
 Find the optimal Strategy through EumBS!!
 bs = (slope = -4.185209e-02, G_BKZ = 4.405054e+00 log2(sec), B_BKZ = 3.063254e+01 log2(bit), cum-pr = 1.078179e-02, pump-{54,140,22}, G_dsvp = 1.142579e+01 log2(sec), B_dsvp = 3.567853e+01 bit, G = 1.143685e+01 log2(sec), B = 3.567853e+01 log2(bit),  min_GB.first = 1.143685e+01 log2(sec))
 S(beta,jump,tours):[(73,8,1),(90,9,1),(114,10,1)]
-Min Cost = 11.44 log2(sec) = 2772.27 s, Memory Cost = 35.72 log2(bit) = 6.60 GB 
+Min Cost = 11.44 log2(sec) = 2772.27 s, Memory Cost = 35.72 log2(bit) = 6.60 avg_GB 
 EnumBS cost:23s.
 
 
@@ -93,7 +93,7 @@ v1. beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, t
 Find the optimal Strategy through EumBS!!
 bs = (slope = -4.031013e-02, G_BKZ = 4.267483e+00 log2(sec), B_BKZ = 2.966837e+01 log2(bit), cum-pr = 4.884921e-03, pump-{78,144,22}, G_dsvp = 1.238989e+01 log2(sec), B_dsvp = 3.619041e+01 bit, G = 1.239505e+01 log2(sec), B = 3.619041e+01 log2(bit),  min_GB.first = 1.239505e+01 log2(sec))
 S(beta,jump,tours):[(89,9,1),(115,10,2)]
-Min Cost = 12.40 log2(sec) = 5386.20 s, Memory Cost = 36.21 log2(bit) = 9.23 GB 
+Min Cost = 12.40 log2(sec) = 5386.20 s, Memory Cost = 36.21 log2(bit) = 9.23 avg_GB 
 EnumBS cost:52s.
 
 
@@ -113,7 +113,7 @@ v1. beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, t
 Find the optimal Strategy through EumBS!!
 bs = (slope = -3.766134e-02, G_BKZ = 4.737610e+00 log2(sec), B_BKZ = 2.909869e+01 log2(bit), cum-pr = 1.997412e-03, pump-{119,152,22}, G_dsvp = 1.422066e+01 log2(sec), B_dsvp = 3.740465e+01 bit, G = 1.422267e+01 log2(sec), B = 3.740465e+01 log2(bit),  min_GB.first = 1.422267e+01 log2(sec))
 S(beta,jump,tours):[(89,9,1),(90,9,1),(117,10,3),(119,10,1)]
-Min Cost = 14.22 log2(sec) = 19118.38 s, Memory Cost = 37.41 log2(bit) = 21.25 GB 
+Min Cost = 14.22 log2(sec) = 19118.38 s, Memory Cost = 37.41 log2(bit) = 21.25 avg_GB 
 EnumBS cost:2e+02s.
 
 
@@ -133,7 +133,7 @@ v1. beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, t
 There's no strategy whose memory cost (39.804255 log(bit)) is below 38.900000 log(bit), the lowest memory cost strategy is:
 bs = (slope = -3.506570e-02, G_BKZ = 9.629755e+00 log2(sec), B_BKZ = 3.532686e+01 log2(bit), cum-pr = 2.277965e-02, pump-{21,167,24}, G_dsvp = 1.705915e+01 log2(sec), B_dsvp = 3.973799e+01 bit, G = 1.706749e+01 log2(sec), B = 3.973799e+01 log2(bit),  min_GB.first = 1.706749e+01 log2(sec))
 S(beta,jump,tours):[(94,9,1),(117,10,1),(119,10,1),(122,4,1),(133,4,1)]
-Min Cost = 17.07 log2(sec) = 137349.42 s, Memory Cost = 39.80 log2(bit) = 111.76 GB 
+Min Cost = 17.07 log2(sec) = 137349.42 s, Memory Cost = 39.80 log2(bit) = 111.76 avg_GB 
 EnumBS cost:1.4e+02s.
 
 
@@ -153,7 +153,7 @@ v1. beta_start= 50, gap = 1, J = 100, J_gap = 1, cost_model = 2, max_loop = 5, t
 There's no strategy whose memory cost (42.427943 log(bit)) is below 38.900000 log(bit), the lowest memory cost strategy is:
 bs = (slope = -3.357839e-02, G_BKZ = 1.318725e+01 log2(sec), B_BKZ = 3.805438e+01 log2(bit), cum-pr = 2.305763e-02, pump-{11,181,25}, G_dsvp = 2.170146e+01 log2(sec), B_dsvp = 4.235661e+01 bit, G = 2.170540e+01 log2(sec), B = 4.235661e+01 log2(bit),  min_GB.first = 2.170540e+01 log2(sec))
 S(beta,jump,tours):[(89,9,1),(114,10,1),(117,10,1),(117,4,1),(131,4,1),(141,4,1),(147,4,1)]
-Min Cost = 21.71 log2(sec) = 3419608.74 s, Memory Cost = 42.43 log2(bit) = 688.80 GB 
+Min Cost = 21.71 log2(sec) = 3419608.74 s, Memory Cost = 42.43 log2(bit) = 688.80 avg_GB 
 EnumBS cost:2.1e+02s.
 
 

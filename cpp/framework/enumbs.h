@@ -18,10 +18,12 @@ class EnumBS{
             vector<double> l;
             pair<double,double> cum_GB_BKZ;
             pair<double,double> cum_avg_GB_BKZ;
-            pair<double,double> GB; //total cost.
+            pair<double,double> avg_GB; //total cost.
             double cum_pr; //cumulated probability 
             double slope;
             pair<double,double> min_GB;
+            pair<double,double> GB_nopr;
+            bool leaf; // to determine whether this stratey could be further improved.
         };
 
         vector<blocksize_strategy> BS; //key: beta;  value: blocksize_strategy
@@ -78,7 +80,7 @@ class EnumBS{
         // void BS_add_G2(EnumBS::blocksize_strategy bs, int k);
 
 
-        bool pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BKZ,  pair<double,double> &cum_avg_GB_BKZ,  pair<double,double> &GB, double &cum_pr, int beta, int jump, tuple<int,int,double,double,double> &dsvp_t_, double &slope);
+        bool pnjbkz_beta_loop( vector<double> &l, pair<double,double> &cum_GB_BKZ,  pair<double,double> &cum_avg_GB_BKZ,  pair<double,double> &avg_GB, double &cum_pr, int beta, int jump, tuple<int,int,double,double,double> &dsvp_t_, double &slope, pair<double,double> &GB_nopr, pair<double,double> &min_GB, bool &leaf);
 
 
         void max_tour_for_pnjbkz_beta(int k, int beta,int jump);
