@@ -14,15 +14,17 @@ int main(int argc,char **argv){
     params->cost_model = 1; //sec model;
     // params->progressive_sieve = true;
     params->verbose = true;
-    params->debug = true;
+    params->debug = false;
     params->worst_case = false;
     params->method = atoi(argv[1]); //1:enumbs;2:bssa
     params->gap = 1;
-    params->J = 100; 
+    
     params->J_gap = 1;
     params->enumbs_G_prec = 0.001;
-    params->enumbs_slope_prec = 1e-4;
+    params->enumbs_slope_prec = 1e-6;
     params->max_loop = atoi(argv[3]); 
+
+    params->J = min(atoi(argv[4]),100); 
     params->max_dim = 1500; 
     params->min_G_prec = 0.001;
     if(atoi(argv[2]) == 1)
@@ -35,7 +37,6 @@ int main(int argc,char **argv){
     int n, m, q,eta;
     map<int,double> D_s,D_e;
     LWEchal* lwechal;
-
 
 
     //Dilithium-III round-3 parameters
@@ -53,6 +54,8 @@ int main(int argc,char **argv){
     lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
     gsa_est(lwechal->dim, lwechal->dvol, params);
     
+
+    // throw "";
 
     //Dilithium-V round-3 parameters
     printf("============= Dilithium-V\n");
@@ -98,8 +101,7 @@ int main(int argc,char **argv){
 
 
 
-    
-    // Kyber-512 round-3 parameters
+     // Kyber-512 round-3 parameters
     printf("============= Kyber-512\n");
     n = 512, m = 512, q = 3329;
     D_s = build_centered_binomial_law(3);
@@ -107,9 +109,7 @@ int main(int argc,char **argv){
     lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
     gsa_est(lwechal->dim, lwechal->dvol, params);
 
-
-    
-
+ 
 
     // Kyber-1024 round-3 parameters
     printf("============= Kyber-1024\n");
