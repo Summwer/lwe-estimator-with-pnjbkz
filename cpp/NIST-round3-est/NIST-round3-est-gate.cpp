@@ -14,15 +14,17 @@ int main(int argc,char **argv){
     params->cost_model = 1; //sec model;
     // params->progressive_sieve = true;
     params->verbose = true;
-    params->debug = true;
+    params->debug = false;
     params->worst_case = false;
     params->method = atoi(argv[1]); //1:enumbs;2:bssa
     params->gap = 1;
-    params->J = 100; 
+    
     params->J_gap = 1;
     params->enumbs_G_prec = 0.001;
-    params->enumbs_slope_prec = 1e-4;
+    params->enumbs_slope_prec = 1e-6;
     params->max_loop = atoi(argv[3]); 
+
+    params->J = min(atoi(argv[4]),100); 
     params->max_dim = 1500; 
     params->min_G_prec = 0.001;
     if(atoi(argv[2]) == 1)
@@ -37,11 +39,7 @@ int main(int argc,char **argv){
     LWEchal* lwechal;
 
 
-
-   
-    
-
-    //Dilithium-V round-3 parameters
+ //Dilithium-V round-3 parameters
     printf("============= Dilithium-V\n");
     n = 7*256, m = 8*256, q = 8380417, eta = 2;
     D_s={},D_e={};
@@ -56,6 +54,26 @@ int main(int argc,char **argv){
     lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
     gsa_est(lwechal->dim, lwechal->dvol, params);
 
+
+    //Dilithium-III round-3 parameters
+    printf("============= Dilithium-III\n");
+    n = 5*256, m = 6*256, q = 8380417, eta = 4;
+    D_s={},D_e={};
+    // for(int x=-eta; x<=eta; x++){
+    //     D_s[x] = one/(2*eta+1);
+    //     D_e[x] = one/(2*eta+1);
+    // }
+    for(int x=-eta; x<=eta; x++){
+        D_s[x] = 1./(2*eta+1);
+        D_e[x] = 1./(2*eta+1);
+    }
+    lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
+    gsa_est(lwechal->dim, lwechal->dvol, params);
+    
+
+    // throw "";
+
+   
  
     
     
@@ -85,8 +103,7 @@ int main(int argc,char **argv){
 
 
 
-    
-    // Kyber-512 round-3 parameters
+     // Kyber-512 round-3 parameters
     printf("============= Kyber-512\n");
     n = 512, m = 512, q = 3329;
     D_s = build_centered_binomial_law(3);
@@ -94,9 +111,7 @@ int main(int argc,char **argv){
     lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
     gsa_est(lwechal->dim, lwechal->dvol, params);
 
-
-    
-
+ 
 
     // Kyber-1024 round-3 parameters
     printf("============= Kyber-1024\n");
