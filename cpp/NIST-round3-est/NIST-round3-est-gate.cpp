@@ -40,38 +40,36 @@ int main(int argc,char **argv){
 
 
  //Dilithium-V round-3 parameters
-    printf("============= Dilithium-V\n");
-    n = 7*256, m = 8*256, q = 8380417, eta = 2;
-    D_s={},D_e={};
+    // printf("============= Dilithium-V\n");
+    // n = 7*256, m = 8*256, q = 8380417, eta = 2;
+    // D_s={},D_e={};
+    // // for(int x=-eta; x<=eta; x++){
+    // //     D_s[x] = one/(2*eta+1);
+    // //     D_e[x] = one/(2*eta+1);
+    // // }
     // for(int x=-eta; x<=eta; x++){
-    //     D_s[x] = one/(2*eta+1);
-    //     D_e[x] = one/(2*eta+1);
+    //     D_s[x] = 1./(2*eta+1);
+    //     D_e[x] = 1./(2*eta+1);
     // }
-    for(int x=-eta; x<=eta; x++){
-        D_s[x] = 1./(2*eta+1);
-        D_e[x] = 1./(2*eta+1);
-    }
-    lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
-    gsa_est(lwechal->dim, lwechal->dvol, params);
+    // lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
+    // gsa_est(lwechal->dim, lwechal->dvol, params);
 
 
-    //Dilithium-III round-3 parameters
-    printf("============= Dilithium-III\n");
-    n = 5*256, m = 6*256, q = 8380417, eta = 4;
-    D_s={},D_e={};
+    // //Dilithium-III round-3 parameters
+    // printf("============= Dilithium-III\n");
+    // n = 5*256, m = 6*256, q = 8380417, eta = 4;
+    // D_s={},D_e={};
+    // // for(int x=-eta; x<=eta; x++){
+    // //     D_s[x] = one/(2*eta+1);
+    // //     D_e[x] = one/(2*eta+1);
+    // // }
     // for(int x=-eta; x<=eta; x++){
-    //     D_s[x] = one/(2*eta+1);
-    //     D_e[x] = one/(2*eta+1);
+    //     D_s[x] = 1./(2*eta+1);
+    //     D_e[x] = 1./(2*eta+1);
     // }
-    for(int x=-eta; x<=eta; x++){
-        D_s[x] = 1./(2*eta+1);
-        D_e[x] = 1./(2*eta+1);
-    }
-    lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
-    gsa_est(lwechal->dim, lwechal->dvol, params);
+    // lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
+    // gsa_est(lwechal->dim, lwechal->dvol, params);
     
-
-    // throw "";
 
    
  
