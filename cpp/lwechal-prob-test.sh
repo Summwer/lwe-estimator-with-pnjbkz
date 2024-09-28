@@ -20,6 +20,13 @@ mkdir "lwechal-prob-test"
 # argv[8]: list decoding. 1: agps20 2:matzov22
 g++ -O3 -funroll-loops -o lwechal-enumbs-est ./lwe-est/lwechal-enumbs-parallel-est.cpp  -L. -pthread -lfplll -lgmp -lmpfr -lest
 
-./lwechal-enumbs-est 100 5 1 300 2 3 50 1 | tee "lwechal-prob-test"/"EnumBS-Strategy(cumprob+prob)+list decoding in [AGPS20](gate min).log"
+# ./lwechal-enumbs-est 100 5 1 300 2 3 50 1 | tee "lwechal-prob-test"/"EnumBS-Strategy(cumprob+prob)+list decoding in [AGPS20](gate min).log"
 
-./lwechal-enumbs-est 100 5 1 300 2 3 50 2 | tee "lwechal-prob-test"/"EnumBS-Strategy(cumprob+prob)+list decoding in [MATZOV22](gate min).log" 
+# ./lwechal-enumbs-est 100 5 1 300 2 3 50 2 | tee "lwechal-prob-test"/"EnumBS-Strategy(cumprob+prob)+list decoding in [MATZOV22](gate min).log" 
+
+
+
+./lwechal-enumbs-est 100 5 1 300 5 3 50 2 | tee "lwechal-prob-test"/"new-lwechal-EnumBS-Strategy(cumprob+prob)+list decoding in [MATZOV22](gate min).log" 
+
+
+
