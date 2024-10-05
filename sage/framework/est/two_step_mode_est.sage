@@ -87,8 +87,8 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
     #cumulated_probas = [0.]
     #betas = [0]
     Gs = []
-    if(cost_model == 2):
-        betastart = 10
+    #if(cost_model == 2):
+    #    betastart = 10
     print_Gcums = []
     for beta in range(betastart, d):
         l = simulate_pnjBKZ(l, beta, 1, 1)

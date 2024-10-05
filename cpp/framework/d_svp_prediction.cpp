@@ -109,6 +109,6 @@ tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, d
         // pre_psvp2 = psvp2;
     }
     p_cost = cost->pump_cost(d,cost_model);
-    return make_tuple(d,d,  log2(pow(2,p_cost.first) + pow(2,cum_GB_BKZ.first)), p_cost.second, PSC);
+    return  make_tuple(dsvp_prime, dsvp, G_cum,B_cum, PSC); 
 }
 
