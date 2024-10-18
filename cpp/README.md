@@ -89,11 +89,11 @@ The code file `NIST-round3-est-gate.cpp` in `NIST-round3-est` is used for estima
 in the main directory. It will return the blocksize strategy for some of LWE challenges in the folder `lwechal-est-result`, corresponding to the Table 3 in https://eprint.iacr.org/2022/1343.
 
 
-To simulate a LWE instance in detail and return the simulated basis quality(we regard "slope" as a basis quality representation) and simulated cost(in practical cost model with threads = 32 and gpus = 2 * 3039Ti GPUS (sec)) after each pnj-BKZ$(\beta,J, {\rm tours})$ reduction, please refer to the file `strategy_simulation.cpp` and one can run it by the following command
+To simulate a LWE instance in detail and return the simulated basis quality(we regard "slope" as a basis quality representation) and simulated cost(in practical cost model with threads = 32 and gpus = 2 * 3090Ti GPUS (sec)) after each pnj-BKZ$(\beta,J, {\rm tours})$ reduction, please refer to the file `strategy_simulation.cpp` and one can run it by the following command
 ```
 ./strategy_simulation.sh
 ```
 The result will store in the file `lwechal-est-result/simulation.log`, it obtains the 'Simulation' column for LWE challenge ($40,0.030$) in Table 5 in https://eprint.iacr.org/2022/1343.
 
 
-If one wants to run jump with an accurate upper bound, please set the parameter compute_jub = 1 for pessimistic d4f(B); 2 for optimistic d4f(B); 3 for d4f(beta)/2.
+If one wants to run jump with an accurate upper bound, please set the parameter compute_jub = 1 for pessimistic d4f(B); 2 for optimistic d4f(B); 3 for d4f(beta)/2. 

@@ -105,7 +105,7 @@ tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, d
             // printf("dsvp = %d, dsvp_prime = %d, gates =  %f\n ", dsvp, dsvp_prime, p_cost.first);
             return  make_tuple(dsvp_prime, dsvp, G_cum,B_cum, PSC); 
         }
-        pre_psvp = psvp;
+
         // pre_psvp2 = psvp2;
     }
     p_cost = cost->pump_cost(d,cost_model);

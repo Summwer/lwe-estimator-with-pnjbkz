@@ -594,3 +594,52 @@ def haetae_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
     svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
+
+
+
+def Aigis_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
+
+    # Aigis-I parameters
+    print("============= Aigis-I with σs = 1.5 and σe = 1.5")
+    #eta1 = eta2 = 3
+    #dim_ = 1025
+    #dvol = 3944.9406103
+    #eta1 = 3, eta2 = 2
+    #eta1 =3, eta2 =2
+    n = 512
+    m = 512
+    q = 3329
+    D_s = build_centered_binomial_law(3)
+    D_e = D_s
+    #D_e = build_centered_binomial_law(2)
+    dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+
+    print("============= Aigis-II")
+
+    # Aigis-II parameters
+    #dim_ = 1467
+    #dvol = 5661.0782118
+    n = 768
+    m = 768
+    q = 3329
+    D_s = build_centered_binomial_law(2)
+    D_e = D_s
+    dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+
+    print("============= Aigis-III")
+
+    # Aigis-III parameters
+    #dim_ = 1918
+    #dvol = 7242.6115232 
+    n = 1024
+    m = 1024
+    q = 3329
+    D_s = build_centered_binomial_law(2)
+    D_e = D_s
+    dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
