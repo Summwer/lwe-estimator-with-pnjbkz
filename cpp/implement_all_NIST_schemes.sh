@@ -8,17 +8,17 @@ mkdir "nist-round3-est-result"
 # argv[2]: list-decoding complexity 1: "agps20"; 2: "matzov22"
 # argv[3]: maxloop: >=1 and is an integer
 # argv[4]: maximal jump value
-g++ -O3 -funroll-loops -o nist-round3-est ./NIST-round3-est/NIST-round3-est-gate.cpp -L. -pthread -lfplll -lgmp -lmpfr -lest
+g++ -O3 -funroll-loops -o nist-round3-est-test ./NIST-round3-est/NIST-round3-est-gate.cpp -L. -pthread -lfplll -lgmp -lmpfr -lest
 
-# ./nist-round3-est 1 1 1 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[AGPS20].log"
+# ./nist-round3-est-test 1 1 1 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[AGPS20].log"
 
-# ./nist-round3-est 1 2 1 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[MATZOV22].log"
+# ./nist-round3-est-test 1 2 1 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[MATZOV22].log"
 
-# ./nist-round3-est 1 2 3 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[MATZOV22]+max_loop=3.log"
+# ./nist-round3-est-test 1 2 3 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[MATZOV22]+max_loop=3.log"
 
 
-# ./nist-round3-est 1 2 10 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[MATZOV22]+max_loop=10.log"
+# ./nist-round3-est-test 1 2 10 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[MATZOV22]+max_loop=10.log"
 
-# ./nist-round3-est 1 2 10 1 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[MATZOV22]+max_loop=10+jump=1.log"
+# ./nist-round3-est-test 1 2 10 1 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[MATZOV22]+max_loop=10+jump=1.log"
 
-./nist-round3-est 1 2 1 100 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[MATZOV22].log"
+./nist-round3-est-test 1 2 1 100 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[MATZOV22].log"

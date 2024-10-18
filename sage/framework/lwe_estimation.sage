@@ -255,7 +255,6 @@ def gen_lwechal_instance(n=40, alpha=0.005, default_g6k = False):
    
     print("Chose %d samples. Predict solution at bkz-%d + svp-%d." % (m, b, s))
     
-
     d = m + 1
 
     B = primal_lattice_basis(A, c, q, m=m)

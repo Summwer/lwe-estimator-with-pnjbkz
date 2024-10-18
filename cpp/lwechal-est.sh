@@ -20,10 +20,10 @@ mkdir "lwechal-est-result"
 # argv[8]: maximal RAM memory.
 g++ -O3 -funroll-loops -o lwechal-enumbs-est ./lwe-est/lwechal-enumbs-parallel-est.cpp  -L. -pthread -lfplll -lgmp -lmpfr -lest
 
-./lwechal-enumbs-est 100 5 2 300 2 3 50 0 | tee lwechal-est-result/"enumbs(32+2gpus)-d4f-default-g6k-J=100-maxloop=5.log" 
+# ./lwechal-enumbs-est 100 5 2 300 2 3 50 0 | tee lwechal-est-result/"enumbs(32+2gpus)-d4f-default-g6k-J=100-maxloop=5.log" 
 
 
-
+./lwechal-enumbs-est 100 1 2 300 2 3 50 0 | tee lwechal-est-result/"enumbs(32+2gpus)-d4f-default-g6k-J=100-maxloop=1.log" 
 
 
 

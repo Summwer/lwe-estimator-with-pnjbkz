@@ -87,3 +87,14 @@ To obtain the result of column "Previous", one should run the file `NIST-pro-bkz
 
 To obtain the result of column $S_0$, one should run the file `NIST-two-step.sage` in the folder `sage/NIST-round3` of [https://github.com/Summwer/lwe-estimator-with-pnjbkz/tree/refined-lwe-estimator](https://github.com/Summwer/lwe-estimator-with-pnjbkz/tree/refined-lwe-estimator). 
 
+
+
+
+
+
+## New Estimation
+Add the security estimation for HuFu, Saber, eaglesign, haetae and Aigis in two-step mode in the folder `sage/NIST-round3` and `sage/framework/NIST-est.sage`
+
+
+## Mark
+If one wants to estimate the security of your own scheme, please first write the parameters in the  `sage/framework/NIST-est.sage` referring to the other functions, and then generate and implement a file like `sage/NIST-round3/NIST-two-step.sage` for different test paramters by sagemath. 

@@ -261,7 +261,7 @@ def core_SVP_est(d, dvol):
         #[ADPS16] uses 2beta-d-1, it is 2beta-d actually.
         if(1/2.*log(beta) <= (2*beta-d-1)*log(delta0) + 1./d * dvol ):
             f = dim4free_wrapper(theo_dim4free_fun1,beta)
-            print("core-SVP estimate, β = ", beta, "beta-f = ", beta-f, "cost =", 0.292*(beta-f))
+            print("core-SVP estimate, β = ", beta, "beta-f = ", beta-f, "cost (not consider d4f)=", round(0.292*(beta),2), "cost (consider d4f)=", round(0.292*(beta-f),2))
             return
 
 
@@ -277,7 +277,7 @@ def dilithium_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  prin
     D_s = {x : 1./(2*eta+1) for x in range(-eta, eta+1)}
     D_e = D_s
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
     
     print("============= Dilithium-III")
@@ -292,7 +292,7 @@ def dilithium_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  prin
     D_s = {x : 1./(2*eta+1) for x in range(-eta, eta+1)}
     D_e = D_s
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
     
 
     print("============= Dilithium-V")
@@ -307,7 +307,7 @@ def dilithium_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  prin
     D_s = {x : 1./(2*eta+1) for x in range(-eta, eta+1)}
     D_e = D_s
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l,  ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l,  ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
 def kyber_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
 
@@ -325,7 +325,7 @@ def kyber_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l 
     D_e = D_s
     #D_e = build_centered_binomial_law(2)
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
     
     print("============= Kyber-512 with σs = 1.5 and σe = 1")
@@ -340,7 +340,7 @@ def kyber_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l 
     D_s = build_centered_binomial_law(3)
     D_e = build_centered_binomial_law(2)
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
 
 
@@ -356,7 +356,7 @@ def kyber_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l 
     D_s = build_centered_binomial_law(2)
     D_e = D_s
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
 
     print("============= Kyber-1024")
@@ -370,7 +370,7 @@ def kyber_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l 
     D_s = build_centered_binomial_law(2)
     D_e = D_s
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
 
 
@@ -391,7 +391,7 @@ def saber_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, paralle
     p = 1024
     D_s = build_centered_binomial_law(10)
     dim_, dvol = initialize_from_LWR_instance(n, q, p, m, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
 
 
@@ -413,7 +413,7 @@ def saber_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, paralle
     if(method == 5):
         estimate_LWR_instance(n,m,q,p,sigma_s,min_beta,max_beta)
     else:
-        svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+        svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
     
 
     print("============= Saber-1024")
@@ -427,7 +427,7 @@ def saber_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, paralle
     p = 1024
     D_s = build_centered_binomial_law(6)
     dim_, dvol = initialize_from_LWR_instance(n, q, p, m, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
 
 
@@ -443,7 +443,7 @@ def hufu_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel
     D_s = build_centered_binomial_law(1) #binomial distribution on B1
     D_e = build_centered_binomial_law(1) #binomial distribution on B1
     dim_, dvol = initialize_from_LWE_instance(n, Q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
 
 
@@ -457,7 +457,7 @@ def hufu_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel
     D_s = build_centered_binomial_law(1) #binomial distribution on B1
     D_e = build_centered_binomial_law(1) #binomial distribution on B1
     dim_, dvol = initialize_from_LWE_instance(n, Q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
 
 
@@ -471,7 +471,7 @@ def hufu_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel
     D_s = build_centered_binomial_law(1) #binomial distribution on B1
     D_e = build_centered_binomial_law(1) #binomial distribution on B1
     dim_, dvol = initialize_from_LWE_instance(n, Q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
 
 
@@ -490,7 +490,7 @@ def eaglesign_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  prin
     D_s = {x : 1./(2*eta+1) for x in range(-eta, eta+1)} #uniformly random over [-etag,etag]
     D_e = D_s #uniformly random over [-etad,etad]
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
     print("============= EagleSign2EPk: Ephemeral secret recovery")
     t = 140
@@ -498,7 +498,7 @@ def eaglesign_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  prin
     D_s = {1: t/(2.*p), -1: t/(2.*p), 0: (2.*p -t)/p} #SparseTernary: t/2 entries of 1,  t/2 entries of -1, rest is 0.
     D_e = {x : 1./(2*eta+1) for x in range(-eta, eta+1)} #uniformly random over [-eta,eta], eta = etay2
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
     
     
     # EagleSign3 parameters
@@ -520,7 +520,7 @@ def eaglesign_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  prin
     D_s = {1: t/(2.*p), -1: t/(2.*p), 0: (2.*p -t)/p} #SparseTernary: t/2 entries of 1,  t/2 entries of -1, rest is 0.
     D_e = {x : 1./(2*eta+1) for x in range(-eta, eta+1)} #uniformly random over [-eta,eta], eta = etay2
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
 
     # EagleSign5 parameters
@@ -535,7 +535,7 @@ def eaglesign_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  prin
     D_s = {x : 1./(2*eta+1) for x in range(-eta, eta+1)} #uniformly random over {-1,1}
     D_e = D_s #uniformly random over {-1,1}
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
     print("============= EagleSign5EPk: Ephemeral secret recovery")
     t = 86
@@ -543,7 +543,7 @@ def eaglesign_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  prin
     D_s = {1: t/(2.*p), -1: t/(2.*p), 0: (2.*p -t)/p} #SparseTernary: t/2 entries of 1,  t/2 entries of -1, rest is 0.
     D_e = {x : 1./(2*eta+1) for x in range(-eta, eta+1)} #uniformly random over [-eta,eta], eta = etay2
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
     
 
@@ -564,7 +564,7 @@ def haetae_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l
     D_s = {x : 1./(2*eta+1) for x in range(-eta, eta+1)} #uniformly random over {-1,1}
     D_e = D_s #uniformly random over {-1,1}
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
     # HAETAE-III parameters
     print("============= HAETAE-III")
@@ -578,7 +578,7 @@ def haetae_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l
     D_s = {x : 1./(2*eta+1) for x in range(-eta, eta+1)} #uniformly random over {-1,1}
     D_e = D_s #uniformly random over {-1,1}
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
     # HAETAE-V parameters
     print("============= HAETAE-V")
@@ -592,54 +592,104 @@ def haetae_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l
     D_s = {x : 1./(2*eta+1) for x in range(-eta, eta+1)} #uniformly random over {-1,1}
     D_e = D_s #uniformly random over {-1,1}
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
 
 
 
-def Aigis_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
+
+def aigis_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
 
     # Aigis-I parameters
-    print("============= Aigis-I with σs = 1.5 and σe = 1.5")
-    #eta1 = eta2 = 3
-    #dim_ = 1025
-    #dvol = 3944.9406103
-    #eta1 = 3, eta2 = 2
-    #eta1 =3, eta2 =2
-    n = 512
-    m = 512
-    q = 3329
-    D_s = build_centered_binomial_law(3)
-    D_e = D_s
-    #D_e = build_centered_binomial_law(2)
+    print("============= Aigis-I")
+    q = 7681
+    p = 256
+    k = 2
+    n = p*k
+    m = p*k
+    eta1 = 2
+    eta2 = 12
+    D_s = build_centered_binomial_law(eta1) 
+    D_e = build_centered_binomial_law(eta2)   
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
-
-
-    print("============= Aigis-II")
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
     # Aigis-II parameters
-    #dim_ = 1467
-    #dvol = 5661.0782118
-    n = 768
-    m = 768
-    q = 3329
-    D_s = build_centered_binomial_law(2)
-    D_e = D_s
+    print("============= Aigis-II")
+    q = 7681
+    p = 256
+    k = 3
+    n = p*k
+    m = p*k
+    eta1 = 1
+    eta2 = 4
+    D_s = build_centered_binomial_law(eta1) 
+    D_e = build_centered_binomial_law(eta2)   
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
-
-
-    print("============= Aigis-III")
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
     # Aigis-III parameters
-    #dim_ = 1918
-    #dvol = 7242.6115232 
-    n = 1024
-    m = 1024
-    q = 3329
-    D_s = build_centered_binomial_law(2)
-    D_e = D_s
+    print("============= Aigis-III")
+    q = 12289
+    p = 512
+    k = 2
+    n = p*k
+    m = p*k
+    eta1 = 2
+    eta2 = 8
+    D_s = build_centered_binomial_law(eta1) 
+    D_e = build_centered_binomial_law(eta2)   
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,J=J,gap =gap,J_gap = J_gap,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+
+
+
+
+def aigis_sig_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
+
+    # Aigis-sig-I parameters
+    print("============= Aigis-sig-I")
+    q = 2021377
+    p = 256
+    k = 4
+    l = 3
+    n = p*l
+    m = p*k
+    eta1 = 2
+    eta2 = 3
+    D_s = build_centered_binomial_law(eta1) 
+    D_e = build_centered_binomial_law(eta2)   
+    dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+    # Aigis-II parameters
+    print("============= Aigis-sig-II")
+    q = 3870721
+    p = 256
+    k = 5
+    l = 4
+    n = p*l
+    m = p*k
+    eta1 = 2
+    eta2 = 5
+    D_s = build_centered_binomial_law(eta1) 
+    D_e = build_centered_binomial_law(eta2)   
+    dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+    # Aigis-sig-III parameters
+    print("============= Aigis-sig-III")
+    q = 3870721
+    p = 256
+    k = 6
+    l = 5
+    n = p*l
+    m = p*k
+    eta1 = 1
+    eta2 = 5
+    D_s = build_centered_binomial_law(eta1) 
+    D_e = build_centered_binomial_law(eta2)   
+    dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 

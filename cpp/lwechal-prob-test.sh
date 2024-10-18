@@ -26,7 +26,7 @@ g++ -O3 -funroll-loops -o lwechal-enumbs-est ./lwe-est/lwechal-enumbs-parallel-e
 
 
 
-./lwechal-enumbs-est 100 5 1 300 5 3 50 2 | tee "lwechal-prob-test"/"new-lwechal-EnumBS-Strategy(cumprob+prob)+list decoding in [MATZOV22](gate min).log" 
+./lwechal-enumbs-est 100 1 2 300 5 3 50 2 | tee "lwechal-prob-test"/"new-lwechal-EnumBS-Strategy(cumprob+prob)+practical-cost-model5.log" 
 
 
 

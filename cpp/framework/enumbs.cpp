@@ -189,31 +189,31 @@ int EnumBS::binary_search_for_G(double G){
 
 
 
-int EnumBS::binary_search_for_slope(double slope){
-    /*
-    # Input: A list whose element is from large to small
-    # Return the first index of the first number < dsvp in high dimensional list
-    # If it is non-existent, then return len(BS)
-    # If all elements >= dsvp, then return len(BS)
-    */
+// int EnumBS::binary_search_for_slope(double slope){
+//     /*
+//     # Input: A list whose element is from large to small
+//     # Return the first index of the first number < dsvp in high dimensional list
+//     # If it is non-existent, then return len(BS)
+//     # If all elements >= dsvp, then return len(BS)
+//     */
     
     
-    int len = int(BS.size());
-    // double G2_tmp = round(pow(2,get<2>(BS[len-1].dsvp_t))*params->enumbs_G_prec)/params->enumbs_G_prec;
-    double slope_tmp = BS[len-1].slope;
-    if(slope_tmp <= slope)
-        return len;
+//     int len = int(BS.size());
+//     // double G2_tmp = round(pow(2,get<2>(BS[len-1].dsvp_t))*params->enumbs_G_prec)/params->enumbs_G_prec;
+//     double slope_tmp = BS[len-1].slope;
+//     if(slope_tmp <= slope)
+//         return len;
     
-    int left = 0, right = len - 1;
-    int mid = floor((left+right)/2);
-    while(left<right){
-        // if(round(pow(2,get<2>(BS[mid].dsvp_t))*params->enumbs_G_prec)/params->enumbs_G_prec >= G2) left = mid + 1;
-        if(BS[mid].slope <= slope) left = mid + 1;
-        else right = mid;
-        mid = floor((left+right)/2);
-    }
-    return left;
-}
+//     int left = 0, right = len - 1;
+//     int mid = floor((left+right)/2);
+//     while(left<right){
+//         // if(round(pow(2,get<2>(BS[mid].dsvp_t))*params->enumbs_G_prec)/params->enumbs_G_prec >= G2) left = mid + 1;
+//         if(BS[mid].slope <= slope) left = mid + 1;
+//         else right = mid;
+//         mid = floor((left+right)/2);
+//     }
+//     return left;
+// }
 
 
 

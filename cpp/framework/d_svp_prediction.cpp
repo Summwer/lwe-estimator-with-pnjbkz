@@ -95,7 +95,10 @@ tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, d
         if(cum_pr + (1-cum_pr) * psvp >= cost->params->succ_prob)
             flag = true;
         // if(cum_pr + (1-cum_pr) * psvp >= cost->params->succ_prob)
-        if(cum_pr + (1-cum_pr) * psvp >= 0.999){
+
+        // printf("%d, %d, %f, %f, %f\n", dsvp_prime, dsvp, G_cum, PSC, cum_pr + (1-cum_pr) * psvp);
+
+        if(cum_pr + (1-cum_pr) * psvp >= cost->params->succ_prob){
             if(cost->params->print_Gcums){
                 printf("Pcums: ");
                 print_vector(pcums);

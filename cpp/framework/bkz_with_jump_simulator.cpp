@@ -101,8 +101,8 @@ void BKZJSim::sim_below_45(vector<FP_NR<FT>> &l_,vector<FP_NR<FT>> l, int beta, 
             tmp /= beta;
             vector<FP_NR<FT>> rk1;
             rk1.resize(beta);
-            for(int i = 0; i < beta; i++){
-                rk1[i] = rk[i + 45 - beta] - tmp;
+            for(int i = 45-beta; i < 45; i++){
+                rk1[i] = rk[i] - tmp;
             }
             for(int k=d-beta; k < d; k++)
                 l_[k] = logV/beta + rk1[k + beta - d];
