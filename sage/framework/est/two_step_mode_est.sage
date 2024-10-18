@@ -88,11 +88,15 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
     #betas = [0]
     Gs = []
     if(cost_model == 2):
-        betastart = 10
+        betastart = 50
     print_Gcums = []
+
+    betastart  = 50
     for beta in range(betastart, d):
+
         l = simulate_pnjBKZ(l, beta, 1, 1)
-        
+        #print("beta = %d, current slope = %.4f\n"  %(beta,get_current_slope(l,0,d)))
+
         proba = 1.
             
         i = d - beta
@@ -130,8 +134,12 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
 
         
         #print(beta, proba, l[d-beta], cumulated_proba, G_sieve,  dsvp, dsvp_prime, dsvp-dsvp_prime, dim4free_wrapper(theo_dim4free_fun2,dsvp))
-        
-        G = log2(2**G1cum + 2**G_sieve)
+ 
+        if(cumulated_proba >= 0.999):
+            G = G1cum
+        else:
+            G = log2(2**G1cum + 2**G_sieve)
+    
         Gs.append(G)
         if(worst_case):
             B = max(B1cum, B_sieve)
@@ -153,7 +161,7 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
                 betamin = list(range(betastart,beta+1))
                 if verbose:
                     if(cost_model == 1):
-                        print("β= %d, G = %3.2f log2(gate), G1 = %3.2f log2(gate) B =%3.2f log2(bit), cum-pr=%.4e"%(beta, G, G1cum, B, cumulated_proba), 
+                        print("β= %d, G = %3.2f log2(gate), G1 = %3.2f log2(gate) B =%3.2f log2(bit), GBKZ = %3.2f log2(gate), cum-pr=%.4e"%(beta, G, G1cum, B, GBKZ, cumulated_proba), 
                             end="\r" if cumulated_proba < 1e-5 else "\n")
                     if(cost_model == 2): #G1 = %3.2f log2(sec), Gpump = %3.2f log2(sec), # G1cum, G_sieve
                         print("β= %d, G = %3.2f log2(sec),  B =%3.2f log2(bit), cum-pr=%.4e"%(beta, G, B, cumulated_proba), 
@@ -168,15 +176,15 @@ def proba_two_step_mode_estimation(l, betastart = 50, verbose=False, cost_model=
     
         if remaining_proba < .001:
             break
-        
-    #if remaining_proba > .01:
-    #    raise ValueError("This instance may be unsolvable")
-    
-    if(verbose):
-        print()
-        print("Gcumsmin: ", Gcumsmin)
-        print("cumulated_probasmin: ", cumulated_probasmin)
-        print("betas: ", list(range(betastart, beta + 1)))
-        print("Gs: ", Gs )
+
+       
+
+    #if(verbose):
+        #print()
+        #print("Gcumsmin: ", Gcumsmin)
+        #print("cumulated_probasmin: ", cumulated_probasmin)
+        #print("betas: ", list(range(betastart, beta + 1)))
+        #print("Gs: ", Gs )
+    print("slope after PnJBKZs: ", get_current_slope(l, start_row=0, stop_row=len(l)))
 
     return betamin,G1min, dsvpmin, dsvp_prime_min, Gmin, Bmin

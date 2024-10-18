@@ -95,7 +95,10 @@ tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, d
         if(cum_pr + (1-cum_pr) * psvp >= cost->params->succ_prob)
             flag = true;
         // if(cum_pr + (1-cum_pr) * psvp >= cost->params->succ_prob)
-        if(cum_pr + (1-cum_pr) * psvp >= 0.999){
+
+        // printf("%d, %d, %f, %f, %f\n", dsvp_prime, dsvp, G_cum, PSC, cum_pr + (1-cum_pr) * psvp);
+
+        if(cum_pr + (1-cum_pr) * psvp >= cost->params->succ_prob){
             if(cost->params->print_Gcums){
                 printf("Pcums: ");
                 print_vector(pcums);
@@ -109,6 +112,6 @@ tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, d
         // pre_psvp2 = psvp2;
     }
     p_cost = cost->pump_cost(d,cost_model);
-    return make_tuple(d,d,  log2(pow(2,p_cost.first) + pow(2,cum_GB_BKZ.first)), p_cost.second, PSC);
+    return make_tuple(d,d,  G_cum, B_cum, PSC);
 }
 

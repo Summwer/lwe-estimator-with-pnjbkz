@@ -189,7 +189,6 @@ LWEchal* gen_lwechal_instance(int n, double alpha){
    
     printf("Chose %d samples. Predict solution at bkz-%d + svp-%d. \n", m, b, s);
     
-    
 
     primal_lattice_basis(lwechal);
 
@@ -210,6 +209,7 @@ LWEchal* gen_lwechal_instance(int n, double alpha){
         M.get_r(tmp,i,i);
         lwechal->log_rr[i] = log2(tmp.get_d())/2.;
     }
+    
     double slope = get_current_slope(lwechal->log_rr,0,d);
     cout<<"Initial slope = "<<slope<<endl;
     lwechal->dvol = M.get_log_det(0,d)/2. - log(sigma)*d;

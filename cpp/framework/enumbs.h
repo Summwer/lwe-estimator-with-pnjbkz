@@ -57,7 +57,7 @@ class EnumBS{
         int binary_search_for_dsvp(int dsvp);
         int binary_search_for_G2(double G2);
         int binary_search_for_G(double G);
-        int binary_search_for_slope(double slope);
+        // int binary_search_for_slope(blocksize_strategy bs);
         int binary_search_for_G2_slope(blocksize_strategy bs);
         int binary_search_for_dsvp_slope(blocksize_strategy bs);
 

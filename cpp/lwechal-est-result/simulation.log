@@ -1,922 +1,948 @@
-============= Dilithium-III
+"lwechallenge/60-010.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=60, m=3600, alpha=0.010, q=3607 
+Chose 221 samples. Predict solution at bkz-92 + svp-122. 
+Initial slope = -0.065713
+dim = 222, dvol = 522.71923621791
+
+After a sigma normalization,slope = -0.065713
+cost_model = 2
+(10,1,1) -0.065560 -1.205034
+(11,1,1) -0.065398 -0.189956
+(12,1,1) -0.065213 0.410136
+(13,1,1) -0.065002 0.840356
+(14,1,1) -0.064723 1.177518
+(15,1,1) -0.064433 1.455838
+(16,1,1) -0.064080 1.693568
+(17,1,1) -0.063744 1.901603
+(18,1,1) -0.063341 2.086970
+(19,1,1) -0.062933 2.254466
+(20,1,1) -0.062473 2.407515
+(21,1,1) -0.062075 2.548643
+(22,1,1) -0.061511 2.679770
+(23,1,1) -0.060985 2.802386
+(24,1,1) -0.060449 2.917674
+(25,1,1) -0.059921 3.026588
+(26,1,1) -0.059441 3.129907
+(27,1,1) -0.058931 3.228277
+(28,1,1) -0.058430 3.322239
+(29,1,1) -0.057935 3.412250
+(30,1,1) -0.057401 3.498702
+(31,1,1) -0.056851 3.581930
+(32,1,1) -0.056422 3.662226
+(33,1,1) -0.055901 3.739843
+(34,1,1) -0.055458 3.815005
+(35,1,1) -0.054977 3.887908
+(36,1,1) -0.054499 3.958727
+(37,1,1) -0.054025 4.027616
+(38,1,1) -0.053531 4.094715
+(39,1,1) -0.053148 4.160149
+(40,1,1) -0.052782 4.224030
+(41,1,1) -0.052447 4.286459
+(42,1,1) -0.051937 4.347530
+(43,1,1) -0.051572 4.425366
+(44,1,1) -0.051196 4.510017
+(45,1,1) -0.050538 4.601643
+(46,1,1) -0.049978 4.700335
+(47,1,1) -0.049490 4.806119
+(48,1,1) -0.049061 4.918948
+(49,1,1) -0.048682 5.038712
+(72,1,1) -0.046485 11.811547
+(75,1,1) -0.044792 12.861764
+(78,1,1) -0.043480 13.522572
+(80,1,1) -0.042559 14.005049
+(82,1,1) -0.041875 14.391527
+(84,1,1) -0.041327 14.718037
+(86,1,1) -0.040851 15.003601
+(88,1,1) -0.040419 15.250540
+(90,1,1) -0.040015 15.477070
+(92,1,1) -0.039631 15.687511
+(94,1,1) -0.039261 15.884979
+(96,1,1) -0.038903 16.071792
+(98,1,1) -0.038556 16.249723
+(100,1,1) -0.038219 16.414023
+(102,1,1) -0.037891 16.572784
+(104,1,1) -0.037574 16.726742
+(106,1,1) -0.037265 16.876509
+(108,1,1) -0.036965 17.022595
+(110,1,1) -0.036675 17.165433
+(112,1,1) -0.036395 17.305393
+(114,1,1) -0.036124 17.437791
+(116,1,1) -0.035862 17.568413
+(118,1,1) -0.035609 17.708282
+(120,1,1) -0.035364 17.877543
+(122,1,1) -0.035126 18.078099
+(124,1,1) -0.034894 18.310576
+(126,1,1) -0.034669 18.574218
+(128,1,1) -0.034449 18.829850
+(130,1,1) -0.034235 19.115268
+(132,1,1) -0.034026 19.427728
+(134,1,1) -0.033822 19.763840
+(136,1,1) -0.033623 20.119974
+(138,1,1) -0.033427 20.492592
+(140,1,1) -0.033236 20.830816
+(142,1,1) -0.033049 21.247466
+(144,1,1) -0.032866 21.720110
+(146,1,1) -0.032686 22.237864
+(148,1,1) -0.032510 22.789758
+(150,1,1) -0.032338 23.366282
+(152,1,1) -0.032169 23.998021
+(154,1,1) -0.032004 24.541651
+(156,1,1) -0.031843 25.148484
+(158,1,1) -0.031684 25.800984
+(160,1,1) -0.031530 26.484425
+(162,1,1) -0.031378 27.187924
+(164,1,1) -0.031231 27.904052
+(166,1,1) -0.031086 28.627988
+(168,1,1) -0.030946 29.221772
+(170,1,1) -0.030809 29.865123
+(172,1,1) -0.030676 30.542496
+(174,1,1) -0.030546 31.242116
+(176,1,1) -0.030421 31.955825
+(178,1,1) -0.030299 32.678274
+(180,1,1) -0.030181 33.271287
+(182,1,1) -0.030067 33.914093
+(184,1,1) -0.029958 34.591103
+(186,1,1) -0.029852 35.290490
+(188,1,1) -0.029751 36.004053
+(190,1,1) -0.029654 36.726412
+(192,1,1) -0.029562 37.454159
+(194,1,1) -0.029474 38.049913
+(196,1,1) -0.029391 38.694653
+(198,1,1) -0.029314 39.372952
+(200,1,1) -0.029241 40.073166
+(202,1,1) -0.029173 40.787245
+(204,1,1) -0.029111 41.509923
+(206,1,1) -0.029055 42.237864
+(208,1,1) -0.029004 42.833717
+(210,1,1) -0.028960 43.478528
+(212,1,1) -0.028921 44.156874
+(214,1,1) -0.028889 44.857118
+(216,1,1) -0.028863 45.571216
+(218,1,1) -0.028844 46.293905
+(220,1,1) -0.028831 46.887043
+cum_pr = 1
+pump-{222,0,0}, PSC = -1000.0000000 sec
+S(beta,jump,tours):[(10,1,1),(11,1,1),(12,1,1),(13,1,1),(14,1,1),(15,1,1),(16,1,1),(17,1,1),(18,1,1),(19,1,1),(20,1,1),(21,1,1),(22,1,1),(23,1,1),(24,1,1),(25,1,1),(26,1,1),(27,1,1),(28,1,1),(29,1,1),(30,1,1),(31,1,1),(32,1,1),(33,1,1),(34,1,1),(35,1,1),(36,1,1),(37,1,1),(38,1,1),(39,1,1),(40,1,1),(41,1,1),(42,1,1),(43,1,1),(44,1,1),(45,1,1),(46,1,1),(47,1,1),(48,1,1),(49,1,1),(72,1,1),(75,1,1),(78,1,1),(80,1,1),(82,1,1),(84,1,1),(86,1,1),(88,1,1),(90,1,1),(92,1,1),(94,1,1),(96,1,1),(98,1,1),(100,1,1),(102,1,1),(104,1,1),(106,1,1),(108,1,1),(110,1,1),(112,1,1),(114,1,1),(116,1,1),(118,1,1),(120,1,1),(122,1,1),(124,1,1),(126,1,1),(128,1,1),(130,1,1),(132,1,1),(134,1,1),(136,1,1),(138,1,1),(140,1,1),(142,1,1),(144,1,1),(146,1,1),(148,1,1),(150,1,1),(152,1,1),(154,1,1),(156,1,1),(158,1,1),(160,1,1),(162,1,1),(164,1,1),(166,1,1),(168,1,1),(170,1,1),(172,1,1),(174,1,1),(176,1,1),(178,1,1),(180,1,1),(182,1,1),(184,1,1),(186,1,1),(188,1,1),(190,1,1),(192,1,1),(194,1,1),(196,1,1),(198,1,1),(200,1,1),(202,1,1),(204,1,1),(206,1,1),(208,1,1),(210,1,1),(212,1,1),(214,1,1),(216,1,1),(218,1,1),(220,1,1)]
+Gcum = 157065, Bcum = 1.22388e+11
+=============================
+============= Dilithium-V
 Generate gs-lengths by GSA assumption...
 [0m[1;31m     LWE instance generation    [0m
-n=1280	m=1536	q=8380417
-dim = 2654, m = 1373, dvol = 19371.02384334926, β = 623.6116
+n=1792	m=2048	q=8380417
+dim = 3540, m = 1747, dvol = 26623.11624627578, β = 862.8394
 
 Slope of gs-lengths generated by GSA assumption: -0.0866546
 cost_model = 1
-d4f upper bound for beta  = 57 is 7
-Strategy (57,4,1), slope = -0.086554, pr = 0.000000e+00, l[dim-beta_] = -68.936337, sim-cost = 44.9125858 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 44.9125858 log(sec)
-d4f upper bound for beta  = 58 is 7
-Strategy (58,4,1), slope = -0.086452, pr = 0.000000e+00, l[dim-beta_] = -68.310403, sim-cost = 45.2081652 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 46.0679321 log(sec)
-d4f upper bound for beta  = 59 is 7
-Strategy (59,4,1), slope = -0.086346, pr = 0.000000e+00, l[dim-beta_] = -67.818986, sim-cost = 45.5037444 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 46.8132435 log(sec)
-d4f upper bound for beta  = 60 is 7
-Strategy (60,4,1), slope = -0.086237, pr = 0.000000e+00, l[dim-beta_] = -67.391115, sim-cost = 45.7993233 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 47.3935809 log(sec)
-d4f upper bound for beta  = 61 is 7
-Strategy (61,4,1), slope = -0.086124, pr = 0.000000e+00, l[dim-beta_] = -67.000500, sim-cost = 46.0949020 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 47.8856887 log(sec)
-d4f upper bound for beta  = 62 is 7
-Strategy (62,4,1), slope = -0.086008, pr = 0.000000e+00, l[dim-beta_] = -66.634674, sim-cost = 46.3904806 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 48.3236937 log(sec)
-d4f upper bound for beta  = 63 is 7
-Strategy (63,4,1), slope = -0.085888, pr = 0.000000e+00, l[dim-beta_] = -66.285519, sim-cost = 46.6860589 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 48.7257423 log(sec)
-d4f upper bound for beta  = 64 is 7
-Strategy (64,4,1), slope = -0.085765, pr = 0.000000e+00, l[dim-beta_] = -65.949270, sim-cost = 46.9816369 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 49.1026094 log(sec)
-d4f upper bound for beta  = 66 is 7
-Strategy (66,4,1), slope = -0.085633, pr = 0.000000e+00, l[dim-beta_] = -65.578478, sim-cost = 47.2766575 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 49.4610675 log(sec)
-d4f upper bound for beta  = 67 is 7
-Strategy (67,4,1), slope = -0.085497, pr = 0.000000e+00, l[dim-beta_] = -65.245798, sim-cost = 47.5722349 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 49.8059249 log(sec)
-d4f upper bound for beta  = 68 is 7
-Strategy (68,7,1), slope = -0.085396, pr = 0.000000e+00, l[dim-beta_] = -65.240257, sim-cost = 47.0604572 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 50.0064526 log(sec)
-d4f upper bound for beta  = 68 is 7
-Strategy (68,4,1), slope = -0.085257, pr = 0.000000e+00, l[dim-beta_] = -64.745261, sim-cost = 47.8678121 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 50.3016980 log(sec)
-d4f upper bound for beta  = 69 is 7
-Strategy (69,7,1), slope = -0.085153, pr = 0.000000e+00, l[dim-beta_] = -64.744029, sim-cost = 47.3560342 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 50.4777624 log(sec)
-d4f upper bound for beta  = 69 is 7
-Strategy (69,4,1), slope = -0.085011, pr = 0.000000e+00, l[dim-beta_] = -64.260790, sim-cost = 48.1633891 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 50.7420587 log(sec)
-d4f upper bound for beta  = 70 is 7
-Strategy (70,7,1), slope = -0.084904, pr = 0.000000e+00, l[dim-beta_] = -64.264716, sim-cost = 47.6516110 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 50.9022095 log(sec)
-d4f upper bound for beta  = 70 is 7
-Strategy (70,4,1), slope = -0.084758, pr = 0.000000e+00, l[dim-beta_] = -63.791839, sim-cost = 48.4589659 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 51.1457199 log(sec)
-d4f upper bound for beta  = 71 is 7
-Strategy (71,7,1), slope = -0.084649, pr = 0.000000e+00, l[dim-beta_] = -63.799728, sim-cost = 47.9471876 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 51.2948877 log(sec)
-d4f upper bound for beta  = 71 is 7
-Strategy (71,4,1), slope = -0.084499, pr = 0.000000e+00, l[dim-beta_] = -63.334569, sim-cost = 48.7545425 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 51.5237391 log(sec)
-d4f upper bound for beta  = 72 is 7
-Strategy (72,7,1), slope = -0.084383, pr = 0.000000e+00, l[dim-beta_] = -63.305019, sim-cost = 48.2427639 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 51.6650140 log(sec)
-d4f upper bound for beta  = 72 is 7
-Strategy (72,4,1), slope = -0.084230, pr = 0.000000e+00, l[dim-beta_] = -62.877178, sim-cost = 49.0501189 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 51.8831682 log(sec)
-d4f upper bound for beta  = 73 is 7
-Strategy (73,7,1), slope = -0.084110, pr = 0.000000e+00, l[dim-beta_] = -62.850802, sim-cost = 48.5383401 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 52.0186049 log(sec)
-d4f upper bound for beta  = 73 is 7
-Strategy (73,4,1), slope = -0.083953, pr = 0.000000e+00, l[dim-beta_] = -62.429579, sim-cost = 49.3456950 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 52.2287569 log(sec)
-d4f upper bound for beta  = 74 is 7
-Strategy (74,7,1), slope = -0.083830, pr = 0.000000e+00, l[dim-beta_] = -62.405019, sim-cost = 48.8339160 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 52.3597822 log(sec)
-d4f upper bound for beta  = 74 is 7
-Strategy (74,4,1), slope = -0.083670, pr = 0.000000e+00, l[dim-beta_] = -61.989225, sim-cost = 49.6412709 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 52.5638365 log(sec)
-d4f upper bound for beta  = 75 is 7
-Strategy (75,7,1), slope = -0.083543, pr = 0.000000e+00, l[dim-beta_] = -61.965704, sim-cost = 49.1294917 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 52.6914747 log(sec)
-d4f upper bound for beta  = 75 is 7
-Strategy (75,4,1), slope = -0.083380, pr = 0.000000e+00, l[dim-beta_] = -61.553704, sim-cost = 49.9368466 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 52.8908170 log(sec)
-d4f upper bound for beta  = 76 is 7
-Strategy (76,7,1), slope = -0.083250, pr = 0.000000e+00, l[dim-beta_] = -61.531273, sim-cost = 49.4250672 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 53.0158224 log(sec)
-d4f upper bound for beta  = 76 is 7
-Strategy (76,4,1), slope = -0.083083, pr = 0.000000e+00, l[dim-beta_] = -61.122479, sim-cost = 50.2324221 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 53.2114837 log(sec)
-d4f upper bound for beta  = 77 is 7
-Strategy (77,7,1), slope = -0.082950, pr = 0.000000e+00, l[dim-beta_] = -61.100768, sim-cost = 49.7206425 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 53.3344231 log(sec)
-d4f upper bound for beta  = 77 is 7
-Strategy (77,4,1), slope = -0.082779, pr = 0.000000e+00, l[dim-beta_] = -60.694631, sim-cost = 50.5279974 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 53.5271843 log(sec)
-d4f upper bound for beta  = 78 is 7
-Strategy (78,7,1), slope = -0.082643, pr = 0.000000e+00, l[dim-beta_] = -60.672183, sim-cost = 50.0162176 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 53.6484902 log(sec)
-d4f upper bound for beta  = 78 is 7
-Strategy (78,4,1), slope = -0.082468, pr = 0.000000e+00, l[dim-beta_] = -60.269196, sim-cost = 50.8235725 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 53.8389516 log(sec)
-d4f upper bound for beta  = 79 is 7
-Strategy (79,7,1), slope = -0.082329, pr = 0.000000e+00, l[dim-beta_] = -60.245854, sim-cost = 50.3117924 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 53.9589584 log(sec)
-d4f upper bound for beta  = 79 is 7
-Strategy (79,4,1), slope = -0.082151, pr = 0.000000e+00, l[dim-beta_] = -59.844960, sim-cost = 51.1191473 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 54.1475862 log(sec)
-d4f upper bound for beta  = 80 is 7
-Strategy (80,7,1), slope = -0.082008, pr = 0.000000e+00, l[dim-beta_] = -59.821014, sim-cost = 50.6073670 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 54.2665549 log(sec)
-d4f upper bound for beta  = 80 is 7
-Strategy (80,4,1), slope = -0.081826, pr = 0.000000e+00, l[dim-beta_] = -59.422054, sim-cost = 51.4147219 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 54.4537146 log(sec)
-d4f upper bound for beta  = 81 is 7
-Strategy (81,7,1), slope = -0.081680, pr = 0.000000e+00, l[dim-beta_] = -59.397356, sim-cost = 50.9029414 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 54.5718507 log(sec)
-d4f upper bound for beta  = 82 is 8
-Strategy (82,7,1), slope = -0.081535, pr = 0.000000e+00, l[dim-beta_] = -59.242823, sim-cost = 50.9023806 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 54.6810002 log(sec)
-d4f upper bound for beta  = 82 is 8
-Strategy (82,4,1), slope = -0.081344, pr = 0.000000e+00, l[dim-beta_] = -58.807034, sim-cost = 51.7097355 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 54.8541465 log(sec)
-d4f upper bound for beta  = 83 is 8
-Strategy (83,7,1), slope = -0.081196, pr = 0.000000e+00, l[dim-beta_] = -58.808758, sim-cost = 51.1979546 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 54.9642676 log(sec)
-d4f upper bound for beta  = 83 is 8
-Strategy (83,4,1), slope = -0.081001, pr = 0.000000e+00, l[dim-beta_] = -58.379002, sim-cost = 52.0053095 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 55.1388109 log(sec)
-d4f upper bound for beta  = 84 is 8
-Strategy (84,7,1), slope = -0.080850, pr = 0.000000e+00, l[dim-beta_] = -58.381422, sim-cost = 51.4935283 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 55.2497366 log(sec)
-d4f upper bound for beta  = 84 is 8
-Strategy (84,4,1), slope = -0.080652, pr = 0.000000e+00, l[dim-beta_] = -57.953769, sim-cost = 52.3008833 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 55.4254350 log(sec)
-d4f upper bound for beta  = 85 is 8
-Strategy (85,7,1), slope = -0.080497, pr = 0.000000e+00, l[dim-beta_] = -57.955735, sim-cost = 51.7891019 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 55.5370249 log(sec)
-d4f upper bound for beta  = 85 is 8
-Strategy (85,4,1), slope = -0.080295, pr = 0.000000e+00, l[dim-beta_] = -57.529345, sim-cost = 52.5964568 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 55.7136756 log(sec)
-d4f upper bound for beta  = 86 is 8
-Strategy (86,7,1), slope = -0.080137, pr = 0.000000e+00, l[dim-beta_] = -57.529436, sim-cost = 52.0846752 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 55.8258126 log(sec)
-d4f upper bound for beta  = 86 is 8
-Strategy (86,4,1), slope = -0.079931, pr = 0.000000e+00, l[dim-beta_] = -57.104798, sim-cost = 52.8920301 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 56.0032470 log(sec)
-d4f upper bound for beta  = 87 is 8
-Strategy (87,7,1), slope = -0.079764, pr = 0.000000e+00, l[dim-beta_] = -57.067370, sim-cost = 52.3802483 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 56.1158337 log(sec)
-d4f upper bound for beta  = 87 is 8
-Strategy (87,4,1), slope = -0.079555, pr = 0.000000e+00, l[dim-beta_] = -56.670378, sim-cost = 53.1876032 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 56.2939117 log(sec)
-d4f upper bound for beta  = 88 is 8
-Strategy (88,7,1), slope = -0.079385, pr = 0.000000e+00, l[dim-beta_] = -56.632737, sim-cost = 52.6758212 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 56.4068674 log(sec)
-d4f upper bound for beta  = 88 is 8
-Strategy (88,4,1), slope = -0.079172, pr = 0.000000e+00, l[dim-beta_] = -56.237050, sim-cost = 53.4831761 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 56.5854732 log(sec)
-d4f upper bound for beta  = 89 is 8
-Strategy (89,7,1), slope = -0.078999, pr = 0.000000e+00, l[dim-beta_] = -56.198449, sim-cost = 52.9713938 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 56.6987314 log(sec)
-d4f upper bound for beta  = 89 is 8
-Strategy (89,4,1), slope = -0.078783, pr = 0.000000e+00, l[dim-beta_] = -55.803612, sim-cost = 53.7787487 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 56.8777696 log(sec)
-d4f upper bound for beta  = 90 is 8
-Strategy (90,7,1), slope = -0.078606, pr = 0.000000e+00, l[dim-beta_] = -55.763898, sim-cost = 53.2669663 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 56.9912754 log(sec)
-d4f upper bound for beta  = 90 is 8
-Strategy (90,4,1), slope = -0.078386, pr = 0.000000e+00, l[dim-beta_] = -55.369701, sim-cost = 54.0743212 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 57.1706673 log(sec)
-d4f upper bound for beta  = 91 is 8
-Strategy (91,7,1), slope = -0.078206, pr = 0.000000e+00, l[dim-beta_] = -55.328738, sim-cost = 53.5625385 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 57.2843757 log(sec)
-d4f upper bound for beta  = 91 is 8
-Strategy (91,4,1), slope = -0.077983, pr = 0.000000e+00, l[dim-beta_] = -54.934386, sim-cost = 54.3698934 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 57.4640568 log(sec)
-d4f upper bound for beta  = 92 is 8
-Strategy (92,7,1), slope = -0.077800, pr = 0.000000e+00, l[dim-beta_] = -54.891519, sim-cost = 53.8581105 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 57.5779307 log(sec)
-d4f upper bound for beta  = 92 is 8
-Strategy (92,4,1), slope = -0.077573, pr = 0.000000e+00, l[dim-beta_] = -54.497753, sim-cost = 54.6654654 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 57.7578482 log(sec)
-d4f upper bound for beta  = 93 is 8
-Strategy (93,7,1), slope = -0.077387, pr = 0.000000e+00, l[dim-beta_] = -54.453086, sim-cost = 54.1536823 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 57.8718573 log(sec)
-d4f upper bound for beta  = 93 is 8
-Strategy (93,4,1), slope = -0.077157, pr = 0.000000e+00, l[dim-beta_] = -54.059862, sim-cost = 54.9610372 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 58.0519678 log(sec)
-d4f upper bound for beta  = 94 is 8
-Strategy (94,7,1), slope = -0.076967, pr = 0.000000e+00, l[dim-beta_] = -54.013396, sim-cost = 54.4492538 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 58.1660872 log(sec)
-d4f upper bound for beta  = 94 is 8
-Strategy (94,4,1), slope = -0.076734, pr = 0.000000e+00, l[dim-beta_] = -53.620711, sim-cost = 55.2566087 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 58.3463553 log(sec)
-d4f upper bound for beta  = 95 is 8
-Strategy (95,7,1), slope = -0.076541, pr = 0.000000e+00, l[dim-beta_] = -53.572379, sim-cost = 54.7448252 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 58.4605648 log(sec)
-d4f upper bound for beta  = 95 is 8
-Strategy (95,4,1), slope = -0.076304, pr = 0.000000e+00, l[dim-beta_] = -53.179567, sim-cost = 55.5521801 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 58.6409613 log(sec)
-d4f upper bound for beta  = 96 is 8
-Strategy (96,7,1), slope = -0.076109, pr = 0.000000e+00, l[dim-beta_] = -53.129745, sim-cost = 55.0403963 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 58.7552443 log(sec)
-d4f upper bound for beta  = 97 is 8
-Strategy (97,7,1), slope = -0.075914, pr = 0.000000e+00, l[dim-beta_] = -52.961773, sim-cost = 55.0398322 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 58.8610952 log(sec)
-d4f upper bound for beta  = 97 is 8
-Strategy (97,4,1), slope = -0.075669, pr = 0.000000e+00, l[dim-beta_] = -52.532532, sim-cost = 55.8471871 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 59.0294815 log(sec)
-d4f upper bound for beta  = 98 is 8
-Strategy (98,7,1), slope = -0.075471, pr = 0.000000e+00, l[dim-beta_] = -52.505937, sim-cost = 55.3354029 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 59.1368520 log(sec)
-d4f upper bound for beta  = 98 is 8
-Strategy (98,4,1), slope = -0.075223, pr = 0.000000e+00, l[dim-beta_] = -52.081719, sim-cost = 56.1427578 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 59.3074344 log(sec)
-d4f upper bound for beta  = 99 is 8
-Strategy (99,7,1), slope = -0.075022, pr = 0.000000e+00, l[dim-beta_] = -52.055073, sim-cost = 55.6309733 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 59.4160756 log(sec)
-d4f upper bound for beta  = 99 is 8
-Strategy (99,4,1), slope = -0.074771, pr = 0.000000e+00, l[dim-beta_] = -51.631495, sim-cost = 56.4383282 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 59.5884901 log(sec)
-d4f upper bound for beta  = 100 is 8
-Strategy (100,7,1), slope = -0.074567, pr = 0.000000e+00, l[dim-beta_] = -51.603138, sim-cost = 55.9265435 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 59.6981892 log(sec)
-d4f upper bound for beta  = 100 is 8
-Strategy (100,4,1), slope = -0.074313, pr = 0.000000e+00, l[dim-beta_] = -51.180327, sim-cost = 56.7338985 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 59.8721258 log(sec)
-d4f upper bound for beta  = 101 is 8
-Strategy (101,7,1), slope = -0.074107, pr = 0.000000e+00, l[dim-beta_] = -51.150147, sim-cost = 56.2221136 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 59.9827020 log(sec)
-d4f upper bound for beta  = 101 is 8
-Strategy (101,4,1), slope = -0.073849, pr = 0.000000e+00, l[dim-beta_] = -50.727924, sim-cost = 57.0294685 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 60.1578988 log(sec)
-d4f upper bound for beta  = 102 is 8
-Strategy (102,7,1), slope = -0.073634, pr = 0.000000e+00, l[dim-beta_] = -50.662914, sim-cost = 56.5176834 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 60.2692001 log(sec)
-d4f upper bound for beta  = 102 is 8
-Strategy (102,4,1), slope = -0.073373, pr = 0.000000e+00, l[dim-beta_] = -50.265517, sim-cost = 57.3250383 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 60.4454371 log(sec)
-d4f upper bound for beta  = 103 is 8
-Strategy (103,7,1), slope = -0.073156, pr = 0.000000e+00, l[dim-beta_] = -50.199871, sim-cost = 56.8132529 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 60.5573363 log(sec)
-d4f upper bound for beta  = 103 is 8
-Strategy (103,4,1), slope = -0.072892, pr = 0.000000e+00, l[dim-beta_] = -49.802885, sim-cost = 57.6206079 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 60.7344301 log(sec)
-d4f upper bound for beta  = 104 is 8
-Strategy (104,7,1), slope = -0.072672, pr = 0.000000e+00, l[dim-beta_] = -49.736342, sim-cost = 57.1088223 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 60.8468211 log(sec)
-d4f upper bound for beta  = 104 is 8
-Strategy (104,4,1), slope = -0.072406, pr = 0.000000e+00, l[dim-beta_] = -49.339453, sim-cost = 57.9161772 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 61.0246190 log(sec)
-d4f upper bound for beta  = 105 is 8
-Strategy (105,7,1), slope = -0.072183, pr = 0.000000e+00, l[dim-beta_] = -49.271891, sim-cost = 57.4043914 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 61.1374139 log(sec)
-d4f upper bound for beta  = 105 is 8
-Strategy (105,4,1), slope = -0.071914, pr = 0.000000e+00, l[dim-beta_] = -48.874967, sim-cost = 58.2117463 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 61.3157898 log(sec)
-d4f upper bound for beta  = 106 is 8
-Strategy (106,7,1), slope = -0.071688, pr = 0.000000e+00, l[dim-beta_] = -48.805464, sim-cost = 57.6999603 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 61.4289159 log(sec)
-d4f upper bound for beta  = 106 is 8
-Strategy (106,4,1), slope = -0.071417, pr = 0.000000e+00, l[dim-beta_] = -48.409151, sim-cost = 58.5073152 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 61.6077653 log(sec)
-d4f upper bound for beta  = 107 is 8
-Strategy (107,7,1), slope = -0.071189, pr = 0.000000e+00, l[dim-beta_] = -48.337790, sim-cost = 57.9955290 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 61.7211628 log(sec)
-d4f upper bound for beta  = 107 is 8
-Strategy (107,4,1), slope = -0.070915, pr = 0.000000e+00, l[dim-beta_] = -47.941566, sim-cost = 58.8028839 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 61.9003999 log(sec)
-d4f upper bound for beta  = 108 is 8
-Strategy (108,7,1), slope = -0.070685, pr = 0.000000e+00, l[dim-beta_] = -47.868743, sim-cost = 58.2910975 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 62.0140193 log(sec)
-d4f upper bound for beta  = 108 is 8
-Strategy (108,4,1), slope = -0.070408, pr = 0.000000e+00, l[dim-beta_] = -47.472707, sim-cost = 59.0984524 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 62.1935735 log(sec)
-d4f upper bound for beta  = 109 is 8
-Strategy (109,7,1), slope = -0.070176, pr = 0.000000e+00, l[dim-beta_] = -47.398475, sim-cost = 58.5866657 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 62.3073744 log(sec)
-d4f upper bound for beta  = 109 is 8
-Strategy (109,4,1), slope = -0.069897, pr = 0.000000e+00, l[dim-beta_] = -47.002637, sim-cost = 59.3940206 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 62.4871878 log(sec)
-d4f upper bound for beta  = 110 is 8
-Strategy (110,7,1), slope = -0.069662, pr = 0.000000e+00, l[dim-beta_] = -46.927022, sim-cost = 58.8822337 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 62.6011370 log(sec)
-d4f upper bound for beta  = 111 is 9
-Strategy (111,7,1), slope = -0.069429, pr = 0.000000e+00, l[dim-beta_] = -46.742451, sim-cost = 58.8816665 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 62.7067011 log(sec)
-d4f upper bound for beta  = 111 is 9
-Strategy (111,4,1), slope = -0.069143, pr = 0.000000e+00, l[dim-beta_] = -46.312626, sim-cost = 59.6890214 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 62.8746724 log(sec)
-d4f upper bound for beta  = 112 is 9
-Strategy (112,7,1), slope = -0.068908, pr = 0.000000e+00, l[dim-beta_] = -46.258762, sim-cost = 59.1772341 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 62.9818022 log(sec)
-d4f upper bound for beta  = 112 is 9
-Strategy (112,4,1), slope = -0.068621, pr = 0.000000e+00, l[dim-beta_] = -45.833713, sim-cost = 59.9845890 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 63.1520371 log(sec)
-d4f upper bound for beta  = 113 is 9
-Strategy (113,7,1), slope = -0.068383, pr = 0.000000e+00, l[dim-beta_] = -45.780382, sim-cost = 59.4728014 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 63.2604773 log(sec)
-d4f upper bound for beta  = 113 is 9
-Strategy (113,4,1), slope = -0.068094, pr = 0.000000e+00, l[dim-beta_] = -45.356504, sim-cost = 60.2801564 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 63.4326021 log(sec)
-d4f upper bound for beta  = 114 is 9
-Strategy (114,7,1), slope = -0.067855, pr = 0.000000e+00, l[dim-beta_] = -45.301827, sim-cost = 59.7683686 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 63.5421338 log(sec)
-d4f upper bound for beta  = 114 is 9
-Strategy (114,4,1), slope = -0.067563, pr = 0.000000e+00, l[dim-beta_] = -44.879195, sim-cost = 60.5757235 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 63.7158299 log(sec)
-d4f upper bound for beta  = 115 is 9
-Strategy (115,7,1), slope = -0.067322, pr = 0.000000e+00, l[dim-beta_] = -44.823041, sim-cost = 60.0639355 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 63.8262673 log(sec)
-d4f upper bound for beta  = 115 is 9
-Strategy (115,4,1), slope = -0.067029, pr = 0.000000e+00, l[dim-beta_] = -44.401045, sim-cost = 60.8712904 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 64.0012648 log(sec)
-d4f upper bound for beta  = 116 is 9
-Strategy (116,7,1), slope = -0.066786, pr = 0.000000e+00, l[dim-beta_] = -44.343733, sim-cost = 60.3595021 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 64.1124513 log(sec)
-d4f upper bound for beta  = 116 is 9
-Strategy (116,4,1), slope = -0.066491, pr = 0.000000e+00, l[dim-beta_] = -43.922418, sim-cost = 61.1668571 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 64.2885237 log(sec)
-d4f upper bound for beta  = 117 is 9
-Strategy (117,7,1), slope = -0.066241, pr = 0.000000e+00, l[dim-beta_] = -43.833327, sim-cost = 60.6550686 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 64.4003280 log(sec)
-d4f upper bound for beta  = 117 is 9
-Strategy (117,4,1), slope = -0.065945, pr = 0.000000e+00, l[dim-beta_] = -43.435013, sim-cost = 61.4624235 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 64.5772860 log(sec)
-d4f upper bound for beta  = 118 is 9
-Strategy (118,7,1), slope = -0.065693, pr = 0.000000e+00, l[dim-beta_] = -43.346163, sim-cost = 60.9506348 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 64.6895988 log(sec)
-d4f upper bound for beta  = 118 is 9
-Strategy (118,4,1), slope = -0.065395, pr = 0.000000e+00, l[dim-beta_] = -42.949087, sim-cost = 61.7579897 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 64.8672849 log(sec)
-d4f upper bound for beta  = 119 is 9
-Strategy (119,7,1), slope = -0.065142, pr = 0.000000e+00, l[dim-beta_] = -42.859855, sim-cost = 61.2462008 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 64.9800154 log(sec)
-d4f upper bound for beta  = 119 is 9
-Strategy (119,4,1), slope = -0.064843, pr = 0.000000e+00, l[dim-beta_] = -42.463235, sim-cost = 62.0535557 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 65.1582991 log(sec)
-d4f upper bound for beta  = 120 is 9
-Strategy (120,7,1), slope = -0.064589, pr = 0.000000e+00, l[dim-beta_] = -42.373065, sim-cost = 61.5417666 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 65.2713723 log(sec)
-d4f upper bound for beta  = 120 is 9
-Strategy (120,4,1), slope = -0.064288, pr = 0.000000e+00, l[dim-beta_] = -41.977495, sim-cost = 62.3491215 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 65.4501459 log(sec)
-d4f upper bound for beta  = 121 is 9
-Strategy (121,7,1), slope = -0.064033, pr = 0.000000e+00, l[dim-beta_] = -41.886512, sim-cost = 61.8373322 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 65.5634997 log(sec)
-d4f upper bound for beta  = 121 is 9
-Strategy (121,4,1), slope = -0.063732, pr = 0.000000e+00, l[dim-beta_] = -41.492031, sim-cost = 62.6446871 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 65.7426745 log(sec)
-d4f upper bound for beta  = 122 is 9
-Strategy (122,7,1), slope = -0.063475, pr = 0.000000e+00, l[dim-beta_] = -41.400300, sim-cost = 62.1328975 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 65.8562580 log(sec)
-d4f upper bound for beta  = 122 is 9
-Strategy (122,4,1), slope = -0.063173, pr = 0.000000e+00, l[dim-beta_] = -41.006985, sim-cost = 62.9402524 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 66.0357608 log(sec)
-d4f upper bound for beta  = 123 is 9
-Strategy (123,7,1), slope = -0.062916, pr = 0.000000e+00, l[dim-beta_] = -40.914537, sim-cost = 62.4284626 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 66.1495321 log(sec)
-d4f upper bound for beta  = 123 is 9
-Strategy (123,4,1), slope = -0.062613, pr = 0.000000e+00, l[dim-beta_] = -40.521978, sim-cost = 63.2358175 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 66.3293032 log(sec)
-d4f upper bound for beta  = 124 is 9
-Strategy (124,7,1), slope = -0.062355, pr = 0.000000e+00, l[dim-beta_] = -40.429183, sim-cost = 62.7240275 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 66.4432280 log(sec)
-d4f upper bound for beta  = 125 is 9
-Strategy (125,7,1), slope = -0.062099, pr = 0.000000e+00, l[dim-beta_] = -40.235501, sim-cost = 62.7234571 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 66.5487710 log(sec)
-d4f upper bound for beta  = 125 is 9
-Strategy (125,4,1), slope = -0.061792, pr = 0.000000e+00, l[dim-beta_] = -39.812356, sim-cost = 63.5308121 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 66.7167115 log(sec)
-d4f upper bound for beta  = 126 is 9
-Strategy (126,7,1), slope = -0.061535, pr = 0.000000e+00, l[dim-beta_] = -39.741025, sim-cost = 63.0190216 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 66.8238233 log(sec)
-d4f upper bound for beta  = 126 is 9
-Strategy (126,4,1), slope = -0.061228, pr = 0.000000e+00, l[dim-beta_] = -39.323636, sim-cost = 63.8263765 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 66.9940322 log(sec)
-d4f upper bound for beta  = 127 is 9
-Strategy (127,7,1), slope = -0.060971, pr = 0.000000e+00, l[dim-beta_] = -39.253587, sim-cost = 63.3145858 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 67.1024571 log(sec)
-d4f upper bound for beta  = 127 is 9
-Strategy (127,4,1), slope = -0.060663, pr = 0.000000e+00, l[dim-beta_] = -38.838041, sim-cost = 64.1219407 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 67.2745600 log(sec)
-d4f upper bound for beta  = 128 is 9
-Strategy (128,7,1), slope = -0.060405, pr = 0.000000e+00, l[dim-beta_] = -38.767826, sim-cost = 63.6101497 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 67.3840788 log(sec)
-d4f upper bound for beta  = 128 is 9
-Strategy (128,4,1), slope = -0.060097, pr = 0.000000e+00, l[dim-beta_] = -38.354207, sim-cost = 64.4175047 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 67.5577563 log(sec)
-d4f upper bound for beta  = 129 is 9
-Strategy (129,7,1), slope = -0.059840, pr = 0.000000e+00, l[dim-beta_] = -38.283757, sim-cost = 63.9057135 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 67.6681828 log(sec)
-d4f upper bound for beta  = 129 is 9
-Strategy (129,4,1), slope = -0.059531, pr = 0.000000e+00, l[dim-beta_] = -37.871980, sim-cost = 64.7130684 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 67.8431646 log(sec)
-d4f upper bound for beta  = 130 is 9
-Strategy (130,7,1), slope = -0.059274, pr = 0.000000e+00, l[dim-beta_] = -37.801292, sim-cost = 64.2012770 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 67.9543418 log(sec)
-d4f upper bound for beta  = 130 is 9
-Strategy (130,4,1), slope = -0.058965, pr = 0.000000e+00, l[dim-beta_] = -37.391382, sim-cost = 65.0086319 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 68.1304009 log(sec)
-d4f upper bound for beta  = 131 is 9
-Strategy (131,7,1), slope = -0.058708, pr = 0.000000e+00, l[dim-beta_] = -37.320470, sim-cost = 64.4968403 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 68.2421974 log(sec)
-d4f upper bound for beta  = 131 is 9
-Strategy (131,4,1), slope = -0.058400, pr = 0.000000e+00, l[dim-beta_] = -36.912047, sim-cost = 65.3041952 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 68.4191441 log(sec)
-d4f upper bound for beta  = 132 is 9
-Strategy (132,7,1), slope = -0.058136, pr = 0.000000e+00, l[dim-beta_] = -36.812860, sim-cost = 64.7924034 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 68.5314502 log(sec)
-d4f upper bound for beta  = 132 is 9
-Strategy (132,4,1), slope = -0.057828, pr = 0.000000e+00, l[dim-beta_] = -36.426619, sim-cost = 65.5997583 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 68.7091267 log(sec)
-d4f upper bound for beta  = 133 is 9
-Strategy (133,7,1), slope = -0.057565, pr = 0.000000e+00, l[dim-beta_] = -36.328935, sim-cost = 65.0879662 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 68.8218515 log(sec)
-d4f upper bound for beta  = 133 is 9
-Strategy (133,4,1), slope = -0.057258, pr = 0.000000e+00, l[dim-beta_] = -35.944821, sim-cost = 65.8953212 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 69.0001270 log(sec)
-d4f upper bound for beta  = 134 is 9
-Strategy (134,7,1), slope = -0.056995, pr = 0.000000e+00, l[dim-beta_] = -35.847380, sim-cost = 65.3835289 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 69.1131952 log(sec)
-d4f upper bound for beta  = 134 is 9
-Strategy (134,4,1), slope = -0.056689, pr = 0.000000e+00, l[dim-beta_] = -35.465668, sim-cost = 66.1908838 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 69.2919617 log(sec)
-d4f upper bound for beta  = 135 is 9
-Strategy (135,7,1), slope = -0.056426, pr = 0.000000e+00, l[dim-beta_] = -35.368463, sim-cost = 65.6790912 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 69.4053112 log(sec)
-d4f upper bound for beta  = 135 is 9
-Strategy (135,4,1), slope = -0.056121, pr = 0.000000e+00, l[dim-beta_] = -34.988728, sim-cost = 66.4864462 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 69.5844799 log(sec)
-d4f upper bound for beta  = 136 is 9
-Strategy (136,7,1), slope = -0.055859, pr = 0.000000e+00, l[dim-beta_] = -34.892068, sim-cost = 65.9746534 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 69.6980596 log(sec)
-d4f upper bound for beta  = 138 is 10
-Strategy (138,10,1), slope = -0.055603, pr = 0.000000e+00, l[dim-beta_] = -34.688648, sim-cost = 65.7550689 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 69.7889390 log(sec)
-d4f upper bound for beta  = 138 is 10
-Strategy (138,7,1), slope = -0.055341, pr = 0.000000e+00, l[dim-beta_] = -34.484010, sim-cost = 66.2696421 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 69.9095749 log(sec)
-d4f upper bound for beta  = 138 is 10
-Strategy (138,4,1), slope = -0.055030, pr = 0.000000e+00, l[dim-beta_] = -34.070069, sim-cost = 67.0769970 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 70.0990911 log(sec)
-d4f upper bound for beta  = 139 is 10
-Strategy (139,10,1), slope = -0.054778, pr = 0.000000e+00, l[dim-beta_] = -34.005150, sim-cost = 66.0506304 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 70.1837480 log(sec)
-d4f upper bound for beta  = 139 is 10
-Strategy (139,7,1), slope = -0.054520, pr = 0.000000e+00, l[dim-beta_] = -33.809389, sim-cost = 66.5652035 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 70.2966695 log(sec)
-d4f upper bound for beta  = 140 is 10
-Strategy (140,10,1), slope = -0.054267, pr = 0.000000e+00, l[dim-beta_] = -33.604319, sim-cost = 66.3461916 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 70.3870930 log(sec)
-d4f upper bound for beta  = 140 is 10
-Strategy (140,7,1), slope = -0.054009, pr = 0.000000e+00, l[dim-beta_] = -33.400402, sim-cost = 66.8607648 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 70.5071661 log(sec)
-d4f upper bound for beta  = 140 is 10
-Strategy (140,4,1), slope = -0.053704, pr = 0.000000e+00, l[dim-beta_] = -32.990556, sim-cost = 67.6681197 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 70.6958876 log(sec)
-d4f upper bound for beta  = 141 is 10
-Strategy (141,10,1), slope = -0.053456, pr = 0.000000e+00, l[dim-beta_] = -32.928025, sim-cost = 66.6417526 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 70.7802217 log(sec)
-d4f upper bound for beta  = 141 is 10
-Strategy (141,7,1), slope = -0.053202, pr = 0.000000e+00, l[dim-beta_] = -32.735390, sim-cost = 67.1563258 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 70.8927410 log(sec)
-d4f upper bound for beta  = 142 is 10
-Strategy (142,10,1), slope = -0.052954, pr = 0.000000e+00, l[dim-beta_] = -32.533429, sim-cost = 66.9373134 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 70.9828642 log(sec)
-d4f upper bound for beta  = 142 is 10
-Strategy (142,7,1), slope = -0.052701, pr = 0.000000e+00, l[dim-beta_] = -32.333139, sim-cost = 67.4518866 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 71.1025666 log(sec)
-d4f upper bound for beta  = 142 is 10
-Strategy (142,4,1), slope = -0.052400, pr = 0.000000e+00, l[dim-beta_] = -31.929924, sim-cost = 68.2592415 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 71.2907642 log(sec)
-d4f upper bound for beta  = 143 is 10
-Strategy (143,10,1), slope = -0.052157, pr = 0.000000e+00, l[dim-beta_] = -31.869245, sim-cost = 67.2328740 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 71.3748852 log(sec)
-d4f upper bound for beta  = 143 is 10
-Strategy (143,7,1), slope = -0.051908, pr = 0.000000e+00, l[dim-beta_] = -31.680694, sim-cost = 67.7474472 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 71.4871391 log(sec)
-d4f upper bound for beta  = 144 is 10
-Strategy (144,10,1), slope = -0.051665, pr = 0.000000e+00, l[dim-beta_] = -31.482843, sim-cost = 67.5284343 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 71.5770641 log(sec)
-d4f upper bound for beta  = 144 is 10
-Strategy (144,7,1), slope = -0.051417, pr = 0.000000e+00, l[dim-beta_] = -31.287120, sim-cost = 68.0430075 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 71.6965216 log(sec)
-d4f upper bound for beta  = 144 is 10
-Strategy (144,4,1), slope = -0.051123, pr = 0.000000e+00, l[dim-beta_] = -30.891038, sim-cost = 68.8503624 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 71.8843728 log(sec)
-d4f upper bound for beta  = 145 is 10
-Strategy (145,10,1), slope = -0.050884, pr = 0.000000e+00, l[dim-beta_] = -30.833345, sim-cost = 67.8239944 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 71.9683531 log(sec)
-d4f upper bound for beta  = 145 is 10
-Strategy (145,7,1), slope = -0.050640, pr = 0.000000e+00, l[dim-beta_] = -30.649482, sim-cost = 68.3385676 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 72.0804314 log(sec)
-d4f upper bound for beta  = 146 is 10
-Strategy (146,10,1), slope = -0.050402, pr = 0.000000e+00, l[dim-beta_] = -30.456133, sim-cost = 68.1195543 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 72.1702252 log(sec)
-d4f upper bound for beta  = 146 is 10
-Strategy (146,7,1), slope = -0.050159, pr = 0.000000e+00, l[dim-beta_] = -30.265325, sim-cost = 68.6341275 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 72.2895206 log(sec)
-d4f upper bound for beta  = 146 is 10
-Strategy (146,4,1), slope = -0.049872, pr = 0.000000e+00, l[dim-beta_] = -29.876720, sim-cost = 69.4414824 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 72.4771425 log(sec)
-d4f upper bound for beta  = 147 is 10
-Strategy (147,10,1), slope = -0.049639, pr = 0.000000e+00, l[dim-beta_] = -29.822315, sim-cost = 68.4151140 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 72.5610295 log(sec)
-d4f upper bound for beta  = 148 is 10
-Strategy (148,10,1), slope = -0.049398, pr = 0.000000e+00, l[dim-beta_] = -29.605526, sim-cost = 68.7106734 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 72.6577380 log(sec)
-d4f upper bound for beta  = 148 is 10
-Strategy (148,7,1), slope = -0.049152, pr = 0.000000e+00, l[dim-beta_] = -29.409934, sim-cost = 69.2252466 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 72.7855332 log(sec)
-d4f upper bound for beta  = 148 is 10
-Strategy (148,4,1), slope = -0.048868, pr = 0.000000e+00, l[dim-beta_] = -29.046120, sim-cost = 70.0326015 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 72.9850945 log(sec)
-d4f upper bound for beta  = 149 is 10
-Strategy (149,10,1), slope = -0.048633, pr = 0.000000e+00, l[dim-beta_] = -28.969238, sim-cost = 69.0062326 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 73.0738094 log(sec)
-d4f upper bound for beta  = 149 is 10
-Strategy (149,7,1), slope = -0.048393, pr = 0.000000e+00, l[dim-beta_] = -28.785919, sim-cost = 69.5208058 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 73.1917703 log(sec)
-d4f upper bound for beta  = 150 is 10
-Strategy (150,10,1), slope = -0.048159, pr = 0.000000e+00, l[dim-beta_] = -28.595605, sim-cost = 69.3017916 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 73.2859425 log(sec)
-d4f upper bound for beta  = 151 is 10
-Strategy (151,10,1), slope = -0.047922, pr = 0.000000e+00, l[dim-beta_] = -28.395727, sim-cost = 69.5973503 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 73.3937072 log(sec)
-d4f upper bound for beta  = 152 is 10
-Strategy (152,10,1), slope = -0.047689, pr = 0.000000e+00, l[dim-beta_] = -28.217249, sim-cost = 69.5967738 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 73.4939400 log(sec)
-d4f upper bound for beta  = 152 is 10
-Strategy (152,7,1), slope = -0.047451, pr = 0.000000e+00, l[dim-beta_] = -28.027202, sim-cost = 70.1113470 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 73.6260327 log(sec)
-d4f upper bound for beta  = 152 is 10
-Strategy (152,4,1), slope = -0.047171, pr = 0.000000e+00, l[dim-beta_] = -27.646813, sim-cost = 70.9187019 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 73.8315667 log(sec)
-d4f upper bound for beta  = 153 is 10
-Strategy (153,10,1), slope = -0.046944, pr = 0.000000e+00, l[dim-beta_] = -27.593223, sim-cost = 69.8923321 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 73.9226757 log(sec)
-d4f upper bound for beta  = 153 is 10
-Strategy (153,4,1), slope = -0.046666, pr = 0.000000e+00, l[dim-beta_] = -27.221388, sim-cost = 71.2142602 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 74.1280657 log(sec)
-d4f upper bound for beta  = 154 is 10
-Strategy (154,10,1), slope = -0.046441, pr = 0.000000e+00, l[dim-beta_] = -27.171910, sim-cost = 70.1878901 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 74.2191171 log(sec)
-d4f upper bound for beta  = 154 is 10
-Strategy (154,7,1), slope = -0.046212, pr = 0.000000e+00, l[dim-beta_] = -27.001016, sim-cost = 70.7024633 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 74.3399652 log(sec)
-d4f upper bound for beta  = 154 is 10
-Strategy (154,4,1), slope = -0.045940, pr = 0.000000e+00, l[dim-beta_] = -26.637223, sim-cost = 71.5098182 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 74.5297809 log(sec)
-d4f upper bound for beta  = 155 is 10
-Strategy (155,10,1), slope = -0.045721, pr = 0.000000e+00, l[dim-beta_] = -26.592430, sim-cost = 70.4834479 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 74.6145591 log(sec)
-d4f upper bound for beta  = 155 is 10
-Strategy (155,7,1), slope = -0.045497, pr = 0.000000e+00, l[dim-beta_] = -26.427312, sim-cost = 70.9980211 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 74.7276318 log(sec)
-d4f upper bound for beta  = 156 is 10
-Strategy (156,10,1), slope = -0.045279, pr = 0.000000e+00, l[dim-beta_] = -26.252026, sim-cost = 70.7790055 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 74.8181678 log(sec)
-d4f upper bound for beta  = 156 is 10
-Strategy (156,7,1), slope = -0.045057, pr = 0.000000e+00, l[dim-beta_] = -26.079753, sim-cost = 71.2935787 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 74.9383799 log(sec)
-d4f upper bound for beta  = 156 is 10
-Strategy (156,4,1), slope = -0.044794, pr = 0.000000e+00, l[dim-beta_] = -25.720499, sim-cost = 72.1009336 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 75.1272977 log(sec)
-d4f upper bound for beta  = 157 is 10
-Strategy (157,10,1), slope = -0.044582, pr = 0.000000e+00, l[dim-beta_] = -25.678743, sim-cost = 71.0745628 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 75.2117113 log(sec)
-d4f upper bound for beta  = 157 is 10
-Strategy (157,7,1), slope = -0.044365, pr = 0.000000e+00, l[dim-beta_] = -25.518003, sim-cost = 71.5891360 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 75.3243297 log(sec)
-d4f upper bound for beta  = 158 is 10
-Strategy (158,10,1), slope = -0.044154, pr = 0.000000e+00, l[dim-beta_] = -25.348337, sim-cost = 71.3701199 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 75.4145267 log(sec)
-d4f upper bound for beta  = 158 is 10
-Strategy (158,7,1), slope = -0.043939, pr = 0.000000e+00, l[dim-beta_] = -25.181258, sim-cost = 71.8846931 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 75.5343202 log(sec)
-d4f upper bound for beta  = 158 is 10
-Strategy (158,4,1), slope = -0.043685, pr = 0.000000e+00, l[dim-beta_] = -24.830393, sim-cost = 72.6920480 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 75.7226466 log(sec)
-d4f upper bound for beta  = 159 is 10
-Strategy (159,10,1), slope = -0.043480, pr = 0.000000e+00, l[dim-beta_] = -24.793391, sim-cost = 71.6656768 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 75.8068198 log(sec)
-d4f upper bound for beta  = 159 is 10
-Strategy (159,7,1), slope = -0.043270, pr = 0.000000e+00, l[dim-beta_] = -24.638070, sim-cost = 72.1802500 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 75.9191387 log(sec)
-d4f upper bound for beta  = 160 is 10
-Strategy (160,10,1), slope = -0.043067, pr = 0.000000e+00, l[dim-beta_] = -24.474701, sim-cost = 71.9612335 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 76.0091120 log(sec)
-d4f upper bound for beta  = 160 is 10
-Strategy (160,7,1), slope = -0.042859, pr = 0.000000e+00, l[dim-beta_] = -24.313261, sim-cost = 72.4758067 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 76.1286292 log(sec)
-d4f upper bound for beta  = 160 is 10
-Strategy (160,4,1), slope = -0.042614, pr = 0.000000e+00, l[dim-beta_] = -23.970456, sim-cost = 73.2831616 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 76.3165649 log(sec)
-d4f upper bound for beta  = 161 is 10
-Strategy (161,10,1), slope = -0.042416, pr = 0.000000e+00, l[dim-beta_] = -23.938930, sim-cost = 72.2567899 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 76.4005793 log(sec)
-d4f upper bound for beta  = 161 is 10
-Strategy (161,7,1), slope = -0.042214, pr = 0.000000e+00, l[dim-beta_] = -23.789280, sim-cost = 72.7713631 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 76.5127002 log(sec)
-d4f upper bound for beta  = 162 is 10
-Strategy (162,10,1), slope = -0.042018, pr = 0.000000e+00, l[dim-beta_] = -23.631620, sim-cost = 72.5523461 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 76.6025255 log(sec)
-d4f upper bound for beta  = 162 is 10
-Strategy (162,7,1), slope = -0.041818, pr = 0.000000e+00, l[dim-beta_] = -23.476501, sim-cost = 73.0669193 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 76.7218599 log(sec)
-d4f upper bound for beta  = 162 is 10
-Strategy (162,4,1), slope = -0.041581, pr = 0.000000e+00, l[dim-beta_] = -23.141888, sim-cost = 73.8742742 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 76.9095371 log(sec)
-d4f upper bound for beta  = 163 is 10
-Strategy (163,10,1), slope = -0.041391, pr = 0.000000e+00, l[dim-beta_] = -23.114434, sim-cost = 72.8479021 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 76.9934463 log(sec)
-d4f upper bound for beta  = 164 is 10
-Strategy (164,10,1), slope = -0.041195, pr = 0.000000e+00, l[dim-beta_] = -22.935883, sim-cost = 73.1434578 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 77.0901786 log(sec)
-d4f upper bound for beta  = 164 is 10
-Strategy (164,7,1), slope = -0.040995, pr = 0.000000e+00, l[dim-beta_] = -22.778269, sim-cost = 73.6580309 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 77.2180029 log(sec)
-d4f upper bound for beta  = 164 is 10
-Strategy (164,4,1), slope = -0.040763, pr = 0.000000e+00, l[dim-beta_] = -22.468666, sim-cost = 74.4653859 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 77.4176049 log(sec)
-d4f upper bound for beta  = 165 is 10
-Strategy (165,10,1), slope = -0.040574, pr = 0.000000e+00, l[dim-beta_] = -22.421338, sim-cost = 73.4390133 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 77.5063359 log(sec)
-d4f upper bound for beta  = 165 is 10
-Strategy (165,7,1), slope = -0.040380, pr = 0.000000e+00, l[dim-beta_] = -22.276365, sim-cost = 73.9535864 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 77.6243167 log(sec)
-d4f upper bound for beta  = 166 is 10
-Strategy (166,10,1), slope = -0.040192, pr = 0.000000e+00, l[dim-beta_] = -22.123625, sim-cost = 73.7345685 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 77.7185035 log(sec)
-d4f upper bound for beta  = 166 is 10
-Strategy (166,7,1), slope = -0.040001, pr = 0.000000e+00, l[dim-beta_] = -21.974284, sim-cost = 74.2491417 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 77.8432095 log(sec)
-d4f upper bound for beta  = 167 is 11
-Strategy (167,10,1), slope = -0.039819, pr = 0.000000e+00, l[dim-beta_] = -21.843946, sim-cost = 73.7339885 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 77.9244715 log(sec)
-d4f upper bound for beta  = 167 is 11
-Strategy (167,7,1), slope = -0.039634, pr = 0.000000e+00, l[dim-beta_] = -21.700692, sim-cost = 74.2485617 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 78.0331527 log(sec)
-d4f upper bound for beta  = 167 is 11
-Strategy (167,4,1), slope = -0.039414, pr = 0.000000e+00, l[dim-beta_] = -21.383170, sim-cost = 75.0559166 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 78.2056248 log(sec)
-d4f upper bound for beta  = 168 is 11
-Strategy (168,10,1), slope = -0.039238, pr = 0.000000e+00, l[dim-beta_] = -21.364560, sim-cost = 74.0295433 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 78.2833040 log(sec)
-d4f upper bound for beta  = 168 is 11
-Strategy (168,7,1), slope = -0.039060, pr = 0.000000e+00, l[dim-beta_] = -21.232933, sim-cost = 74.5441165 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 78.3874857 log(sec)
-d4f upper bound for beta  = 169 is 11
-Strategy (169,10,1), slope = -0.038886, pr = 0.000000e+00, l[dim-beta_] = -21.092705, sim-cost = 74.3250979 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 78.4713524 log(sec)
-d4f upper bound for beta  = 169 is 11
-Strategy (169,7,1), slope = -0.038709, pr = 0.000000e+00, l[dim-beta_] = -20.955631, sim-cost = 74.8396711 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 78.5832891 log(sec)
-d4f upper bound for beta  = 169 is 11
-Strategy (169,4,1), slope = -0.038497, pr = 0.000000e+00, l[dim-beta_] = -20.646173, sim-cost = 75.6470260 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 78.7604367 log(sec)
-d4f upper bound for beta  = 170 is 11
-Strategy (170,10,1), slope = -0.038330, pr = 0.000000e+00, l[dim-beta_] = -20.633000, sim-cost = 74.6206522 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 78.8400413 log(sec)
-d4f upper bound for beta  = 170 is 11
-Strategy (170,7,1), slope = -0.038158, pr = 0.000000e+00, l[dim-beta_] = -20.507123, sim-cost = 75.1352254 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 78.9466444 log(sec)
-d4f upper bound for beta  = 171 is 11
-Strategy (171,10,1), slope = -0.037992, pr = 0.000000e+00, l[dim-beta_] = -20.373462, sim-cost = 74.9162063 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 79.0323344 log(sec)
-d4f upper bound for beta  = 171 is 11
-Strategy (171,7,1), slope = -0.037823, pr = 0.000000e+00, l[dim-beta_] = -20.241687, sim-cost = 75.4307795 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 79.1465420 log(sec)
-d4f upper bound for beta  = 171 is 11
-Strategy (171,4,1), slope = -0.037620, pr = 0.000000e+00, l[dim-beta_] = -19.940617, sim-cost = 76.2381344 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 79.3269359 log(sec)
-d4f upper bound for beta  = 172 is 11
-Strategy (172,10,1), slope = -0.037460, pr = 0.000000e+00, l[dim-beta_] = -19.932416, sim-cost = 75.2117602 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 79.4078723 log(sec)
-d4f upper bound for beta  = 172 is 11
-Strategy (172,7,1), slope = -0.037297, pr = 0.000000e+00, l[dim-beta_] = -19.812242, sim-cost = 75.7263333 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 79.5161458 log(sec)
-d4f upper bound for beta  = 173 is 11
-Strategy (173,10,1), slope = -0.037139, pr = 0.000000e+00, l[dim-beta_] = -19.684112, sim-cost = 75.5073138 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 79.6030906 log(sec)
-d4f upper bound for beta  = 173 is 11
-Strategy (173,7,1), slope = -0.036977, pr = 0.000000e+00, l[dim-beta_] = -19.558638, sim-cost = 76.0218870 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 79.7188573 log(sec)
-d4f upper bound for beta  = 173 is 11
-Strategy (173,4,1), slope = -0.036783, pr = 0.000000e+00, l[dim-beta_] = -19.265719, sim-cost = 76.8292419 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 79.9014727 log(sec)
-d4f upper bound for beta  = 174 is 11
-Strategy (174,10,1), slope = -0.036630, pr = 0.000000e+00, l[dim-beta_] = -19.261988, sim-cost = 75.8028672 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 79.9833181 log(sec)
-d4f upper bound for beta  = 174 is 11
-Strategy (174,7,1), slope = -0.036475, pr = 0.000000e+00, l[dim-beta_] = -19.147971, sim-cost = 76.3174404 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 80.0927297 log(sec)
-d4f upper bound for beta  = 175 is 11
-Strategy (175,10,1), slope = -0.036324, pr = 0.000000e+00, l[dim-beta_] = -19.025377, sim-cost = 76.0984203 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 80.1805279 log(sec)
-d4f upper bound for beta  = 175 is 11
-Strategy (175,7,1), slope = -0.036170, pr = 0.000000e+00, l[dim-beta_] = -18.906157, sim-cost = 76.6129935 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 80.2973532 log(sec)
-d4f upper bound for beta  = 175 is 11
-Strategy (175,4,1), slope = -0.035984, pr = 0.000000e+00, l[dim-beta_] = -18.620956, sim-cost = 77.4203484 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 80.4814737 log(sec)
-d4f upper bound for beta  = 176 is 11
-Strategy (176,10,1), slope = -0.035839, pr = 0.000000e+00, l[dim-beta_] = -18.621777, sim-cost = 76.3939733 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 80.5639338 log(sec)
-d4f upper bound for beta  = 176 is 11
-Strategy (176,7,1), slope = -0.035691, pr = 0.000000e+00, l[dim-beta_] = -18.513870, sim-cost = 76.9085464 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 80.6741141 log(sec)
-d4f upper bound for beta  = 177 is 11
-Strategy (177,10,1), slope = -0.035547, pr = 0.000000e+00, l[dim-beta_] = -18.396664, sim-cost = 76.6895259 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 80.7624881 log(sec)
-d4f upper bound for beta  = 177 is 11
-Strategy (177,7,1), slope = -0.035400, pr = 0.000000e+00, l[dim-beta_] = -18.283101, sim-cost = 77.2040991 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 80.8800269 log(sec)
-d4f upper bound for beta  = 177 is 11
-Strategy (177,4,1), slope = -0.035223, pr = 0.000000e+00, l[dim-beta_] = -18.005470, sim-cost = 78.0114540 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 81.0651603 log(sec)
-d4f upper bound for beta  = 178 is 11
-Strategy (178,10,1), slope = -0.035085, pr = 0.000000e+00, l[dim-beta_] = -18.010987, sim-cost = 76.9850784 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 81.1480335 log(sec)
-d4f upper bound for beta  = 178 is 11
-Strategy (178,7,1), slope = -0.034944, pr = 0.000000e+00, l[dim-beta_] = -17.908157, sim-cost = 77.4996516 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 81.2587301 log(sec)
-d4f upper bound for beta  = 179 is 11
-Strategy (179,10,1), slope = -0.034808, pr = 0.000000e+00, l[dim-beta_] = -17.796931, sim-cost = 77.2806306 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 81.3474904 log(sec)
-d4f upper bound for beta  = 180 is 11
-Strategy (180,10,1), slope = -0.034666, pr = 0.000000e+00, l[dim-beta_] = -17.656765, sim-cost = 77.5761826 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 81.4494575 log(sec)
-d4f upper bound for beta  = 181 is 11
-Strategy (181,10,1), slope = -0.034528, pr = 0.000000e+00, l[dim-beta_] = -17.551225, sim-cost = 77.5755993 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 81.5446537 log(sec)
-d4f upper bound for beta  = 181 is 11
-Strategy (181,7,1), slope = -0.034387, pr = 0.000000e+00, l[dim-beta_] = -17.437029, sim-cost = 78.0901725 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 81.6705978 log(sec)
-d4f upper bound for beta  = 181 is 11
-Strategy (181,4,1), slope = -0.034215, pr = 0.000000e+00, l[dim-beta_] = -17.163569, sim-cost = 78.8975274 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 81.8675732 log(sec)
-d4f upper bound for beta  = 182 is 11
-Strategy (182,10,1), slope = -0.034083, pr = 0.000000e+00, l[dim-beta_] = -17.170213, sim-cost = 77.8711508 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 81.9552468 log(sec)
-d4f upper bound for beta  = 182 is 11
-Strategy (182,7,1), slope = -0.033948, pr = 0.000000e+00, l[dim-beta_] = -17.070028, sim-cost = 78.3857240 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 82.0719175 log(sec)
-d4f upper bound for beta  = 183 is 11
-Strategy (183,10,1), slope = -0.033817, pr = 0.000000e+00, l[dim-beta_] = -16.962045, sim-cost = 78.1667021 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 82.1651317 log(sec)
-d4f upper bound for beta  = 183 is 11
-Strategy (183,7,1), slope = -0.033684, pr = 0.000000e+00, l[dim-beta_] = -16.857537, sim-cost = 78.6812753 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 82.2886429 log(sec)
-d4f upper bound for beta  = 183 is 11
-Strategy (183,4,1), slope = -0.033521, pr = 0.000000e+00, l[dim-beta_] = -16.593693, sim-cost = 79.4886302 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 82.4822078 log(sec)
-d4f upper bound for beta  = 184 is 11
-Strategy (184,10,1), slope = -0.033396, pr = 0.000000e+00, l[dim-beta_] = -16.605925, sim-cost = 78.4622531 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 82.5685044 log(sec)
-d4f upper bound for beta  = 184 is 11
-Strategy (184,7,1), slope = -0.033268, pr = 0.000000e+00, l[dim-beta_] = -16.512523, sim-cost = 78.9768263 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 82.6834662 log(sec)
-d4f upper bound for beta  = 185 is 11
-Strategy (185,10,1), slope = -0.033145, pr = 0.000000e+00, l[dim-beta_] = -16.410569, sim-cost = 78.7578039 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 82.7754095 log(sec)
-d4f upper bound for beta  = 185 is 11
-Strategy (185,7,1), slope = -0.033019, pr = 0.000000e+00, l[dim-beta_] = -16.312046, sim-cost = 79.2723771 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 82.8973569 log(sec)
-d4f upper bound for beta  = 185 is 11
-Strategy (185,4,1), slope = -0.032864, pr = 0.000000e+00, l[dim-beta_] = -16.056242, sim-cost = 80.0797320 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 83.0887222 log(sec)
-d4f upper bound for beta  = 186 is 11
-Strategy (186,10,1), slope = -0.032746, pr = 0.000000e+00, l[dim-beta_] = -16.073201, sim-cost = 79.0533545 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 83.1741284 log(sec)
-d4f upper bound for beta  = 186 is 11
-Strategy (186,7,1), slope = -0.032625, pr = 0.000000e+00, l[dim-beta_] = -15.985325, sim-cost = 79.5679277 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 83.2879830 log(sec)
-d4f upper bound for beta  = 187 is 11
-Strategy (187,10,1), slope = -0.032509, pr = 0.000000e+00, l[dim-beta_] = -15.889026, sim-cost = 79.3489048 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 83.3791016 log(sec)
-d4f upper bound for beta  = 187 is 11
-Strategy (187,7,1), slope = -0.032389, pr = 0.000000e+00, l[dim-beta_] = -15.795955, sim-cost = 79.8634780 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 83.5000325 log(sec)
-d4f upper bound for beta  = 187 is 11
-Strategy (187,4,1), slope = -0.032242, pr = 0.000000e+00, l[dim-beta_] = -15.547362, sim-cost = 80.6708329 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 83.6899650 log(sec)
-d4f upper bound for beta  = 188 is 11
-Strategy (188,10,1), slope = -0.032131, pr = 0.000000e+00, l[dim-beta_] = -15.568808, sim-cost = 79.6444549 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 83.7747901 log(sec)
-d4f upper bound for beta  = 188 is 11
-Strategy (188,7,1), slope = -0.032017, pr = 0.000000e+00, l[dim-beta_] = -15.486073, sim-cost = 80.1590281 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 83.8879214 log(sec)
-d4f upper bound for beta  = 189 is 11
-Strategy (189,10,1), slope = -0.031907, pr = 0.000000e+00, l[dim-beta_] = -15.395097, sim-cost = 79.9400048 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 83.9785005 log(sec)
-d4f upper bound for beta  = 189 is 11
-Strategy (189,7,1), slope = -0.031794, pr = 0.000000e+00, l[dim-beta_] = -15.307124, sim-cost = 80.4545779 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 84.0987659 log(sec)
-d4f upper bound for beta  = 189 is 11
-Strategy (189,4,1), slope = -0.031654, pr = 0.000000e+00, l[dim-beta_] = -15.065069, sim-cost = 81.2619328 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 84.2877590 log(sec)
-d4f upper bound for beta  = 190 is 11
-Strategy (190,10,1), slope = -0.031549, pr = 0.000000e+00, l[dim-beta_] = -15.090920, sim-cost = 80.2355544 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 84.3722027 log(sec)
-d4f upper bound for beta  = 190 is 11
-Strategy (190,7,1), slope = -0.031442, pr = 0.000000e+00, l[dim-beta_] = -15.013069, sim-cost = 80.7501275 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 84.4848588 log(sec)
-d4f upper bound for beta  = 191 is 11
-Strategy (191,10,1), slope = -0.031338, pr = 0.000000e+00, l[dim-beta_] = -14.927139, sim-cost = 80.5311037 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 84.5750833 log(sec)
-d4f upper bound for beta  = 191 is 11
-Strategy (191,7,1), slope = -0.031232, pr = 0.000000e+00, l[dim-beta_] = -14.843553, sim-cost = 81.0456769 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 84.6949109 log(sec)
-d4f upper bound for beta  = 191 is 11
-Strategy (191,4,1), slope = -0.031099, pr = 0.000000e+00, l[dim-beta_] = -14.607772, sim-cost = 81.8530318 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 84.8832854 log(sec)
-d4f upper bound for beta  = 193 is 11
-Strategy (193,10,1), slope = -0.030997, pr = 0.000000e+00, l[dim-beta_] = -14.616644, sim-cost = 81.1222018 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 84.9859524 log(sec)
-d4f upper bound for beta  = 194 is 11
-Strategy (194,10,1), slope = -0.030894, pr = 0.000000e+00, l[dim-beta_] = -14.528417, sim-cost = 81.4177504 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 85.1027258 log(sec)
-d4f upper bound for beta  = 195 is 12
-Strategy (195,10,1), slope = -0.030793, pr = 0.000000e+00, l[dim-beta_] = -14.455068, sim-cost = 81.4171639 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 85.2107088 log(sec)
-d4f upper bound for beta  = 196 is 12
-Strategy (196,10,1), slope = -0.030692, pr = 0.000000e+00, l[dim-beta_] = -14.362712, sim-cost = 81.7127120 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 85.3330650 log(sec)
-d4f upper bound for beta  = 197 is 12
-Strategy (197,10,1), slope = -0.030589, pr = 0.000000e+00, l[dim-beta_] = -14.267470, sim-cost = 82.0082600 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 85.4703072 log(sec)
-d4f upper bound for beta  = 198 is 12
-Strategy (198,10,1), slope = -0.030483, pr = 0.000000e+00, l[dim-beta_] = -14.149903, sim-cost = 82.3038077 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 85.6226532 log(sec)
-d4f upper bound for beta  = 198 is 12
-Strategy (198,7,1), slope = -0.030374, pr = 0.000000e+00, l[dim-beta_] = -14.056293, sim-cost = 82.8183809 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 85.8156840 log(sec)
-d4f upper bound for beta  = 198 is 12
-Strategy (198,4,1), slope = -0.030238, pr = 0.000000e+00, l[dim-beta_] = -13.816251, sim-cost = 83.6257358 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 86.1015706 log(sec)
-d4f upper bound for beta  = 200 is 12
-Strategy (200,10,1), slope = -0.030134, pr = 0.000000e+00, l[dim-beta_] = -13.818066, sim-cost = 82.8949024 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 86.2499412 log(sec)
-d4f upper bound for beta  = 200 is 12
-Strategy (200,7,1), slope = -0.030028, pr = 0.000000e+00, l[dim-beta_] = -13.735504, sim-cost = 83.4094756 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 86.4384888 log(sec)
-d4f upper bound for beta  = 201 is 12
-Strategy (201,10,1), slope = -0.029926, pr = 0.000000e+00, l[dim-beta_] = -13.647675, sim-cost = 83.1904494 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 86.5828680 log(sec)
-d4f upper bound for beta  = 202 is 12
-Strategy (202,10,1), slope = -0.029824, pr = 0.000000e+00, l[dim-beta_] = -13.553493, sim-cost = 83.4859961 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 86.7423452 log(sec)
-d4f upper bound for beta  = 202 is 12
-Strategy (202,7,1), slope = -0.029719, pr = 0.000000e+00, l[dim-beta_] = -13.466123, sim-cost = 84.0005693 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 86.9433525 log(sec)
-d4f upper bound for beta  = 203 is 12
-Strategy (203,10,1), slope = -0.029619, pr = 0.000000e+00, l[dim-beta_] = -13.376390, sim-cost = 83.7815426 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 87.0961692 log(sec)
-d4f upper bound for beta  = 204 is 12
-Strategy (204,10,1), slope = -0.029517, pr = 0.000000e+00, l[dim-beta_] = -13.282035, sim-cost = 84.0770889 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 87.2639866 log(sec)
-d4f upper bound for beta  = 205 is 12
-Strategy (205,10,1), slope = -0.029416, pr = 0.000000e+00, l[dim-beta_] = -13.185803, sim-cost = 84.3726349 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 87.4463956 log(sec)
-d4f upper bound for beta  = 206 is 12
-Strategy (206,10,1), slope = -0.029314, pr = 0.000000e+00, l[dim-beta_] = -13.088450, sim-cost = 84.6681807 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 87.6427156 log(sec)
-d4f upper bound for beta  = 206 is 12
-Strategy (206,7,1), slope = -0.029209, pr = 0.000000e+00, l[dim-beta_] = -12.999709, sim-cost = 85.1827539 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 87.8836421 log(sec)
-d4f upper bound for beta  = 208 is 12
-Strategy (208,10,1), slope = -0.029106, pr = 0.000000e+00, l[dim-beta_] = -12.889302, sim-cost = 85.2592716 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 88.1004703 log(sec)
-d4f upper bound for beta  = 209 is 12
-Strategy (209,10,1), slope = -0.029006, pr = 0.000000e+00, l[dim-beta_] = -12.810126, sim-cost = 85.2586816 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 88.2888558 log(sec)
-d4f upper bound for beta  = 209 is 12
-Strategy (209,7,1), slope = -0.028904, pr = 0.000000e+00, l[dim-beta_] = -12.724407, sim-cost = 85.7732548 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 88.5213636 log(sec)
-d4f upper bound for beta  = 209 is 12
-Strategy (209,4,1), slope = -0.028772, pr = 0.000000e+00, l[dim-beta_] = -12.476818, sim-cost = 86.5806097 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 88.8553371 log(sec)
-d4f upper bound for beta  = 211 is 12
-Strategy (211,7,1), slope = -0.028670, pr = 0.000000e+00, l[dim-beta_] = -12.486634, sim-cost = 86.3643442 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 89.0915344 log(sec)
-d4f upper bound for beta  = 213 is 12
-Strategy (213,10,1), slope = -0.028570, pr = 0.000000e+00, l[dim-beta_] = -12.386515, sim-cost = 86.4408595 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 89.3047206 log(sec)
-d4f upper bound for beta  = 214 is 12
-Strategy (214,10,1), slope = -0.028469, pr = 0.000000e+00, l[dim-beta_] = -12.293552, sim-cost = 86.7364033 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 89.5295027 log(sec)
-d4f upper bound for beta  = 215 is 12
-Strategy (215,10,1), slope = -0.028365, pr = 0.000000e+00, l[dim-beta_] = -12.179061, sim-cost = 87.0319469 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 89.7647107 log(sec)
-d4f upper bound for beta  = 216 is 12
-Strategy (216,10,1), slope = -0.028260, pr = 0.000000e+00, l[dim-beta_] = -12.078523, sim-cost = 87.3274903 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 90.0091582 log(sec)
-d4f upper bound for beta  = 216 is 12
-Strategy (216,7,1), slope = -0.028153, pr = 0.000000e+00, l[dim-beta_] = -11.987308, sim-cost = 87.8420635 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 90.2991799 log(sec)
-d4f upper bound for beta  = 217 is 12
-Strategy (217,10,1), slope = -0.028052, pr = 0.000000e+00, l[dim-beta_] = -11.895132, sim-cost = 87.6230334 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 90.5088936 log(sec)
-d4f upper bound for beta  = 217 is 12
-Strategy (217,7,1), slope = -0.027948, pr = 0.000000e+00, l[dim-beta_] = -11.808971, sim-cost = 88.1376066 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 90.7638179 log(sec)
-d4f upper bound for beta  = 217 is 12
-Strategy (217,4,1), slope = -0.027819, pr = 0.000000e+00, l[dim-beta_] = -11.584525, sim-cost = 88.9449615 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 91.1238400 log(sec)
-d4f upper bound for beta  = 220 is 12
-Strategy (220,10,1), slope = -0.027718, pr = 0.000000e+00, l[dim-beta_] = -11.568502, sim-cost = 88.5096614 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 91.3420947 log(sec)
-d4f upper bound for beta  = 222 is 12
-Strategy (222,10,1), slope = -0.027614, pr = 0.000000e+00, l[dim-beta_] = -11.460118, sim-cost = 89.1007454 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 91.6188754 log(sec)
-d4f upper bound for beta  = 223 is 12
-Strategy (223,10,1), slope = -0.027510, pr = 0.000000e+00, l[dim-beta_] = -11.362617, sim-cost = 89.3962871 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 91.8989487 log(sec)
-d4f upper bound for beta  = 224 is 13
-Strategy (224,10,1), slope = -0.027409, pr = 0.000000e+00, l[dim-beta_] = -11.283570, sim-cost = 89.3956935 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 92.1333008 log(sec)
-d4f upper bound for beta  = 225 is 13
-Strategy (225,10,1), slope = -0.027308, pr = 0.000000e+00, l[dim-beta_] = -11.189753, sim-cost = 89.6912347 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 92.3769941 log(sec)
-d4f upper bound for beta  = 226 is 13
-Strategy (226,10,1), slope = -0.027207, pr = 0.000000e+00, l[dim-beta_] = -11.095056, sim-cost = 89.9867756 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 92.6288689 log(sec)
-d4f upper bound for beta  = 227 is 13
-Strategy (227,10,1), slope = -0.027106, pr = 0.000000e+00, l[dim-beta_] = -11.000029, sim-cost = 90.2823163 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 92.8878283 log(sec)
-d4f upper bound for beta  = 228 is 13
-Strategy (228,10,1), slope = -0.027005, pr = 0.000000e+00, l[dim-beta_] = -10.904942, sim-cost = 90.5778568 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 93.1528624 log(sec)
-d4f upper bound for beta  = 229 is 13
-Strategy (229,10,1), slope = -0.026904, pr = 0.000000e+00, l[dim-beta_] = -10.809839, sim-cost = 90.8733970 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 93.4230613 log(sec)
-d4f upper bound for beta  = 232 is 13
-Strategy (232,13,1), slope = -0.026799, pr = 0.000000e+00, l[dim-beta_] = -10.669361, sim-cost = 91.3815045 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 93.7367732 log(sec)
-d4f upper bound for beta  = 232 is 13
-Strategy (232,10,1), slope = -0.026692, pr = 0.000000e+00, l[dim-beta_] = -10.576376, sim-cost = 91.7600161 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 94.0633799 log(sec)
-d4f upper bound for beta  = 233 is 13
-Strategy (233,13,1), slope = -0.026590, pr = 0.000000e+00, l[dim-beta_] = -10.484071, sim-cost = 91.6770437 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 94.3158774 log(sec)
-d4f upper bound for beta  = 234 is 13
-Strategy (234,13,1), slope = -0.026489, pr = 0.000000e+00, l[dim-beta_] = -10.389529, sim-cost = 91.9725827 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 94.5753726 log(sec)
-d4f upper bound for beta  = 235 is 13
-Strategy (235,13,1), slope = -0.026388, pr = 0.000000e+00, l[dim-beta_] = -10.294725, sim-cost = 92.2681214 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 94.8408635 log(sec)
-d4f upper bound for beta  = 236 is 13
-Strategy (236,13,1), slope = -0.026287, pr = 0.000000e+00, l[dim-beta_] = -10.200089, sim-cost = 92.5636599 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 95.1114489 log(sec)
-d4f upper bound for beta  = 237 is 13
-Strategy (237,13,1), slope = -0.026187, pr = 0.000000e+00, l[dim-beta_] = -10.105756, sim-cost = 92.8591981 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 95.3863324 log(sec)
-d4f upper bound for beta  = 238 is 13
-Strategy (238,13,1), slope = -0.026087, pr = 0.000000e+00, l[dim-beta_] = -10.011835, sim-cost = 93.1547361 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 95.6648204 log(sec)
-d4f upper bound for beta  = 238 is 13
-Strategy (238,10,1), slope = -0.025985, pr = 0.000000e+00, l[dim-beta_] = -9.926779, sim-cost = 93.5332477 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 95.9613764 log(sec)
-d4f upper bound for beta  = 240 is 13
-Strategy (240,10,1), slope = -0.025884, pr = 0.000000e+00, l[dim-beta_] = -9.831743, sim-cost = 93.8281879 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 96.2576324 log(sec)
-d4f upper bound for beta  = 241 is 13
-Strategy (241,10,1), slope = -0.025784, pr = 0.000000e+00, l[dim-beta_] = -9.737523, sim-cost = 94.1237252 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 96.5537549 log(sec)
-d4f upper bound for beta  = 244 is 13
-Strategy (244,13,1), slope = -0.025683, pr = 0.000000e+00, l[dim-beta_] = -9.618166, sim-cost = 94.6318238 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 96.8916384 log(sec)
-d4f upper bound for beta  = 245 is 13
-Strategy (245,13,1), slope = -0.025582, pr = 0.000000e+00, l[dim-beta_] = -9.522755, sim-cost = 94.9273600 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 97.2207819 log(sec)
-d4f upper bound for beta  = 246 is 13
-Strategy (246,13,1), slope = -0.025481, pr = 0.000000e+00, l[dim-beta_] = -9.428287, sim-cost = 95.2228960 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 97.5431331 log(sec)
-d4f upper bound for beta  = 246 is 13
-Strategy (246,10,1), slope = -0.025380, pr = 0.000000e+00, l[dim-beta_] = -9.342680, sim-cost = 95.6014077 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 97.8769059 log(sec)
-d4f upper bound for beta  = 247 is 13
-Strategy (247,10,1), slope = -0.025279, pr = 0.000000e+00, l[dim-beta_] = -9.247963, sim-cost = 95.8969434 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 98.2028639 log(sec)
-d4f upper bound for beta  = 249 is 13
-Strategy (249,13,1), slope = -0.025178, pr = 0.000000e+00, l[dim-beta_] = -9.128584, sim-cost = 96.1095025 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 98.5065968 log(sec)
-d4f upper bound for beta  = 250 is 13
-Strategy (250,13,1), slope = -0.025077, pr = 0.000000e+00, l[dim-beta_] = -9.033679, sim-cost = 96.4050376 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 98.8087769 log(sec)
-d4f upper bound for beta  = 251 is 13
-Strategy (251,13,1), slope = -0.024977, pr = 0.000000e+00, l[dim-beta_] = -8.940181, sim-cost = 96.7005723 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 99.1097036 log(sec)
-d4f upper bound for beta  = 251 is 13
-Strategy (251,10,1), slope = -0.024876, pr = 0.000000e+00, l[dim-beta_] = -8.856304, sim-cost = 97.0790839 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 99.4255595 log(sec)
-d4f upper bound for beta  = 252 is 13
-Strategy (252,10,1), slope = -0.024776, pr = 0.000000e+00, l[dim-beta_] = -8.762726, sim-cost = 97.3746184 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 99.7374423 log(sec)
-d4f upper bound for beta  = 252 is 13
-Strategy (252,7,1), slope = -0.024675, pr = 0.000000e+00, l[dim-beta_] = -8.678181, sim-cost = 97.8891916 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 100.0910241 log(sec)
-d4f upper bound for beta  = 253 is 14
-Strategy (253,4,1), slope = -0.024546, pr = 0.000000e+00, l[dim-beta_] = -8.453578, sim-cost = 98.6959458 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 100.5559266 log(sec)
-d4f upper bound for beta  = 254 is 14
-Strategy (254,4,1), slope = -0.024420, pr = 0.000000e+00, l[dim-beta_] = -8.327086, sim-cost = 98.9914798 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 100.9761204 log(sec)
-d4f upper bound for beta  = 256 is 14
-Strategy (256,4,1), slope = -0.024293, pr = 0.000000e+00, l[dim-beta_] = -8.191981, sim-cost = 99.5825470 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 101.4414376 log(sec)
-d4f upper bound for beta  = 257 is 14
-Strategy (257,4,1), slope = -0.024169, pr = 0.000000e+00, l[dim-beta_] = -8.075164, sim-cost = 99.8780803 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 101.8619068 log(sec)
-d4f upper bound for beta  = 258 is 14
-Strategy (258,4,1), slope = -0.024047, pr = 0.000000e+00, l[dim-beta_] = -7.963037, sim-cost = 100.1736133 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 102.2517971 log(sec)
-d4f upper bound for beta  = 259 is 14
-Strategy (259,4,1), slope = -0.023927, pr = 0.000000e+00, l[dim-beta_] = -7.854293, sim-cost = 100.4691461 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 102.6198936 log(sec)
-d4f upper bound for beta  = 260 is 14
-Strategy (260,4,1), slope = -0.023809, pr = 0.000000e+00, l[dim-beta_] = -7.748449, sim-cost = 100.7646786 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 102.9719645 log(sec)
-d4f upper bound for beta  = 261 is 14
-Strategy (261,4,1), slope = -0.023694, pr = 0.000000e+00, l[dim-beta_] = -7.645115, sim-cost = 101.0602108 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 103.3119789 log(sec)
-d4f upper bound for beta  = 262 is 14
-Strategy (262,4,1), slope = -0.023581, pr = 0.000000e+00, l[dim-beta_] = -7.544054, sim-cost = 101.3557428 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 103.6427667 log(sec)
-d4f upper bound for beta  = 263 is 14
-Strategy (263,4,1), slope = -0.023469, pr = 0.000000e+00, l[dim-beta_] = -7.444927, sim-cost = 101.6512745 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 103.9664003 log(sec)
-d4f upper bound for beta  = 264 is 14
-Strategy (264,4,1), slope = -0.023360, pr = 0.000000e+00, l[dim-beta_] = -7.347716, sim-cost = 101.9468060 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 104.2844308 log(sec)
-d4f upper bound for beta  = 265 is 14
-Strategy (265,4,1), slope = -0.023253, pr = 0.000000e+00, l[dim-beta_] = -7.252304, sim-cost = 102.2423373 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 104.5980379 log(sec)
-d4f upper bound for beta  = 266 is 14
-Strategy (266,4,1), slope = -0.023147, pr = 0.000000e+00, l[dim-beta_] = -7.158621, sim-cost = 102.5378683 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 104.9081311 log(sec)
-d4f upper bound for beta  = 268 is 14
-Strategy (268,4,1), slope = -0.023040, pr = 0.000000e+00, l[dim-beta_] = -7.050024, sim-cost = 102.8327945 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 105.2153033 log(sec)
-d4f upper bound for beta  = 269 is 14
-Strategy (269,4,1), slope = -0.022935, pr = 0.000000e+00, l[dim-beta_] = -6.955591, sim-cost = 103.1283247 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 105.5202502 log(sec)
-d4f upper bound for beta  = 271 is 14
-Strategy (271,4,1), slope = -0.022828, pr = 0.000000e+00, l[dim-beta_] = -6.847187, sim-cost = 103.7193844 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 105.8842648 log(sec)
-d4f upper bound for beta  = 272 is 14
-Strategy (272,4,1), slope = -0.022724, pr = 0.000000e+00, l[dim-beta_] = -6.753149, sim-cost = 104.0149139 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 106.2332864 log(sec)
-d4f upper bound for beta  = 274 is 14
-Strategy (274,4,1), slope = -0.022618, pr = 0.000000e+00, l[dim-beta_] = -6.645556, sim-cost = 104.6059720 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 106.6378519 log(sec)
-d4f upper bound for beta  = 275 is 14
-Strategy (275,4,1), slope = -0.022514, pr = 0.000000e+00, l[dim-beta_] = -6.552285, sim-cost = 104.9015007 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 107.0165053 log(sec)
-d4f upper bound for beta  = 277 is 14
-Strategy (277,4,1), slope = -0.022410, pr = 0.000000e+00, l[dim-beta_] = -6.445641, sim-cost = 105.4925574 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 107.4470401 log(sec)
-d4f upper bound for beta  = 279 is 14
-Strategy (279,4,1), slope = -0.022304, pr = 0.000000e+00, l[dim-beta_] = -6.337448, sim-cost = 106.0836130 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 107.9207314 log(sec)
-d4f upper bound for beta  = 280 is 14
-Strategy (280,4,1), slope = -0.022201, pr = 0.000000e+00, l[dim-beta_] = -6.244184, sim-cost = 106.3791404 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 108.3467346 log(sec)
-d4f upper bound for beta  = 281 is 14
-Strategy (281,4,1), slope = -0.022100, pr = 0.000000e+00, l[dim-beta_] = -6.153937, sim-cost = 106.6746676 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 108.7404840 log(sec)
-d4f upper bound for beta  = 284 is 15
-Strategy (284,4,1), slope = -0.021994, pr = 0.000000e+00, l[dim-beta_] = -6.034471, sim-cost = 107.2651125 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 109.1837095 log(sec)
-d4f upper bound for beta  = 285 is 15
-Strategy (285,4,1), slope = -0.021891, pr = 0.000000e+00, l[dim-beta_] = -5.941285, sim-cost = 107.5606387 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 109.5893139 log(sec)
-d4f upper bound for beta  = 287 is 15
-Strategy (287,4,1), slope = -0.021788, pr = 0.000000e+00, l[dim-beta_] = -5.835941, sim-cost = 108.1516902 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 110.0426206 log(sec)
-d4f upper bound for beta  = 289 is 15
-Strategy (289,4,1), slope = -0.021683, pr = 0.000000e+00, l[dim-beta_] = -5.729642, sim-cost = 108.7427407 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 110.5343814 log(sec)
-d4f upper bound for beta  = 291 is 15
-Strategy (291,4,1), slope = -0.021578, pr = 0.000000e+00, l[dim-beta_] = -5.622832, sim-cost = 109.3337901 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 111.0555296 log(sec)
-d4f upper bound for beta  = 292 is 15
-Strategy (292,4,1), slope = -0.021476, pr = 0.000000e+00, l[dim-beta_] = -5.531181, sim-cost = 109.6293145 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 111.5119213 log(sec)
-d4f upper bound for beta  = 294 is 15
-Strategy (294,4,1), slope = -0.021373, pr = 0.000000e+00, l[dim-beta_] = -5.427620, sim-cost = 110.2203624 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 112.0060905 log(sec)
-d4f upper bound for beta  = 296 is 15
-Strategy (296,4,1), slope = -0.021270, pr = 0.000000e+00, l[dim-beta_] = -5.323140, sim-cost = 110.8114092 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 112.5290330 log(sec)
-d4f upper bound for beta  = 299 is 15
-Strategy (299,4,1), slope = -0.021163, pr = 0.000000e+00, l[dim-beta_] = -5.203085, sim-cost = 111.4018426 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 113.0728322 log(sec)
-d4f upper bound for beta  = 300 is 15
-Strategy (300,4,1), slope = -0.021059, pr = 0.000000e+00, l[dim-beta_] = -5.109769, sim-cost = 111.6973648 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 113.5431637 log(sec)
-d4f upper bound for beta  = 302 is 15
-Strategy (302,4,1), slope = -0.020956, pr = 0.000000e+00, l[dim-beta_] = -5.005709, sim-cost = 112.2884086 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 114.0481041 log(sec)
-d4f upper bound for beta  = 303 is 15
-Strategy (303,4,1), slope = -0.020855, pr = 0.000000e+00, l[dim-beta_] = -4.916395, sim-cost = 112.5839301 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 114.4942999 log(sec)
-d4f upper bound for beta  = 306 is 15
-Strategy (306,4,1), slope = -0.020751, pr = 0.000000e+00, l[dim-beta_] = -4.800690, sim-cost = 113.4704929 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 115.0713704 log(sec)
-d4f upper bound for beta  = 308 is 15
-Strategy (308,4,1), slope = -0.020646, pr = 0.000000e+00, l[dim-beta_] = -4.695831, sim-cost = 114.0615336 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 115.6530614 log(sec)
-d4f upper bound for beta  = 310 is 15
-Strategy (310,4,1), slope = -0.020542, pr = 0.000000e+00, l[dim-beta_] = -4.591734, sim-cost = 114.6525731 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 116.2378611 log(sec)
-d4f upper bound for beta  = 312 is 15
-Strategy (312,4,1), slope = -0.020439, pr = 0.000000e+00, l[dim-beta_] = -4.488084, sim-cost = 115.2436116 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 116.8247430 log(sec)
-d4f upper bound for beta  = 314 is 16
-Strategy (314,4,1), slope = -0.020335, pr = 0.000000e+00, l[dim-beta_] = -4.385056, sim-cost = 115.5385141 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 117.3204601 log(sec)
-d4f upper bound for beta  = 316 is 16
-Strategy (316,4,1), slope = -0.020232, pr = 0.000000e+00, l[dim-beta_] = -4.282495, sim-cost = 116.1295505 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 117.8445504 log(sec)
-d4f upper bound for beta  = 318 is 16
-Strategy (318,4,1), slope = -0.020129, pr = 0.000000e+00, l[dim-beta_] = -4.180610, sim-cost = 116.7205858 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 118.3893634 log(sec)
-d4f upper bound for beta  = 320 is 16
-Strategy (320,4,1), slope = -0.020027, pr = 0.000000e+00, l[dim-beta_] = -4.079258, sim-cost = 117.3116201 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 118.9488741 log(sec)
-d4f upper bound for beta  = 322 is 16
-Strategy (322,4,1), slope = -0.019925, pr = 0.000000e+00, l[dim-beta_] = -3.978648, sim-cost = 117.9026534 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 119.5185937 log(sec)
-d4f upper bound for beta  = 324 is 16
-Strategy (324,4,1), slope = -0.019824, pr = 0.000000e+00, l[dim-beta_] = -3.878636, sim-cost = 118.4936855 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 120.0953011 log(sec)
-d4f upper bound for beta  = 327 is 16
-Strategy (327,4,1), slope = -0.019720, pr = 0.000000e+00, l[dim-beta_] = -3.765055, sim-cost = 119.3802318 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 120.7816231 log(sec)
-d4f upper bound for beta  = 330 is 16
-Strategy (330,4,1), slope = -0.019613, pr = 0.000000e+00, l[dim-beta_] = -3.648983, sim-cost = 119.9706407 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 121.4323818 log(sec)
-d4f upper bound for beta  = 331 is 16
-Strategy (331,4,1), slope = -0.019512, pr = 0.000000e+00, l[dim-beta_] = -3.559487, sim-cost = 120.2661548 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 121.9640354 log(sec)
-d4f upper bound for beta  = 334 is 16
-Strategy (334,4,1), slope = -0.019407, pr = 0.000000e+00, l[dim-beta_] = -3.447080, sim-cost = 121.1526954 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 122.6146642 log(sec)
-d4f upper bound for beta  = 336 is 16
-Strategy (336,4,1), slope = -0.019304, pr = 0.000000e+00, l[dim-beta_] = -3.346204, sim-cost = 121.7437212 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 123.2439409 log(sec)
-d4f upper bound for beta  = 338 is 16
-Strategy (338,4,1), slope = -0.019203, pr = 0.000000e+00, l[dim-beta_] = -3.247105, sim-cost = 122.3347459 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 123.8598112 log(sec)
-d4f upper bound for beta  = 341 is 16
-Strategy (341,4,1), slope = -0.019099, pr = 0.000000e+00, l[dim-beta_] = -3.135414, sim-cost = 123.2212809 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 124.5755877 log(sec)
-d4f upper bound for beta  = 343 is 16
-Strategy (343,4,1), slope = -0.018997, pr = 0.000000e+00, l[dim-beta_] = -3.035698, sim-cost = 123.8123029 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 125.2438461 log(sec)
-d4f upper bound for beta  = 346 is 17
-Strategy (346,4,1), slope = -0.018892, pr = 0.000000e+00, l[dim-beta_] = -2.924224, sim-cost = 124.4026989 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 125.8837261 log(sec)
-d4f upper bound for beta  = 348 is 17
-Strategy (348,4,1), slope = -0.018790, pr = 0.000000e+00, l[dim-beta_] = -2.824846, sim-cost = 124.9937182 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 126.5062921 log(sec)
-d4f upper bound for beta  = 350 is 17
-Strategy (350,4,1), slope = -0.018689, pr = 0.000000e+00, l[dim-beta_] = -2.727752, sim-cost = 125.5847364 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 127.1178794 log(sec)
-d4f upper bound for beta  = 353 is 17
-Strategy (353,4,1), slope = -0.018587, pr = 0.000000e+00, l[dim-beta_] = -2.618798, sim-cost = 126.4712617 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 127.8304982 log(sec)
-d4f upper bound for beta  = 356 is 17
-Strategy (356,4,1), slope = -0.018483, pr = 0.000000e+00, l[dim-beta_] = -2.508368, sim-cost = 127.3577845 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 128.6134165 log(sec)
-d4f upper bound for beta  = 358 is 17
-Strategy (358,4,1), slope = -0.018382, pr = 0.000000e+00, l[dim-beta_] = -2.410580, sim-cost = 127.9487983 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 129.3190456 log(sec)
-d4f upper bound for beta  = 361 is 17
-Strategy (361,4,1), slope = -0.018279, pr = 0.000000e+00, l[dim-beta_] = -2.301940, sim-cost = 128.5391820 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 129.9811799 log(sec)
-d4f upper bound for beta  = 364 is 17
-Strategy (364,4,1), slope = -0.018175, pr = 0.000000e+00, l[dim-beta_] = -2.192355, sim-cost = 129.4256983 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 130.7300102 log(sec)
-d4f upper bound for beta  = 366 is 17
-Strategy (366,4,1), slope = -0.018074, pr = 0.000000e+00, l[dim-beta_] = -2.095592, sim-cost = 130.0167078 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 131.4170014 log(sec)
-d4f upper bound for beta  = 369 is 17
-Strategy (369,4,1), slope = -0.017972, pr = 0.000000e+00, l[dim-beta_] = -1.988454, sim-cost = 130.9032199 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 132.1828621 log(sec)
-d4f upper bound for beta  = 372 is 17
-Strategy (372,4,1), slope = -0.017869, pr = 0.000000e+00, l[dim-beta_] = -1.880641, sim-cost = 131.7897295 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 132.9996456 log(sec)
-d4f upper bound for beta  = 375 is 17
-Strategy (375,4,1), slope = -0.017765, pr = 0.000000e+00, l[dim-beta_] = -1.772628, sim-cost = 132.6762367 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 133.8469846 log(sec)
-d4f upper bound for beta  = 377 is 18
-Strategy (377,4,1), slope = -0.017665, pr = 0.000000e+00, l[dim-beta_] = -1.677593, sim-cost = 132.9711050 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 134.4745181 log(sec)
-d4f upper bound for beta  = 381 is 18
-Strategy (381,4,1), slope = -0.017561, pr = 0.000000e+00, l[dim-beta_] = -1.559980, sim-cost = 134.1531084 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 135.3227455 log(sec)
-d4f upper bound for beta  = 384 is 18
-Strategy (384,4,1), slope = -0.017457, pr = 0.000000e+00, l[dim-beta_] = -1.451887, sim-cost = 135.0396081 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 136.1881116 log(sec)
-d4f upper bound for beta  = 387 is 18
-Strategy (387,4,1), slope = -0.017353, pr = 0.000000e+00, l[dim-beta_] = -1.344607, sim-cost = 135.9261052 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 137.0630480 log(sec)
-d4f upper bound for beta  = 390 is 18
-Strategy (390,4,1), slope = -0.017249, pr = 0.000000e+00, l[dim-beta_] = -1.238071, sim-cost = 136.8125997 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 137.9432517 log(sec)
-d4f upper bound for beta  = 393 is 18
-Strategy (393,4,1), slope = -0.017146, pr = 0.000000e+00, l[dim-beta_] = -1.132220, sim-cost = 137.4029568 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 138.6982506 log(sec)
-d4f upper bound for beta  = 396 is 18
-Strategy (396,4,1), slope = -0.017043, pr = 0.000000e+00, l[dim-beta_] = -1.027180, sim-cost = 138.2894463 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 139.5082802 log(sec)
-d4f upper bound for beta  = 399 is 18
-Strategy (399,4,1), slope = -0.016941, pr = 0.000000e+00, l[dim-beta_] = -0.923001, sim-cost = 139.1759332 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 140.3516558 log(sec)
-d4f upper bound for beta  = 402 is 18
-Strategy (402,4,1), slope = -0.016840, pr = 0.000000e+00, l[dim-beta_] = -0.819739, sim-cost = 140.0624176 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 141.2142731 log(sec)
-d4f upper bound for beta  = 406 is 18
-Strategy (406,4,1), slope = -0.016736, pr = 0.000000e+00, l[dim-beta_] = -0.705091, sim-cost = 141.2443929 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 142.2294116 log(sec)
-d4f upper bound for beta  = 409 is 19
-Strategy (409,4,1), slope = -0.016633, pr = 0.000000e+00, l[dim-beta_] = -0.600841, sim-cost = 141.8347363 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 143.0455284 log(sec)
-d4f upper bound for beta  = 412 is 19
-Strategy (412,4,1), slope = -0.016532, pr = 0.000000e+00, l[dim-beta_] = -0.498348, sim-cost = 142.7212121 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 143.8924644 log(sec)
-d4f upper bound for beta  = 415 is 19
-Strategy (415,4,1), slope = -0.016432, pr = 0.000000e+00, l[dim-beta_] = -0.397333, sim-cost = 143.6076854 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 144.7570902 log(sec)
-d4f upper bound for beta  = 419 is 19
-Strategy (419,4,1), slope = -0.016329, pr = 0.000000e+00, l[dim-beta_] = -0.285662, sim-cost = 144.7896457 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 145.7734598 log(sec)
-d4f upper bound for beta  = 422 is 19
-Strategy (422,4,1), slope = -0.016229, pr = 0.000000e+00, l[dim-beta_] = -0.184582, sim-cost = 145.6761129 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 146.7256072 log(sec)
-d4f upper bound for beta  = 426 is 19
-Strategy (426,4,1), slope = -0.016127, pr = 0.000000e+00, l[dim-beta_] = -0.073614, sim-cost = 146.5619301 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 147.6460886 log(sec)
-d4f upper bound for beta  = 429 is 19
-Strategy (429,4,1), slope = -0.016027, pr = 0.000000e+00, l[dim-beta_] = 0.026556, sim-cost = 147.4483912 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 148.5506237 log(sec)
-d4f upper bound for beta  = 433 is 19
-Strategy (433,4,1), slope = -0.015925, pr = 0.000000e+00, l[dim-beta_] = 0.136165, sim-cost = 148.6303353 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 149.5910299 log(sec)
-d4f upper bound for beta  = 437 is 19
-Strategy (437,4,1), slope = -0.015823, pr = 0.000000e+00, l[dim-beta_] = 0.246493, sim-cost = 149.8122747 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 150.7058893 log(sec)
-d4f upper bound for beta  = 441 is 20
-Strategy (441,4,1), slope = -0.015720, pr = 0.000000e+00, l[dim-beta_] = 0.356994, sim-cost = 150.6980744 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 151.7019871 log(sec)
-d4f upper bound for beta  = 444 is 20
-Strategy (444,4,1), slope = -0.015620, pr = 0.000000e+00, l[dim-beta_] = 0.455841, sim-cost = 151.5845223 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 152.6444499 log(sec)
-d4f upper bound for beta  = 449 is 20
-Strategy (449,4,1), slope = -0.015516, pr = 0.000000e+00, l[dim-beta_] = 0.574601, sim-cost = 153.0619296 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 153.8682384 log(sec)
-d4f upper bound for beta  = 452 is 20
-Strategy (452,4,1), slope = -0.015415, pr = 0.000000e+00, l[dim-beta_] = 0.673328, sim-cost = 153.9483704 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 154.9088607 log(sec)
-d4f upper bound for beta  = 456 is 20
-Strategy (456,4,1), slope = -0.015315, pr = 0.000000e+00, l[dim-beta_] = 0.779817, sim-cost = 155.1302874 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 156.0238180 log(sec)
-d4f upper bound for beta  = 460 is 20
-Strategy (460,4,1), slope = -0.015214, pr = 0.000000e+00, l[dim-beta_] = 0.886052, sim-cost = 156.0160645 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 157.0199464 log(sec)
-d4f upper bound for beta  = 464 is 20
-Strategy (464,4,1), slope = -0.015114, pr = 0.000000e+00, l[dim-beta_] = 0.991700, sim-cost = 157.1979719 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 158.1117034 log(sec)
-d4f upper bound for beta  = 469 is 20
-Strategy (469,4,1), slope = -0.015011, pr = 0.000000e+00, l[dim-beta_] = 1.107642, sim-cost = 158.6753493 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 159.4208794 log(sec)
-d4f upper bound for beta  = 474 is 21
-Strategy (474,4,1), slope = -0.014906, pr = 0.000000e+00, l[dim-beta_] = 1.225095, sim-cost = 159.8565842 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 160.6551179 log(sec)
-d4f upper bound for beta  = 477 is 21
-Strategy (477,4,1), slope = -0.014805, pr = 0.000000e+00, l[dim-beta_] = 1.321493, sim-cost = 160.7430024 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 161.6997293 log(sec)
-d4f upper bound for beta  = 482 is 21
-Strategy (482,4,1), slope = -0.014703, pr = 0.000000e+00, l[dim-beta_] = 1.434953, sim-cost = 162.2203601 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 162.9834036 log(sec)
-d4f upper bound for beta  = 487 is 21
-Strategy (487,4,1), slope = -0.014599, pr = 0.000000e+00, l[dim-beta_] = 1.549681, sim-cost = 163.6977102 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 164.3843210 log(sec)
-d4f upper bound for beta  = 491 is 21
-Strategy (491,4,1), slope = -0.014497, pr = 5.072183e-314, l[dim-beta_] = 1.654081, sim-cost = 164.5834497 log(sec), G_cum = -1000.0000000 log(sec), G_BKZ = 165.4873183 log(sec)
-d4f upper bound for beta  = 496 is 21
-Strategy (496,4,1), slope = -0.014395, pr = 8.087967e-302, l[dim-beta_] = 1.766668, sim-cost = 166.0607859 log(sec), G_cum = -833.4041471 log(sec), G_BKZ = 166.8023605 log(sec)
-d4f upper bound for beta  = 500 is 21
-Strategy (500,4,1), slope = -0.014294, pr = 4.522829e-290, l[dim-beta_] = 1.868970, sim-cost = 167.2426493 log(sec), G_cum = -793.1426856 log(sec), G_BKZ = 168.0392363 log(sec)
-d4f upper bound for beta  = 507 is 22
-Strategy (507,4,1), slope = -0.014187, pr = 3.724188e-276, l[dim-beta_] = 2.000096, sim-cost = 169.0147633 log(sec), G_cum = -745.3472984 log(sec), G_BKZ = 169.6079297 log(sec)
-d4f upper bound for beta  = 510 is 22
-Strategy (510,4,1), slope = -0.014086, pr = 1.977487e-264, l[dim-beta_] = 2.094298, sim-cost = 169.9011510 log(sec), G_cum = -705.2433716 log(sec), G_BKZ = 170.7619771 log(sec)
-d4f upper bound for beta  = 516 is 22
-Strategy (516,4,1), slope = -0.013982, pr = 5.111577e-251, l[dim-beta_] = 2.213202, sim-cost = 171.6739180 log(sec), G_cum = -659.1613485 log(sec), G_BKZ = 172.2888347 log(sec)
-d4f upper bound for beta  = 521 is 22
-Strategy (521,4,1), slope = -0.013879, pr = 6.967679e-238, l[dim-beta_] = 2.323915, sim-cost = 173.1512151 log(sec), G_cum = -614.0346839 log(sec), G_BKZ = 173.7835245 log(sec)
-d4f upper bound for beta  = 526 is 22
-Strategy (526,4,1), slope = -0.013776, pr = 9.295436e-225, l[dim-beta_] = 2.433264, sim-cost = 174.3323693 log(sec), G_cum = -569.1334081 log(sec), G_BKZ = 175.0838907 log(sec)
-d4f upper bound for beta  = 532 is 22
-Strategy (532,4,1), slope = -0.013672, pr = 9.681054e-211, l[dim-beta_] = 2.551395, sim-cost = 176.1051058 log(sec), G_cum = -520.9686327 log(sec), G_BKZ = 176.6830312 log(sec)
-d4f upper bound for beta  = 537 is 22
-Strategy (537,4,1), slope = -0.013569, pr = 2.482785e-197, l[dim-beta_] = 2.660282, sim-cost = 177.5823775 log(sec), G_cum = -474.9061980 log(sec), G_BKZ = 178.2016774 log(sec)
-d4f upper bound for beta  = 542 is 23
-Strategy (542,4,1), slope = -0.013467, pr = 4.060375e-184, l[dim-beta_] = 2.767054, sim-cost = 178.7635061 log(sec), G_cum = -429.7033866 log(sec), G_BKZ = 179.5097698 log(sec)
-d4f upper bound for beta  = 548 is 23
-Strategy (548,4,1), slope = -0.013364, pr = 3.993774e-170, l[dim-beta_] = 2.881840, sim-cost = 180.5362117 log(sec), G_cum = -381.6176095 log(sec), G_BKZ = 181.1124139 log(sec)
-d4f upper bound for beta  = 554 is 23
-Strategy (554,4,1), slope = -0.013261, pr = 5.426351e-156, l[dim-beta_] = 2.996885, sim-cost = 182.3089056 log(sec), G_cum = -332.9495026 log(sec), G_BKZ = 182.8312979 log(sec)
-d4f upper bound for beta  = 560 is 23
-Strategy (560,4,1), slope = -0.013157, pr = 7.473177e-142, l[dim-beta_] = 3.111626, sim-cost = 183.7854527 log(sec), G_cum = -284.4262085 log(sec), G_BKZ = 184.3858594 log(sec)
-d4f upper bound for beta  = 566 is 23
-Strategy (566,4,1), slope = -0.013053, pr = 7.794499e-128, l[dim-beta_] = 3.225592, sim-cost = 185.5581230 log(sec), G_cum = -236.1564212 log(sec), G_BKZ = 186.0879185 log(sec)
-d4f upper bound for beta  = 571 is 23
-Strategy (571,4,1), slope = -0.012953, pr = 5.327281e-115, l[dim-beta_] = 3.329078, sim-cost = 187.0353391 log(sec), G_cum = -191.9702896 log(sec), G_BKZ = 187.6380419 log(sec)
-d4f upper bound for beta  = 577 is 24
-Strategy (577,4,1), slope = -0.012852, pr = 8.565739e-102, l[dim-beta_] = 3.438820, sim-cost = 188.5118525 log(sec), G_cum = -146.5979718 log(sec), G_BKZ = 189.1401162 log(sec)
-d4f upper bound for beta  = 584 is 24
-Strategy (584,4,1), slope = -0.012749, pr = 6.095108e-88, l[dim-beta_] = 3.557244, sim-cost = 190.5799271 log(sec), G_cum = -98.6893761 log(sec), G_BKZ = 191.0326444 log(sec)
-d4f upper bound for beta  = 592 is 24
-Strategy (592,4,1), slope = -0.012641, pr = 2.162407e-73, l[dim-beta_] = 3.685794, sim-cost = 192.6472857 log(sec), G_cum = -48.3331526 log(sec), G_BKZ = 193.0549605 log(sec)
-d4f upper bound for beta  = 597 is 24
-Strategy (597,4,1), slope = -0.012540, pr = 8.686555e-62, l[dim-beta_] = 3.788610, sim-cost = 194.1244582 log(sec), G_cum = -8.1541329 log(sec), G_BKZ = 194.6866248 log(sec)
-d4f upper bound for beta  = 604 is 24
-Strategy (604,4,1), slope = -0.012437, pr = 1.238957e-49, l[dim-beta_] = 3.904677, sim-cost = 196.1924853 log(sec), G_cum = 34.1623582 log(sec), G_BKZ = 196.6277086 log(sec)
-d4f upper bound for beta  = 610 is 25
-Strategy (610,4,1), slope = -0.012336, pr = 4.889665e-39, l[dim-beta_] = 4.011641, sim-cost = 197.6689316 log(sec), G_cum = 70.9748235 log(sec), G_BKZ = 198.2402836 log(sec)
-d4f upper bound for beta  = 618 is 25
-Strategy (618,4,1), slope = -0.012232, pr = 3.721375e-28, l[dim-beta_] = 4.133986, sim-cost = 200.0323540 log(sec), G_cum = 109.2801839 log(sec), G_BKZ = 200.3983347 log(sec)
-d4f upper bound for beta  = 624 is 25
-Strategy (624,4,1), slope = -0.012132, pr = 1.084106e-19, l[dim-beta_] = 4.239936, sim-cost = 201.8049062 log(sec), G_cum = 139.2665238 log(sec), G_BKZ = 202.2666516 log(sec)
-d4f upper bound for beta  = 632 is 25
-Strategy (632,4,1), slope = -0.012029, pr = 9.198838e-12, l[dim-beta_] = 4.360070, sim-cost = 203.8721545 log(sec), G_cum = 167.6203987 log(sec), G_BKZ = 204.2820842 log(sec)
-d4f upper bound for beta  = 639 is 25
-Strategy (639,4,1), slope = -0.011927, pr = 4.564333e-06, l[dim-beta_] = 4.472222, sim-cost = 205.9400963 log(sec), G_cum = 188.5960513 log(sec), G_BKZ = 206.3372153 log(sec)
-d4f upper bound for beta  = 626 is 25
-Strategy (626,1,1), slope = -0.011886, pr = 4.339495e-08, l[dim-beta_] = 4.414321, sim-cost = 204.0996191 log(sec), G_cum = 188.6125808 log(sec), G_BKZ = 206.6146518 log(sec)
-cum_pr = 4.60774e-06
-pump-{1948,706,55}, Tdsvp = 210.3224377 sec, PSC = 210.2076757 sec
-Gcum = 210.322, Bcum = 148.018
+(50,4,1) -0.086613 43.266022
+(51,4,1) -0.086570 44.421446
+(52,4,1) -0.086525 45.166841
+(53,4,1) -0.086479 45.747266
+(54,4,1) -0.086430 46.239467
+(55,4,1) -0.086380 46.677568
+(56,4,1) -0.086328 47.079718
+(57,4,1) -0.086274 47.456690
+(58,4,1) -0.086217 47.815380
+(59,4,1) -0.086159 48.160443
+(60,4,1) -0.086099 48.495149
+(61,4,1) -0.086036 48.821869
+(62,4,1) -0.085971 49.142361
+(63,4,1) -0.085903 49.457952
+(64,4,1) -0.085834 49.769660
+(65,4,1) -0.085762 50.078276
+(66,4,1) -0.085687 50.332299
+(67,4,1) -0.085610 50.593136
+(68,4,1) -0.085531 50.859801
+(69,4,1) -0.085449 51.131411
+(70,4,1) -0.085365 51.407187
+(71,4,1) -0.085277 51.686452
+(72,4,1) -0.085188 51.968627
+(73,4,1) -0.085095 52.253217
+(74,4,1) -0.085000 52.539806
+(75,4,1) -0.084902 52.828044
+(76,4,1) -0.084801 53.117640
+(77,4,1) -0.084698 53.408351
+(78,4,1) -0.084591 53.699977
+(79,4,1) -0.084482 53.992353
+(80,4,1) -0.084369 54.285343
+(81,4,1) -0.084254 54.578835
+(82,4,1) -0.084136 54.822530
+(83,4,1) -0.084014 55.074435
+(84,4,1) -0.083890 55.333450
+(85,4,1) -0.083763 55.598561
+(86,4,1) -0.083632 55.868855
+(87,4,1) -0.083499 56.143524
+(88,4,1) -0.083362 56.421865
+(89,4,1) -0.083222 56.703269
+(90,4,1) -0.083079 56.987220
+(91,4,1) -0.082932 57.273281
+(92,4,1) -0.082783 57.561083
+(93,4,1) -0.082630 57.850319
+(94,4,1) -0.082474 58.140735
+(95,4,1) -0.082314 58.432119
+(96,4,1) -0.082151 58.724296
+(97,4,1) -0.081985 58.967085
+(98,4,1) -0.081816 59.218200
+(99,4,1) -0.081643 59.476533
+(100,4,1) -0.081467 59.741062
+(101,4,1) -0.081287 60.010863
+(102,4,1) -0.081105 60.285117
+(103,4,1) -0.080918 60.563109
+(104,4,1) -0.080729 60.844223
+(105,4,1) -0.080535 61.127933
+(106,4,1) -0.080339 61.413794
+(107,4,1) -0.080139 61.701431
+(108,4,1) -0.079935 61.990531
+(109,4,1) -0.079728 62.280835
+(110,4,1) -0.079518 62.572126
+(111,4,1) -0.079304 62.814303
+(112,4,1) -0.079087 63.064885
+(113,4,1) -0.078867 63.322758
+(114,4,1) -0.078643 63.586893
+(115,4,1) -0.078415 63.856359
+(116,4,1) -0.078184 64.130331
+(117,4,1) -0.077950 64.408087
+(118,4,1) -0.077712 64.689005
+(119,4,1) -0.077471 64.972551
+(120,4,1) -0.077226 65.258275
+(121,4,1) -0.076979 65.545800
+(122,4,1) -0.076727 65.834807
+(123,4,1) -0.076473 66.125034
+(124,4,1) -0.076215 66.416263
+(125,4,1) -0.075953 66.658396
+(126,4,1) -0.075689 66.908939
+(127,4,1) -0.075421 67.166778
+(128,4,1) -0.075149 67.430884
+(129,4,1) -0.074875 67.700326
+(130,4,1) -0.074597 67.974277
+(131,4,1) -0.074316 68.252015
+(132,4,1) -0.074032 68.532917
+(133,4,1) -0.073745 68.816450
+(134,4,1) -0.073455 69.102163
+(135,4,1) -0.073161 69.389678
+(136,4,1) -0.072865 69.678678
+(137,4,1) -0.072565 69.968898
+(138,4,1) -0.072263 70.210334
+(139,4,1) -0.071957 70.460268
+(140,4,1) -0.071648 70.717582
+(141,4,1) -0.071337 70.981238
+(142,4,1) -0.071023 71.250298
+(143,4,1) -0.070706 71.523927
+(144,4,1) -0.070386 71.801395
+(145,4,1) -0.070063 72.082072
+(146,4,1) -0.069738 72.365417
+(147,4,1) -0.069410 72.650976
+(148,4,1) -0.069079 72.938362
+(149,4,1) -0.068746 73.227256
+(150,4,1) -0.068410 73.517388
+(151,4,1) -0.068072 73.808538
+(152,4,1) -0.067731 74.050617
+(153,4,1) -0.067388 74.301112
+(154,4,1) -0.067043 74.558910
+(155,4,1) -0.066695 74.822979
+(156,4,1) -0.066345 75.092389
+(157,4,1) -0.065993 75.366313
+(158,4,1) -0.065639 75.644028
+(159,4,1) -0.065283 75.924910
+(160,4,1) -0.064924 76.208426
+(161,4,1) -0.064564 76.494124
+(162,4,1) -0.064202 76.781626
+(163,4,1) -0.063838 77.070614
+(164,4,1) -0.063473 77.360825
+(165,4,1) -0.063105 77.652038
+(166,4,1) -0.062736 77.944074
+(167,4,1) -0.062366 78.186765
+(168,4,1) -0.061994 78.437792
+(169,4,1) -0.061621 78.696049
+(170,4,1) -0.061246 78.960511
+(171,4,1) -0.060870 79.230253
+(172,4,1) -0.060492 79.504456
+(173,4,1) -0.060114 79.782405
+(174,4,1) -0.059734 80.063481
+(175,4,1) -0.059354 80.347158
+(176,4,1) -0.058972 80.632989
+(177,4,1) -0.058590 80.920601
+(178,4,1) -0.058207 81.209678
+(179,4,1) -0.057823 81.499962
+(180,4,1) -0.057438 81.791235
+(181,4,1) -0.057053 82.033398
+(182,4,1) -0.056667 82.283966
+(183,4,1) -0.056281 82.541826
+(184,4,1) -0.055895 82.805948
+(185,4,1) -0.055508 83.075403
+(186,4,1) -0.055121 83.349363
+(187,4,1) -0.054734 83.627108
+(188,4,1) -0.054347 83.908014
+(189,4,1) -0.053960 84.191549
+(190,4,1) -0.053573 84.477263
+(191,4,1) -0.053186 84.764778
+(192,4,1) -0.052799 85.053775
+(193,4,1) -0.052413 85.343992
+(194,4,1) -0.052027 85.635211
+(195,4,1) -0.051641 85.877336
+(196,4,1) -0.051256 86.127871
+(197,4,1) -0.050871 86.385701
+(198,4,1) -0.050488 86.649798
+(199,4,1) -0.050105 86.919231
+(200,4,1) -0.049722 87.193172
+(201,4,1) -0.049341 87.470901
+(202,4,1) -0.048961 87.751794
+(203,4,1) -0.048581 88.035318
+(204,4,1) -0.048203 88.321022
+(205,4,1) -0.047826 88.608527
+(206,4,1) -0.047450 88.897518
+(207,4,1) -0.047075 89.187728
+(208,4,1) -0.046702 89.478941
+(209,4,1) -0.046330 89.721063
+(210,4,1) -0.045959 89.971593
+(211,4,1) -0.045591 90.229420
+(212,4,1) -0.045223 90.493514
+(213,4,1) -0.044858 90.762943
+(214,4,1) -0.044494 91.036882
+(215,4,1) -0.044132 91.314608
+(216,4,1) -0.043772 91.595498
+(217,4,1) -0.043413 91.879019
+(218,4,1) -0.043057 92.164721
+(219,4,1) -0.042703 92.452224
+(220,4,1) -0.042350 92.741212
+(221,4,1) -0.042000 93.031421
+(222,4,1) -0.041652 93.322631
+(223,4,1) -0.041306 93.614664
+(224,4,1) -0.040963 93.857351
+(225,4,1) -0.040622 94.108374
+(226,4,1) -0.040283 94.366626
+(227,4,1) -0.039946 94.631082
+(228,4,1) -0.039613 94.900819
+(229,4,1) -0.039281 95.175016
+(230,4,1) -0.038952 95.452958
+(231,4,1) -0.038626 95.734027
+(232,4,1) -0.038302 96.017697
+(233,4,1) -0.037981 96.303522
+(234,4,1) -0.037662 96.591126
+(235,4,1) -0.037346 96.880196
+(236,4,1) -0.037033 97.170473
+(237,4,1) -0.036723 97.461739
+(238,4,1) -0.036416 97.753816
+(239,4,1) -0.036111 97.996533
+(240,4,1) -0.035809 98.247583
+(241,4,1) -0.035510 98.505857
+(242,4,1) -0.035214 98.770332
+(243,4,1) -0.034921 99.040084
+(244,4,1) -0.034631 99.314294
+(245,4,1) -0.034344 99.592246
+(246,4,1) -0.034060 99.873324
+(247,4,1) -0.033778 100.157001
+(248,4,1) -0.033500 100.442830
+(249,4,1) -0.033225 100.730438
+(250,4,1) -0.032953 101.019511
+(251,4,1) -0.032684 101.309789
+(252,4,1) -0.032418 101.601057
+(253,4,1) -0.032155 101.843214
+(254,4,1) -0.031895 102.093776
+(255,4,1) -0.031638 102.351628
+(256,4,1) -0.031384 102.615743
+(257,4,1) -0.031133 102.885189
+(258,4,1) -0.030886 103.159141
+(259,4,1) -0.030641 103.436877
+(260,4,1) -0.030400 103.717774
+(261,4,1) -0.030161 104.001301
+(262,4,1) -0.029926 104.287006
+(263,4,1) -0.029694 104.574510
+(264,4,1) -0.029464 104.863498
+(265,4,1) -0.029238 105.153706
+(266,4,1) -0.029015 105.444915
+(267,4,1) -0.028795 105.736945
+(268,4,1) -0.028578 105.979629
+(269,4,1) -0.028364 106.230649
+(270,4,1) -0.028152 106.488897
+(271,4,1) -0.027944 106.753349
+(272,4,1) -0.027739 107.023081
+(273,4,1) -0.027537 107.297274
+(274,4,1) -0.027337 107.575211
+(275,4,1) -0.027141 107.856275
+(276,4,1) -0.026948 108.139939
+(277,4,1) -0.026757 108.425758
+(278,4,1) -0.026569 108.713357
+(279,4,1) -0.026384 109.002422
+(280,4,1) -0.026202 109.292692
+(281,4,1) -0.026022 109.583952
+(282,4,1) -0.025846 109.876023
+(283,4,1) -0.025672 110.168759
+(284,4,1) -0.025501 110.411930
+(285,4,1) -0.025332 110.663373
+(286,4,1) -0.025166 110.921986
+(287,4,1) -0.025003 111.186750
+(288,4,1) -0.024842 111.456745
+(289,4,1) -0.024684 111.731159
+(290,4,1) -0.024529 112.009280
+(291,4,1) -0.024376 112.290498
+(292,4,1) -0.024225 112.574290
+(293,4,1) -0.024077 112.860214
+(294,4,1) -0.023932 113.147898
+(295,4,1) -0.023789 113.437033
+(296,4,1) -0.023648 113.727361
+(297,4,1) -0.023509 114.018668
+(298,4,1) -0.023373 114.310777
+(299,4,1) -0.023239 114.553515
+(300,4,1) -0.023107 114.804582
+(301,4,1) -0.022978 115.062869
+(302,4,1) -0.022851 115.327354
+(303,4,1) -0.022726 115.597114
+(304,4,1) -0.022603 115.871328
+(305,4,1) -0.022482 116.149283
+(306,4,1) -0.022363 116.430361
+(307,4,1) -0.022246 116.714036
+(308,4,1) -0.022131 116.999864
+(309,4,1) -0.022018 117.287468
+(310,4,1) -0.021907 117.576537
+(311,4,1) -0.021798 117.866810
+(312,4,1) -0.021691 118.158072
+(313,4,1) -0.021585 118.450144
+(314,4,1) -0.021482 118.692856
+(315,4,1) -0.021380 118.943899
+(316,4,1) -0.021280 119.202166
+(317,4,1) -0.021182 119.466634
+(318,4,1) -0.021085 119.736377
+(319,4,1) -0.020990 120.010579
+(320,4,1) -0.020896 120.288522
+(321,4,1) -0.020804 120.569590
+(322,4,1) -0.020714 120.853257
+(323,4,1) -0.020625 121.139077
+(324,4,1) -0.020538 121.426675
+(325,4,1) -0.020452 121.715738
+(326,4,1) -0.020368 122.006006
+(327,4,1) -0.020285 122.297263
+(328,4,1) -0.020203 122.589331
+(329,4,1) -0.020123 122.882062
+(330,4,1) -0.020044 123.125229
+(331,4,1) -0.019966 123.376668
+(332,4,1) -0.019889 123.635276
+(333,4,1) -0.019814 123.900034
+(334,4,1) -0.019740 124.170024
+(335,4,1) -0.019667 124.444432
+(336,4,1) -0.019596 124.722548
+(337,4,1) -0.019525 125.003760
+(338,4,1) -0.019456 125.287545
+(339,4,1) -0.019387 125.573463
+(340,4,1) -0.019320 125.861141
+(341,4,1) -0.019254 126.150270
+(342,4,1) -0.019188 126.440591
+(343,4,1) -0.019124 126.731891
+(344,4,1) -0.019061 127.023994
+(345,4,1) -0.018998 127.266727
+(346,4,1) -0.018937 127.517788
+(347,4,1) -0.018876 127.776069
+(348,4,1) -0.018817 128.040548
+(349,4,1) -0.018758 128.310301
+(350,4,1) -0.018700 128.584509
+(351,4,1) -0.018642 128.862457
+(352,4,1) -0.018586 129.143529
+(353,4,1) -0.018530 129.427198
+(354,4,1) -0.018476 129.713018
+(355,4,1) -0.018421 130.000616
+(356,4,1) -0.018368 130.289678
+(357,4,1) -0.018315 130.579945
+(358,4,1) -0.018263 130.871200
+(359,4,1) -0.018212 131.163265
+(360,4,1) -0.018161 131.455994
+(361,4,1) -0.018111 131.699158
+(362,4,1) -0.018062 131.950594
+(363,4,1) -0.018013 132.209199
+(364,4,1) -0.017965 132.473953
+(365,4,1) -0.017917 132.743940
+(366,4,1) -0.017870 133.018344
+(367,4,1) -0.017823 133.296455
+(368,4,1) -0.017777 133.577663
+(369,4,1) -0.017732 133.861444
+(370,4,1) -0.017687 134.147357
+(371,4,1) -0.017642 134.435031
+(372,4,1) -0.017598 134.724156
+(373,4,1) -0.017555 135.014473
+(374,4,1) -0.017512 135.305769
+(375,4,1) -0.017469 135.597867
+(376,4,1) -0.017427 135.890623
+(377,4,1) -0.017385 136.133805
+(378,4,1) -0.017344 136.385256
+(379,4,1) -0.017303 136.643874
+(380,4,1) -0.017263 136.908639
+(381,4,1) -0.017222 137.178634
+(382,4,1) -0.017183 137.453045
+(383,4,1) -0.017143 137.731162
+(384,4,1) -0.017104 138.012374
+(385,4,1) -0.017066 138.296158
+(386,4,1) -0.017027 138.582073
+(387,4,1) -0.016989 138.869748
+(388,4,1) -0.016952 139.158873
+(389,4,1) -0.016914 139.449190
+(390,4,1) -0.016877 139.740486
+(391,4,1) -0.016841 140.032584
+(392,4,1) -0.016804 140.325338
+(393,4,1) -0.016768 140.568519
+(394,4,1) -0.016732 140.819970
+(395,4,1) -0.016697 141.078586
+(396,4,1) -0.016662 141.343349
+(397,4,1) -0.016627 141.613342
+(398,4,1) -0.016592 141.887751
+(399,4,1) -0.016557 142.165866
+(400,4,1) -0.016523 142.447076
+(401,4,1) -0.016489 142.730858
+(402,4,1) -0.016456 143.016771
+(403,4,1) -0.016422 143.304444
+(404,4,1) -0.016389 143.593567
+(405,4,1) -0.016356 143.883881
+(406,4,1) -0.016323 144.175175
+(407,4,1) -0.016291 144.467270
+(408,4,1) -0.016258 144.760022
+(409,4,1) -0.016226 145.003201
+(410,4,1) -0.016194 145.254650
+(411,4,1) -0.016163 145.513263
+(412,4,1) -0.016131 145.778025
+(413,4,1) -0.016100 146.048015
+(414,4,1) -0.016069 146.322422
+(415,4,1) -0.016038 146.600535
+(416,4,1) -0.016007 146.881742
+(417,4,1) -0.015976 147.165522
+(418,4,1) -0.015946 147.451432
+(419,4,1) -0.015916 147.739103
+(420,4,1) -0.015886 148.028223
+(421,4,1) -0.015856 148.318535
+(422,4,1) -0.015826 148.609826
+(423,4,1) -0.015797 148.901919
+(424,4,1) -0.015768 149.194669
+(425,4,1) -0.015738 149.437846
+(426,4,1) -0.015709 149.689292
+(427,4,1) -0.015681 149.947904
+(428,4,1) -0.015652 150.212663
+(429,4,1) -0.015623 150.482651
+(430,4,1) -0.015595 150.757055
+(431,4,1) -0.015567 151.035166
+(432,4,1) -0.015539 151.316370
+(433,4,1) -0.015511 151.600148
+(434,4,1) -0.015483 151.886056
+(435,4,1) -0.015455 152.173724
+(436,4,1) -0.015428 152.462842
+(437,4,1) -0.015400 152.753152
+(438,4,1) -0.015373 153.044440
+(439,4,1) -0.015346 153.336531
+(440,4,1) -0.015319 153.629278
+(441,4,1) -0.015292 153.872453
+(442,4,1) -0.015266 154.123897
+(443,4,1) -0.015239 154.382506
+(444,4,1) -0.015213 154.647263
+(445,4,1) -0.015186 154.917249
+(446,4,1) -0.015160 155.191651
+(447,4,1) -0.015134 155.469759
+(448,4,1) -0.015108 155.750961
+(449,4,1) -0.015082 156.034735
+(450,4,1) -0.015057 156.320641
+(451,4,1) -0.015031 156.608307
+(452,4,1) -0.015006 156.897422
+(453,4,1) -0.014980 157.187730
+(454,4,1) -0.014955 157.479016
+(455,4,1) -0.014930 157.771104
+(456,4,1) -0.014905 158.063848
+(457,4,1) -0.014880 158.357130
+(458,4,1) -0.014855 158.600673
+(459,4,1) -0.014831 158.852438
+(460,4,1) -0.014806 159.111322
+(461,4,1) -0.014782 159.376314
+(462,4,1) -0.014757 159.646499
+(463,4,1) -0.014733 159.921067
+(464,4,1) -0.014709 160.199314
+(465,4,1) -0.014685 160.480631
+(466,4,1) -0.014661 160.764501
+(467,4,1) -0.014637 161.050485
+(468,4,1) -0.014613 161.338215
+(469,4,1) -0.014590 161.627382
+(470,4,1) -0.014566 161.917732
+(471,4,1) -0.014543 162.209053
+(472,4,1) -0.014520 162.501168
+(473,4,1) -0.014496 162.793935
+(474,4,1) -0.014473 163.037123
+(475,4,1) -0.014450 163.288577
+(476,4,1) -0.014427 163.547195
+(477,4,1) -0.014404 163.811958
+(478,4,1) -0.014382 164.081948
+(479,4,1) -0.014359 164.356352
+(480,4,1) -0.014336 164.634462
+(481,4,1) -0.014314 164.915664
+(482,4,1) -0.014292 165.199438
+(483,4,1) -0.014269 165.485342
+(484,4,1) -0.014247 165.773006
+(485,4,1) -0.014225 166.062119
+(486,4,1) -0.014203 166.352423
+(487,4,1) -0.014181 166.643706
+(488,4,1) -0.014159 166.935790
+(489,4,1) -0.014138 167.228531
+(490,4,1) -0.014116 167.521808
+(491,4,1) -0.014094 167.765348
+(492,4,1) -0.014073 168.017108
+(493,4,1) -0.014051 168.275989
+(494,4,1) -0.014030 168.540976
+(495,4,1) -0.014009 168.811155
+(496,4,1) -0.013988 169.085719
+(497,4,1) -0.013966 169.363961
+(498,4,1) -0.013945 169.645273
+(499,4,1) -0.013925 169.929138
+(500,4,1) -0.013904 170.215117
+(501,4,1) -0.013883 170.502841
+(502,4,1) -0.013862 170.792004
+(503,4,1) -0.013842 171.082349
+(504,4,1) -0.013821 171.373664
+(505,4,1) -0.013801 171.665774
+(506,4,1) -0.013780 171.958536
+(507,4,1) -0.013760 172.201720
+(508,4,1) -0.013740 172.453169
+(509,4,1) -0.013720 172.711782
+(510,4,1) -0.013699 172.976540
+(511,4,1) -0.013679 173.246525
+(512,4,1) -0.013660 173.520924
+(513,4,1) -0.013640 173.799028
+(514,4,1) -0.013620 174.080226
+(515,4,1) -0.013600 174.363995
+(516,4,1) -0.013581 174.649893
+(517,4,1) -0.013561 174.937551
+(518,4,1) -0.013541 175.226659
+(519,4,1) -0.013522 175.516958
+(520,4,1) -0.013503 175.808235
+(521,4,1) -0.013483 176.100314
+(522,4,1) -0.013464 176.393050
+(523,4,1) -0.013445 176.686322
+(524,4,1) -0.013426 176.929857
+(525,4,1) -0.013407 177.181613
+(526,4,1) -0.013388 177.440488
+(527,4,1) -0.013369 177.705470
+(528,4,1) -0.013350 177.975645
+(529,4,1) -0.013332 178.250203
+(530,4,1) -0.013313 178.528440
+(531,4,1) -0.013294 178.809747
+(532,4,1) -0.013276 179.093607
+(533,4,1) -0.013257 179.379580
+(534,4,1) -0.013239 179.667299
+(535,4,1) -0.013220 179.956456
+(536,4,1) -0.013202 180.246796
+(537,4,1) -0.013184 180.538106
+(538,4,1) -0.013166 180.830211
+(539,4,1) -0.013148 181.122967
+(540,4,1) -0.013130 181.416256
+(541,4,1) -0.013112 181.659802
+(542,4,1) -0.013094 181.911567
+(543,4,1) -0.013076 182.170450
+(544,4,1) -0.013058 182.435438
+(545,4,1) -0.013040 182.705617
+(546,4,1) -0.013023 182.980179
+(547,4,1) -0.013005 183.258418
+(548,4,1) -0.012987 183.539727
+(549,4,1) -0.012970 183.823587
+(550,4,1) -0.012952 184.109560
+(551,4,1) -0.012935 184.397279
+(552,4,1) -0.012918 184.686435
+(553,4,1) -0.012901 184.976774
+(554,4,1) -0.012883 185.268082
+(555,4,1) -0.012866 185.560185
+(556,4,1) -0.012849 185.852940
+(557,4,1) -0.012832 186.146227
+(558,4,1) -0.012815 186.389771
+(559,4,1) -0.012798 186.641534
+(560,4,1) -0.012781 186.900415
+(561,4,1) -0.012764 187.165400
+(562,4,1) -0.012748 187.435577
+(563,4,1) -0.012731 187.710136
+(564,4,1) -0.012714 187.988373
+(565,4,1) -0.012698 188.269678
+(566,4,1) -0.012681 188.553536
+(567,4,1) -0.012665 188.839507
+(568,4,1) -0.012648 189.127223
+(569,4,1) -0.012632 189.416376
+(570,4,1) -0.012615 189.706712
+(571,4,1) -0.012599 189.998017
+(572,4,1) -0.012583 190.290118
+(573,4,1) -0.012567 190.582870
+(574,4,1) -0.012551 190.876154
+(575,4,1) -0.012535 191.119696
+(576,4,1) -0.012519 191.371456
+(577,4,1) -0.012503 191.630334
+(578,4,1) -0.012487 191.895317
+(579,4,1) -0.012471 192.165491
+(580,4,1) -0.012455 192.440048
+(581,4,1) -0.012439 192.718281
+(582,4,1) -0.012423 192.999584
+(583,4,1) -0.012408 193.283439
+(584,4,1) -0.012392 193.569407
+(585,4,1) -0.012376 193.857120
+(586,4,1) -0.012361 194.146270
+(587,4,1) -0.012345 194.436603
+(588,4,1) -0.012330 194.727906
+(592,4,1) -0.012309 195.147978
+(592,4,1) -0.012291 195.472919
+(592,4,1) -0.012275 195.737958
+(592,4,1) -0.012261 195.961781
+(593,4,1) -0.012246 196.196147
+(593,4,1) -0.012234 196.397708
+(594,4,1) -0.012221 196.611891
+(594,4,1) -0.012210 196.798347
+(595,4,1) -0.012199 196.998491
+(596,4,1) -0.012187 197.211367
+(597,4,1) -0.012174 197.435883
+(597,4,1) -0.012164 197.630119
+(598,4,1) -0.012153 197.837528
+(599,4,1) -0.012141 198.057070
+(599,4,1) -0.012131 198.247573
+(600,4,1) -0.012120 198.451506
+(601,4,1) -0.012109 198.667866
+(601,4,1) -0.012099 198.855971
+(602,4,1) -0.012089 199.057660
+(603,4,1) -0.012078 199.271959
+(603,4,1) -0.012069 199.458505
+(604,4,1) -0.012059 199.658731
+(605,4,1) -0.012048 199.871684
+(609,4,1) -0.012031 200.197859
+(609,4,1) -0.012017 200.463718
+(609,4,1) -0.012004 200.688124
+(609,4,1) -0.011993 200.882278
+(610,4,1) -0.011982 201.089610
+(610,4,1) -0.011972 201.270856
+(611,4,1) -0.011962 201.466090
+(612,4,1) -0.011951 201.674425
+(613,4,1) -0.011940 201.894812
+(613,4,1) -0.011930 202.085951
+(614,4,1) -0.011920 202.290476
+(614,4,1) -0.011911 202.469574
+(615,4,1) -0.011901 202.662773
+(616,4,1) -0.011891 202.869218
+(617,4,1) -0.011880 203.087880
+(617,4,1) -0.011871 203.277720
+(618,4,1) -0.011861 203.481032
+(619,4,1) -0.011851 203.696823
+(620,4,1) -0.011840 203.923976
+(621,4,1) -0.011829 204.161310
+(621,4,1) -0.011819 204.365061
+(622,4,1) -0.011809 204.581254
+(626,4,1) -0.011792 204.911539
+(626,4,1) -0.011778 205.180118
+(626,4,1) -0.011766 205.406458
+(626,4,1) -0.011756 205.602056
+(627,4,1) -0.011745 205.810730
+(628,4,1) -0.011734 206.031424
+(628,4,1) -0.011724 206.222795
+(629,4,1) -0.011714 206.427536
+(630,4,1) -0.011703 206.644637
+(631,4,1) -0.011692 206.872971
+(632,4,1) -0.011681 207.111355
+(632,4,1) -0.011672 207.315879
+(633,4,1) -0.011661 207.532781
+(634,4,1) -0.011651 207.760935
+(634,4,1) -0.011642 207.957887
+(635,4,1) -0.011632 208.167813
+(636,4,1) -0.011622 208.389650
+(637,4,1) -0.011611 208.622238
+(638,4,1) -0.011600 208.864391
+(638,4,1) -0.011591 209.071680
+(639,4,1) -0.011581 209.291112
+(640,4,1) -0.011571 209.521544
+(644,4,1) -0.011554 209.869648
+(644,4,1) -0.011540 210.149873
+(644,4,1) -0.011528 210.384420
+(644,4,1) -0.011518 210.586114
+(645,4,1) -0.011508 210.800418
+(646,4,1) -0.011497 211.026225
+(646,4,1) -0.011487 211.221426
+(647,4,1) -0.011477 211.429730
+(648,4,1) -0.011467 211.650088
+(648,4,1) -0.011459 211.841205
+(650,4,1) -0.011447 212.088434
+(650,4,1) -0.011438 212.299429
+(651,4,1) -0.011428 212.522237
+(652,4,1) -0.011418 212.755695
+(653,4,1) -0.011407 212.998615
+(654,4,1) -0.011396 213.249830
+(654,4,1) -0.011387 213.463721
+(655,4,1) -0.011377 213.689155
+(656,4,1) -0.011367 213.924958
+(657,4,1) -0.011356 214.169943
+(661,4,1) -0.011340 214.535859
+(661,4,1) -0.011326 214.827491
+(661,4,1) -0.011314 215.069968
+(661,4,1) -0.011304 215.277496
+(662,4,1) -0.011293 215.497145
+(663,4,1) -0.011283 215.727770
+(664,4,1) -0.011272 215.968186
+(664,4,1) -0.011263 216.174203
+(665,4,1) -0.011253 216.392471
+(666,4,1) -0.011243 216.621855
+(667,4,1) -0.011233 216.861170
+(668,4,1) -0.011222 217.109237
+(669,4,1) -0.011211 217.364924
+(669,4,1) -0.011202 217.582045
+(670,4,1) -0.011192 217.810395
+(671,4,1) -0.011183 218.048794
+(672,4,1) -0.011172 218.296057
+(673,4,1) -0.011162 218.551048
+(674,4,1) -0.011151 218.812701
+(675,4,1) -0.011140 219.080045
+(679,4,1) -0.011123 219.472567
+(679,4,1) -0.011109 219.780815
+(679,4,1) -0.011097 220.034657
+(680,4,1) -0.011086 220.295323
+(680,4,1) -0.011076 220.516022
+(681,4,1) -0.011065 220.747589
+(682,4,1) -0.011055 220.988838
+(683,4,1) -0.011044 221.238596
+(684,4,1) -0.011034 221.495744
+(684,4,1) -0.011025 221.713917
+(685,4,1) -0.011015 221.943215
+(686,4,1) -0.011005 222.182453
+(687,4,1) -0.010995 222.430453
+(688,4,1) -0.010985 222.686080
+(689,4,1) -0.010975 222.948279
+(690,4,1) -0.010964 223.216087
+(691,4,1) -0.010953 223.488646
+(692,4,1) -0.010942 223.765203
+(696,4,1) -0.010926 224.168427
+(696,4,1) -0.010912 224.483220
+(696,4,1) -0.010901 224.741478
+(697,4,1) -0.010889 225.005927
+(698,4,1) -0.010878 225.275646
+(699,4,1) -0.010866 225.549816
+(700,4,1) -0.010855 225.827722
+(701,4,1) -0.010843 226.108749
+(702,4,1) -0.010832 226.392371
+(702,4,1) -0.010823 226.629291
+(703,4,1) -0.010813 226.875256
+(704,4,1) -0.010803 227.129120
+(705,4,1) -0.010793 227.389805
+(706,4,1) -0.010783 227.656324
+(707,4,1) -0.010773 227.927794
+(708,4,1) -0.010762 228.203437
+(709,4,1) -0.010752 228.482575
+(710,4,1) -0.010741 228.764627
+(714,4,1) -0.010725 229.174162
+(714,4,1) -0.010711 229.492779
+(715,4,1) -0.010698 229.806868
+(715,4,1) -0.010688 230.064653
+(716,4,1) -0.010677 230.328698
+(717,4,1) -0.010666 230.598073
+(718,4,1) -0.010655 230.871952
+(719,4,1) -0.010645 231.149615
+(720,4,1) -0.010634 231.430438
+(721,4,1) -0.010623 231.713890
+(722,4,1) -0.010613 231.999521
+(723,4,1) -0.010602 232.286952
+(724,4,1) -0.010592 232.575866
+(725,4,1) -0.010581 232.866000
+(726,4,1) -0.010570 233.157135
+(728,4,1) -0.010558 233.507980
+(728,4,1) -0.010548 233.789976
+(732,4,1) -0.010532 234.199444
+(732,4,1) -0.010519 234.518020
+(732,4,1) -0.010508 234.778815
+(734,4,1) -0.010496 235.099751
+(735,4,1) -0.010484 235.415673
+(736,4,1) -0.010472 235.727625
+(737,4,1) -0.010461 236.036416
+(738,4,1) -0.010449 236.342678
+(739,4,1) -0.010438 236.646911
+(740,4,1) -0.010428 236.949510
+(741,4,1) -0.010417 237.250792
+(742,4,1) -0.010406 237.551008
+(743,4,1) -0.010396 237.850361
+(745,4,1) -0.010384 238.209096
+(745,4,1) -0.010374 238.496156
+(750,4,1) -0.010356 238.991203
+(750,4,1) -0.010342 239.359090
+(750,4,1) -0.010330 239.651970
+(751,4,1) -0.010319 239.945354
+(752,4,1) -0.010308 240.239148
+(753,4,1) -0.010297 240.533279
+(754,4,1) -0.010287 240.827684
+(756,4,1) -0.010275 241.181678
+(757,4,1) -0.010263 241.523169
+(758,4,1) -0.010251 241.855111
+(759,4,1) -0.010240 242.179662
+(760,4,1) -0.010230 242.498430
+(761,4,1) -0.010219 242.812637
+(763,4,1) -0.010207 243.185411
+(763,4,1) -0.010197 243.481373
+(768,4,1) -0.010179 243.988076
+(768,4,1) -0.010166 244.362332
+(768,4,1) -0.010154 244.659227
+(769,4,1) -0.010144 244.955883
+(770,4,1) -0.010133 245.252346
+(771,4,1) -0.010123 245.548651
+(773,4,1) -0.010111 245.904467
+(774,4,1) -0.010099 246.247337
+(774,4,1) -0.010090 246.524165
+(776,4,1) -0.010079 246.861060
+(777,4,1) -0.010068 247.189453
+(778,4,1) -0.010058 247.511234
+(779,4,1) -0.010048 247.827821
+(781,4,1) -0.010036 248.202815
+(782,4,1) -0.010024 248.560022
+(786,4,1) -0.010008 249.051013
+(786,4,1) -0.009995 249.416665
+(787,4,1) -0.009982 249.766929
+(788,4,1) -0.009970 250.105586
+(789,4,1) -0.009959 250.435342
+(790,4,1) -0.009949 250.758186
+(792,4,1) -0.009936 251.138993
+(793,4,1) -0.009925 251.500478
+(794,4,1) -0.009914 251.847620
+(795,4,1) -0.009903 252.183895
+(797,4,1) -0.009891 252.577014
+(798,4,1) -0.009880 252.947466
+(799,4,1) -0.009869 253.301307
+(804,4,1) -0.009851 253.879965
+(804,4,1) -0.009837 254.291840
+(804,4,1) -0.009826 254.611867
+(805,4,1) -0.009815 254.927069
+(807,4,1) -0.009803 255.300768
+(808,4,1) -0.009791 255.657015
+(810,4,1) -0.009779 256.068045
+(811,4,1) -0.009767 256.451308
+(813,4,1) -0.009754 256.885835
+(814,4,1) -0.009742 257.285501
+(816,4,1) -0.009729 257.733899
+(817,4,1) -0.009717 258.143038
+(818,4,1) -0.009705 258.524961
+(822,4,1) -0.009689 259.040890
+(822,4,1) -0.009676 259.420131
+(823,4,1) -0.009665 259.780465
+(825,4,1) -0.009652 260.195101
+(826,4,1) -0.009640 260.580911
+(827,4,1) -0.009629 260.946054
+(829,4,1) -0.009616 261.364911
+(830,4,1) -0.009605 261.753688
+(832,4,1) -0.009592 262.192908
+(833,4,1) -0.009581 262.595795
+(835,4,1) -0.009568 263.046882
+(836,4,1) -0.009556 263.457837
+(840,4,1) -0.009540 264.001996
+(840,4,1) -0.009527 264.396191
+(841,4,1) -0.009515 264.767418
+(843,4,1) -0.009503 265.191575
+(844,4,1) -0.009491 265.584057
+(846,4,1) -0.009478 266.026412
+(847,4,1) -0.009467 266.431441
+(849,4,1) -0.009454 266.884309
+(850,4,1) -0.009443 267.296465
+(852,4,1) -0.009430 267.755231
+(854,4,1) -0.009417 268.251291
+(858,4,1) -0.009399 268.872160
+(858,4,1) -0.009386 269.304822
+(859,4,1) -0.009373 269.703199
+(861,4,1) -0.009360 270.150514
+(863,4,1) -0.009347 270.637610
+(864,4,1) -0.009335 271.072382
+(866,4,1) -0.009322 271.549513
+(868,4,1) -0.009308 272.059685
+(870,4,1) -0.009294 272.594468
+(871,4,1) -0.009282 273.059313
+(876,4,1) -0.009263 273.759666
+(876,4,1) -0.009249 274.229113
+(877,4,1) -0.009236 274.652334
+(880,4,1) -0.009221 275.208253
+cum_pr = 0.0102538
+pump-{2605,935,68}, Tdsvp = 275.6828159 sec, PSC = 273.9038489 sec
+S(beta,jump,tours):[(50,4,1),(51,4,1),(52,4,1),(53,4,1),(54,4,1),(55,4,1),(56,4,1),(57,4,1),(58,4,1),(59,4,1),(60,4,1),(61,4,1),(62,4,1),(63,4,1),(64,4,1),(65,4,1),(66,4,1),(67,4,1),(68,4,1),(69,4,1),(70,4,1),(71,4,1),(72,4,1),(73,4,1),(74,4,1),(75,4,1),(76,4,1),(77,4,1),(78,4,1),(79,4,1),(80,4,1),(81,4,1),(82,4,1),(83,4,1),(84,4,1),(85,4,1),(86,4,1),(87,4,1),(88,4,1),(89,4,1),(90,4,1),(91,4,1),(92,4,1),(93,4,1),(94,4,1),(95,4,1),(96,4,1),(97,4,1),(98,4,1),(99,4,1),(100,4,1),(101,4,1),(102,4,1),(103,4,1),(104,4,1),(105,4,1),(106,4,1),(107,4,1),(108,4,1),(109,4,1),(110,4,1),(111,4,1),(112,4,1),(113,4,1),(114,4,1),(115,4,1),(116,4,1),(117,4,1),(118,4,1),(119,4,1),(120,4,1),(121,4,1),(122,4,1),(123,4,1),(124,4,1),(125,4,1),(126,4,1),(127,4,1),(128,4,1),(129,4,1),(130,4,1),(131,4,1),(132,4,1),(133,4,1),(134,4,1),(135,4,1),(136,4,1),(137,4,1),(138,4,1),(139,4,1),(140,4,1),(141,4,1),(142,4,1),(143,4,1),(144,4,1),(145,4,1),(146,4,1),(147,4,1),(148,4,1),(149,4,1),(150,4,1),(151,4,1),(152,4,1),(153,4,1),(154,4,1),(155,4,1),(156,4,1),(157,4,1),(158,4,1),(159,4,1),(160,4,1),(161,4,1),(162,4,1),(163,4,1),(164,4,1),(165,4,1),(166,4,1),(167,4,1),(168,4,1),(169,4,1),(170,4,1),(171,4,1),(172,4,1),(173,4,1),(174,4,1),(175,4,1),(176,4,1),(177,4,1),(178,4,1),(179,4,1),(180,4,1),(181,4,1),(182,4,1),(183,4,1),(184,4,1),(185,4,1),(186,4,1),(187,4,1),(188,4,1),(189,4,1),(190,4,1),(191,4,1),(192,4,1),(193,4,1),(194,4,1),(195,4,1),(196,4,1),(197,4,1),(198,4,1),(199,4,1),(200,4,1),(201,4,1),(202,4,1),(203,4,1),(204,4,1),(205,4,1),(206,4,1),(207,4,1),(208,4,1),(209,4,1),(210,4,1),(211,4,1),(212,4,1),(213,4,1),(214,4,1),(215,4,1),(216,4,1),(217,4,1),(218,4,1),(219,4,1),(220,4,1),(221,4,1),(222,4,1),(223,4,1),(224,4,1),(225,4,1),(226,4,1),(227,4,1),(228,4,1),(229,4,1),(230,4,1),(231,4,1),(232,4,1),(233,4,1),(234,4,1),(235,4,1),(236,4,1),(237,4,1),(238,4,1),(239,4,1),(240,4,1),(241,4,1),(242,4,1),(243,4,1),(244,4,1),(245,4,1),(246,4,1),(247,4,1),(248,4,1),(249,4,1),(250,4,1),(251,4,1),(252,4,1),(253,4,1),(254,4,1),(255,4,1),(256,4,1),(257,4,1),(258,4,1),(259,4,1),(260,4,1),(261,4,1),(262,4,1),(263,4,1),(264,4,1),(265,4,1),(266,4,1),(267,4,1),(268,4,1),(269,4,1),(270,4,1),(271,4,1),(272,4,1),(273,4,1),(274,4,1),(275,4,1),(276,4,1),(277,4,1),(278,4,1),(279,4,1),(280,4,1),(281,4,1),(282,4,1),(283,4,1),(284,4,1),(285,4,1),(286,4,1),(287,4,1),(288,4,1),(289,4,1),(290,4,1),(291,4,1),(292,4,1),(293,4,1),(294,4,1),(295,4,1),(296,4,1),(297,4,1),(298,4,1),(299,4,1),(300,4,1),(301,4,1),(302,4,1),(303,4,1),(304,4,1),(305,4,1),(306,4,1),(307,4,1),(308,4,1),(309,4,1),(310,4,1),(311,4,1),(312,4,1),(313,4,1),(314,4,1),(315,4,1),(316,4,1),(317,4,1),(318,4,1),(319,4,1),(320,4,1),(321,4,1),(322,4,1),(323,4,1),(324,4,1),(325,4,1),(326,4,1),(327,4,1),(328,4,1),(329,4,1),(330,4,1),(331,4,1),(332,4,1),(333,4,1),(334,4,1),(335,4,1),(336,4,1),(337,4,1),(338,4,1),(339,4,1),(340,4,1),(341,4,1),(342,4,1),(343,4,1),(344,4,1),(345,4,1),(346,4,1),(347,4,1),(348,4,1),(349,4,1),(350,4,1),(351,4,1),(352,4,1),(353,4,1),(354,4,1),(355,4,1),(356,4,1),(357,4,1),(358,4,1),(359,4,1),(360,4,1),(361,4,1),(362,4,1),(363,4,1),(364,4,1),(365,4,1),(366,4,1),(367,4,1),(368,4,1),(369,4,1),(370,4,1),(371,4,1),(372,4,1),(373,4,1),(374,4,1),(375,4,1),(376,4,1),(377,4,1),(378,4,1),(379,4,1),(380,4,1),(381,4,1),(382,4,1),(383,4,1),(384,4,1),(385,4,1),(386,4,1),(387,4,1),(388,4,1),(389,4,1),(390,4,1),(391,4,1),(392,4,1),(393,4,1),(394,4,1),(395,4,1),(396,4,1),(397,4,1),(398,4,1),(399,4,1),(400,4,1),(401,4,1),(402,4,1),(403,4,1),(404,4,1),(405,4,1),(406,4,1),(407,4,1),(408,4,1),(409,4,1),(410,4,1),(411,4,1),(412,4,1),(413,4,1),(414,4,1),(415,4,1),(416,4,1),(417,4,1),(418,4,1),(419,4,1),(420,4,1),(421,4,1),(422,4,1),(423,4,1),(424,4,1),(425,4,1),(426,4,1),(427,4,1),(428,4,1),(429,4,1),(430,4,1),(431,4,1),(432,4,1),(433,4,1),(434,4,1),(435,4,1),(436,4,1),(437,4,1),(438,4,1),(439,4,1),(440,4,1),(441,4,1),(442,4,1),(443,4,1),(444,4,1),(445,4,1),(446,4,1),(447,4,1),(448,4,1),(449,4,1),(450,4,1),(451,4,1),(452,4,1),(453,4,1),(454,4,1),(455,4,1),(456,4,1),(457,4,1),(458,4,1),(459,4,1),(460,4,1),(461,4,1),(462,4,1),(463,4,1),(464,4,1),(465,4,1),(466,4,1),(467,4,1),(468,4,1),(469,4,1),(470,4,1),(471,4,1),(472,4,1),(473,4,1),(474,4,1),(475,4,1),(476,4,1),(477,4,1),(478,4,1),(479,4,1),(480,4,1),(481,4,1),(482,4,1),(483,4,1),(484,4,1),(485,4,1),(486,4,1),(487,4,1),(488,4,1),(489,4,1),(490,4,1),(491,4,1),(492,4,1),(493,4,1),(494,4,1),(495,4,1),(496,4,1),(497,4,1),(498,4,1),(499,4,1),(500,4,1),(501,4,1),(502,4,1),(503,4,1),(504,4,1),(505,4,1),(506,4,1),(507,4,1),(508,4,1),(509,4,1),(510,4,1),(511,4,1),(512,4,1),(513,4,1),(514,4,1),(515,4,1),(516,4,1),(517,4,1),(518,4,1),(519,4,1),(520,4,1),(521,4,1),(522,4,1),(523,4,1),(524,4,1),(525,4,1),(526,4,1),(527,4,1),(528,4,1),(529,4,1),(530,4,1),(531,4,1),(532,4,1),(533,4,1),(534,4,1),(535,4,1),(536,4,1),(537,4,1),(538,4,1),(539,4,1),(540,4,1),(541,4,1),(542,4,1),(543,4,1),(544,4,1),(545,4,1),(546,4,1),(547,4,1),(548,4,1),(549,4,1),(550,4,1),(551,4,1),(552,4,1),(553,4,1),(554,4,1),(555,4,1),(556,4,1),(557,4,1),(558,4,1),(559,4,1),(560,4,1),(561,4,1),(562,4,1),(563,4,1),(564,4,1),(565,4,1),(566,4,1),(567,4,1),(568,4,1),(569,4,1),(570,4,1),(571,4,1),(572,4,1),(573,4,1),(574,4,1),(575,4,1),(576,4,1),(577,4,1),(578,4,1),(579,4,1),(580,4,1),(581,4,1),(582,4,1),(583,4,1),(584,4,1),(585,4,1),(586,4,1),(587,4,1),(588,4,1),(592,4,1),(592,4,1),(592,4,1),(592,4,1),(593,4,1),(593,4,1),(594,4,1),(594,4,1),(595,4,1),(596,4,1),(597,4,1),(597,4,1),(598,4,1),(599,4,1),(599,4,1),(600,4,1),(601,4,1),(601,4,1),(602,4,1),(603,4,1),(603,4,1),(604,4,1),(605,4,1),(609,4,1),(609,4,1),(609,4,1),(609,4,1),(610,4,1),(610,4,1),(611,4,1),(612,4,1),(613,4,1),(613,4,1),(614,4,1),(614,4,1),(615,4,1),(616,4,1),(617,4,1),(617,4,1),(618,4,1),(619,4,1),(620,4,1),(621,4,1),(621,4,1),(622,4,1),(626,4,1),(626,4,1),(626,4,1),(626,4,1),(627,4,1),(628,4,1),(628,4,1),(629,4,1),(630,4,1),(631,4,1),(632,4,1),(632,4,1),(633,4,1),(634,4,1),(634,4,1),(635,4,1),(636,4,1),(637,4,1),(638,4,1),(638,4,1),(639,4,1),(640,4,1),(644,4,1),(644,4,1),(644,4,1),(644,4,1),(645,4,1),(646,4,1),(646,4,1),(647,4,1),(648,4,1),(648,4,1),(650,4,1),(650,4,1),(651,4,1),(652,4,1),(653,4,1),(654,4,1),(654,4,1),(655,4,1),(656,4,1),(657,4,1),(661,4,1),(661,4,1),(661,4,1),(661,4,1),(662,4,1),(663,4,1),(664,4,1),(664,4,1),(665,4,1),(666,4,1),(667,4,1),(668,4,1),(669,4,1),(669,4,1),(670,4,1),(671,4,1),(672,4,1),(673,4,1),(674,4,1),(675,4,1),(679,4,1),(679,4,1),(679,4,1),(680,4,1),(680,4,1),(681,4,1),(682,4,1),(683,4,1),(684,4,1),(684,4,1),(685,4,1),(686,4,1),(687,4,1),(688,4,1),(689,4,1),(690,4,1),(691,4,1),(692,4,1),(696,4,1),(696,4,1),(696,4,1),(697,4,1),(698,4,1),(699,4,1),(700,4,1),(701,4,1),(702,4,1),(702,4,1),(703,4,1),(704,4,1),(705,4,1),(706,4,1),(707,4,1),(708,4,1),(709,4,1),(710,4,1),(714,4,1),(714,4,1),(715,4,1),(715,4,1),(716,4,1),(717,4,1),(718,4,1),(719,4,1),(720,4,1),(721,4,1),(722,4,1),(723,4,1),(724,4,1),(725,4,1),(726,4,1),(728,4,1),(728,4,1),(732,4,1),(732,4,1),(732,4,1),(734,4,1),(735,4,1),(736,4,1),(737,4,1),(738,4,1),(739,4,1),(740,4,1),(741,4,1),(742,4,1),(743,4,1),(745,4,1),(745,4,1),(750,4,1),(750,4,1),(750,4,1),(751,4,1),(752,4,1),(753,4,1),(754,4,1),(756,4,1),(757,4,1),(758,4,1),(759,4,1),(760,4,1),(761,4,1),(763,4,1),(763,4,1),(768,4,1),(768,4,1),(768,4,1),(769,4,1),(770,4,1),(771,4,1),(773,4,1),(774,4,1),(774,4,1),(776,4,1),(777,4,1),(778,4,1),(779,4,1),(781,4,1),(782,4,1),(786,4,1),(786,4,1),(787,4,1),(788,4,1),(789,4,1),(790,4,1),(792,4,1),(793,4,1),(794,4,1),(795,4,1),(797,4,1),(798,4,1),(799,4,1),(804,4,1),(804,4,1),(804,4,1),(805,4,1),(807,4,1),(808,4,1),(810,4,1),(811,4,1),(813,4,1),(814,4,1),(816,4,1),(817,4,1),(818,4,1),(822,4,1),(822,4,1),(823,4,1),(825,4,1),(826,4,1),(827,4,1),(829,4,1),(830,4,1),(832,4,1),(833,4,1),(835,4,1),(836,4,1),(840,4,1),(840,4,1),(841,4,1),(843,4,1),(844,4,1),(846,4,1),(847,4,1),(849,4,1),(850,4,1),(852,4,1),(854,4,1),(858,4,1),(858,4,1),(859,4,1),(861,4,1),(863,4,1),(864,4,1),(866,4,1),(868,4,1),(870,4,1),(871,4,1),(876,4,1),(876,4,1),(877,4,1),(880,4,1)]
+Gcum = 275.693, Bcum = 193.169
 =============================

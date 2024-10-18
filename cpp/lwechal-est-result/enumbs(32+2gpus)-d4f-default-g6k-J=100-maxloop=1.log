@@ -1,0 +1,10 @@
+"lwechallenge/65-020.txt" exists.
+-------------------------
+Primal attack, TU LWE challenge n=65, m=4225, alpha=0.020, q=4229 
+Chose 279 samples. Predict solution at bkz-169 + svp-202. 
+Initial slope = -0.0530794
+dim = 280, dvol = 544.28489826200
+
+After a sigma normalization,dim = 280Slope = -0.053079
+enumbs min_G_prec = 0.001
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)
