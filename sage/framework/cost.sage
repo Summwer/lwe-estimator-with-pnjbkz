@@ -129,9 +129,7 @@ def theo_bkz_cost(n, beta,ldc_param = "AGPS20"):
     f = dim4free_wrapper(theo_dim4free_fun2,beta)
     beta_prime = floor(beta - f)
     if(ldc_param == "AGPS20"):
-        if(beta_prime < 64 or beta < beta_prime):
-            return (0,0)
-        if(beta_prime > 1024):    
+        if(beta_prime > 1024 or beta_prime < 64 or beta < beta_prime):    
             gates = log2(1.*(n  -  beta)*C) + (list_decoding_classical[ldc_param][0] * beta_prime + list_decoding_classical[ldc_param][1]) # (n-beta) pump
         else:
             gates = log2(1.*(n  -  beta)*C) + agps20_gates(beta_prime)

@@ -271,4 +271,19 @@ int main(){
     params->list_decoding = "matzov22";
 
     test_nist_from_gsa(params, n, m, q, D_e, D_s,strategy);
+
+
+    printf("============= Dilithium-V\n");
+    n = 7*256, m = 8*256, q = 8380417, eta = 2;
+    D_s={},D_e={};
+    // for(int x=-eta; x<=eta; x++){
+    //     D_s[x] = one/(2*eta+1);
+    //     D_e[x] = one/(2*eta+1);
+    // }
+    for(int x=-eta; x<=eta; x++){
+        D_s[x] = 1./(2*eta+1);
+        D_e[x] = 1./(2*eta+1);
+    }
+    test_nist_from_gsa(params, n, m, q, D_e, D_s,strategy);
+    
 }

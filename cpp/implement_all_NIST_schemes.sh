@@ -21,4 +21,4 @@ g++ -O3 -funroll-loops -o nist-round3-est ./NIST-round3-est/NIST-round3-est-gate
 
 # ./nist-round3-est 1 2 10 1 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[MATZOV22]+max_loop=10+jump=1.log"
 
-./nist-round3-est 1 2 1 100 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[MATZOV22]+max_loop=1+jump=100.log"
+./nist-round3-est 1 2 1 100 | tee nist-round3-est-result/"enumbs(cumprob+prob)+list_decoding[MATZOV22].log"
