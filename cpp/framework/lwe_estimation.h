@@ -12,5 +12,5 @@ void primal_lattice_basis(LWEchal* lwechal);
 
 LWEchal* gen_lwechal_instance(int n, double alpha);
 
-
+LWEchal* gen_svpchal_instance(int n);
 

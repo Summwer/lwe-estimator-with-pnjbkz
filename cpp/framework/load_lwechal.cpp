@@ -175,6 +175,93 @@ LWEchal* load_lwe_challenge(int n, double alpha_){
 }
 
 
+
+
+LWEchal* load_svp_challenge(int n){
+    /*
+    Load SVP challenge from file or website.
+
+    :param n: svp dimension
+    */
+   
+    ostringstream os, fname;
+    const char* path = "svpchallenge/";
+    fname << path << n <<".txt";
+
+    if(not isFileExists_ifstream(fname.str())){
+        os << "https://www.latticechallenge.org/svp-challenge/download/challenges/svpchallengedim" << n << "seed0.txt";
+        string dl_get_url = os.str();
+
+        if(NULL==opendir(path))
+            mkdir(path,0775);
+        dl_curl_get_req(dl_get_url, fname.str());
+
+        cout<<"Download \""<<fname.str()<<"\" successfully!"<<endl;
+    }
+    else{
+        cout<<"\""<<fname.str()<<"\" exists."<<endl;
+    }
+
+	
+    ifstream  fin;
+    fin.open(fname.str(),ios::in);
+    
+	
+    LWEchal* lwechal = new LWEchal;
+
+	lwechal->n = n;
+	lwechal->m = n;
+    lwechal->dim = n;
+	
+
+    char ch;
+
+	vector<vector<Z_NR<ZT>>> matrix;
+	fin>>ch;
+	if(ch == '['){
+		int i = 0;
+		matrix.resize(0);
+		// cout<<ch<<endl;
+		while(fin >> ch && ch == '['){
+			matrix.resize(i+1);
+			// cout<<i<<endl;
+			while (fin >> ch && ch != ']')
+			{
+				fin.putback(ch);
+				matrix[i].resize(matrix[i].size() + 1);
+				// cout<<lwechal->A[i].size()<<endl;
+				if (!(fin >> matrix[i].back()))
+				{
+					matrix[i].pop_back();
+					break;
+				}
+				// cout<<lwechal->A[i][0]<<endl;
+			}
+			i++;
+		}
+	}
+	// print_matrix(matrix);
+	
+
+
+	lwechal->A.resize(lwechal->m,lwechal->n);
+	for(int i = 0; i < lwechal->m ; i++){
+		for(int j = 0; j < lwechal->n; j++){
+			lwechal->A[i][j] = matrix[i][j]; 
+		}
+	}
+
+	// lwechal->A.print(os);
+	// cout<<os.str()<<endl;
+	fin.close();
+    return lwechal;
+}
+
+
+
+
+
+
 //min the minimal samples we should select for solving LWE through uSVP solver.
 double find_m_in_gsa(int d, FP_NR<FT> dvol){
     /*

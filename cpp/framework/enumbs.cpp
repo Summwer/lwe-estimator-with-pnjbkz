@@ -229,7 +229,13 @@ int EnumBS::binary_search_for_G2_slope(blocksize_strategy bs){
     
     int len = int(BS.size());
     // double G2_tmp = round(pow(2,get<2>(BS[len-1].dsvp_t))*params->enumbs_G_prec)/params->enumbs_G_prec;
- 
+    
+    // printf("====================\n");
+
+    // print_bs(BS[len-1]);
+    // print_bs(bs);
+    // printf("PSC1 = %.4f, PSC2 = %.4f\n", get<4>(BS[len-1].dsvp_t) , get<4>(bs.dsvp_t));
+    // printf("-----------------------\n");
     //|| (get<2>(BS[len-1].dsvp_t) == get<2>(bs.dsvp_t) && BS[len-1].slope == bs.slope && BS[len-1].cum_pr <= bs.cum_pr)
     if( get<4>(BS[len-1].dsvp_t) > get<4>(bs.dsvp_t) || (get<4>(BS[len-1].dsvp_t) == get<4>(bs.dsvp_t) && BS[len-1].slope < bs.slope)) 
         return len;
@@ -450,7 +456,6 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
     // int pos =  binary_search_for_dsvp_slope(bs);
     // int pos = binary_search_for_G2(get<2>(bs.dsvp_t));
 
-    // cout<<"pos = "<< pos <<endl;
     // if(k == 13)
     //     throw "";
     if(pos == 0){
@@ -493,7 +498,7 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
 
     // while(pos > 0 && pos < int(BS.size()) &&  (get<0>(bs.dsvp_t) < get<0>(BS[pos].dsvp_t) || (bs.slope > BS[pos].slope - params->enumbs_slope_prec && get<0>(bs.dsvp_t) == get<0>(BS[pos].dsvp_t)) ) && bs.cum_GB_BKZ.first < BS[pos].cum_GB_BKZ.first){
 
-        if(false){
+        if(params->debug){
             // if(BS[pos].S[0].beta == 50 && BS[pos].S[0].jump == 1 && BS[pos].S[0].tours == 1 && BS[pos].S.size() ==1 ){
             {
                 
@@ -528,7 +533,7 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
 
 
     //for debug
-    if(false){
+    if(params->debug){
         printf("=======add=====\n");
         printf("before add BS_len = %d\n ", int(BS.size()));
         
@@ -567,7 +572,7 @@ void EnumBS::BS_add(EnumBS::blocksize_strategy bs, int k){
     // while( pos+1<int(BS.size())-1 && ( get<0>(BS[pos+2].dsvp_t) < get<0>(BS[pos+1].dsvp_t) || (BS[pos+2].slope > BS[pos+1].slope - params->enumbs_slope_prec  and get<0>(BS[pos+2].dsvp_t) == get<0>(BS[pos+1].dsvp_t ) )) && BS[pos+2].cum_GB_BKZ.first < BS[pos+1].cum_GB_BKZ.first ){
     
       
-        if(false){
+        if(params->debug){
             // if(BS[pos+1].S[0].beta == 50 && BS[pos+1].S[0].jump == 1 && BS[pos+1].S[0].tours == 1 ){
             {
                 
@@ -925,6 +930,9 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
         //     printf("beta = %d, jump = %d, slope1 = %.7f, slope0 = %.7f\n" ,beta, jump, slope1, slope0);
         //     printf("===============================\n");
         // }
+
+
+        // printf("slope1= %.5f,  slope0 = %.5f\n", slope1, slope0);
     
 
         while((slope1 - slope0) > params->enumbs_slope_prec && loop < params->max_loop){
@@ -948,7 +956,7 @@ void EnumBS::max_tour_for_pnjbkz_beta_in_parallel( int beta_j_t_id_begin, vector
     
             bs = {dsvp_t1, S, l, cum_GB_BKZ, cum_avg_GB_BKZ, avg_GB, cum_pr, slope1, min_GB, GB_nopr, leaf};
 
-
+            // print_bs(bs);
 
             // if(print_flag){
             //     printf("===============================\n");
@@ -1262,12 +1270,10 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
        
 
 
+
+
         len_S = bs.S.size();
 
-
-
-
-        // print_bs(bs);
         // cout<<"Current minG = "<<bs.min_GB.first<<endl;
         // if(params->debug){
         //     printf("==========BS============\n");
@@ -1385,6 +1391,8 @@ void EnumBS::enumbs_est_in_parallel(vector<double> l0){
            
             for(int i = 0; i< len; i++){
                 for(int ii = 0; ii < int(tmpBS[i].size()); ii++){
+                    // printf("i = %d\n", i );
+                    // print_bs(tmpBS[i][ii]);
                     // if(params->enum_add_G2)
                     //     BS_add_G2(tmpBS[i][ii], k);
                     // else

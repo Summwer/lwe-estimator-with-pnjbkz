@@ -5,4 +5,4 @@ void gsa_est(int dim, FP_NR<FT> dvol, Params* params);
 void est(vector<double> l, Params* params);
 //lwe challenges estimation
 void lwechal_est(int n, double alpha, Params* params);
-
+void svpchal_est(int n, Params* params);

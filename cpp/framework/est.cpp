@@ -52,6 +52,29 @@ void lwechal_est(int n, double alpha, Params* params){
 }
 
 
+
+
+void svpchal_est(int n,  Params* params){
+    LWEchal* lwechal = gen_svpchal_instance(n);
+    // int dim = lwechal->dim;
+    // FP_NR<FT> dvol = lwechal->dvol;
+    // gsa_est(dim, dvol, params);
+    double  sigma = lwechal->sigma;
+
+    printf("After a sigma normalization,");
+    vector<double> l = lwechal->log_rr;
+    int dim = int(l.size());
+    for(int i = 0; i < dim; i++){
+        l[i] -= log2(sigma);
+    }
+    printf("dim = %d, ", dim);
+    double slope = get_current_slope(l,0,dim);
+    printf("Slope = %f\n", slope);
+
+    est(l,params);
+    printf("\n\n\n");
+}
+
 // vector<LWEchal*> load_lwechallenge(int n, double alpha){
 //     vector<LWEchal*> lwechals;
 //     for(int i = 0; i < int(lwes.size());i++){

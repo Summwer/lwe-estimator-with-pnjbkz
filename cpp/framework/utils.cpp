@@ -375,7 +375,7 @@ FP_NR<FT> bkzgsa_gso_len( FP_NR<FT> logvol, int i, int d,int beta){
 
 // }
 
-//Input: log2(square gs-lengths)
+//Input: log2(gs-lengths)
 //return: gh**2
 double gaussian_heuristic_log2(vector<FP_NR<FT>> l, int index_start){
     int d = l.size();
@@ -398,6 +398,7 @@ double gaussian_heuristic_log2(vector<FP_NR<FT>> l, int index_start){
 }
 
 //Input: log2(gs-lengths)
+//return: gh**2
 double gaussian_heuristic_log2(vector<double> l, int index_start){
     int d = l.size();
     int n = d - index_start;

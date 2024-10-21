@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "iomanip": "cpp",
+        "ostream": "cpp",
+        "random": "cpp",
+        "tuple": "cpp"
+    }
+}

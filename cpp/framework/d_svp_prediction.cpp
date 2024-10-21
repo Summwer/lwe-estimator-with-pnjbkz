@@ -5,9 +5,11 @@ tuple<int,int,double,double,double> dsvp_predict(vector<double> l,  double cum_p
     /*
     return dsvp, G, B. 
     */
-    // if(progressive_sieve){
-    return progressive_dsvp_predict(l, cum_pr, cost, cost_model, cum_GB_BKZ);
-    // }
+    if(cost->params->chi_square){
+        return progressive_dsvp_predict(l, cum_pr, cost, cost_model, cum_GB_BKZ);
+    }
+    else
+        return average_dsvp_predict(l, cum_pr, cost, cost_model, cum_GB_BKZ);
     // return fixed_dsvp_predict(l, cum_pr, cost, cost_model);//, worst_case
 }
 
@@ -65,7 +67,7 @@ tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, d
     bool flag = false;
     vector<double> Gcums = {} , pcums = {};
     // cout<<"cum_GB_BKZ.first = "<<cum_GB_BKZ.first <<endl;
-    
+
     for(int dsvp = 30; dsvp <= d; dsvp++ ){
         //2**(2 * l1[d-dsvp])==2**(2 * l1d_dsvp)==gh
         gh = gaussian_heuristic_log2(l,d-dsvp);
@@ -85,6 +87,7 @@ tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, d
             
             B_cum = log2(pow(2,B_cum)+pow(2,p_cost.second) * (1 - cum_pr) * (psvp-pre_psvp));
             PSC = log2(pow(2,PSC)+pow(2,p_cost.first) * (psvp-pre_psvp));
+
         }
         if(cost->params->print_Gcums){
             if(cum_pr + (1-cum_pr) * psvp> 1e-4){
@@ -113,5 +116,34 @@ tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, d
     }
     p_cost = cost->pump_cost(d,cost_model);
     return  make_tuple(dsvp_prime, d, G_cum,B_cum, PSC); 
+}
+
+
+
+
+
+
+//using the determing condition GH(L)<= 4/3GH(L_d)
+tuple<int,int,double,double,double> average_dsvp_predict(vector<double> l, double cum_pr, COST* cost, int cost_model, pair<double,double> cum_GB_BKZ ){
+    /*
+    return dsvp, G, B. 
+    */
+    int d = l.size(), f = 0 , dsvp; //, dsvp_prime_;
+    double psvp, pre_psvp = 0.,  gh; //, avg_d_svp  = 0.; pre_psvp2 = 0., psvp2, 
+    double G_cum = -1000., B_cum = -1000., PSC = -1000.;
+    pair<double,double> p_cost ={-1000.,-1000.};
+    for(dsvp = 30; dsvp <= d; dsvp++ ){
+        //2**(2 * l1[d-dsvp])==2**(2 * l1d_dsvp)==gh
+ 
+        if( (double) dsvp/d * gaussian_heuristic_log2(l,0) <= 4/3. * gaussian_heuristic_log2(l,d-dsvp))
+            break;
+    }
+
+    p_cost = cost->pump_cost(dsvp,cost_model);
+    G_cum = log2(pow(2,G_cum)+ (pow(2,p_cost.first) + pow(2,cum_GB_BKZ.first)) );
+    B_cum = max(B_cum,p_cost.second) ;
+    PSC = p_cost.first;
+  
+    return  make_tuple(dsvp, d, G_cum,B_cum, PSC); 
 }
 

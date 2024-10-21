@@ -20,5 +20,7 @@ bool isFileExists_ifstream(string name);
 
 LWEchal* load_lwe_challenge(int n, double alpha_);
 
+LWEchal* load_svp_challenge(int n);
+
 // LWEchal* gen_LWE_instance_with_input_distribution( int n, int q, int m, map<int,rational<int>> D_e,map<int,rational<int>> D_s, bool verbosity);
 LWEchal* gen_LWE_instance_with_input_distribution( int n, int q, int m, map<int,double> D_e,map<int,double> D_s, bool verbosity);
