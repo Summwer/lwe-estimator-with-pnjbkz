@@ -75,6 +75,30 @@ void svpchal_est(int n,  Params* params){
     printf("\n\n\n");
 }
 
+
+
+void ideallatticechal_est(int n,  Params* params){
+    LWEchal* idealchal = gen_ideallatticechal_instance(n);
+    // int dim = lwechal->dim;
+    // FP_NR<FT> dvol = lwechal->dvol;
+    // gsa_est(dim, dvol, params);
+    double  sigma = idealchal->sigma;
+    params->log2_target_norm  =  log2(n) + (double) idealchal->dvol.get_d()*(1./(double) n);
+    printf("target_norm = %.4f.\n", pow(2, params->log2_target_norm));
+    printf("After a sigma normalization,");
+    vector<double> l = idealchal->log_rr;
+    int dim = int(l.size());
+    for(int i = 0; i < dim; i++){
+        l[i] -= log2(sigma);
+    }
+    printf("dim = %d, ", dim);
+    double slope = get_current_slope(l,0,dim);
+    printf("Slope = %f\n", slope);
+
+    est(l,params);
+    printf("\n\n\n");
+}
+
 // vector<LWEchal*> load_lwechallenge(int n, double alpha){
 //     vector<LWEchal*> lwechals;
 //     for(int i = 0; i < int(lwes.size());i++){

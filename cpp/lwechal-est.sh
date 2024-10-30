@@ -18,12 +18,13 @@ mkdir "lwechal-est-result"
 # argv[6]: practical_pump_d4f
 # argv[7]: start beta value.
 # argv[8]: maximal RAM memory.
+# argv[9]: worst-case 1:true; 0: false
 g++ -O3 -funroll-loops -o lwechal-enumbs-est ./lwe-est/lwechal-enumbs-parallel-est.cpp  -L. -pthread -lfplll -lgmp -lmpfr -lest
 
 # ./lwechal-enumbs-est 100 5 2 300 2 3 50 0 | tee lwechal-est-result/"enumbs(32+2gpus)-d4f-default-g6k-J=100-maxloop=5.log" 
 
 
-./lwechal-enumbs-est 100 1 2 300 2 3 50 0 | tee lwechal-est-result/"enumbs(32+2gpus)-d4f-default-g6k-J=100-maxloop=1.log" 
+./lwechal-enumbs-est 100 1 2 300 2 3 50 0 1 | tee lwechal-est-result/"enumbs(32+2gpus)-d4f-default-g6k-J=100-maxloop=1.log" 
 
 
 
@@ -56,7 +57,7 @@ g++ -O3 -funroll-loops -o lwechal-enumbs-est ./lwe-est/lwechal-enumbs-parallel-e
 # argv[9]: start beta value.
 g++ -O3 -funroll-loops -o lwechal-bssa-est ./lwe-est/lwechal-bssa-est.cpp -L. -pthread -lfplll -lgmp -lmpfr -lest
 
-./lwechal-bssa-est 100 5 2 300 1 0 3 1 50 | tee lwechal-est-result/"bssa(32+2gpus)-d4f-default-g6k=J=100-maxloop=5.log"
+./lwechal-bssa-est 100 5 2 300 1 0 3 1 50  | tee lwechal-est-result/"bssa(32+2gpus)-d4f-default-g6k=J=100-maxloop=5.log"
 
 # ./lwechal-bssa-est 8 5 2 300 1 0 3 1 50 | tee lwechal-est-result/"bssa(32+2gpus)-d4f-default-g6k=J=8-maxloop=5.log"
 

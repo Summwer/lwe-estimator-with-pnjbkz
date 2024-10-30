@@ -1,5 +1,14 @@
 
 #include "load_lwechal.h"
+#include <zip.h>
+#include <zipconf.h>
+
+
+#define DBG_SEQ 0
+#define LOGI printf
+#define LOGD printf
+#define LOGE printf
+
 
 //Download files
 size_t dl_req_reply(void *buffer, size_t size, size_t nmemb, void *user_p)
@@ -15,7 +24,7 @@ CURLcode dl_curl_get_req(const std::string &url, std::string filename)
 {
 
 	const char* file_name = filename.c_str();
-	char* pc = new char[1024];//long enough
+	char* pc = new char[2048];//long enough
 	strcpy(pc, file_name);
 
 	FILE *fp = fopen(pc, "wb");
@@ -258,6 +267,140 @@ LWEchal* load_svp_challenge(int n){
 }
 
 
+
+
+const char*  unzip_file_pt(const char* unzip_file_in, const char* path)
+{
+ 
+    
+    int err = 0;
+    char strerr[1024];
+    struct zip *z = NULL;
+
+    z = zip_open(unzip_file_in, ZIP_CREATE, &err);
+    // const char* final_fp_name; 
+    static char fp_name[100] = "";
+    if (z != NULL) {
+        zip_int64_t i, c = zip_get_num_entries(z, ZIP_FL_UNCHANGED);
+        for (i=0; i<c ; i++) {
+            const char * name = zip_get_name(z, i, ZIP_FL_ENC_GUESS);
+            // name = strcat((char*)path,name);
+            if (DBG_SEQ) LOGI("find %s\n", name);
+   
+            
+            strcpy(fp_name, "");
+            strcat(fp_name, path);
+            strcat(fp_name, name);
+            // final_fp_name = fp_name;
+            FILE *fp = fopen(fp_name, "w+b");
+            struct zip_file *f = zip_fopen(z, name, 0);
+            if (f != NULL && fp != NULL) {
+                zip_int64_t j, n = 0;
+                char buf[1024] = "";
+                while ((n = zip_fread(f, buf, sizeof(buf))) > 0) {
+                    for (j=0;j<n;j++) {
+                        putc(buf[j], fp);
+                    }
+                }
+                fclose(fp);
+                zip_fclose(f);
+            }
+            
+        }
+        
+        err = zip_close(z);
+    } else {
+        zip_error_to_str(strerr, 1024, err, errno);
+        LOGE("operated zip fail for %s\n", strerr);
+    }
+    const char* final_fp_name = nullptr;
+    final_fp_name = fp_name;
+    return final_fp_name;
+}
+
+
+
+
+LWEchal* load_ideallattice_challenge(int n){
+    /*
+    Load SVP challenge from file or website.
+
+    :param n: svp dimension
+    */
+   
+    ostringstream os, zipname;
+    const char* path = "ideallatticechallenge/";
+    zipname << path << "ideallatticedim" << n << ".zip";
+    if(not isFileExists_ifstream(zipname.str())){
+        os << "https://latticechallenge.org/ideallattice-challenge/download/challenges/ideallatticedim" << n << ".zip";
+        string dl_get_url = os.str();
+
+        if(NULL==opendir(path))
+            mkdir(path,0775);
+        dl_curl_get_req(dl_get_url, zipname.str());
+        
+        cout<<"Download \""<<zipname.str()<<"\" successfully!"<<endl;
+    }
+    else{
+        cout<<"\""<<zipname.str()<<"\" exists."<<endl;
+    }
+
+    
+    const char* fname = unzip_file_pt(zipname.str().c_str(), path);
+    cout<<"fname = "<<fname<<endl;
+    ifstream  fin;
+    fin.open(fname,ios::in);
+
+    
+	
+    LWEchal* lwechal = new LWEchal;
+
+	lwechal->n = n;
+	lwechal->m = n;
+    lwechal->dim = n;
+	
+
+    char ch;
+
+	vector<vector<Z_NR<ZT>>> matrix;
+	fin>>ch;
+	if(ch == '['){
+		int i = 0;
+		matrix.resize(0);
+		// cout<<ch<<endl;
+		while(fin >> ch && ch == '['){
+			matrix.resize(i+1);
+			// cout<<i<<endl;
+			while (fin >> ch && ch != ']')
+			{
+				fin.putback(ch);
+				matrix[i].resize(matrix[i].size() + 1);
+				// cout<<lwechal->A[i].size()<<endl;
+				if (!(fin >> matrix[i].back()))
+				{
+					matrix[i].pop_back();
+					break;
+				}
+				// cout<<lwechal->A[i][0]<<endl;
+			}
+			i++;
+		}
+	}
+	
+
+
+	lwechal->A.resize(lwechal->m,lwechal->n);
+	for(int i = 0; i < lwechal->m ; i++){
+		for(int j = 0; j < lwechal->n; j++){
+			lwechal->A[i][j] = matrix[i][j]; 
+		}
+	}
+
+	// lwechal->A.print(os);
+	// cout<<os.str()<<endl;
+	fin.close();
+    return lwechal;
+}
 
 
 

@@ -81,7 +81,10 @@ struct Params{
     int theo_pump_d4f = 2; //the dim4free function for last pump in theoretical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
     int practical_pump_d4f = 1; //the dim4free function for last pump in prectical cost mode. 1: theo d4f1; 2: theo d4f2; 3: d4f in default g6k
 
-    int chi_square = 1; //chi_square = true, use the chi_square estimation for pump; else, use averaged inequality.
+    int dsvp_predict_param = 1; //1: chi_square = true, use the chi_square estimation for pump; else, use averaged inequality.
+                          //2: average svp predict
+                          //3: asvp predict
+    double log2_target_norm = -1; //square target norm
 };
 
 
@@ -141,6 +144,7 @@ void simulator_test(int d, FP_NR<FT> logvol); //test simulator
 double gaussian_heuristic(vector<FP_NR<FT>> l, int index_start);
 double gaussian_heuristic_log2(vector<FP_NR<FT>> l, int index_start);
 double gaussian_heuristic_log2(vector<double> l, int index_start);
+double gaussian_heuristic_log2(vector<double> l, int index_start, int index_end);
 
 int dims4free(int beta); //leaky-lwe-estimator
 int wrapper_default_dim4free_fun(int beta);

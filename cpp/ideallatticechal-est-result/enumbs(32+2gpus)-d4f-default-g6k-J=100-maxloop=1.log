@@ -1,0 +1,11 @@
+"ideallatticechallenge/ideallatticedim800.zip" exists.
+fname = ideallatticechallenge/ideallatticedim800index2020seed0.txt
+-------------------------
+TU ideal lattice challenge n=800
+Initial slope = -nan
+dim = 800, dvol = -nan, sigma = -nan
+
+target_norm = -nan.
+After a sigma normalization,dim = 800, Slope = -nan
+enumbs min_G_prec = 0.001
+ Attack Estimation via simulation + probabilistic model (EnumBS in parallel)

@@ -23,7 +23,10 @@ int main(int argc,char **argv){
     // params->enumbs_min_G = false;
     params->beta_start = atoi(argv[7]);
     // params->est_model = atoi(argv[8]);
-    params->worst_case = false;
+    if(atoi(argv[9]) == 1)
+        params->worst_case = true;
+    else   
+        params->worst_case = false;
     params->enumbs_slope_prec = 1e-6;
     params->min_G_prec = 1e-3;
     params->enumbs_G_prec = 1e-3;
@@ -37,6 +40,8 @@ int main(int argc,char **argv){
     if(atoi(argv[8]) == 1)
         params->max_RAM = 30; //1.5T = 43.58, 500G = 38.9
 
+    params->dsvp_predict_param = 1;
+    
     // params->beta_start = 10;
     // params->compute_jub = 2;
     // params->verbose = true;

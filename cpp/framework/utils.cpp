@@ -417,6 +417,24 @@ double gaussian_heuristic_log2(vector<double> l, int index_start){
 }
 
 
+//square gh
+double gaussian_heuristic_log2(vector<double> l, int index_start, int index_end){
+    int n = index_end - index_start;
+
+    double const log_ball_square_vol = (n * log(M_PI) - 2.0 * lgamma(n / 2.0 + 1));
+    double log_lattice_square_vol = 0., gh;
+    for (int i = index_start; i < index_end; ++i)
+    {   
+        log_lattice_square_vol += (2*l[i]*log(2.));
+    }
+    gh = exp((log_lattice_square_vol - log_ball_square_vol) / (1.0 * n));
+
+    return gh;
+
+
+}
+
+
 //Generate input simulated-gs-lengths
 vector<double> gen_simulated_gso(int d, FP_NR<FT> logvol){
     FP_NR<FT> delta, gso_len;

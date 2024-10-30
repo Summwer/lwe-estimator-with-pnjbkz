@@ -256,3 +256,35 @@ LWEchal* gen_svpchal_instance(int n){
    
     return lwechal;
 }
+
+
+
+
+LWEchal* gen_ideallatticechal_instance(int n){
+    LWEchal* lwechal = load_ideallattice_challenge(n);
+    
+    printf("-------------------------\n");
+    printf("TU ideal lattice challenge n=%d\n" , n );
+
+    lll_reduction(lwechal->A, LLL_DEF_DELTA, LLL_DEF_ETA, LM_WRAPPER, FT_DEFAULT, 0, LLL_DEFAULT);
+    
+    ZZ_mat<ZT> U;
+    ZZ_mat<ZT> UT;
+    MatGSO<Z_NR<ZT>, FP_NR<FT>> M(lwechal->A, U, UT, GSO_DEFAULT);
+    // MatGSO<Z_NR<ZT>, FP_NR<FT>> M(lwechal->B, U, UT, GSO_DEFAULT);
+    M.update_gso();
+    lwechal->log_rr.resize(n);
+    for(int i = 0; i < n; i++){
+        FP_NR<FT> tmp;
+        M.get_r(tmp,i,i);
+        lwechal->log_rr[i] = log2(tmp.get_d())/2.;
+    }
+    
+    double slope = get_current_slope(lwechal->log_rr,0,n);
+    lwechal->sigma = sqrt(gaussian_heuristic_log2(lwechal->log_rr,0)/n );  //It's sigma**2.
+    cout<<"Initial slope = "<<slope<<endl;
+    lwechal->dvol = M.get_log_det(0,n)/2.; //- log2(sqrt(gaussian_heuristic_log2(lwechal->log_rr,0) ));// - log(lwechal->sigma)*n;
+
+    printf("dim = %d, dvol = %3.11f, sigma = %3.3f\n\n", lwechal->dim, lwechal->dvol.get_d(), lwechal->sigma);
+    return lwechal;
+}

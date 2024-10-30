@@ -37,7 +37,7 @@ int main(int argc,char **argv){
     if(atoi(argv[8]) == 1)
         params->max_RAM = 30; //1.5T = 43.58, 500G = 38.9
 
-    params->chi_square = 0;
+    params->dsvp_predict_param = 2;
     params->worst_case = 1;
 
     params->debug =  0;
