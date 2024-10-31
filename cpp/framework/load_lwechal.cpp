@@ -249,7 +249,7 @@ LWEchal* load_svp_challenge(int n){
 			i++;
 		}
 	}
-	// print_matrix(matrix);
+	print_matrix(matrix);
 	
 
 
