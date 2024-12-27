@@ -285,5 +285,8 @@ int main(){
         D_e[x] = 1./(2*eta+1);
     }
     test_nist_from_gsa(params, n, m, q, D_e, D_s,strategy);
+
+
+    
     
 }
