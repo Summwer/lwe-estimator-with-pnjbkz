@@ -36,7 +36,7 @@ sv_norm = gcp*gh
 print("reduced norm = %.1f" %sv_norm)
 
 ccost = colattice_pump_cost(dim, blocksizes)
-print("approxiamte factor in colattice-pump with ",blocksizes, end="")
+print("approximate factor in colattice-pump with ",blocksizes, end="")
 print(" is %.3f" %gcp)
 print("colattice-pump time cost: %.3f log2(gates), memory cost: %.3f log2(bits)" %(ccost[0],ccost[1]))
 
@@ -46,6 +46,6 @@ for blocksize in range(dim-1,10,-1):
         break
 blocksize = 50
 gcpbkz = gamma_in_bkz(log_rr, blocksize)
-print("approxiamte factor in bkz-%d with " %blocksize , end="")
+print("approximate factor in bkz-%d with " %blocksize , end="")
 print(" is %.3f" %gcpbkz)
 print("bkz time cost: %.3f log2(gates), memory cost: %.3f log2(bits)" %(bkz_cost[0],bkz_cost[1]))
