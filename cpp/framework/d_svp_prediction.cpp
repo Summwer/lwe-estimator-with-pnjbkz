@@ -66,6 +66,7 @@ tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, d
     double G_cum = -1000., B_cum = -1000., PSC = -1000.;
     // bool flag = false;
     
+
     if(cum_pr >= cost->params->succ_prob){
         return make_tuple(0.,0,-1000.,-1000.,-1000.);
     }
@@ -87,7 +88,9 @@ tuple<int,int,double,double,double> progressive_dsvp_predict(vector<double> l, d
         // }
         if(pre_psvp >= psvp)
             continue;
+        
 
+        
         if(not flag){
             f = get_f_for_pump(cost->params,dsvp);
             dsvp_prime = floor(dsvp - f);
