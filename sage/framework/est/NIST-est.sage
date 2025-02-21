@@ -136,7 +136,7 @@ def compute_beta(d, logvol):
     return bbeta - beta_low
 
 
-def initialize_from_LWE_instance(n, q, m, D_e, D_s, verbosity = True):
+def initialize_from_LWE_instance(n, q, m, D_e, D_s, verbosity = True, m_range = -1):
     """
     constructor that builds a DBDD instance from a LWE instance
     :n: (integer) size of the secret s
@@ -144,6 +144,7 @@ def initialize_from_LWE_instance(n, q, m, D_e, D_s, verbosity = True):
     :m: (integer) size of the error e
     :D_e: distribution of the error e (dictionnary form)
     :D_s: distribution of the secret s (dictionnary form)
+    :m_range: range step of m, which should be an negative integer
     """
     if verbosity:
         logging("     Build LWE  instance  ", style="HEADER")
@@ -153,7 +154,7 @@ def initialize_from_LWE_instance(n, q, m, D_e, D_s, verbosity = True):
     mu_s, s_s = average_variance(D_s)
     #Find the best m.
     min_beta = -1
-    for test_m in range(m,0,-1):
+    for test_m in range(m,0,m_range):
         dvol = test_m * log(q) - (test_m*log(abs(s_e))+n*log(abs(s_s))) / 2.
         d = test_m+n+1
         est_beta = compute_beta(d, dvol)
@@ -162,7 +163,7 @@ def initialize_from_LWE_instance(n, q, m, D_e, D_s, verbosity = True):
         if(min_beta == - 1 or min_beta > est_beta ):
             min_beta = est_beta
             best_m = test_m
-        
+            
     m = best_m
     dvol = m * log(q) - (m*log(abs(s_e))+n*log(abs(s_s))) / 2.
     dim = m + n + 1
@@ -203,7 +204,6 @@ def initialize_from_LWR_instance(n, q, p, m, D_s, verbosity = True):
         if(min_beta == - 1 or min_beta > est_beta ):
             min_beta = est_beta
             best_m = test_m
-        
     m = best_m
     dvol = m * log(q) - (m*log(abs(s_e))+n*log(abs(s_s))) / 2.
     dim = m + n + 1
