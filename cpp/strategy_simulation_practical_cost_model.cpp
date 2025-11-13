@@ -156,7 +156,7 @@ int main(){
     Params* params = new Params;
     params->cost_model = 2;
     params->practical_pnjbkz_d4f = 3;
-    params->practical_pump_d4f = 3;
+    params->practical_pump_d4f = 3; //Here we should use accs_d4f, but this version doesn't have such implementation.
     params->worst_case = false;
     params->verbose = true;
     vector<tuple<int,int,int>> strategy;
@@ -165,7 +165,7 @@ int main(){
     // n = 75;
     // alpha = 0.010;
 
-    // strategy = {{76,8,1}, {89,9,1},{92,9,1},{115,10,1},{117,10,1},{117,10,1},{117,4,1},{118,4,1},{128,4,1},{132,4,1},{141,4,1},{144,4,1},{150,4,1},{155,4,1}, {157,4,1}, {159,4,1},{160,4,1}, {165,1,1}};
+    // strategy = {{76,8,1}, {89,9,1},{92,9,1},{115,10,1},{117,10,1},{117,10,1},{117,4,1},{118,4,1},{128,4,1},{132,4,1},{141,4,1},{144,4,1},{150,4,1},{155,4,1}, {157,4,1}, {159,4,1},{160,4,1},{163,2,1}, {165,2,1}, {168,2,1}, {171,1,1}};
    
     // test_lwechal_from_original_instance(params, n, alpha, strategy);
 
@@ -179,7 +179,7 @@ int main(){
     n = 65;
     alpha = 0.015;
 
-    strategy =  { {89,9,1},{114,10,2},{117,10,1},{117,4,2},{128,4,1},{132,4,1},{141,4,1},{146,4,1}, {150, 4, 1} , {155,4,4}, {159,4,1}, {161,4,1},  {165,4,1}, {168,2,1}, {170,2,1}};
+    strategy =  { {89,9,1},{114,10,2},{117,10,1},{117,4,2},{128,4,1},{132,4,1},{141,4,1},{146,4,1}, {150, 4, 1} , {155,4,4}, {159,4,1}, {161,4,1}, {163,2,1}, {165,2,1}, {168,1,1}, {170,1,1}, {172,1,1}};
    
     test_lwechal_from_original_instance(params, n, alpha, strategy);
 }

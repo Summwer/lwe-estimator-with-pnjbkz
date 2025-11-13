@@ -152,6 +152,7 @@ def initialize_from_LWE_instance(n, q, m, D_e, D_s, verbosity = True, m_range = 
     # define the mean and sigma of the instance
     mu_e, s_e = average_variance(D_e)
     mu_s, s_s = average_variance(D_s)
+    
     #Find the best m.
     min_beta = -1
     for test_m in range(m,0,m_range):
@@ -167,7 +168,10 @@ def initialize_from_LWE_instance(n, q, m, D_e, D_s, verbosity = True, m_range = 
     m = best_m
     dvol = m * log(q) - (m*log(abs(s_e))+n*log(abs(s_s))) / 2.
     dim = m + n + 1
-   
+
+    sigma = exp((m*log(abs(s_e))+n*log(abs(s_s))) / 2./(m+n))
+    print("sigma = ", sigma)
+    
     print("dim = %d, m = %d, dvol = %3.11f, β = %3.4f" %(dim, m, dvol, min_beta))
 
 
