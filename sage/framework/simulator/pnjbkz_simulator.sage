@@ -65,9 +65,9 @@ def theo_dim4free_fun2(blocksize):
 def get_beta_from_sieve_dim(sieve_dim,d,dim4free_fun):
     for beta in range(sieve_dim,d):
         f = dim4free_wrapper(dim4free_fun,beta)
-        # print(beta,f,beta-f,sieve_dim)
-        if beta - f >= sieve_dim:
-            return beta
+        assert (f>0)
+        if beta - f >= sieve_dim:         
+            return beta, beta - f
 
     
 
@@ -101,11 +101,12 @@ def simulate_pnjBKZ(l0, beta, jump, loop):
     #    return simBKZ(l, beta, tours=loop) #bkz with enumeration oracle
 
     #bkz with sieve oracle
+
+    
     if beta <= 45:
         return simulate_pnjBKZ_below_45(l, beta, loop) 
     else:
         return simulate_pnjBKZ_above_45(l, beta, jump, loop)
-        
         
 
 def simulate_pnjBKZ_above_45(l,beta,jump=1,N=1,cd=cd):

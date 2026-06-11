@@ -1,4 +1,182 @@
-def d_svp_prediction(l, cumulated_proba,cost_model,ldc_param,worst_case,GBKZ = 0.,Gcums = [], cumulated_probas= []):
+def log2_add(a, b):
+    """ compute log2(2^a + 2^b)  """
+    if a == -float('inf') or a < -1000: return b
+    if b == -float('inf') or b < -1000: return a
+    # based on the large value
+    if a > b:
+        return a + log2(1 + 2**(b - a))
+    else:
+        return b + log2(1 + 2**(a - b))
+
+def d_svp_prediction_old(l, cumulated_proba,cost_model,ldc_param,worst_case,GBKZ = -1000.,Gcums = [], cumulated_probas= [], success_rate=0.999):
+
+    """
+
+    Dimension of sieve/progressive sieve chosen to find target vector.
+
+    Computes the probabilistic cumulated cost value for given gs-lengths.
+
+    :l: log(||b_i^*||), i = 0,...,d-1
+
+    :cumulated_proba: current scuccess cumulated probability of gs-lengths in reduction 
+
+    :cost_model: 1: gate model
+
+                 2: sec model with threads=32, gpus = 2 
+
+    :progressieve_sieve: True: progressieve sieve
+
+                         False: normal sieve
+
+
+
+    return value:
+
+        dsvp/avgdsvp: average dimension value to sieve
+
+        dsvp_r: the largest dimension value to sieve
+
+        G_sieve: the cumulated time cost for sieve
+
+        B_dsvp: the maximal memory cost for sieve
+
+
+
+    """
+
+    
+
+    d = len(l)
+
+    l_ = [2*_*log(2.) for _ in l]
+
+    remaining_proba = 1. - cumulated_proba
+
+    if(cumulated_proba >= success_rate):
+
+        return (-1000.,-1000.,0,0,Gcums,cumulated_probas)
+
+           
+
+    #predict dimension of last sieve: progressive sieve
+
+    p = deepcopy(cumulated_proba)
+
+    rp = 1. - p
+
+    avgdsvp = 0.
+
+    G_cum, B_cum = -1000.,-1000.
+
+    pre_psvp = 0.
+
+
+
+    for dsvp in range(30,d+1):
+
+        #2**(2 * l1[d-dsvp])==2**(2 * l1d_dsvp)==gh
+
+        gh = gaussian_heuristic(l_[d-dsvp:])
+
+        psvp = 1. * chisquared_table[dsvp].cum_distribution_function(gh)
+
+        
+
+        #dsvp_prime = floor(dsvp - dim4free_wrapper(theo_dim4free_fun2,dsvp))
+
+        if(cost_model == 2):
+
+            dsvp_prime = floor(dsvp - dim4free_wrapper(default_dim4free_fun,dsvp))
+
+        else:
+
+            dsvp_prime = floor(dsvp - theo_dim4free_fun2(dsvp))
+
+        
+
+        #if(cost_model == 1):
+
+        #    Gsieve, Bsieve = sieve_cost(dsvp_prime,cost_model = cost_model, ldc_param=ldc_param)
+
+        #    #print(cost_model, Gpump,2**Gpump,Gsieve,2**Gsieve,dsvp,dsvp_prime)
+
+        #    Gpump = log2(2**Gpump + 2** Gsieve)
+
+        #else:
+
+        Gpump, Bsieve = pump_cost(dsvp_prime,cost_model = cost_model,ldc_param=ldc_param)
+
+
+
+
+
+        if(pre_psvp >= psvp ):
+
+            continue
+
+        
+
+        
+
+        
+
+        G_cum = log2(pow(2,G_cum)+ (pow(2,Gpump)+pow(2,GBKZ)) * rp * (psvp-pre_psvp))
+
+        B_cum = log2(pow(2,B_cum)+pow(2,Bsieve) * rp * (psvp-pre_psvp))
+
+       
+
+
+
+
+
+        if(p + rp * psvp > 1e-3):
+
+        
+
+            Gcums.append(G_cum)
+
+
+
+            cumulated_probas.append(p + rp * psvp)
+
+            #cumulated_probas.append(psvp)
+
+
+
+            #if(abs(Gcums[0] -131.4856784733793)<0.01):
+
+            #    print("GBKZ = ", GBKZ, end=",")
+
+            #    print("psvp = ", psvp, end=",")
+
+            #    print("p + rp * psvp = ", p + rp * psvp)
+
+            #    print("dsvp = ", dsvp)
+
+
+
+        if(p + rp * psvp >= success_rate - 1e-3 ):
+
+            
+
+            break
+
+
+
+        pre_psvp = psvp
+
+        
+
+    return  G_cum,B_cum,dsvp, dsvp_prime, Gcums,cumulated_probas
+
+
+
+
+
+
+
+def d_svp_prediction(l, cumulated_proba,cost_model,ldc_param,worst_case,GBKZ = -1000.,Gcums = [], cumulated_probas= [], success_rate=0.999):
     """
     Dimension of sieve/progressive sieve chosen to find target vector.
     Computes the probabilistic cumulated cost value for given gs-lengths.
@@ -20,7 +198,7 @@ def d_svp_prediction(l, cumulated_proba,cost_model,ldc_param,worst_case,GBKZ = 0
     d = len(l)
     l_ = [2*_*log(2.) for _ in l]
     remaining_proba = 1. - cumulated_proba
-    if(cumulated_proba >= 0.999):
+    if(cumulated_proba >= success_rate):
         return (-1000.,-1000.,0,0,Gcums,cumulated_probas)
            
     #predict dimension of last sieve: progressive sieve
@@ -49,17 +227,18 @@ def d_svp_prediction(l, cumulated_proba,cost_model,ldc_param,worst_case,GBKZ = 0
         Gpump, Bsieve = pump_cost(dsvp_prime,cost_model = cost_model,ldc_param=ldc_param)
 
 
-        if(pre_psvp >= psvp):
+        prob_diff = psvp - pre_psvp
+        if prob_diff <= 1e-3: 
             continue
-        
-        
-        
-        G_cum = log2(pow(2,G_cum)+ (pow(2,Gpump)+pow(2,GBKZ)) * rp * (psvp-pre_psvp))
-        B_cum = log2(pow(2,B_cum)+pow(2,Bsieve) * rp * (psvp-pre_psvp))
+        log_prob_weight = log2(rp) + log2(prob_diff)
+        log_step_total_cost = log2_add(Gpump, GBKZ) + log_prob_weight
+        G_cum = log2_add(G_cum, log_step_total_cost)
+        log_mem_step_cost = Bsieve + log_prob_weight
+        B_cum = log2_add(B_cum, log_mem_step_cost)
        
 
 
-        if(p + rp * psvp > 1e-4 ):
+        if(p + rp * psvp > 1e-3):
         
             Gcums.append(G_cum)
 
@@ -72,7 +251,14 @@ def d_svp_prediction(l, cumulated_proba,cost_model,ldc_param,worst_case,GBKZ = 0
             #    print("p + rp * psvp = ", p + rp * psvp)
             #    print("dsvp = ", dsvp)
 
-        if(p + rp * psvp >= 0.999):
+        if(p + rp * psvp >= success_rate ):
+            prob_diff = 1 - psvp
+            log_prob_weight = log2(rp) + log2(prob_diff)
+            log_step_total_cost = log2_add(Gpump, GBKZ) + log_prob_weight
+            log_mem_step_cost = Bsieve + log_prob_weight
+            G_cum = log2_add(G_cum, log_step_total_cost)
+            B_cum = log2_add(B_cum, log_mem_step_cost)
+           
             break
 
         pre_psvp = psvp

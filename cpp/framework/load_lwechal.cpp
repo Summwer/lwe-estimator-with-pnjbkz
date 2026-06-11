@@ -457,10 +457,8 @@ LWEchal* gen_LWE_instance_with_input_distribution( int n, int q, int m, map<int,
     :D_s: distribution of the secret s (dictionnary form)
     */
     
-    if(verbosity){
-       printf_red("     LWE instance generation    ");
-       cout<<"n="<<n<<"\t"<<"m="<<m<<"\t"<<"q="<<q<<endl;
-    }
+    printf_red("     LWE instance generation    ");
+    cout<<"n="<<n<<"\t"<<"m="<<m<<"\t"<<"q="<<q<<endl;
 
 	LWEchal* lwechal = new LWEchal;
 
@@ -478,9 +476,8 @@ LWEchal* gen_LWE_instance_with_input_distribution( int n, int q, int m, map<int,
            s_e = mu_s_e.second, //variance 
 		   //mu_s = mu_s_s.first, 
            s_s = mu_s_s.second;
-    // cout<<"s_e:"<<s_e<<endl;
 
-    lwechal->sigma = sqrt(s_e) ; //Standard Deviation
+    lwechal->sigma = exp((m*log(abs(s_e))+n*log(abs(s_s))) / 2./(m+n)) ; //Standard Deviation
 	lwechal->alpha = lwechal->sigma / (double) q;
     //        
     // cout << "double=" << sigma << endl;
@@ -536,7 +533,7 @@ LWEchal* gen_LWE_instance_with_input_distribution( int n, int q, int m, map<int,
 	lwechal->q = q;
 	lwechal->dim = m+n+1;
     lwechal->dvol = m * log(q) - (m*log(abs(s_e))+n*log(abs(s_s))) / 2.;
-    printf("dim = %d, m = %d, dvol = %3.11f, β = %3.4f\n\n", lwechal->dim, lwechal->m, lwechal->dvol.get_d(), min_beta);
+    printf("dim = %d, m = %d, dvol = %3.11f, sigma= %3.4f, β = %3.4f\n\n", lwechal->dim, lwechal->m, lwechal->dvol.get_d(), lwechal->sigma, min_beta);
 
 
 
@@ -571,11 +568,77 @@ LWEchal* gen_LWE_instance_with_input_distribution( int n, int q, int m, map<int,
 	// draw matrix B and define the lattice: B = [[qI,0],[-A^T,I]], A is lattice samples. Each col is one group of sample.
 	// ZZ_mat<ZT> B;
     build_LWE_lattice(lwechal->B,lwechal->A,q);
-    // // B.print_comma(cout);
     vector<Z_NR<ZT>> tmp = lwechal->c;
     tmp.resize(m+n);
     kannan_embedding(lwechal->B, tmp);
    
+
+    return lwechal;
+}
+
+
+
+
+
+//ZZ_mat<ZT> &A, ZZ_mat<ZT> &B, ZZ_mat<FT> &S,vector<Z_NR<ZT>> &b, vector<Z_NR<ZT>> &u, vector<double> &mu,
+// LWEchal* gen_LWE_instance_with_input_distribution( int n, int q, int m, map<int,rational<int>> D_e,map<int,rational<int>> D_s, bool verbosity){
+LWEchal* gen_LWE_instance_parameter( int n, double log2_q, int m, map<int,double> D_e,map<int,double> D_s, bool verbosity){
+
+    /*
+    Only compute dvol, no lwe instance generation.
+    :n: (integer) size of the secret s
+    :q: (long integer) ln(modulus)
+    :m: (integer) size of the error e
+    :D_e: distribution of the error e (dictionnary form)
+    :D_s: distribution of the secret s (dictionnary form)
+    */
+    
+    printf_red("     Generate LWE instance parameter    ");
+    cout<<"n = "<<n<<"\t"<<"m = "<<m<<"\t"<<"log2(q) = "<< log2_q<<endl;
+    double log_q = (double) log2_q / (double) log2(M_E); 
+
+	LWEchal* lwechal = new LWEchal;
+
+    //define the mean and sigma of the instance
+    // pair<rational<int>,rational<int>>
+    pair<double,double> mu_s_e = average_variance(D_e), 
+	                    mu_s_s = average_variance(D_s);
+                
+    // //rational<int> mu_e(mu_s_e.first), s_e(mu_s_e.second), mu_s(mu_s_s.first), s_s(mu_s_s.second);
+    // double mu_e = rational_cast<double>(mu_s_e.first),
+	// 	   s_e = rational_cast<double>(mu_s_e.second), //variance 
+	// 	   mu_s = rational_cast<double>(mu_s_s.first),
+    //        s_s = rational_cast<double>(mu_s_s.second);
+    double //mu_e = mu_s_e.first, //average
+           s_e = mu_s_e.second, //variance 
+		   //mu_s = mu_s_s.first, 
+           s_s = mu_s_s.second;
+
+    lwechal->sigma = exp((m*log(abs(s_e))+n*log(abs(s_s))) / 2./(m+n)) ; //Standard Deviation
+	
+    //Find the best m.
+    double min_beta = -1;
+    for(int test_m = m; test_m > 0; test_m--){
+        double dvol = test_m * log_q - (test_m*log(abs(s_e))+n*log(abs(s_s))) / 2.; //  - log(lwechal->sigma)*lwechal->dim;
+        // cout<<"s_e = "<<s_e<<", "<<"s_s = "<<s_s<<endl;
+        // cout<<"vol: "<<test_m * log(q)<<","<<(test_m*log(abs(s_e))+n*log(abs(s_s))) / 2.<<endl;
+        int d = test_m+n+1;
+        double est_beta = find_m_in_gsa(d, dvol);
+        if(dvol <= 0 or est_beta<=0)
+            break;
+        // else
+        //     cout<<"dim = "<<d<<", est_beta = "<<est_beta<<endl;
+        if(min_beta == - 1 or min_beta > est_beta ){
+            min_beta = est_beta;
+            lwechal->m = test_m;
+        }
+    }
+    m = lwechal->m;
+    lwechal->n = n;
+	lwechal->q = exp(log_q);
+	lwechal->dim = m+n+1;
+    lwechal->dvol = m * log_q- (m*log(abs(s_e))+n*log(abs(s_s))) / 2.;
+    printf("dim = %d, m = %d, dvol = %3.11f, sigma= %3.4f, β = %3.4f\n\n", lwechal->dim, lwechal->m, lwechal->dvol.get_d(), lwechal->sigma, min_beta);
 
     return lwechal;
 }

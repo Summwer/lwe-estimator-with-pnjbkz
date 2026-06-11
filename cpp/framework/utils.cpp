@@ -685,3 +685,37 @@ std::map<int,double>  build_centered_binomial_law(int k){
         D[i] = centered_binomial_pdf(k, i);
     return D;
 }
+
+
+
+
+std::map<int, double> build_Gaussian_law(double sigma, int t) {
+    std::map<int, double> D;
+    
+    // Create Gaussian distribution for i from 0 to t (inclusive)
+    for (int i = 0; i <= t; ++i) {
+        double value = std::exp(-std::pow(i, 2) / (2 * std::pow(sigma, 2)));
+        D[i] = value;
+        D[-i] = value;  // Symmetric property
+    }
+    
+    // Calculate normalization factor - sum all values in the map
+    double normalization = 0.0;
+    for (const auto& pair : D) {
+        normalization += pair.second;
+    }
+    
+    // Normalize the distribution
+    for (auto& pair : D) {
+        pair.second /= normalization;
+    }
+    
+    // Verify that sum from -t to t equals 1 (within tolerance)
+    double sum_prob = 0.0;
+    for (int i = -t; i <= t; ++i) {
+        sum_prob += D[i];
+    }
+    assert(std::abs(sum_prob - 1.0) <= 1e-10);
+    
+    return D;
+}

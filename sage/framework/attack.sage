@@ -4,7 +4,7 @@ load("../framework/est/default_g6k_est.sage")
 load("../framework/est/progressive_bkz_est.sage")
 load("../framework/est/two_step_mode_est.sage")
 
-def svp_estimate_attack(silent=False, method=1, worst_case = False, parallel_ = False, l = None, dvol = None, dim_ = None, J=1, gap=1, J_gap = 1, cost_model = 1, gen_GSA_gso = True,print_l = False, b = None, sigma = 0., ldc_param = "AGPS20", cal_ee = "chi", goal_min_cost = "gate_min", cumG = False):
+def svp_estimate_attack(silent=False, method=1, worst_case = False, parallel_ = False, l = None, dvol = None, dim_ = None, J=1, gap=1, J_gap = 1, cost_model = 1, gen_GSA_gso = True,print_l = False, b = None, sigma = 1., ldc_param = "AGPS20", cal_ee = "chi", goal_min_cost = "gate_min", cumG = False, success_rate=0.999):
     """ Assesses the complexity of the lattice attack on the instance.
 
     method = 1: progressive bkz estimation.
@@ -20,7 +20,7 @@ def svp_estimate_attack(silent=False, method=1, worst_case = False, parallel_ = 
     :cumG : False: [PV21] estimate
             True: cumulated gate estimate adaptive to [PV21]
     """
-
+    print("success_rate = ", success_rate + 1e-3)
     
 
     if l == None or gen_GSA_gso:
@@ -61,8 +61,9 @@ def svp_estimate_attack(silent=False, method=1, worst_case = False, parallel_ = 
             print("cumulated probalistic estimator proposed in the article `A refined hardness estimation of LWE`,", end="")
         if(cal_ee == "avg_sigma"):
             print("estimator form in [ADPS16],", end="")
-        print("goal_min_cost = ", goal_min_cost)
-        betamin, G1, dsvp, dsvp_prime, G, B = two_step_mode_estimation(l, dvol, dim_, verbose=not silent, cost_model=cost_model,ldc_param = ldc_param, cal_ee = cal_ee,  worst_case = worst_case, goal_min_cost = goal_min_cost)
+        print("goal_min_cost = ", goal_min_cost, end=", ")
+        print("success_rate = ", success_rate + 1e-3)
+        betamin, G1, dsvp, dsvp_prime, G, B = two_step_mode_estimation(l, dvol, dim_, verbose=not silent, cost_model=cost_model,ldc_param = ldc_param, cal_ee = cal_ee,  worst_case = worst_case, goal_min_cost = goal_min_cost, success_rate=success_rate)
         print("Cost: %.3f s" %(time.time()-T0))
 
  
@@ -76,11 +77,8 @@ def svp_estimate_attack(silent=False, method=1, worst_case = False, parallel_ = 
         print("Cost: %.3f s" %(time.time()-T0))
         
     if(method==4):
-        print(" Attack Estimation via default g6k mode  ", end="")
-        if(cost_model == 1):
-            print(", list_decoding_classical = ", ldc_param)
-        print()
-        betamin, G, B = default_g6k_est(dim_, dvol, b, l, verbose=not silent, cost_model=cost_model, worst_case = worst_case, sigma = sigma)
+        print(" Attack Estimation via default g6k mode, success_rate = ", success_rate + 1e-3)
+        betamin, G, B, dsvp, dsvp_prime = default_g6k_est(dim_, dvol, b, l, verbose=not silent, cost_model=cost_model, worst_case = worst_case, sigma = sigma, success_rate=success_rate)
         print("Cost: %.3f s" %(time.time()-T0))
     
 
@@ -99,7 +97,7 @@ def svp_estimate_attack(silent=False, method=1, worst_case = False, parallel_ = 
             if(cost_model == 2):
                 logging("dim=%3d \t ln(dvol) = %4.7f \t β_strategy=[%s,...,%s] \t dsvp = %d \t dsvp_prime = %d \t %s " %(dim_, dvol, str(betamin[0]), str(betamin[-1]), dsvp, dsvp_prime, time_unit), style="VALUE")
         elif method == 4:
-            logging("dim=%3d \t ln(dvol) = %4.7f \t β_strategy=[%s,...,%s] \t %s " % (dim_, dvol, str(betamin[0]), str(betamin[-1]), time_unit), style="VALUE")
+            logging("dim=%3d \t ln(dvol) = %4.7f \t β_strategy=[%s,...,%s] \t dsvp = %d \t dsvp_prime = %d \t %s " % (dim_, dvol, str(betamin[0]), str(betamin[-1]), dsvp, dsvp_prime, time_unit), style="VALUE")
         logging("\n")
 
 
@@ -177,7 +175,7 @@ def cvp_estimate_attack(silent=False, method=1, worst_case = False, parallel_ = 
         if(cost_model == 1):
             print(", list_decoding_classical = ", ldc_param)
         print()
-        betamin, G, B = default_g6k_est(dim_, dvol, b, l, verbose=not silent, cost_model=cost_model, worst_case = worst_case, sigma = sigma)
+        betamin, G, B, dsvp, dsvp_prime = default_g6k_est(dim_, dvol, b, l, verbose=not silent, cost_model=cost_model, worst_case = worst_case, sigma = sigma)
         print("Cost: %.3f s" %(time.time()-T0))
         
 
@@ -197,7 +195,7 @@ def cvp_estimate_attack(silent=False, method=1, worst_case = False, parallel_ = 
             if(cost_model == 2):
                 logging("dim=%3d \t ln(dvol) = %4.7f \t β_strategy=[%s,...,%s] \t dsvp = %d \t dsvp_prime = %d \t %s " %(dim_, dvol, str(betamin[0]), str(betamin[-1]), dsvp, dsvp_prime, time_unit), style="VALUE")
         elif method == 4:
-            logging("dim=%3d \t ln(dvol) = %4.7f \t β_strategy=[%s,...,%s] \t %s " % (dim_, dvol, str(betamin[0]), str(betamin[-1]), time_unit), style="VALUE")
+            logging("dim=%3d \t ln(dvol) = %4.7f \t β_strategy=[%s,...,%s] \t dsvp = %d \t dsvp_prime = %d \t %s " % (dim_, dvol, str(betamin[0]), str(betamin[-1]), dsvp, dsvp_prime, time_unit), style="VALUE")
         logging("\n")
 
 

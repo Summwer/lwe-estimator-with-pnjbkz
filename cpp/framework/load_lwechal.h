@@ -25,3 +25,4 @@ LWEchal* load_ideallattice_challenge(int n);
 
 // LWEchal* gen_LWE_instance_with_input_distribution( int n, int q, int m, map<int,rational<int>> D_e,map<int,rational<int>> D_s, bool verbosity);
 LWEchal* gen_LWE_instance_with_input_distribution( int n, int q, int m, map<int,double> D_e,map<int,double> D_s, bool verbosity);
+LWEchal* gen_LWE_instance_parameter( int n, double log_q, int m, map<int,double> D_e,map<int,double> D_s, bool verbosity);

@@ -11,9 +11,9 @@
 int main(int argc,char **argv){
     Params* params = new Params; //J, gap, J_gap, cost_model, verbose,
     params->threads = 60;
-    params->cost_model = 1; //sec model;
+    params->cost_model = 1; //1. theoretical model, 2, sec model;
     // params->progressive_sieve = true;
-    params->verbose = true;
+    params->verbose = false;
     params->debug = false;
     params->worst_case = false;
     params->method = atoi(argv[1]); //1:enumbs;2:bssa
@@ -32,14 +32,15 @@ int main(int argc,char **argv){
     if(atoi(argv[2]) == 2)
         params->list_decoding = "matzov22"; //"matzov22"
     // params->bssa_tradion = true;  
-    
+    if(params->cost_model == 2)
+        params->practical_pump_d4f  = 3; //pump_d4f = default g6k.
 
     int n, m, q,eta;
     map<int,double> D_s,D_e;
     LWEchal* lwechal;
 
-
- //Dilithium-V round-3 parameters
+    /* 
+    //Dilithium-V round-3 parameters
     printf("============= Dilithium-V\n");
     n = 7*256, m = 8*256, q = 8380417, eta = 2;
     D_s={},D_e={};
@@ -70,12 +71,13 @@ int main(int argc,char **argv){
     // lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
     // gsa_est(lwechal->dim, lwechal->dvol, params);
     
-
+    */
    
  
     
     
     /*----------------Instance Generation-----------------*/
+    /*
     //Dilithium-II round-3 parameters
     printf("============= Dilithium-II\n");
     n = 4*256, m = 4*256, q = 8380417, eta = 2;
@@ -99,17 +101,24 @@ int main(int argc,char **argv){
     lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
     gsa_est(lwechal->dim, lwechal->dvol, params);
 
-
+    */
 
      // Kyber-512 round-3 parameters
     printf("============= Kyber-512\n");
     n = 512, m = 512, q = 3329;
     D_s = build_centered_binomial_law(3);
     D_e = D_s;
-    lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
-    gsa_est(lwechal->dim, lwechal->dvol, params);
 
- 
+    for(int success_count = 1; success_count <= 20; success_count ++ ){
+        params->succ_prob = pow(0.1 , success_count);
+    // for(int success_count = 1; success_count <= 10; success_count ++ ){
+    //     params->succ_prob = 0.1 * success_count;
+        lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
+        gsa_est(lwechal->dim, lwechal->dvol, params);
+    }
+
+    /*
+    
 
     // Kyber-1024 round-3 parameters
     printf("============= Kyber-1024\n");
@@ -130,6 +139,7 @@ int main(int argc,char **argv){
     gsa_est(lwechal->dim, lwechal->dvol, params);
 
 
+    
     //Dilithium-III round-3 parameters
     printf("============= Dilithium-III\n");
     n = 5*256, m = 6*256, q = 8380417, eta = 4;
@@ -144,9 +154,11 @@ int main(int argc,char **argv){
     }
     lwechal = gen_LWE_instance_with_input_distribution( n, q, m, D_e, D_s, params->verbose);
     gsa_est(lwechal->dim, lwechal->dvol, params);
-   
+    */
 
     return 1;
+    
+    
 }
 
 

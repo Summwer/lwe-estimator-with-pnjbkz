@@ -127,10 +127,10 @@ cd = [rk[-i] - sum(rk[-i:]) / i for i in range(1, 46)]
 cd += [(lgamma(beta_ / 2.0 + 1) * (1.0 / beta_) - log(sqrt(pi))) / log(2.0) for beta_ in range(46, 2000)]
 
 
-chisquared_table = {i: None for i in range(2000)}
+chisquared_table = {i: None for i in range(8000)}
 
 
-for i in range(5000):
+for i in range(8000):
     chisquared_table[i] = RealDistribution('chisquared', i)
 
 

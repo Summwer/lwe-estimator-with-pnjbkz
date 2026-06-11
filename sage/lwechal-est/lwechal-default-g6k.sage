@@ -16,12 +16,12 @@ load("../framework/est/lwechal-est.sage")
 '''
 #######################################
 #Fixed parameters
-method = 4
+method = 4  #default_g6k = True
 cost_model = 2
-worst_case = True
-default_g6k = True
+worst_case = False
+
 #------------------------------------
 
 
-lwechals = [  (40,0.025),(80,0.005)]
-lwechal_est(lwechals, method,  cost_model, worst_case,  default_g6k = default_g6k)
+lwechals = [(40,0.030)] #[  (40,0.025),(80,0.005)]
+lwechal_est(lwechals, method,  cost_model, worst_case)

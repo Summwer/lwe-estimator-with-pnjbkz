@@ -43,13 +43,18 @@ cal_ee = "chi"
 goal_min_cost = "gate_min"
 #------------------------------------
 
-lwechals = [(40,0.005), (55,0.005), (40,0.015), (45,0.010), (60,0.005)] 
-lwechal_est(lwechals, method,  cost_model, worst_case, cal_ee = cal_ee, goal_min_cost = goal_min_cost)
+#lwechals = [(40,0.005), (55,0.005), (40,0.015), (45,0.010), (60,0.005)] 
+#lwechal_est(lwechals, method,  cost_model, worst_case, cal_ee = cal_ee, goal_min_cost = goal_min_cost)
 
+#cost_model = 1
+#ldc_param = "AGPS20"
+#lwechals = [  (40,0.025),(80,0.005)]
+#lwechal_est(lwechals, method,  cost_model, worst_case, ldc_param =  ldc_param, cal_ee = cal_ee, #goal_min_cost = goal_min_cost)
+
+#ldc_param = "MATZOV22"
+#lwechal_est(lwechals, method,  cost_model, worst_case, ldc_param =  ldc_param, cal_ee = cal_ee, #goal_min_cost = goal_min_cost)
+
+lwechals = [(n,0.005) for n in range(60,106,5)] 
 cost_model = 1
-ldc_param = "AGPS20"
-lwechals = [  (40,0.025),(80,0.005)]
-lwechal_est(lwechals, method,  cost_model, worst_case, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost)
-
 ldc_param = "MATZOV22"
 lwechal_est(lwechals, method,  cost_model, worst_case, ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost)

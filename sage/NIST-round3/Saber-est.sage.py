@@ -54,9 +54,6 @@ saber_est(method,  ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal
 
 
 
-
-
-
 #######################################
 #Fixed parameters
 
@@ -74,10 +71,6 @@ ldc_param = "MATZOV22" #list decoding complexity proposed in [MATZOV22]
 #------------------------------------
 
 saber_est(method,  ldc_param =  ldc_param, cal_ee = cal_ee, goal_min_cost = goal_min_cost, worst_case = worst_case)
-
-
-
-
 
 
 

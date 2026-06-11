@@ -10,7 +10,7 @@
 from mpmath import mp
 from math import ceil, floor, exp, pi, pow
 from math import log as ln
-
+load("../framework/lwe_estimation.sage")
 
 def log2(x):
     return ln(x)/ln(2.)
@@ -111,10 +111,12 @@ def agps20_vectors(beta_prime):
 
 # Progressivity Overhead Factor
 C = 1./(1.- 2**(-.292))
+C_q = 1./(1.- 2**(-.2563))
 
 # List decoding parameter, theoretical sieve cost = 2**(a*beta_prime+b)
 
 list_decoding_classical = {"MATZOV22": (0.29613500308205365,20.387885985467914), "AGPS20": (0.2988026130564745, 26.011121212891872)}
+list_decoding_quantum = {"quantum": (0.2563,16.4)}
 
 
 #theo d4f 2
@@ -135,6 +137,8 @@ def theo_bkz_cost(n, beta,ldc_param = "AGPS20"):
             gates = log2(1.*(n  -  beta)*C) + agps20_gates(beta_prime)
     if(ldc_param == "MATZOV22"):
         gates = log2(1.*(n  -  beta)*C) + (list_decoding_classical[ldc_param][0] * beta_prime + list_decoding_classical[ldc_param][1])
+    if(ldc_param == "quantum"):
+        gates = log2(1.*(n  -  beta)*C_q) + (list_decoding_quantum[ldc_param][0] * beta_prime + list_decoding_quantum[ldc_param][1])
 
     bits = log2(8*beta_prime) + agps20_vectors(beta_prime)
 
@@ -152,6 +156,8 @@ def theo_pump_cost(dsvp_prime,ldc_param = "AGPS20"):
             gates = log2(1.*C) + agps20_gates(dsvp_prime)
     if(ldc_param == "MATZOV22"):
         gates = log2(1.*C) + (list_decoding_classical[ldc_param][0] * dsvp_prime + list_decoding_classical[ldc_param][1])
+    if(ldc_param == "quantum"):
+        gates = log2(1.*C_q) + (list_decoding_quantum[ldc_param][0] * dsvp_prime + list_decoding_quantum[ldc_param][1])
 
     bits = log2(8*dsvp_prime) + agps20_vectors(dsvp_prime)
     return (gates, bits)
@@ -167,8 +173,10 @@ def theo_sieve_cost(dsvp_prime,ldc_param = "AGPS20"):
             gates =  (list_decoding_classical[ldc_param][0] * dsvp_prime + list_decoding_classical[ldc_param][1])
         else:
             gates = agps20_gates(dsvp_prime)
-    else:
+    if(ldc_param == "MATZOV22"):
         gates =  (list_decoding_classical[ldc_param][0] * dsvp_prime + list_decoding_classical[ldc_param][1])
+    if(ldc_param == "quantum"):
+        gates =  (list_decoding_quantum[ldc_param][0] * dsvp_prime + list_decoding_quantum[ldc_param][1])
 
     bits = log2(8*dsvp_prime) + agps20_vectors(dsvp_prime)
     return (gates, bits)
@@ -355,6 +363,8 @@ def colattice_pump_cost(n, blocksizes, ldc_param = "AGPS20"):
                 gates = log2( 2** gates + 2**agps20_gates(beta_prime))
         if(ldc_param == "MATZOV22"):
             gates = log2( 2** gates + 2**(list_decoding_classical[ldc_param][0] * beta_prime + list_decoding_classical[ldc_param][1]) )
+        if(ldc_param == "quantum"):
+            gates =  log2( 2** gates + 2**(list_decoding_quantum[ldc_param][0] * beta_prime + list_decoding_quantum[ldc_param][1]) )
 
         bits = max(log2(8*beta_prime) + agps20_vectors(beta_prime),bits)
     return (gates, bits)

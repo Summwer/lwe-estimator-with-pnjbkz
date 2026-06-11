@@ -22,7 +22,11 @@ mkdir "lwechal-prob-test"
 g++ -O3 -funroll-loops -o lwechal-enumbs-est ./lwe-est/lwechal-enumbs-parallel-est.cpp  -L. -pthread -lfplll -lgmp -lmpfr -lest
 
 
-./lwechal-enumbs-est 100 1 1 300 5 3 50 2 0 | tee "lwechal-prob-test"/"EnumBS-Strategy(cumprob+prob)+list decoding in [MATZOV22](gate min).log" 
+# ./lwechal-enumbs-est 100 1 1 300 5 3 50 2 0 | tee "lwechal-prob-test"/"EnumBS-Strategy(cumprob+prob)+list decoding in [MATZOV22](gate min)-2.log" 
+
+
+./lwechal-enumbs-est 100 1 2 300 5 3 50 2 0 | tee "lwechal-prob-test"/"EnumBS-Strategy(cumprob+prob)+list decoding_succ_prob+[sec]2.log" 
+
 
 
 

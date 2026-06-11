@@ -241,7 +241,7 @@ def primal_lattice_basis(A, c, q, m=None):
 
 
 
-def gen_lwechal_instance(n=40, alpha=0.005, default_g6k = False):
+def gen_lwechal_instance(n=40, alpha=0.005):
     A, c, q = load_lwe_challenge(n=n, alpha=alpha)
     
     print("-------------------------")
@@ -264,11 +264,8 @@ def gen_lwechal_instance(n=40, alpha=0.005, default_g6k = False):
     M = GSO.Mat(B)
     M.update_gso()
     rr = [M.get_r(i,i) for i in range(d)]
-    if(default_g6k):
-        log_rr = [log(rr[i],2)/2. for i in range(d)]
-    else:
-        log_rr = [log(rr[i],2)/2. - log(sigma,2) for i in range(d)]
-        sigma = 0.
+    log_rr = [log(rr[i],2)/2. - log(sigma,2) for i in range(d)]
+
     print("Initial slope: ", get_current_slope(log_rr,0,d))
     
     dvol = sum(log_rr) * log(2)  #ln(vol)

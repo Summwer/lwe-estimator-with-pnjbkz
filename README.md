@@ -1,5 +1,13 @@
 # Guidance
 
+
+Developers: Wenwen Xia, Wenyu He
+
+In the latest version, we upldated 
+
+* the estimation method for SIS (`sis_two_step_mode_est.sage`)
+* the success probability for primal attack can be less than 1. 
+
 We provide the experimental results, which display in form of figures or tables in the article "https://eprint.iacr.org/2024/067.pdf". The paper has been accepted in PKC2024, if you want to cite it, please add the following bibtex in your paper:
 ```
 @inproceedings{pkc-2024-33721,

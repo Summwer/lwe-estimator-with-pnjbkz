@@ -14,7 +14,7 @@ void call_enumbs(vector<double> l, Params* params){
     else{
         cerr<<"Set bad threads = "<<params->threads<<"."<<endl;
     }
-    printf("v1. beta_start= %d, gap = %d, J = %d, J_gap = %d, cost_model = %d, max_loop = %d, threads = %d, G_prec = %e,  slope_prec = %e,  progressive_sieve = True, worst_case = %d, succ_prob = %1.3f, ", params->beta_start, params->gap, params->J, params->J_gap, params->cost_model, params->max_loop, params->threads, params->enumbs_G_prec, params->enumbs_slope_prec,  params->worst_case, params->succ_prob);
+    printf("v1. beta_start= %d, gap = %d, J = %d, J_gap = %d, cost_model = %d, max_loop = %d, threads = %d, G_prec = %e,  slope_prec = %e,  progressive_sieve = True, worst_case = %d, succ_prob = %e, ", params->beta_start, params->gap, params->J, params->J_gap, params->cost_model, params->max_loop, params->threads, params->enumbs_G_prec, params->enumbs_slope_prec,  params->worst_case, params->succ_prob);
     if(params->enumbs_min_G)
         printf("Find minimal time cost strategy, ");
     else

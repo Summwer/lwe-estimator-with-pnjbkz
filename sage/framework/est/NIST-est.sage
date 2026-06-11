@@ -91,6 +91,8 @@ def average_variance(D):
     for (v, p) in D.items():
         mu += v * p
         s += v * v * p
+        #print("v = ", v)
+        #print("p = ", p)
 
     s -= mu * mu
     return round_to_rational(mu), round_to_rational(s)
@@ -136,25 +138,23 @@ def compute_beta(d, logvol):
     return bbeta - beta_low
 
 
-def initialize_from_LWE_instance(n, q, m, D_e, D_s, verbosity = True, m_range = -1):
+
+def initialize_from_SIS_instance(n, q, m, upper_bound, verbosity = True, m_range = -1 ):
     """
-    constructor that builds a DBDD instance from a LWE instance
-    :n: (integer) size of the secret s
+    constructor that builds a ASVP instance from a SIS instance
+    Ax = b (mod q)
+    :n: (integer) size of the output b
     :q: (integer) modulus
-    :m: (integer) size of the error e
-    :D_e: distribution of the error e (dictionnary form)
-    :D_s: distribution of the secret s (dictionnary form)
+    :m: (integer) size of the secret x
     :m_range: range step of m, which should be an negative integer
     """
     if verbosity:
-        logging("     Build LWE  instance  ", style="HEADER")
+        logging("     Build SIS  instance  ", style="HEADER")
         logging("n=%3d \t m=%3d \t q=%d" % (n, m, q), style="VALUE")
-    # define the mean and sigma of the instance
-    mu_e, s_e = average_variance(D_e)
-    mu_s, s_s = average_variance(D_s)
     
     #Find the best m.
     min_beta = -1
+    best_m = m
     for test_m in range(m,0,m_range):
         dvol = test_m * log(q) - (test_m*log(abs(s_e))+n*log(abs(s_s))) / 2.
         d = test_m+n+1
@@ -166,14 +166,66 @@ def initialize_from_LWE_instance(n, q, m, D_e, D_s, verbosity = True, m_range = 
             best_m = test_m
             
     m = best_m
-    dvol = m * log(q) - (m*log(abs(s_e))+n*log(abs(s_s))) / 2.
+
+
+    dvol = m * log(q)
     dim = m + n + 1
+
+
+    
+    print("dim = %d, m = %d, dvol = %3.11f, β = %3.4f" %(dim, m, dvol, min_beta))
+
+    core_SVP_est_for_sis(d, dvol, upper_bound)
+    
+    return dim, dvol
+
+
+def initialize_from_LWE_instance(n, q, m, D_e, D_s, verbosity = True, m_range = -1, minus_sigma = True):
+    """
+    constructor that builds a DBDD instance from a LWE instance
+    :n: (integer) size of the secret s
+    :q: (integer) modulus
+    :m: (integer) size of the error e
+    :D_e: distribution of the error e (dictionnary form)
+    :D_s: distribution of the secret s (dictionnary form)
+    :m_range: range step of m, which should be an negative integer
+    :minus_sigma: compute dvol by normalization or no normalization; if use default g6k mode, minus_sigma = False
+    """
+    if verbosity:
+        logging("     Build LWE  instance  ", style="HEADER")
+        logging("n=%3d \t m=%3d \t q=%d" % (n, m, q), style="VALUE")
+    # define the mean and sigma of the instance
+    mu_e, s_e = average_variance(D_e)
+    mu_s, s_s = average_variance(D_s)
+    
+    #Find the best m.
+    min_beta = -1
+    best_m = m
+    for test_m in range(m,0,m_range):
+        dvol = test_m * log(q) - (test_m*log(abs(s_e))+n*log(abs(s_s))) / 2.
+        d = test_m+n+1
+        est_beta = compute_beta(d, dvol)
+        if(dvol <= 0 or est_beta is None):
+            break
+        if(min_beta == - 1 or min_beta > est_beta ):
+            min_beta = est_beta
+            best_m = test_m
+            
+    m = best_m
+
+
+    dvol = m * log(q)
+    dvol_normalized = m * log(q) - (m*log(abs(s_e))+n*log(abs(s_s))) / 2.
+    dim = m + n + 1
+
 
     sigma = exp((m*log(abs(s_e))+n*log(abs(s_s))) / 2./(m+n))
     print("sigma = ", sigma)
     
-    print("dim = %d, m = %d, dvol = %3.11f, β = %3.4f" %(dim, m, dvol, min_beta))
+    print("dim = %d, m = %d, dvol = %3.11f, dvol(after normalized) = %3.11f, β = %3.4f" %(dim, m, dvol, dvol_normalized, min_beta))
 
+    if(minus_sigma):
+        dvol = dvol_normalized
 
     core_SVP_est(dim, dvol)
     return dim, dvol
@@ -216,7 +268,7 @@ def initialize_from_LWR_instance(n, q, p, m, D_s, verbosity = True):
 
 
     core_SVP_est(dim, dvol)
-    return dim, dvol, sigma_s
+    return dim, dvol, s_s
 
 
 
@@ -269,6 +321,18 @@ def core_SVP_est(d, dvol):
             return
 
 
+def core_SVP_est_for_sis(d, dvol, upper_bound):
+    for beta in range(50,d):
+        delta0 = compute_delta(beta)
+        #[ADPS16] uses 2beta-d for LWE.
+        #Here we should consider the first norm of the lattice basis.
+        l0 = bkzgsa_gso_len(dvol, 0, d, delta = delta0) 
+        if(2**(2 * l[i]) <= upper_bound):
+            f = dim4free_wrapper(theo_dim4free_fun1,beta)
+            print("core-SVP estimate, β = ", beta, "beta-f = ", beta-f, "cost (not consider d4f)=", round(0.292*(beta),2), "cost (consider d4f)=", round(0.292*(beta-f),2))
+            return
+
+
 
 def dilithium_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False, goal_min_cost = "gate_min", cumG = False):
     
@@ -276,8 +340,8 @@ def dilithium_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  prin
     print("============= Dilithium-II")
     n = 4*256
     m = 4*256
-    q = 8380417
-    eta = 2
+    q = 8380417 
+    eta = 2 
     D_s = {x : 1./(2*eta+1) for x in range(-eta, eta+1)}
     D_e = D_s
     dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
@@ -291,7 +355,7 @@ def dilithium_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  prin
     dvol = 19371.0238433
     n = 5*256
     m = 6*256
-    q = 8380417
+    q = 8380417 
     eta = 4
     D_s = {x : 1./(2*eta+1) for x in range(-eta, eta+1)}
     D_e = D_s
@@ -379,9 +443,7 @@ def kyber_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l 
 
 
 
-def saber_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
-
-
+def saber_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
     
     print("============= Saber-512")
     #eta1 = eta2 = 3
@@ -394,8 +456,8 @@ def saber_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, paralle
     q = 8192
     p = 1024
     D_s = build_centered_binomial_law(10)
-    dim_, dvol = initialize_from_LWR_instance(n, q, p, m, D_s)
-    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l  ,ldc_param =  ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+    dim_, dvol, sigma_s = initialize_from_LWR_instance(n, q, p, m, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
 
 
 
@@ -410,7 +472,7 @@ def saber_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, paralle
     q = 8192
     p = 1024
     D_s = build_centered_binomial_law(8)
-    dim_, dvol = initialize_from_LWR_instance(n, q, p, m, D_s)
+    dim_, dvol, sigma_s = initialize_from_LWR_instance(n, q, p, m, D_s)
 
 
 
@@ -430,8 +492,172 @@ def saber_est(method, J=1, gap=1, J_gap=1, l = None, gen_GSA_gso = True, paralle
     q = 8192
     p = 1024
     D_s = build_centered_binomial_law(6)
-    dim_, dvol = initialize_from_LWR_instance(n, q, p, m, D_s)
+    dim_, dvol, sigma_s = initialize_from_LWR_instance(n, q, p, m, D_s)
     svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+
+def new_check_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
+    
+    print("============= new_check_est-512")
+    #eta1 = eta2 = 3
+    #dim_ = 1025
+    #dvol = 3944.9406103
+    #eta1 = 3, eta2 = 2
+    #eta1 =3, eta2 =2
+    n = 2048
+    m = 2048
+    q = 7681
+    p = 1920
+    D_s = build_centered_binomial_law(4)
+    dim_, dvol, sigma_s = initialize_from_LWR_instance(n, q, p, m, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = "MATZOV22", cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+    print("============= new_check_est-512")
+    #eta1 = eta2 = 3
+    #dim_ = 1025
+    #dvol = 3944.9406103
+    #eta1 = 3, eta2 = 2
+    #eta1 =3, eta2 =2
+    n = 2048
+    m = 2048
+    q = 7681
+    p = 1920
+    D_s = build_centered_binomial_law(4)
+    dim_, dvol, sigma_s = initialize_from_LWR_instance(n, q, p, m, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+
+
+
+    print("============= new_check_est-128")
+    #eta1 = eta2 = 3
+    #dim_ = 1025
+    #dvol = 3944.9406103
+    #eta1 = 3, eta2 = 2
+    #eta1 =3, eta2 =2
+    n = 512
+    m = 512
+    q = 3329
+    p = 832
+    D_s = build_centered_binomial_law(3)
+    dim_, dvol, sigma_s = initialize_from_LWR_instance(n, q, p, m, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+    print("============= new_check_est-256")
+    #eta1 = eta2 = 3
+    #dim_ = 1025
+    #dvol = 3944.9406103
+    #eta1 = 3, eta2 = 2
+    #eta1 =3, eta2 =2
+    n = 1024
+    m = 1024
+    q = 3329
+    p = 832
+    D_s = build_centered_binomial_law(2)
+    dim_, dvol, sigma_s = initialize_from_LWR_instance(n, q, p, m, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+    print("============= new_check_est-384")
+    #eta1 = eta2 = 3
+    #dim_ = 1025
+    #dvol = 3944.9406103
+    #eta1 = 3, eta2 = 2
+    #eta1 =3, eta2 =2
+    n = 1536
+    m = 1536
+    q = 7681
+    p = 1920
+    D_s = build_centered_binomial_law(3)
+    dim_, dvol, sigma_s = initialize_from_LWR_instance(n, q, p, m, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+    print("============= new_check_est-512")
+    #eta1 = eta2 = 3
+    #dim_ = 1025
+    #dvol = 3944.9406103
+    #eta1 = 3, eta2 = 2
+    #eta1 =3, eta2 =2
+    n = 2048
+    m = 2048
+    q = 7681
+    p = 1920
+    D_s = build_centered_binomial_law(4)
+    dim_, dvol, sigma_s = initialize_from_LWR_instance(n, q, p, m, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+
+
+def qianming_est(method, l = None, gen_GSA_gso = True, parallel_ = False,  print_l = False, ldc_param = "AGPS20", cal_ee = "chi", worst_case = False,goal_min_cost = "gate_min", cumG = False):
+    
+   
+
+
+
+    print("============= qianming_est-128")
+    #eta1 = eta2 = 3
+    #dim_ = 1025
+    #dvol = 3944.9406103
+    #eta1 = 3, eta2 = 2
+    #eta1 =3, eta2 =2
+    n = 1024
+    m = 768
+    q = 2081281
+    p = 520320
+    D_s = build_centered_binomial_law(1)
+    D_e= D_s
+    dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
+    svp_estimate_attack(  silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+
+    print("============= qianming_est-256")
+    #eta1 = eta2 = 3
+    #dim_ = 1025
+    #dvol = 3944.9406103
+    #eta1 = 3, eta2 = 2
+    #eta1 =3, eta2 =2
+    n = 1792
+    m = 1792
+    q = 2081281
+    p = 520320
+    D_s = build_centered_binomial_law(1)
+    D_e= D_s
+    dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+    print("============= qianming_est-384")
+    #eta1 = eta2 = 3
+    #dim_ = 1025
+    #dvol = 3944.9406103
+    #eta1 = 3, eta2 = 2
+    #eta1 =3, eta2 =2
+    n = 512*6
+    m = 512*5
+    q = 8380417
+    p = 2095104
+    D_s = build_centered_binomial_law(1)
+    D_e= D_s
+    dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+
+    print("============= qianming_est-512")
+    #eta1 = eta2 = 3
+    #dim_ = 1025
+    #dvol = 3944.9406103
+    #eta1 = 3, eta2 = 2
+    #eta1 =3, eta2 =2
+    n = 512 *7
+    m = 512 *7
+    q = 8380417
+    p = 2095104
+    D_s = build_centered_binomial_law(1)
+    D_e= D_s
+    dim_, dvol = initialize_from_LWE_instance(n, q, m, D_e, D_s)
+    svp_estimate_attack( silent=False, method = method, parallel_ = parallel_, l = l, dvol = dvol, dim_ = dim_,gen_GSA_gso=gen_GSA_gso,print_l = print_l, ldc_param = ldc_param, cal_ee = cal_ee, worst_case = worst_case, goal_min_cost = goal_min_cost, cumG = cumG)
+
+
+
+
 
 
 
